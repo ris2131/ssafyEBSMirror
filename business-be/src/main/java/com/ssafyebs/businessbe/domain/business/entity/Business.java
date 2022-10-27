@@ -1,4 +1,4 @@
-package com.ssafyebs.businessbe.business.entity;
+package com.ssafyebs.businessbe.domain.business.entity;
 
 import lombok.*;
 

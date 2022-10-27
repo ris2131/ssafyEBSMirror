@@ -1,6 +1,6 @@
-package com.ssafyebs.businessbe.manage.entity;
+package com.ssafyebs.businessbe.domain.manage.entity;
 
-import com.ssafyebs.businessbe.business.entity.Business;
+import com.ssafyebs.businessbe.domain.business.entity.Business;
 import lombok.*;
 
 import javax.persistence.*;
