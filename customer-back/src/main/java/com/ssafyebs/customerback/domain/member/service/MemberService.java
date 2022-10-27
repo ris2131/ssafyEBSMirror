@@ -2,15 +2,17 @@ package com.ssafyebs.customerback.domain.member.service;
 
 
 import com.ssafyebs.customerback.domain.member.dto.*;
-import org.springframework.web.multipart.MultipartFile;
+import com.ssafyebs.customerback.domain.member.entity.Member;
+
+import java.util.Optional;
+
+
 
 public interface MemberService {
-//    MemberResponseDto createMember(MemberRequestDto memberRequestDto, String refreshToken);
-//    MemberResponseDto updateMemberInfo(String email, MemberUpdateInfoRequestDto memberUpdateRequestDto);
-//    void updateMemberPassword(String email, MemberUpdatePasswordRequestDto memberUpdatePasswordRequestDto);
-//
-//    MemberInfoResponseDto getMemberInfo(String email);
-//    void deleteMember(String email);
-//    void updateRefreshToken(String email, String refreshToken);
-//    void uploadProfile(MultipartFile multipartFile, String email);
+	public Optional<Member> findByMemberUid(String memberuid);
+	
+	public void quitUser(String memberuid);
+	
+	public Member save(Member member);
+	
 }

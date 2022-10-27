@@ -1,7 +1,10 @@
 package com.ssafyebs.customerback.domain.member.controller;
 
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.member.dto.MemberInfoResponseDto;
+import com.ssafyebs.customerback.domain.member.entity.Member;
 import com.ssafyebs.customerback.domain.member.service.MemberGoogleService;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.global.jwt.JwtService;
@@ -15,116 +18,198 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberController {
-//    private final MemberService memberService;
-//    private final MemberGoogleService memberGoogleService;
+
+	private final MemberService memberService;
+	
+	@PostMapping("/login")
+	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> vo) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		System.out.println(vo.toString());
+		String accessToken = vo.get("accessToken");
+		String loginType = vo.get("loginType");
+
+		System.out.println(accessToken);
+		System.out.println(loginType);
+		// 카카오 로그인인 경우
+//		if (loginType.equals("K")) {
+//			String reqURL = "https://kapi.kakao.com/v2/user/me";
 //
-//    private final JwtService jwtService;
+//			try {
+//				URL url = new URL(reqURL);
+//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//
+//				conn.setRequestMethod("POST");
+//				conn.setDoOutput(true);
+//				conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+//
+//				int responseCode = conn.getResponseCode();
+//				System.out.println("responseCode : " + responseCode);
+//
+//				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//				String line = "";
+//				String result = "";
+//
+//				while ((line = br.readLine()) != null) {
+//					result += line;
+//				}
+//				System.out.println("response body : " + result);
+//
+//				JsonParser parser = new JsonParser();
+//				JsonElement element = parser.parse(result);
+//
+//				String id = Long.toString(element.getAsJsonObject().get("id").getAsLong());
+//				// String nickname =
+//				// element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
+//
+//				System.out.println("id : " + id);
+//
+//				Optional<User> user = userService.findByUserUid(id);
+//				// db에 존재하는 회원이라면
+//				if (user.isPresent()) {
+//					resultMap.put("userTeamname", user.get().getUserTeamname());
+//					resultMap.put("jwt", jwtService.createJwt(user.get().getUserUid()));
+//					resultMap.put("message", "success");
+//					status = HttpStatus.OK;
+//				}
+//				// db에 없는 경우 회원가입 하라고 보내야 한다.
+//				else {
+//					resultMap.put("loginType", "K");
+//					resultMap.put("uid", id);
+//					resultMap.put("message", "회원가입을 먼저 해주세요.");
+//					status = HttpStatus.ACCEPTED;
+//				}
+//
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				resultMap.put("message", e.getMessage());
+//				status = HttpStatus.INTERNAL_SERVER_ERROR;
+//			}
+//		}
+//
+//		else if(loginType.equals("N")) {
+//			String reqURL = "https://openapi.naver.com/v1/nid/me";
+//			try {
+//	            URL url = new URL(reqURL);
+//	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//	            conn.setRequestMethod("POST");
+//
+//	            //    요청에 필요한 Header에 포함될 내용
+//	            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+//
+//	            int responseCode = conn.getResponseCode();
+//	            System.out.println("responseCode : " + responseCode);
+//
+//	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//
+//	            String line = "";
+//	            String result = "";
+//
+//	            while ((line = br.readLine()) != null) {
+//	                result += line;
+//	            }
+//	            System.out.println("response body : " + result);
+//
+//	            JsonParser parser = new JsonParser();
+//	            JsonElement element = parser.parse(result);
+//
+//	            String id = element.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsString();
+//	            System.out.println("id : " + id);
+//
+//	            Optional<User> user = userService.findByUserUid(id);
+//				// 이미 db에 존재하는 회원이라면
+//				if (user.isPresent()) {
+//					resultMap.put("uid", user.get().getUserUid());
+//					resultMap.put("jwt", jwtService.createJwt(user.get().getUserUid()));
+//					resultMap.put("message", "success");
+//					status = HttpStatus.OK;
+//				}
+//				// db에 없는 경우 회원가입 하라고 보내야 한다.
+//				else {
+//					resultMap.put("loginType", "N");
+//					resultMap.put("uid", id);
+//					resultMap.put("message", "회원가입을 먼저 해주세요.");
+//					status = HttpStatus.ACCEPTED;
+//				}
+//	        } catch (IOException e) {
+//	        	e.printStackTrace();
+//				resultMap.put("message", e.getMessage());
+//				status = HttpStatus.INTERNAL_SERVER_ERROR;
+//	        }
+//		}
 //
 //
-//    final static Logger logger = LogManager.getLogger(MemberController.class);
-//    @GetMapping()
-//    public ResponseEntity<?> getMember(HttpServletRequest request){
-//        String email = (String) request.getAttribute("email");
-//        MemberInfoResponseDto memberInfoResponseDto = memberService.getMemberInfo(email);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원정보 확인 완료.", memberInfoResponseDto));
-//    }
-//
-//    @PostMapping("/sign-up")
-//    public ResponseEntity<?> createMember(@RequestPart("profile_image")MultipartFile multipartFile, @RequestPart("data") MemberRequestDto memberRequestDto){
-//            logger.debug("api/sign-up");
-//            String email = memberRequestDto.getEmail();
-//
-//            String accessToken = jwtService.createAccessToken(email);
-//            String refreshToken = jwtService.createRefreshToken();
-//
-//            HttpHeaders headers = loginService.createTokenHeader(accessToken, refreshToken);
-//
-//            MemberResponseDto memberResponseDto = memberService.createMember(memberRequestDto, refreshToken);
-//            logger.debug("done : createMember");
-//            memberService.uploadProfile(multipartFile , email);
-//            return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(CommonResponse.createSuccess("회원가입이 완료되었습니다.", memberResponseDto));
-//    }
-//    @PostMapping("google-sign-up")
-//    public ResponseEntity<?> createGoogleMember(@RequestPart("profile_image")MultipartFile multipartFile, @RequestPart("data")  MemberGoogleRequestDto memberGoogleRequestDto){
-//
-//        logger.debug("api/google-sign-up");
-//
-//        String refreshToken = jwtService.createRefreshToken();
-//        MemberResponseDto memberResponseDto = memberGoogleService.signUpOauthGoogle(memberGoogleRequestDto, refreshToken);
-//        String email = memberResponseDto.getEmail();
-//
-//        memberService.uploadProfile(multipartFile , email);
-//
-//        String accessToken = jwtService.createAccessToken(email);
-//        HttpHeaders headers = loginService.createTokenHeader(accessToken, refreshToken);
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(CommonResponse.createSuccess("구글 회원가입이 완료되었습니다.", memberResponseDto));
-//    }
-//    @PutMapping("/info")
-//    public ResponseEntity<?> updateMemberInfo(HttpServletRequest request, @RequestPart(value = "data") MemberUpdateInfoRequestDto memberUpdateRequestDto){
-//        String email = (String) request.getAttribute("email");
-//        logger.debug("email:{}" , email);
-//        MemberResponseDto memberResponseDto = memberService.updateMemberInfo(email, memberUpdateRequestDto);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("회원정보 수정이 완료되었습니다.",memberResponseDto));
-//    }
-//    @PutMapping("/info-image")
-//    public ResponseEntity<?> updateMemberInfo(HttpServletRequest request, @RequestPart(value = "profile_image", required = false) MultipartFile multipartFile ,@RequestPart(value = "data") MemberUpdateInfoRequestDto memberUpdateRequestDto){
-//        String email = (String) request.getAttribute("email");
-//        logger.debug("email:{}" , email);
-//        MemberResponseDto memberResponseDto = memberService.updateMemberInfo(email, memberUpdateRequestDto);
-//
-//        logger.debug("profile_image is empty: {}",multipartFile.isEmpty());
-//        if(!multipartFile.isEmpty()){
-//            memberService.uploadProfile(multipartFile , email);
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("회원정보 수정이 완료되었습니다.",memberResponseDto));
-//    }
-//    @PutMapping("/password")
-//    public ResponseEntity<?> updateMemberPassword(HttpServletRequest request, @RequestBody MemberUpdatePasswordRequestDto memberUpdatePasswordRequestDto){
-//        String email = (String) request.getAttribute("email");
-//        logger.debug("email:{}" , email);
-//        memberService.updateMemberPassword(email, memberUpdatePasswordRequestDto);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("비밀번호 수정이 완료되었습니다.", null));
-//    }
-//    @DeleteMapping
-//    public ResponseEntity<?> deleteMember(HttpServletRequest request){
-//        String email = (String) request.getAttribute("email");
-//        logger.debug("email:{}" , email);
-//        memberService.deleteMember(email);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("회원탈퇴 완료되었습니다.", null));
-//    }
-//    @PostMapping("/email/check")
-//    public ResponseEntity<?> checkEmail(@RequestBody MemberEmailRequestDto memberEmailRequestDto){
-//        logger.debug(memberEmailRequestDto.getEmail());
-//        Boolean chk = emailService.checkEmail(memberEmailRequestDto.getEmail());
-//        logger.debug("chk:{}" , chk);
-//        if (chk==false){
-//            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("사용가능한 이메일입니다.",!chk));
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createError("이미 존재하는 이메일 입니다."));
-//    }
-//    @PostMapping("/email/send")
-//    public ResponseEntity<?> sendEmail(@RequestBody MemberEmailRequestDto memberEmailRequestDto) throws Exception {
-//        emailService.sendSimpleMessage(memberEmailRequestDto.getEmail());
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("이메일 전송이 완료 되었습니다.", null));
-//    }
-//
-//    @PostMapping("/email/confirm")
-//    public ResponseEntity<?> confirmEmail(@RequestBody MemberEmailRequestDto memberEmailRequestDto){
-//        Boolean chk = emailService.confirmEmail(memberEmailRequestDto.getEmail(),memberEmailRequestDto.getCertificationNumber());
-//        if (chk==true){
-//            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("이메일 인증이 완료 되었습니다.",null));
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createError("이메일 인증이 실패 되었습니다."));
-//    }
+		if(loginType.equals("G")) {
+			String reqURL = "https://www.googleapis.com/oauth2/v3/userinfo";
+
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+				conn.setRequestMethod("GET");
+				conn.setDoOutput(true);
+				conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+				int responseCode = conn.getResponseCode();
+				System.out.println("responseCode : " + responseCode);
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line = "";
+				String result = "";
+
+				while ((line = br.readLine()) != null) {
+					result += line;
+				}
+				System.out.println("response body : " + result);
+
+				JsonParser parser = new JsonParser();
+				JsonElement element = parser.parse(result);
+
+				String id = element.getAsJsonObject().get("sub").getAsString();
+				// String nickname =
+				// element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
+
+				System.out.println("id : " + id);
+
+				Optional<Member> member = memberService.findByMemberUid(id);
+				// 이미 db에 존재하는 회원이라면
+				if (member.isPresent()) {
+					resultMap.put("uid", member.get().getMemberUid());
+					//resultMap.put("jwt", jwtService.createJwt(member.get().getMemberUid()));
+					resultMap.put("message", "success");
+					status = HttpStatus.OK;
+				}
+				// db에 없는 경우 회원가입 하라고 보내야 한다.
+				else {
+					resultMap.put("loginType", "G");
+					resultMap.put("uid", id);
+					resultMap.put("message", "회원가입을 먼저 해주세요.");
+					status = HttpStatus.ACCEPTED;
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
 
 }
