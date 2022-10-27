@@ -30,7 +30,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/members")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
