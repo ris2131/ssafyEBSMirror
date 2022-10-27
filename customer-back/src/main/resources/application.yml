@@ -1,1 +1,21 @@
+# database setting
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://k7d107.p.ssafy.io:3306/ebs?characterEncoding=UTF-8&serverTimezone=UTC
+    username: d107
+    password: gumi107
+#    url: jdbc:mariadb://localhost:3306/theground?characterEncoding=UTF-8&serverTimezone=UTC
+#    username: ssafy
+#    password: ssafy
 
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
