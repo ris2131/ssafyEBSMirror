@@ -1,8 +1,9 @@
 package com.ssafyebs.customerback.domain.member.service;
 
-import com.ieng.ieng.domain.member.dto.MemberGoogleRequestDto;
-import com.ieng.ieng.domain.member.dto.MemberResponseDto;
+
+import com.ssafyebs.customerback.domain.member.dto.MemberGoogleRequestDto;
+import com.ssafyebs.customerback.domain.member.dto.MemberResponseDto;
 
 public interface MemberGoogleService {
-    MemberResponseDto signUpOauthGoogle(MemberGoogleRequestDto memberGoogleRequestDto, String refreshToken);
+//    MemberResponseDto signUpOauthGoogle(MemberGoogleRequestDto memberGoogleRequestDto, String refreshToken);
 }

@@ -1,7 +1,7 @@
 package com.ssafyebs.customerback.domain.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ieng.ieng.domain.member.entity.Member;
+
 import lombok.Getter;
 
 import java.util.Date;
@@ -22,16 +22,16 @@ public class MemberRequestDto {
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
-    public Member toEntity(){
-        return Member.builder()
-                .email(this.email)
-                .nickname(this.nickname)
-                .memberYMD(this.memberYMD)
-                .provider(this.provider)
-                .picturePath(this.picturePath)
-                .password(this.password)
-                .refreshToken(this.refreshToken)
-                .build();
-    }
+//    public Member toEntity(){
+//        return Member.builder()
+//                .email(this.email)
+//                .nickname(this.nickname)
+//                .memberYMD(this.memberYMD)
+//                .provider(this.provider)
+//                .picturePath(this.picturePath)
+//                .password(this.password)
+//                .refreshToken(this.refreshToken)
+//                .build();
+//    }
 
 }

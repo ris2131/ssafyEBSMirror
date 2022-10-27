@@ -1,8 +1,9 @@
 package com.ssafyebs.customerback.global.exceptionhandler;
 
 
-import com.ieng.ieng.global.exception.*;
-import com.ieng.ieng.global.response.CommonResponse;
+
+import com.ssafyebs.customerback.global.exception.*;
+import com.ssafyebs.customerback.global.response.CommonResponse;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
