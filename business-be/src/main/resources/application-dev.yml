@@ -1,0 +1,14 @@
+
+# mariaDB
+
+#spring.datasource.driverClassName=org.mariadb.jdbc.Driver
+#spring.datasource.url=jdbc:mariadb://34.64.235.236:1962/federate_test
+#spring.datasource.username=root
+#spring.datasource.password=root
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://34.64.235.236:1962/federate_test
+    username: test
+    password: 1234

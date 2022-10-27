@@ -1,0 +1,13 @@
+package com.ssafyebs.businessbe;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BusinessBeApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BusinessBeApplication.class, args);
+	}
+
+}
