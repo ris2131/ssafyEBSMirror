@@ -19,27 +19,27 @@ public class Hairshop {
     @JoinColumn(name = "business_seq")
     private Business business;
 
-    @Column(name = "business_name")
+    @Column(name = "hairshop_name")
     private Long name;
 
-    @Column(name = "business_phone")
+    @Column(name = "hairshop_phone")
     private Long phone;
 
-    @Column(name = "business_address")
+    @Column(name = "hairshop_address")
     private Long address;
 
-    @Column(name = "business_photo")
+    @Column(name = "hairshop_photo")
     private Long photo;
 
-    @Column(name = "business_notice")
+    @Column(name = "hairshop_notice")
     private Long notice;
 
-    @Column(name = "business_description")
+    @Column(name = "hairshop_description")
     private Long description;
 
-    @Column(name = "business_homepage")
+    @Column(name = "hairshop_homepage")
     private Long homepage;
 
-    @Column(name = "business_visible_flag")
+    @Column(name = "hairshop_visible_flag")
     private Long isVisible;
 }
