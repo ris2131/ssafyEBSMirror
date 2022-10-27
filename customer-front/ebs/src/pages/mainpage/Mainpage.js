@@ -5,6 +5,7 @@ import axiosClient from "../../api";
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
 import Card from 'react-bootstrap/Card';
 
+
 const Mainpage = () => {
     const member_nickname = "김싸피"
     const haircut_term = 35
