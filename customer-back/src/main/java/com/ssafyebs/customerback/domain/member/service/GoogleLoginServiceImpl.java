@@ -46,6 +46,7 @@ public class GoogleLoginServiceImpl implements GoogleLoginService{
 //            GoogleIdToken.Payload payload = googleIdToken.getPayload();
 //            String email = payload.getEmail();
 //
+//            MemberRepository memberRepository;
 //            Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new FirstGoogleLoginException("첫 로그인 구글 인증 완료."));
 //
 //            MemberInfoResponseDto memberInfoResponseDto = memberService.getMemberInfo(email);

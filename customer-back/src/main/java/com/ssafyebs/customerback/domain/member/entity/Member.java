@@ -1,10 +1,7 @@
 package com.ssafyebs.customerback.domain.member.entity;
 
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +9,7 @@ import java.util.Date;
 @Table(name = "members")
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -20,19 +18,19 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberSeq;
 
-    @Column(name="member_logintype")
+    @Column(name="member_logintype", nullable = false)
     private char memberLogintype;
 
-    @Column(name="member_uid")
+    @Column(name="member_uid" , nullable = false)
     private String memberUid;
 
-    @Column(name="member_nickname")
+    @Column(name="member_nickname",  nullable = false)
     private String memberNickname;
 
-    @Column(name="member_address")
+    @Column(name="member_address",  nullable = false)
     private String memberAddress;
 
-    @Column(name="member_token")
+    @Column(name="member_token",  nullable = false)
     private String memberToken;
 
 
