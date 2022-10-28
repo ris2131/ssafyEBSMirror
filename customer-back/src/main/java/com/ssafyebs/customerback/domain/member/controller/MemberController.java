@@ -4,18 +4,19 @@ package com.ssafyebs.customerback.domain.member.controller;
 import com.ssafyebs.customerback.domain.member.dto.GoogleLoginRequestDto;
 import com.ssafyebs.customerback.domain.member.dto.MemberGoogleRequestDto;
 import com.ssafyebs.customerback.domain.member.dto.MemberResponseDto;
+import com.ssafyebs.customerback.domain.member.dto.MemberUpdateInfoRequestDto;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.global.exception.NoExistMemberException;
 import com.ssafyebs.customerback.global.exception.NoGoogleAuthorizeException;
 import com.ssafyebs.customerback.global.jwt.JwtService;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @RestController
@@ -64,6 +65,32 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(CommonResponse.createSuccess("구글 회원가입이 완료되었습니다.", memberResponseDto));
 
 	}
+
+	@GetMapping()
+	public ResponseEntity<?> getMember(HttpServletRequest request){
+		String memberuid = (String) request.getAttribute("memberuid");
+		MemberResponseDto memberResponseDto = memberService.getMemberInfo(memberuid);
+		return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원정보 확인 완료.", memberResponseDto));
+	}
+
+	@PutMapping()
+	public ResponseEntity<?> updateMemberInfo(HttpServletRequest request, @RequestBody MemberUpdateInfoRequestDto memberUpdateInfoRequestDto){
+		String memberUid = (String) request.getAttribute("memberuid");
+
+		MemberResponseDto memberResponseDto = memberService.updateMemberInfo(memberUid, memberUpdateInfoRequestDto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("회원정보 수정이 완료되었습니다.",memberResponseDto));
+	}
+
+	@PutMapping("/quit")
+	public ResponseEntity<?> updateMemberInfo(HttpServletRequest request){
+		String memberUid = (String) request.getAttribute("memberuid");
+
+		memberService.quitUser(memberUid);
+
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("회원탈퇴가 완료되었습니다.",null));
+	}
+
 }
 		// 카카오 로그인인 경우
 //		if (loginType.equals("K")) {

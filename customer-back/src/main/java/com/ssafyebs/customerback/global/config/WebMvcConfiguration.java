@@ -17,12 +17,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/members/sign-up")
-                .excludePathPatterns("/api/login")
-                .excludePathPatterns("/api/members/login")
-                .excludePathPatterns("/api/members/email/**")
-                .excludePathPatterns("/api/members/google-sign-up");
+                .addPathPatterns("/members/**")
+                .excludePathPatterns("/members/signup")
+                .excludePathPatterns("/members/login");
+
 
 
     }

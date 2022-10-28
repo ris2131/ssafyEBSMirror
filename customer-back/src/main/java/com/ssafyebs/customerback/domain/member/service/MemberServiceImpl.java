@@ -12,6 +12,7 @@ import com.ssafyebs.customerback.domain.member.repository.MemberRepository;
 import com.ssafyebs.customerback.global.exception.NoExistMemberException;
 import com.ssafyebs.customerback.global.exception.NoGoogleAuthorizeException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +53,6 @@ public class MemberServiceImpl implements MemberService{
 			Member member = m.get();
 			member.setMemberLogintype('\0');
 			member.setMemberUid("null");
-			member.setMemberNickname("null");
 			member.setMemberAddress("null");
 			member.setMemberToken("null");
 			memberRepository.save(member);
@@ -85,7 +85,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public MemberResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto) {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+googleLoginRequestDto);
 		try{
 			GoogleIdToken googleIdToken = verifier.verify(googleLoginRequestDto.getIdToken());
 
@@ -150,6 +149,17 @@ public class MemberServiceImpl implements MemberService{
 		catch (GeneralSecurityException | IOException e){
 			return null;
 		}
+	}
+
+	@Override
+	public MemberResponseDto updateMemberInfo(String memberUid, MemberUpdateInfoRequestDto memberUpdateinfoRequestDto){
+		Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
+
+			member.updateInfo(memberUpdateinfoRequestDto);
+			memberRepository.save(member);
+			MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+			return memberResponseDto;
+
 	}
 
 }
