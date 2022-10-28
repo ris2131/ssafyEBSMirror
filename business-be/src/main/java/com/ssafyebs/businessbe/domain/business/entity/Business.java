@@ -15,7 +15,7 @@ public class Business {
     private Long businessSeq;
 
     @Column(name = "business_email")
-    private Long email;
+    private String email;
 
     @Column(name = "business_password")
     private String password;

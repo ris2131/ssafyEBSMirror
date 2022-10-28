@@ -15,3 +15,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MariaDB103Dialect
         format_sql: true
+
+#JWT settings
+jwt:
+  access:
+    expiration: '90'
+    subject: Ebs AccessToken
+  refresh:
+    subject: Ebs RefreshToken
+    expiration: '180'
+  secret: S0f7AZxciEDA4asdRYUBohQukyrttdGdzv7xcvRneXo
