@@ -10,9 +10,7 @@ import java.util.Date;
 @Getter
 public class MemberUpdateInfoRequestDto {
     private String nickname;
-    @JsonProperty("birth_YMD")
-    @JsonFormat(shape= JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
-    private Date memberYMD;
+    private String address;
 
 //    public Member toEntity(){
 //        return Member.builder()

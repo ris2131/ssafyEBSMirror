@@ -21,10 +21,10 @@ import java.util.Collections;
 @Service
 //@RequiredArgsConstructor
 public class GoogleLoginServiceImpl implements GoogleLoginService{
-
-//    private final GoogleIdTokenVerifier verifier;
+//      private final MemberService memberService;
+//      private final GoogleIdTokenVerifier verifier;
 //    private final MemberRepository memberRepository;
-//    private final MemberService memberService;
+
 //
 //
 //    public GoogleLoginServiceImpl(@Value("${google.client.id}") String clientId,  MemberRepository memberRepository, MemberService memberService) {

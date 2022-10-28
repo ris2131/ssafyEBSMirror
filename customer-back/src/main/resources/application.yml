@@ -1,3 +1,16 @@
+#Google OAuth settings
+google:
+  client:
+    id: 1073658882403-2f8tns9h5ungbodg5kd40u1gu1pfn7cc.apps.googleusercontent.com
+#JWT
+jwt:
+  access:
+    expiration: '90'
+    subject: IEng AccessToken
+  refresh:
+    subject: IEng RefreshToken
+    expiration: '180'
+  secret: S0f7AZx5HIFA4NV0yiToZyQCLtrmJ_GAGc2t_6fFVXA
 # database setting
 spring:
   datasource:

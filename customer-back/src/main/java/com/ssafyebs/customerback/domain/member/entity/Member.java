@@ -1,6 +1,7 @@
 package com.ssafyebs.customerback.domain.member.entity;
 
 
+import com.ssafyebs.customerback.domain.member.dto.MemberUpdateInfoRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,22 +34,23 @@ public class Member {
     @Column(name="member_token",  nullable = false)
     private String memberToken;
 
+    public void updateRefreshToken(String refreshToken){
+        this.memberToken = refreshToken;
+    }
+    @Builder
+    public Member(Long memberSeq, char memberLogintype, String memberUid, String memberNickname, String memberAddress, String refreshToken){
+        this.memberSeq = memberSeq;
+        this.memberLogintype = memberLogintype;
+        this.memberUid = memberUid;
+        this.memberNickname=memberNickname;
+        this.memberAddress=memberAddress;
+        this.memberToken=refreshToken;
 
-//    @Builder
-//    public Member(Long memberSequence, String nickname, String email, Date memberYMD, String provider, String picturePath, String password, String refreshToken){
-//        this.memberSequence = memberSequence;
-//        this.nickname = nickname;
-//        this.email = email;
-//        this.memberYMD=memberYMD;
-//        this.provider = provider;
-//        this.picturePath=picturePath;
-//        this.password=password;
-//        this.refreshToken = refreshToken;
-//    }
-//    public void updateInfo(MemberUpdateInfoRequestDto memberUpdateInfoRequestDto){
-//        this.nickname = memberUpdateInfoRequestDto.getNickname();
-//        this.memberYMD= memberUpdateInfoRequestDto.getMemberYMD();
-//    }
+    }
+    public void updateInfo(MemberUpdateInfoRequestDto memberUpdateInfoRequestDto){
+        this.memberNickname = memberUpdateInfoRequestDto.getNickname();
+        this.memberAddress= memberUpdateInfoRequestDto.getAddress();
+    }
 //    public void updatePassword(MemberUpdatePasswordRequestDto memberUpdatePasswordRequestDto){
 //        //this.password = memberUpdatePasswordRequestDto.getCurPassword();
 //        this.password= memberUpdatePasswordRequestDto.getNewPassword();
@@ -56,8 +58,6 @@ public class Member {
 //    public void updatePicturePath(String picturePath){
 //        this.picturePath=picturePath;
 //    }
-//    public void updateRefreshToken(String refreshToken){
-//        this.refreshToken = refreshToken;
-//    }
+
 
 }

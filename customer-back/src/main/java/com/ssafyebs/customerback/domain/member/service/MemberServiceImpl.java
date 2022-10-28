@@ -1,43 +1,61 @@
  package com.ssafyebs.customerback.domain.member.service;
 
 
-import com.ssafyebs.customerback.domain.member.dto.MemberInfoResponseDto;
-import com.ssafyebs.customerback.domain.member.dto.MemberRequestDto;
-import com.ssafyebs.customerback.domain.member.dto.MemberResponseDto;
-import com.ssafyebs.customerback.domain.member.dto.MemberUpdateInfoRequestDto;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.ssafyebs.customerback.domain.member.dto.*;
 import com.ssafyebs.customerback.domain.member.entity.Member;
 import com.ssafyebs.customerback.domain.member.repository.MemberRepository;
 import com.ssafyebs.customerback.global.exception.DuplicateNicknameException;
 import com.ssafyebs.customerback.global.exception.ExistNicknameException;
 import com.ssafyebs.customerback.global.exception.NoExistMemberException;
+import com.ssafyebs.customerback.global.exception.NoGoogleAuthorizeException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class MemberServiceImpl implements MemberService{
 	
 	private final MemberRepository memberRepository;
-	
-	@Override
-	public Optional<Member> findByMemberUid(String memberuid) {
-		return memberRepository.findByMemberUid(memberuid);
+
+	private final GoogleIdTokenVerifier verifier;
+
+
+	public MemberServiceImpl(@Value("${google.client.id}") String clientId,  MemberRepository memberRepository) {
+		NetHttpTransport transport = new NetHttpTransport();
+		JsonFactory jsonFactory = new JacksonFactory();
+		this.memberRepository = memberRepository;
+		verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+				.setAudience(Collections.singletonList(clientId))
+				.build();
 	}
 
 	@Override
-	public void quitUser(String  memberuid) {
-		Optional<Member> m = memberRepository.findByMemberUid(memberuid);
+	public Optional<Member> findByMemberUid(String memberUid) {
+		return memberRepository.findByMemberUid(memberUid);
+	}
+
+	@Override
+	public void quitUser(String memberUid) {
+		Optional<Member> m = memberRepository.findByMemberUid(memberUid);
 		if(m.isPresent()) {
 			Member member = m.get();
 			member.setMemberLogintype('\0');
@@ -50,12 +68,57 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+
+
 	@Override
 	public Member save(Member member) {
 		// TODO Auto-generated method stub
 		return memberRepository.save(member);
 	}
 
+	@Override
+	public HttpHeaders createTokenHeader(String accessToken, String refreshToken) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization","Bearer "+accessToken);
+		headers.add("refreshToken","Bearer "+refreshToken);
 
+		return headers;
+	}
+	@Override
+	public MemberInfoResponseDto getMemberInfo(String memberUid) {
+		Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
+		MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto(member);
+
+		return memberInfoResponseDto;
+	}
+	@Override
+	public MemberInfoResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto) {
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+googleLoginRequestDto.getAccessToken());
+		try{
+			GoogleIdToken googleIdToken = verifier.verify(googleLoginRequestDto.getAccessToken());
+
+			if(googleIdToken==null) throw new NoGoogleAuthorizeException("구글 회원 정보 오류.");
+			//return null;
+			GoogleIdToken.Payload payload = googleIdToken.getPayload();
+			String memberUid = (String) payload.get("sub");
+			System.out.println("!!!!!!!!!!!!!!!!!"+ memberUid);
+
+			Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
+
+			MemberInfoResponseDto memberInfoResponseDto = this.getMemberInfo(memberUid);
+
+			return memberInfoResponseDto;
+		}
+		catch (GeneralSecurityException | IOException e){
+			return null;
+		}
+	}
+
+	@Override
+	public void updateRefreshToken(String memberUid, String refreshToken) {
+		Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
+		member.updateRefreshToken(refreshToken);
+		memberRepository.save(member);
+	}
 
 }
