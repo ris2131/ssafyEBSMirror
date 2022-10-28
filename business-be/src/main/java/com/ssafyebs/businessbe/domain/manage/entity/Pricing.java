@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "pricings")
 public class Pricing {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pricing_seq")
     private Long pricingSeq;
 

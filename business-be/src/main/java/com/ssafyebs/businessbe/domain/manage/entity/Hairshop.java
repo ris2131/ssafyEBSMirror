@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "hairshops")
 public class Hairshop {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "business_seq")
     private Long businessSeq;
 

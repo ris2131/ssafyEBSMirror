@@ -2,10 +2,7 @@ package com.ssafyebs.businessbe.domain.business.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -13,6 +10,7 @@ import javax.persistence.Table;
 @Table(name = "businesses")
 public class Business {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "business_seq")
     private Long businessSeq;
 

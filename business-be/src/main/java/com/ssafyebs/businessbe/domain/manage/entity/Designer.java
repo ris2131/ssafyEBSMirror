@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "designers")
 public class Designer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "designer_seq")
     private Long designerSeq;
 
