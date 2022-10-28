@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Table(name = "hairshops")
 public class Hairshop {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "business_seq")
     private Long businessSeq;
 
@@ -21,26 +20,26 @@ public class Hairshop {
     private Business business;
 
     @Column(name = "hairshop_name")
-    private Long name;
+    private String name;
 
     @Column(name = "hairshop_phone")
-    private Long phone;
+    private String phone;
 
     @Column(name = "hairshop_address")
-    private Long address;
+    private String address;
 
     @Column(name = "hairshop_photo")
-    private Long photo;
+    private String photo;
 
     @Column(name = "hairshop_notice")
-    private Long notice;
+    private String notice;
 
     @Column(name = "hairshop_description")
-    private Long description;
+    private String description;
 
     @Column(name = "hairshop_homepage")
-    private Long homepage;
+    private String homepage;
 
     @Column(name = "hairshop_visible_flag")
-    private Long isVisible;
+    private boolean isVisible;
 }
