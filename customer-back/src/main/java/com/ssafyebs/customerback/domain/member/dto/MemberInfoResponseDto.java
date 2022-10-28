@@ -11,17 +11,17 @@ import java.util.Date;
 @Getter
 public class MemberInfoResponseDto {
 
-    private String nickname;
-    private String uid;
-    private char logintype;
-    private String address;
+    private String memberNickname;
+    private String memberUid;
+    private char memberLogintype;
+    private String memberAddress;
 
     @Builder
     public MemberInfoResponseDto(Member entity){
-        this.nickname = entity.getMemberNickname();
-        this.uid = entity.getMemberUid();
-        this.logintype = entity.getMemberLogintype();
-        this.address = entity.getMemberAddress();
+        this.memberNickname = entity.getMemberNickname();
+        this.memberUid = entity.getMemberUid();
+        this.memberLogintype = entity.getMemberLogintype();
+        this.memberAddress = entity.getMemberAddress();
     }
 
 

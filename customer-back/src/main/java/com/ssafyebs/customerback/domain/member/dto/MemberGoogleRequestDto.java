@@ -8,11 +8,15 @@ import java.util.Date;
 @Getter
 public class MemberGoogleRequestDto {
     @JsonProperty("id_token")
-    String idToken;
+    private String idToken;
 
-    private String nickname;
+    @JsonProperty("memberLoginType")
+    private char memberLoginType;
 
-    @JsonProperty("birth_YMD")
-    private Date memberYMD;
+    @JsonProperty("memberNickname")
+    private String memberNickname;
+
+    @JsonProperty("memberAddress")
+    private String memberAddress;
 
 }

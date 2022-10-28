@@ -58,10 +58,6 @@ public class JwtServiceImpl implements JwtService{
         return true;
     }
 
-//    @Override
-//    public String getEmailFromPayload(String accessToken){
-//        return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(accessToken).getBody().get("email",String.class);
-//    }
 
     @Override
     public boolean compareRefreshToken(String memberToken){
@@ -69,11 +65,7 @@ public class JwtServiceImpl implements JwtService{
         String refreshTokenInDBMS = member.getMemberToken();
 
         return true;
-        /*
-        if(refreshToken.equals(refreshTokenInDBMS)){
-            return true;
-        }
-        throw new NoMatchRefreshTokenException("Refresh Token이 일치하지 않습니다.");*/
+
     }
 
 }

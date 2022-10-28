@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GoogleLoginRequestDto {
-    @JsonProperty("accessToken")
-    private String accessToken;
+    @JsonProperty("id_token")
+    private String idToken;
 
-    @JsonProperty("loginType")
-    private String loginType;
+    @JsonProperty("memberLoginType")
+    private String memberLoginType;
 }

@@ -5,7 +5,7 @@ import com.ssafyebs.customerback.domain.member.dto.MemberUpdateInfoRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Table(name = "members")
 @Entity
@@ -51,13 +51,7 @@ public class Member {
         this.memberNickname = memberUpdateInfoRequestDto.getNickname();
         this.memberAddress= memberUpdateInfoRequestDto.getAddress();
     }
-//    public void updatePassword(MemberUpdatePasswordRequestDto memberUpdatePasswordRequestDto){
-//        //this.password = memberUpdatePasswordRequestDto.getCurPassword();
-//        this.password= memberUpdatePasswordRequestDto.getNewPassword();
-//    }
-//    public void updatePicturePath(String picturePath){
-//        this.picturePath=picturePath;
-//    }
+
 
 
 }

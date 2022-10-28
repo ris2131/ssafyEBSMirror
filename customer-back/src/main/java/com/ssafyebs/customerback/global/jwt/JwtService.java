@@ -3,7 +3,7 @@ package com.ssafyebs.customerback.global.jwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface JwtService {
-    String createAccessToken( String email);
+    String createAccessToken(String memberuid);
     String createRefreshToken();
     boolean validateToken(String accessToken);
 

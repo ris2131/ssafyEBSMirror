@@ -1,12 +1,10 @@
 package com.ssafyebs.customerback.domain.member.controller;
 
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.member.dto.GoogleLoginRequestDto;
+import com.ssafyebs.customerback.domain.member.dto.MemberGoogleRequestDto;
 import com.ssafyebs.customerback.domain.member.dto.MemberInfoResponseDto;
-import com.ssafyebs.customerback.domain.member.entity.Member;
-import com.ssafyebs.customerback.domain.member.service.MemberGoogleService;
+import com.ssafyebs.customerback.domain.member.dto.MemberResponseDto;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.global.exception.NoExistMemberException;
 import com.ssafyebs.customerback.global.exception.NoGoogleAuthorizeException;
@@ -19,41 +17,24 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("api/members")
+@RequestMapping("members")
 @RequiredArgsConstructor
 public class MemberController {
 
 	private final MemberService memberService;
-
 	private final JwtService jwtService;
 
-	final static Logger logger = LogManager.getLogger(MemberController.class);
 
-	@GetMapping("/login2")
-	public String login2(){
-		return "yes";
-	}
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginRequestDto googleLoginRequestDto) {
 		try {
 			MemberInfoResponseDto memberInfoResponseDto = memberService.loginOAuthGoogle(googleLoginRequestDto);
-			logger.debug("!!!!!!!!!!!!!!!!!!!!!!!");
-			System.out.println("??????????????????????");
-			String memberUid = memberInfoResponseDto.getUid();
+
+			String memberUid = memberInfoResponseDto.getMemberUid();
+
 			String accessToken = jwtService.createAccessToken(memberUid);
 			String refreshToken = jwtService.createRefreshToken();
 
@@ -66,6 +47,25 @@ public class MemberController {
 		} catch (NoGoogleAuthorizeException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createSuccess("구글 로그인 실패", null));
 		}
+	}
+
+	@PostMapping("/signup")
+	public ResponseEntity<?> createGoogleMember(@RequestBody MemberGoogleRequestDto memberGoogleRequestDto){
+
+
+			String refreshToken = jwtService.createRefreshToken();
+
+			MemberResponseDto memberResponseDto = memberService.signUpOauthGoogle(memberGoogleRequestDto, refreshToken);
+			String memberUid = memberService.getMemberUid(memberGoogleRequestDto.getIdToken());
+
+
+			String accessToken = jwtService.createAccessToken(memberUid);
+			HttpHeaders headers = memberService.createTokenHeader(accessToken, refreshToken);
+
+			return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(CommonResponse.createSuccess("구글 회원가입이 완료되었습니다.", memberResponseDto));
+
+	}
+}
 		// 카카오 로그인인 경우
 //		if (loginType.equals("K")) {
 //			String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -231,5 +231,4 @@ public class MemberController {
 //		}
 //		return new ResponseEntity<>(resultMap, status);
 
-	}
-}
+
