@@ -1,7 +1,9 @@
 package com.ssafyebs.businessbe.domain.business.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ssafyebs.businessbe.domain.business.entity.Business;
 import lombok.Getter;
+
 
 @Getter
 public class BusinessCreationRequestDto {
@@ -11,16 +13,18 @@ public class BusinessCreationRequestDto {
     @JsonProperty("password")
     private String password;
 
-    @JsonProperty("name")
-    private String name;
-
     @JsonProperty("owner")
     private String owner;
-
-    @JsonProperty("phone")
-    private String phone;
 
     @JsonProperty("registration")
     private String registration;
 
+    public Business toEntity(){
+        return Business.builder()
+                .email(this.email)
+                .password(this.password)
+                .owner(this.owner)
+                .registration(this.registration)
+                .build();
+    }
 }

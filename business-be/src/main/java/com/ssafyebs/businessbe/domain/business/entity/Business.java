@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor//builder랑 왜 같이 넣어야하지?
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -28,4 +30,5 @@ public class Business {
 
     @Column(name = "business_refresh_token")
     private String refreshToken;
+
 }

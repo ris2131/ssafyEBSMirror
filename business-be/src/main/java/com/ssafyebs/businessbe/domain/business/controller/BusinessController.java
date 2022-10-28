@@ -1,7 +1,6 @@
 package com.ssafyebs.businessbe.domain.business.controller;
 
 import com.ssafyebs.businessbe.domain.business.dto.BusinessCreationRequestDto;
-import com.ssafyebs.businessbe.domain.business.dto.BusinessCreationResponseDto;
 import com.ssafyebs.businessbe.domain.business.service.BusinessCreationService;
 import com.ssafyebs.businessbe.domain.business.service.LoginService;
 import com.ssafyebs.businessbe.global.jwt.JwtService;
@@ -27,9 +26,10 @@ public class BusinessController {
     public ResponseEntity<?> createBusiness(@RequestBody BusinessCreationRequestDto businessCreationRequestDto){
         logger.debug("business/sign-up");
 
-        BusinessCreationResponseDto businessCreationResponseDto = businessCreationService.create(businessCreationRequestDto);
+        businessCreationService.create(businessCreationRequestDto);
+
         logger.debug("done : createMember");
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원가입이 완료되었습니다.", businessCreationResponseDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원가입이 완료되었습니다.", null));
     }
 }
