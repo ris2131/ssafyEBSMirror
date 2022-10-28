@@ -33,10 +33,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             if(refreshToken != null) {
                 try{
                     if(jwtService.validateToken(refreshToken) && jwtService.compareRefreshToken(refreshToken)){
-                        String email = businessRepository.findByRefreshToken(refreshToken).get().getEmail();
-                        String newAccessToken = jwtService.createAccessToken(email);
+                        long businessSeq = businessRepository.findByRefreshToken(refreshToken).get().getBusinessSeq();
+                        String newAccessToken = jwtService.createAccessToken(businessSeq);
                         response.setHeader("Authorization","Bearer " + newAccessToken);
-                        request.setAttribute("email",email);
+                        request.setAttribute("business_seq",businessSeq);
 
                         return true;
                     }
@@ -49,8 +49,8 @@ public class JwtInterceptor implements HandlerInterceptor {
                 }
             }
             if(jwtService.validateToken(accessToken)){
-                String email = jwtService.getEmailFromPayload(accessToken);
-                request.setAttribute("email",email);
+                long businessSeq = jwtService.getBusinessSeqFromPayload(accessToken);
+                request.setAttribute("business_seq", businessSeq);
 
                 return true;
             }

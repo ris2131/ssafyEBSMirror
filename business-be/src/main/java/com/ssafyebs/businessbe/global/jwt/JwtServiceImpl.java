@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService{
 
     //accessToken exists for 1 hour
     @Override
-    public String createAccessToken(String email) {
+    public String createAccessToken(long businessSeq) {
         Date now = new Date();
 
         return Jwts.builder()
@@ -34,7 +34,7 @@ public class JwtServiceImpl implements JwtService{
                 .setIssuer("Ebs")
                 .setSubject(ACCESS_TOKEN_SUBJECT)
                 .setExpiration(new Date(now.getTime() + 1000 * 60L * 60L))
-                .claim("email",email)
+                .claim("business_seq",businessSeq)
                 .signWith(SignatureAlgorithm.HS256,SECRET_KEY.getBytes())
                 .compact();
     }
@@ -59,8 +59,8 @@ public class JwtServiceImpl implements JwtService{
     }
 
     @Override
-    public String getEmailFromPayload(String accessToken){
-        return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(accessToken).getBody().get("email",String.class);
+    public long getBusinessSeqFromPayload(String accessToken){
+        return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(accessToken).getBody().get("business_seq",Long.class);
     }
 
     @Override
