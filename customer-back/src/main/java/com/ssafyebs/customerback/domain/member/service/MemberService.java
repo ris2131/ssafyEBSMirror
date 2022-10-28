@@ -17,9 +17,9 @@ public interface MemberService {
 	public Member save(Member member);
 
 	HttpHeaders createTokenHeader(String accessToken , String refreshToken);
-	MemberInfoResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto);
+	MemberResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto);
 
-	MemberInfoResponseDto getMemberInfo(String memberUid);
+	MemberResponseDto getMemberInfo(String memberUid);
 	void updateRefreshToken(String memberUid, String refreshToken);
 	String getMemberUid(String idToken);
 	MemberResponseDto signUpOauthGoogle(MemberGoogleRequestDto memberGoogleRequestDto, String refreshToken);
