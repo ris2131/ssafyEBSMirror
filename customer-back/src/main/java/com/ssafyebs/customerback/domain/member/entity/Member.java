@@ -48,8 +48,8 @@ public class Member {
 
     }
     public void updateInfo(MemberUpdateInfoRequestDto memberUpdateInfoRequestDto){
-        this.memberNickname = memberUpdateInfoRequestDto.getNickname();
-        this.memberAddress= memberUpdateInfoRequestDto.getAddress();
+        this.memberNickname = memberUpdateInfoRequestDto.getMemberNickname();
+        this.memberAddress= memberUpdateInfoRequestDto.getMemberAddress();
     }
 
 

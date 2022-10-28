@@ -9,13 +9,12 @@ import java.util.Date;
 
 @Getter
 public class MemberUpdateInfoRequestDto {
-    private String nickname;
-    private String address;
 
-//    public Member toEntity(){
-//        return Member.builder()
-//                .nickname(this.nickname)
-//                .memberYMD(this.memberYMD)
-//                .build();
-//    }
+    @JsonProperty("member_nickname")
+    private String memberNickname;
+
+    @JsonProperty("member_address")
+    private String memberAddress;
+
+
 }

@@ -8,6 +8,6 @@ public interface JwtService {
     boolean validateToken(String accessToken);
 
     boolean compareRefreshToken(String refreshToken);
-//    String getEmailFromPayload(String accessToken) throws JsonProcessingException;
-//
+    String getMemberUidFromPayload(String accessToken) throws JsonProcessingException;
+
 }

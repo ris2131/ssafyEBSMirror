@@ -68,4 +68,9 @@ public class JwtServiceImpl implements JwtService{
 
     }
 
+    @Override
+    public String getMemberUidFromPayload(String accessToken){
+        return Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(accessToken).getBody().get("memberuid",String.class);
+    }
+
 }

@@ -23,5 +23,6 @@ public interface MemberService {
 	void updateRefreshToken(String memberUid, String refreshToken);
 	String getMemberUid(String idToken);
 	MemberResponseDto signUpOauthGoogle(MemberGoogleRequestDto memberGoogleRequestDto, String refreshToken);
-	
+
+	MemberResponseDto updateMemberInfo(String memberUid, MemberUpdateInfoRequestDto memberUpdateRequestDto);
 }
