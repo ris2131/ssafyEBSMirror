@@ -77,14 +77,14 @@ public class MemberServiceImpl implements MemberService{
 		return headers;
 	}
 	@Override
-	public MemberInfoResponseDto getMemberInfo(String memberUid) {
+	public MemberResponseDto getMemberInfo(String memberUid) {
 		Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
-		MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto(member);
+		MemberResponseDto memberInfoResponseDto = new MemberResponseDto(member);
 
 		return memberInfoResponseDto;
 	}
 	@Override
-	public MemberInfoResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto) {
+	public MemberResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto) {
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+googleLoginRequestDto);
 		try{
 			GoogleIdToken googleIdToken = verifier.verify(googleLoginRequestDto.getIdToken());
@@ -97,9 +97,9 @@ public class MemberServiceImpl implements MemberService{
 
 			Member member = memberRepository.findByMemberUid(memberUid).orElseThrow(() -> new NoExistMemberException("존재하는 회원정보가 없습니다."));
 
-			MemberInfoResponseDto memberInfoResponseDto = this.getMemberInfo(memberUid);
+			MemberResponseDto memberResponseDto = this.getMemberInfo(memberUid);
 
-			return memberInfoResponseDto;
+			return memberResponseDto;
 		}
 		catch (GeneralSecurityException | IOException e){
 			return null;

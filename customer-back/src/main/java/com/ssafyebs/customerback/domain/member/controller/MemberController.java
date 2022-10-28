@@ -3,7 +3,6 @@ package com.ssafyebs.customerback.domain.member.controller;
 
 import com.ssafyebs.customerback.domain.member.dto.GoogleLoginRequestDto;
 import com.ssafyebs.customerback.domain.member.dto.MemberGoogleRequestDto;
-import com.ssafyebs.customerback.domain.member.dto.MemberInfoResponseDto;
 import com.ssafyebs.customerback.domain.member.dto.MemberResponseDto;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.global.exception.NoExistMemberException;
@@ -31,9 +30,9 @@ public class MemberController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginRequestDto googleLoginRequestDto) {
 		try {
-			MemberInfoResponseDto memberInfoResponseDto = memberService.loginOAuthGoogle(googleLoginRequestDto);
+			MemberResponseDto memberResponseDto = memberService.loginOAuthGoogle(googleLoginRequestDto);
 
-			String memberUid = memberInfoResponseDto.getMemberUid();
+			String memberUid = memberResponseDto.getMemberUid();
 
 			String accessToken = jwtService.createAccessToken(memberUid);
 			String refreshToken = jwtService.createRefreshToken();
@@ -41,7 +40,7 @@ public class MemberController {
 			HttpHeaders headers = memberService.createTokenHeader(accessToken, refreshToken);
 			memberService.updateRefreshToken(memberUid, refreshToken);
 
-			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(CommonResponse.createSuccess("로그인 성공적으로 완료 되었습니다.", memberInfoResponseDto));
+			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(CommonResponse.createSuccess("로그인 성공적으로 완료 되었습니다.", memberResponseDto));
 		} catch (NoExistMemberException e) {
 			return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("첫 로그인 구글 인증 완료", null));
 		} catch (NoGoogleAuthorizeException e) {
