@@ -1,15 +1,17 @@
 package com.ssafyebs.businessbe.global.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class CryptoUtil {
+    @NoArgsConstructor(access= AccessLevel.PRIVATE)
     public static class Sha512 {
-        private Sha512() {
-        }
-
         public static String hash(String input) {
             return Sha512.hash(input, null);
         }
@@ -28,10 +30,8 @@ public class CryptoUtil {
         }
     }
 
+    @NoArgsConstructor(access= AccessLevel.PRIVATE)
     public static class Sha256 {
-        private Sha256() {
-        }
-
         public static String hash(String input) {
             return Sha256.hash(input, null);
         }
@@ -48,8 +48,5 @@ public class CryptoUtil {
                 return fallback;
             }
         }
-    }
-
-    private CryptoUtil() {
     }
 }

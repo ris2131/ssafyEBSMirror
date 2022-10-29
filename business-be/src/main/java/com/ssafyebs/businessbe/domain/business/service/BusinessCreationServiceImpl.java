@@ -3,6 +3,7 @@ package com.ssafyebs.businessbe.domain.business.service;
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRequestDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
+import com.ssafyebs.businessbe.global.util.CryptoUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ public class BusinessCreationServiceImpl implements BusinessCreationService {
     @Override
     public void create(BusinessCreationRequestDto businessCreationRequestDto) {
         Business business = businessCreationRequestDto.toEntity();
-        logger.warn(business);
+
         businessRepository.save(business);
     }
 }
