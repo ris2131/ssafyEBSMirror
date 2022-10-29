@@ -1,4 +1,4 @@
-package com.ssafyebs.businessbe.domain.business.dto;
+package com.ssafyebs.businessbe.domain.business.dto.requestdto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafyebs.businessbe.domain.business.entity.Business;

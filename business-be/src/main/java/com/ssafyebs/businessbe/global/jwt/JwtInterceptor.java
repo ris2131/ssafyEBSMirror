@@ -1,7 +1,9 @@
 package com.ssafyebs.businessbe.global.jwt;
 
+import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.global.exception.InvalidateRefreshTokenException;
+import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.exception.NotLoggeedInException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -33,8 +35,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             if(refreshToken != null) {
                 try{
                     if(jwtService.validateToken(refreshToken) && jwtService.compareRefreshToken(refreshToken)){
-                        long businessSeq = businessRepository.findByRefreshToken(refreshToken).get().getBusinessSeq();
-                        String newAccessToken = jwtService.createAccessToken(businessSeq);
+                        Business business = businessRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
+                        long businessSeq = business.getBusinessSeq();
+                        String email = business.getEmail();
+                        String newAccessToken = jwtService.createAccessToken(email);
                         response.setHeader("Authorization","Bearer " + newAccessToken);
                         request.setAttribute("business_seq",businessSeq);
 
