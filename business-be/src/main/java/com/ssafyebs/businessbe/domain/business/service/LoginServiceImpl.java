@@ -1,6 +1,5 @@
 package com.ssafyebs.businessbe.domain.business.service;
 
-import com.ssafyebs.businessbe.domain.business.controller.LoginController;
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.LoginRequestDto;
 import com.ssafyebs.businessbe.domain.business.dto.responsedto.LoginResponseDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
@@ -38,6 +37,12 @@ public class LoginServiceImpl implements LoginService{
     //미구현
     @Override
     public LoginResponseDto loginEbs(LoginRequestDto loginRequestDto) {
+        String email = loginRequestDto.getEmail();
+        Business business = businessRepository.findByEmail(email).orElseThrow(() -> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
+        if(!loginRequestDto.getPassword().equals(business.getPassword())){
+            throw new NoExistBusinessException("존재하는 회원정보가 없습니다.");
+        }
+
         return null;
     }
 }
