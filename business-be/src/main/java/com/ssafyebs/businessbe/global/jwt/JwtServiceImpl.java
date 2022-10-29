@@ -2,6 +2,7 @@ package com.ssafyebs.businessbe.global.jwt;
 
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
+import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,11 @@ public class JwtServiceImpl implements JwtService{
 
     //accessToken exists for 1 hour
     @Override
-    public String createAccessToken(long businessSeq) {
+    public String createAccessToken(String email) {
         Date now = new Date();
+
+        Business business = businessRepository.findByEmail(email).orElseThrow(() -> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
+        Long businessSeq = business.getBusinessSeq();
 
         return Jwts.builder()
                 .setHeaderParam("typ","JWT")

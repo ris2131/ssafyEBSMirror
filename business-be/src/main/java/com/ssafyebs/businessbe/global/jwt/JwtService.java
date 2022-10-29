@@ -3,7 +3,7 @@ package com.ssafyebs.businessbe.global.jwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface JwtService {
-    String createAccessToken(long businessSeq);
+    String createAccessToken(String emial);
     String createRefreshToken();
     boolean validateToken(String accessToken);
     long getBusinessSeqFromPayload(String accessToken) throws JsonProcessingException;

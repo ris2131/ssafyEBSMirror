@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface BusinessRepository extends JpaRepository<Business, Long> {
     Optional<Business> findByRefreshToken(String refreshToken);
+    Optional<Business> findByEmail(String Email);
 }
