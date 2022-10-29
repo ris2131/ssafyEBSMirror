@@ -7,6 +7,6 @@ export const store = configureStore({
     // auth: authSlice,
     // recipe: recipeSlice,
     // ingredient: ingredientSlice,
-    user: userSlice
+    //user: userSlice
   },
 });
