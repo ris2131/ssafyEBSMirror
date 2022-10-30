@@ -4,6 +4,8 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRe
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
+import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
+import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -16,11 +18,19 @@ public class BusinessServiceImpl implements BusinessService {
 
     final static Logger logger = LogManager.getLogger(BusinessServiceImpl.class);
     private final BusinessRepository businessRepository;
+    private final HairshopRepository hairshopRepository;
+
     @Override
     public void create(BusinessCreationRequestDto businessCreationRequestDto) {
         Business business = businessCreationRequestDto.toEntity();
 
         businessRepository.save(business);
+
+        Hairshop hairshop = Hairshop
+                .builder()
+                .business(business)
+                .build();
+        hairshopRepository.save(hairshop);
     }
 
     @Override
