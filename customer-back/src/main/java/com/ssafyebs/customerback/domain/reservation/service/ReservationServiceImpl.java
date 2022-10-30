@@ -21,4 +21,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationRepository.findByMember_MemberUid(memberUid);
 	}
 
+	@Override
+	public Reservation makeReserve(Reservation reservation) {
+		return reservationRepository.save(reservation);
+	}
+
 }

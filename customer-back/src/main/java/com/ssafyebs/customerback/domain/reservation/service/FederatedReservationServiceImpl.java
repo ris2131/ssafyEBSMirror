@@ -1,6 +1,7 @@
 package com.ssafyebs.customerback.domain.reservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,11 @@ public class FederatedReservationServiceImpl implements FederatedReservationServ
 	public List<FederatedReservation> findAll() {
 		// TODO Auto-generated method stub
 		return fRepository.findAll();
+	}
+
+	@Override
+	public Optional<FederatedReservation> findByDesignerSeq(Long seq) {
+		return fRepository.findByDesignerSeq(seq);
 	}
 
 }
