@@ -5,8 +5,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "designers")
 public class Designer {
