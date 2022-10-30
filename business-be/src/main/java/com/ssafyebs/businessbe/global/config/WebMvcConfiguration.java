@@ -18,6 +18,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/business/sign-up")
+                .excludePathPatterns("/business/check-email")
                 .excludePathPatterns("/business/login")
                 .excludePathPatterns("/business/verifyEmail/**");
 
