@@ -34,18 +34,18 @@ public class ReservationController {
 	private final MemberService memberService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getReservationList(){
+	public ResponseEntity<?> getReservationList(HttpServletRequest request){
 		//HttpServletRequest request
 		//String memberUid = (String)request.getAttribute("memberuid");
-		String memberUid = "3262732023";
+		String memberUid = (String)request.getAttribute("memberuid");
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("예약정보 조회 완료.",reservationService.findByMember_MemberUid(memberUid)));
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> makeReservation(@RequestBody ReservationRequestDto reservationRequestDto){
+	public ResponseEntity<?> makeReservation(HttpServletRequest request, @RequestBody ReservationRequestDto reservationRequestDto){
 		
 		//jwt에서 아이디 불러오는 부분 있어야함
-		String memberUid = "3262732023";
+		String memberUid = (String)request.getAttribute("memberuid");
 		Reservation reservation = new Reservation();
 		reservation.setMember(memberService.findByMemberUid(memberUid).get());
 		reservation.setFederatedReservation(federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get());
