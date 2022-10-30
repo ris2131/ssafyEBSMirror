@@ -4,6 +4,7 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRe
 import org.springframework.stereotype.Service;
 
 @Service
-public interface BusinessCreationService {
+public interface BusinessService {
     void create(BusinessCreationRequestDto businessCreationRequestDto);
+    void quit(long businessSeq);
 }
