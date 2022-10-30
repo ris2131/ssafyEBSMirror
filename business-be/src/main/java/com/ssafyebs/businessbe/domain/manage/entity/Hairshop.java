@@ -5,8 +5,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "hairshops")
 public class Hairshop {

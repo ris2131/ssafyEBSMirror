@@ -16,9 +16,9 @@ public class CommonResponse<T>{
     private static final String FAIL = "FAIL";
     private static final String ERROR = "ERROR";
 
-    private String status;
-    private String message;
-    private T data;
+    private final String status;
+    private final String message;
+    private final T data;
 
     public CommonResponse(String status, String message, T data){
         this.status = status;
@@ -26,12 +26,12 @@ public class CommonResponse<T>{
         this.data = data;
     }
 
-    public static <T> CommonResponse createSuccess(String message, T data){
-        return new CommonResponse(SUCCESS, message, data);
+    public static <T> CommonResponse<?> createSuccess(String message, T data){
+        return new CommonResponse<>(SUCCESS, message, data);
     }
 
     // Hibernate Validator에 의해 유효하지 않은 데이터로 인해 API 호출이 거부될때 반환
-    public static CommonResponse createFail(BindingResult bindingResult){
+    public static CommonResponse<?> createFail(BindingResult bindingResult){
         Map<String, String> errors = new HashMap<>();
         List<ObjectError> allErrors = bindingResult.getAllErrors();
         for (ObjectError error : allErrors) {
@@ -41,11 +41,11 @@ public class CommonResponse<T>{
                 errors.put( error.getObjectName(), error.getDefaultMessage());
             }
         }
-        return new CommonResponse(FAIL, null, errors);
+        return new CommonResponse<>(FAIL, null, errors);
     }
 
     // 예외 발생으로 API 호출 실패시 반환
-    public static CommonResponse createError(String message){
-        return new CommonResponse(ERROR, message, null);
+    public static CommonResponse<?> createError(String message){
+        return new CommonResponse<>(ERROR, message, null);
     }
 }

@@ -25,3 +25,6 @@ jwt:
     subject: Ebs RefreshToken
     expiration: '180'
   secret: S0f7AZxciEDA4asdRYUBohQukyrttdGdzv7xcvRneXo
+
+server:
+  port: 80

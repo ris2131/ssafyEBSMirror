@@ -30,11 +30,12 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         try{
             String accessToken = request.getHeader("Authorization").replace("Bearer ", "");
-            String refreshToken = request.getHeader("refreshToken");
+            String refreshToken = request.getHeader("refreshToken").replace("Bearer ", "");
+            //TODO: 여기는 Bearer 처리 안해도 됨???
 
             if(refreshToken != null) {
                 try{
-                    if(jwtService.validateToken(refreshToken) && jwtService.compareRefreshToken(refreshToken)){
+                    if(jwtService.validateToken(accessToken) && jwtService.compareRefreshToken(refreshToken)){
                         Business business = businessRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
                         long businessSeq = business.getBusinessSeq();
                         String email = business.getEmail();
