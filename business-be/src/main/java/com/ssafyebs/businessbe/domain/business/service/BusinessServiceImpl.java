@@ -1,6 +1,7 @@
 package com.ssafyebs.businessbe.domain.business.service;
 
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRequestDto;
+import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
@@ -20,6 +21,12 @@ public class BusinessServiceImpl implements BusinessService {
         Business business = businessCreationRequestDto.toEntity();
 
         businessRepository.save(business);
+    }
+
+    @Override
+    public boolean checkEmail(BusinessEmailRequestDto businessEmailRequestDto) {
+        String email = businessEmailRequestDto.getEmail();
+        return businessRepository.existsByEmail(email);
     }
 
     @Override
