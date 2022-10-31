@@ -17,30 +17,30 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CommonExceptionHandler {
     @ExceptionHandler(InvalidateRefreshTokenException.class)
-    public ResponseEntity<CommonResponse> handleInvalidateRefreshTokenException(RuntimeException e){
+    public ResponseEntity<CommonResponse<?>> handleInvalidateRefreshTokenException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
     @ExceptionHandler(NoExistBusinessException.class)
-    public ResponseEntity<CommonResponse> handleNoExistBusinessException(RuntimeException e){
+    public ResponseEntity<CommonResponse<?>> handleNoExistBusinessException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CommonResponse.createError(e.getMessage()));
     }
     @ExceptionHandler(MailSendException.class)
-    public ResponseEntity<CommonResponse> handleMailSendException(RuntimeException e){
+    public ResponseEntity<CommonResponse<?>> handleMailSendException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
     }
     @ExceptionHandler(NotLoggeedInException.class)
-    public ResponseEntity<CommonResponse> handleNotLoggedInException(RuntimeException e){
+    public ResponseEntity<CommonResponse<?>> handleNotLoggedInException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
 
     //JwtException
     @ExceptionHandler(JwtException.class)
-    public ResponseEntity<CommonResponse> handleJwtException(RuntimeException e){
+    public ResponseEntity<CommonResponse<?>> handleJwtException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
     //CommonResponse : Fail
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<CommonResponse> handleMethodArgumentNotValidException(BindingResult bindingResult){
+    public ResponseEntity<CommonResponse<?>> handleMethodArgumentNotValidException(BindingResult bindingResult){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createFail(bindingResult));
     }
 }

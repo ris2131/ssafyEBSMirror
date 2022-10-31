@@ -20,7 +20,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/business/sign-up")
                 .excludePathPatterns("/business/check-email")
                 .excludePathPatterns("/business/login")
-                .excludePathPatterns("/business/verifyEmail/**");
+                .excludePathPatterns("/business/verify-email/**");
 
 
     }

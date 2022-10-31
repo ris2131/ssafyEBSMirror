@@ -22,6 +22,10 @@ public class JwtServiceImpl implements JwtService{
     private String ACCESS_TOKEN_SUBJECT;
     @Value("${jwt.refresh.subject}")
     private String REFRESH_TOKEN_SUBJECT;
+    @Value("${jwt.access.expiration}")
+    private int ACCESS_TOKEN_DURATION;
+    @Value("${jwt.refresh.expiration}")
+    private int REFRESH_TOKEN_DURATION;
 
     private final BusinessRepository businessRepository;
 
