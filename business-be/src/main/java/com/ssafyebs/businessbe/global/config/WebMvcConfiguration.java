@@ -23,6 +23,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/business/verify-email/**")
                 .excludePathPatterns("/search/**");
 
-
     }
 }
