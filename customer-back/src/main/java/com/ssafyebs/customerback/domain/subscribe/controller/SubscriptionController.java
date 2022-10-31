@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback.domain.subscribe.controller;
 
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,8 @@ public class SubscriptionController {
 	@PostMapping("/{pricing_seq}")
 	public ResponseEntity<?> makeSubscription(HttpServletRequest request, @PathVariable("pricing_seq")Long seq){
 		
-		String memberUid = (String)request.getAttribute("memberuid");
+//		String memberUid = (String)request.getAttribute("memberuid");
+		String memberUid = "3262732023";
 		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
 		if(f.isPresent()) {
 			FederatedSubscription fs = f.get();
@@ -54,7 +56,9 @@ public class SubscriptionController {
 			subscription.setMember(memberService.findByMemberUid(memberUid).get());
 			subscription.setSubscriptionLeft(fs.getPricingNumber());
 			//현재날짜 기준으로 해서 계산해줘야한다. 아래는 그냥 테스트 코드.
-			subscription.setSubscriptionExpiration("2022-11-31");
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, fs.getPricingMonth().intValue());
+			subscription.setSubscriptionExpiration(cal);
 			subscription.setFederatedSubscription(fs);
 			
 			subscriptionService.makeSubscription(subscription);

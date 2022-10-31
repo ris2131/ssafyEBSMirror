@@ -1,5 +1,7 @@
 package com.ssafyebs.customerback.domain.subscribe.entity;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.ForeignKey;
 
 import com.ssafyebs.customerback.domain.member.entity.Member;
@@ -37,7 +41,8 @@ public class Subscription {
 	private FederatedSubscription federatedSubscription;
 	
 	@Column(name="subscription_expiration")
-	private String subscriptionExpiration;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar subscriptionExpiration;
 	
 	@Column(name="subscription_left")
 	private Long subscriptionLeft;

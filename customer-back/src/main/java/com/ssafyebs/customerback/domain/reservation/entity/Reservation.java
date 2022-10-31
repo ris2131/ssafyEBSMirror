@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback.domain.reservation.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.ForeignKey;
 
 import com.ssafyebs.customerback.domain.member.entity.Member;
@@ -40,7 +43,8 @@ public class Reservation {
 	private FederatedReservation federatedReservation;
 
 	@Column(name = "reservation_date")
-	private String reservationDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar reservationDate;
 	
 	@Column(name = "reservation_photo")
 	private String reservationPhoto;

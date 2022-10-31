@@ -33,7 +33,7 @@ public class ReservationController {
 	@GetMapping("")
 	public ResponseEntity<?> getReservationList(HttpServletRequest request){
 		//HttpServletRequest request
-		//String memberUid = (String)request.getAttribute("memberuid");
+//		String memberUid = "3262732023";
 		String memberUid = (String)request.getAttribute("memberuid");
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("예약정보 조회 완료.",reservationService.findByMember_MemberUid(memberUid)));
 	}
