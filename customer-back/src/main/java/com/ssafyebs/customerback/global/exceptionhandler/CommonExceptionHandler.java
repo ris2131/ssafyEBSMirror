@@ -80,6 +80,11 @@ public class CommonExceptionHandler {
     public ResponseEntity<CommonResponse> handleJwtException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
+    
+    @ExceptionHandler(DuplicateDateException.class)
+    public ResponseEntity<CommonResponse> handleDuplicateDateException(RuntimeException e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(CommonResponse.createError(e.getMessage()));
+    }
 
 }
 
