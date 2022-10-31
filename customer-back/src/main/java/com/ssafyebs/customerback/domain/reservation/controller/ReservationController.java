@@ -19,6 +19,7 @@ import com.ssafyebs.customerback.domain.reservation.dto.ReservationRequestDto;
 import com.ssafyebs.customerback.domain.reservation.entity.Reservation;
 import com.ssafyebs.customerback.domain.reservation.service.FederatedReservationService;
 import com.ssafyebs.customerback.domain.reservation.service.ReservationService;
+import com.ssafyebs.customerback.global.exception.DuplicateDateException;
 import com.ssafyebs.customerback.global.jwt.JwtService;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
@@ -46,17 +47,24 @@ public class ReservationController {
 		
 		//jwt에서 아이디 불러오는 부분 있어야함
 		String memberUid = (String)request.getAttribute("memberuid");
-		Reservation reservation = new Reservation();
-		reservation.setMember(memberService.findByMemberUid(memberUid).get());
-		reservation.setFederatedReservation(federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get());
-		reservation.setReservationDate(reservationRequestDto.getReservationDate());
-		reservation.setReservationPhoto(reservationRequestDto.getReservationPhoto());
-		reservation.setReservationEtc(reservationRequestDto.getReservationEtc());
-		reservation.setReservationService(reservationRequestDto.getReservationService());
-		reservation.setReservationStyle(reservationRequestDto.getReservationStyle());
 		
-		reservationService.makeReserve(reservation);
+		if(!reservationService.findByFederatedReservation_DesignerSeqAndReservationDate(reservationRequestDto.getDesignerSeq(), reservationRequestDto.getReservationDate()).isPresent()) {
 		
-		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("예약 완료.",reservation));
+			//reservation 객체 생성
+			Reservation reservation = new Reservation();
+			reservation.setMember(memberService.findByMemberUid(memberUid).get());
+			reservation.setFederatedReservation(federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get());
+			reservation.setReservationDate(reservationRequestDto.getReservationDate());
+			reservation.setReservationPhoto(reservationRequestDto.getReservationPhoto());
+			reservation.setReservationEtc(reservationRequestDto.getReservationEtc());
+			reservation.setReservationService(reservationRequestDto.getReservationService());
+			reservation.setReservationStyle(reservationRequestDto.getReservationStyle());
+			//reservation 객체 저장
+			reservationService.makeReserve(reservation);
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("예약 완료.",reservation));
+		}else {
+			throw new DuplicateDateException("시간대가 중복됩니다.");
+		}
 	}
 }

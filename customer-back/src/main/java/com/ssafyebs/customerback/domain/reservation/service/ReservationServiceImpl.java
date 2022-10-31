@@ -1,6 +1,7 @@
 package com.ssafyebs.customerback.domain.reservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,12 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public Reservation makeReserve(Reservation reservation) {
 		return reservationRepository.save(reservation);
+	}
+
+	@Override
+	public Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, String date) {
+		// TODO Auto-generated method stub
+		return reservationRepository.findByFederatedReservation_DesignerSeqAndReservationDate(seq, date);
 	}
 
 }
