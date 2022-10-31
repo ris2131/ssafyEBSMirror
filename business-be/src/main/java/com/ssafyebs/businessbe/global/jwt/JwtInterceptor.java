@@ -22,7 +22,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     private final BusinessRepository businessRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if("OPTIONS".equals(request.getMethod())){
             return true;
@@ -31,7 +31,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         try{
             String accessToken = request.getHeader("Authorization").replace("Bearer ", "");
             String refreshToken = request.getHeader("refreshToken");
-            //TODO: 여기는 Bearer 처리 안해도 됨???
 
             if(refreshToken != null) {
                 refreshToken = refreshToken.replace("Bearer ", "");

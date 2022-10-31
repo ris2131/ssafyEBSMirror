@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:1962/federate_test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: test
-    password: 1234
+    url: jdbc:mariadb://k7d107.p.ssafy.io:3306/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
+    username: d107
+    password: gumi107
 
   jpa:
     hibernate:
@@ -15,6 +15,23 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MariaDB103Dialect
         format_sql: true
+
+  redis:
+    host: localhost
+    port: 6379
+    mail-expired-time: 300
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ebsmanager365@gmail.com
+    password: nmopijidkslurtua
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 #JWT settings
 jwt:

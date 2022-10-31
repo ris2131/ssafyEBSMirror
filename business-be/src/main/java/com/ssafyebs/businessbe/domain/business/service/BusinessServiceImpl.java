@@ -4,7 +4,6 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRe
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
-import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.MailSendException;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.util.CryptoUtil;
@@ -17,7 +16,6 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -26,17 +24,14 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import java.io.UnsupportedEncodingException;
 import java.time.Duration;
-import java.util.Properties;
 
 @Service
 @RequiredArgsConstructor
 public class BusinessServiceImpl implements BusinessService {
-
     final static Logger logger = LogManager.getLogger(BusinessServiceImpl.class);
     private final BusinessRepository businessRepository;
-    private final HairshopRepository hairshopRepository;
-    private final RedisTemplate redisTemplate;
     private final JavaMailSender emailSender;
+    private final RedisTemplate<String, Object> redisTemplate;
     @Value("${home-url}")
     String homeUrl;
     @Value("${spring.redis.mail-expired-time}" )
@@ -44,10 +39,9 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public void create(BusinessCreationRequestDto businessCreationRequestDto) {
-        Business business = businessCreationRequestDto.toEntity();
         //Redis email(sha) 로 저장
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(BusinessCreationRequestDto.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(BusinessCreationRequestDto.class));
         Duration expireDuration = Duration.ofSeconds(expiredTime);
         String email = businessCreationRequestDto.getEmail();
         String key = CryptoUtil.Sha256.hash(String.format("%f%s%f",
@@ -75,17 +69,6 @@ public class BusinessServiceImpl implements BusinessService {
             //e.printStackTrace();
             throw new MailSendException("메일 전송에 문제가 있습니다.(MailException)");
         }
-
-        //DB저장 기능: redis 구현 시 삭제
-        /*
-        businessRepository.save(business);//DB저장
-
-        Hairshop hairshop = Hairshop
-                .builder()
-                .business(business)
-                .build();
-        hairshopRepository.save(hairshop);//DB저장
-        */
     }
 
     @Override
@@ -110,7 +93,7 @@ public class BusinessServiceImpl implements BusinessService {
         MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, email);// 보내는 대상
-        message.setSubject("Ieng 회원가입 이메일 인증");// 제목
+        message.setSubject("ebs 회원가입 이메일 인증");// 제목
 
         String msgg = "";
         msgg += "<div style='margin:100px;'>";
