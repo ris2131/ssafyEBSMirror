@@ -34,7 +34,7 @@ public class BusinessServiceImpl implements BusinessService {
     private final RedisTemplate<String, Object> redisTemplate;
     @Value("${home-url}")
     String homeUrl;
-    @Value("${spring.redis.mail-expired-time}" )
+    @Value("${spring.redis.mail-expired-time}")
     int expiredTime;
 
     @Override
@@ -49,23 +49,22 @@ public class BusinessServiceImpl implements BusinessService {
                 email,
                 Math.random()));
 
-        logger.warn("crypt key: "+ key);
+        logger.warn("crypt key: " + key);
 
-        redisTemplate.opsForValue().set(key,businessCreationRequestDto,expireDuration);
+        redisTemplate.opsForValue().set(key, businessCreationRequestDto, expireDuration);
 
         //회원 정보 메일 발송
         try {// 예외처리
 
             MimeMessage message = createMessage(email, key); // 메일 발송
             emailSender.send(message);
-        } catch( UnsupportedEncodingException e ){
+        } catch (UnsupportedEncodingException e) {
             //e.printStackTrace();
             throw new MailSendException("메일 생성에 문제가 있습니다.(UnsupportedEncodingException)");
-        }catch(MessagingException e){
+        } catch (MessagingException e) {
             //e.printStackTrace();
             throw new MailSendException("메일 생성에 문제가 있습니다.(MessagingException)");
-        }
-        catch (MailException e) {
+        } catch (MailException e) {
             //e.printStackTrace();
             throw new MailSendException("메일 전송에 문제가 있습니다.(MailException)");
         }
@@ -79,7 +78,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public void quit(long businessSeq) {
-        Business business = businessRepository.findByBusinessSeq(businessSeq).orElseThrow(()-> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
+        Business business = businessRepository.findByBusinessSeq(businessSeq).orElseThrow(() -> new NoExistBusinessException("존재하는 회원정보가 없습니다."));
         Business quitBusiness = Business.builder()
                 .businessSeq(business.getBusinessSeq())
                 .owner(business.getOwner())
@@ -87,9 +86,15 @@ public class BusinessServiceImpl implements BusinessService {
         businessRepository.save(quitBusiness);
     }
 
+    @Override
+    public void resetPassword(BusinessEmailRequestDto businessEmailRequestDto) {
+        if (!businessRepository.existsByEmail(businessEmailRequestDto.getEmail())) {
+            throw new NoExistBusinessException("존재하지 않는 사용자입니다.");
+        }
+
+    }
+
     public MimeMessage createMessage(String email, String key) throws MessagingException, UnsupportedEncodingException {
-
-
         MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, email);// 보내는 대상
@@ -98,7 +103,7 @@ public class BusinessServiceImpl implements BusinessService {
         String msgg = "";
         msgg += "<div style='margin:100px;'>";
         msgg += "<h1> 안녕하세요</h1>";
-        msgg += "<h1> Ebs 입니다</h1>";
+        msgg += "<h1> ebs 입니다</h1>";
         msgg += "<br>";
         msgg += "<p>아래 링크를 클릭하시면 회원가입이 완료 됩니다.<p>";
         msgg += "<br>";
@@ -106,7 +111,7 @@ public class BusinessServiceImpl implements BusinessService {
         msgg += "<h3 style='color:blue;'>회원가입 링크입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "LINK : <strong>";
-        msgg += "<a href=" + homeUrl + "/business/verify-email/"+ key + "> 회원가입 완료 링크"+"</href>";
+        msgg += "<a href=" + homeUrl + "/business/verify-email/" + key + "> 회원가입 완료 링크" + "</href>";
         msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
@@ -116,4 +121,30 @@ public class BusinessServiceImpl implements BusinessService {
         return message;
     }
 
+    public MimeMessage createResetMessage(String email, String key) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = emailSender.createMimeMessage();
+
+        message.addRecipients(RecipientType.TO, email);// 보내는 대상
+        message.setSubject("ebs 비밀번호 재설정 인증");// 제목
+
+        String msgg = "";
+        msgg += "<div style='margin:100px;'>";
+        msgg += "<h1> 안녕하세요</h1>";
+        msgg += "<h1> ebs 입니다</h1>";
+        msgg += "<br>";
+        msgg += "<p>아래 링크를 클릭하시면 비밀번호 재설정 페이지로 이동합니다.<p>";
+        msgg += "<br>";
+        msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg += "<h3 style='color:blue;'>비밀번호 재설정 링크입니다.</h3>";
+        msgg += "<div style='font-size:130%'>";
+        msgg += "LINK : <strong>";
+        msgg += "<a href=" + homeUrl + "/business/reset-password/" + key + ">비밀번호 재설정 링크" + "</href>";
+        msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
+        msgg += "</div>";
+        message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+        // 보내는 사람의 이메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress("ebsManger@gmail.com", "Ebs_Manager"));// 보내는 사람
+
+        return message;
+    }
 }

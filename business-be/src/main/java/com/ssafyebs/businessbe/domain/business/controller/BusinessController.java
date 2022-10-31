@@ -28,8 +28,9 @@ public class BusinessController {
         businessService.create(businessCreationRequestDto);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원가입이 완료되었습니다.", null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("인증 메일이 발송되었습니다.\n 이메일 인증 후 사이트를 이용할 수 있습니다.", null));
     }
+
     @PostMapping("/check-email")
     public ResponseEntity<?> checkEmail (@RequestBody BusinessEmailRequestDto businessEmailRequestDto){
         boolean chk = businessService.checkEmail(businessEmailRequestDto);
@@ -46,5 +47,11 @@ public class BusinessController {
         businessService.quit(businessSeq);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원탈퇴가 완료되었습니다.", null));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPasswordPost(@RequestBody BusinessEmailRequestDto businessEmailRequestDto) {
+        businessService.resetPassword(businessEmailRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("인증 메일이 발송되었습니다.",false));
     }
 }
