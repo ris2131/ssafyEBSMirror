@@ -44,5 +44,5 @@ public class Hairshop {
     private String homepage;
 
     @Column(name = "hairshop_visible_flag")
-    private boolean isVisible;
+    private boolean visible;
 }
