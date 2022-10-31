@@ -1,6 +1,5 @@
 package com.ssafyebs.businessbe.domain.business.service;
 
-import com.ssafyebs.businessbe.domain.business.controller.LoginController;
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.LoginRequestDto;
 import com.ssafyebs.businessbe.domain.business.dto.responsedto.LoginResponseDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
