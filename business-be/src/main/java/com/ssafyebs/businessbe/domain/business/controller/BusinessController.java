@@ -32,8 +32,8 @@ public class BusinessController {
     }
     @PostMapping("/check-email")
     public ResponseEntity<?> checkEmail (@RequestBody BusinessEmailRequestDto businessEmailRequestDto){
-        Boolean chk = businessService.checkEmail(businessEmailRequestDto);
-        if (chk==false){
+        boolean chk = businessService.checkEmail(businessEmailRequestDto);
+        if (!chk){
             return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("사용가능한 이메일입니다.",true));
         }
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("이미 존재하는 이메일 입니다.",false));
