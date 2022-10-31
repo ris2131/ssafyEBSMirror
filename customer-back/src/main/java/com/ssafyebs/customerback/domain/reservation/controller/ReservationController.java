@@ -1,8 +1,5 @@
 package com.ssafyebs.customerback.domain.reservation.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +17,6 @@ import com.ssafyebs.customerback.domain.reservation.entity.Reservation;
 import com.ssafyebs.customerback.domain.reservation.service.FederatedReservationService;
 import com.ssafyebs.customerback.domain.reservation.service.ReservationService;
 import com.ssafyebs.customerback.global.exception.DuplicateDateException;
-import com.ssafyebs.customerback.global.jwt.JwtService;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
