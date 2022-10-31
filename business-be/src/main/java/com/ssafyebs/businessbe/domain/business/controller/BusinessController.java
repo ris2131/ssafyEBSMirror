@@ -27,7 +27,6 @@ public class BusinessController {
 
         businessService.create(businessCreationRequestDto);
 
-        logger.debug("done : createMember");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("회원가입이 완료되었습니다.", null));
     }
