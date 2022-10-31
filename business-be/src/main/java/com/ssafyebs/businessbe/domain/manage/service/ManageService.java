@@ -6,6 +6,7 @@ import com.ssafyebs.businessbe.domain.manage.dto.requestDto.DesignerRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.ManageRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.DesignerResponseDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ManageResponseDto;
+import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ScheduleResponseDto;
 import com.ssafyebs.businessbe.domain.manage.entity.Designer;
 import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
 import com.ssafyebs.businessbe.domain.manage.repository.DesignerRepository;
@@ -129,5 +130,17 @@ public class ManageService {
             throw new UnauthorizedAccessException("잘못된 접근입니다.");
         }
         designerRepository.delete(designer);
+    }
+
+    public void scheduleDesigner(long businessSeq, String date) {
+        if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
+            throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
+        }
+        List<Designer> designers = designerRepository.findAllByBusinessBusinessSeq(businessSeq);
+        LinkedList<ScheduleResponseDto> resultList = new LinkedList<>();
+        for (Designer designer : designers) {
+            ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
+
+        }
     }
 }
