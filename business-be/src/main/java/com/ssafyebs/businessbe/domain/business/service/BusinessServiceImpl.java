@@ -4,13 +4,29 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRe
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
-import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
+import com.ssafyebs.businessbe.global.exception.MailSendException;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
+import com.ssafyebs.businessbe.global.util.CryptoUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+import java.io.UnsupportedEncodingException;
+import java.time.Duration;
+import java.util.Properties;
 
 @Service
 @RequiredArgsConstructor
@@ -19,18 +35,57 @@ public class BusinessServiceImpl implements BusinessService {
     final static Logger logger = LogManager.getLogger(BusinessServiceImpl.class);
     private final BusinessRepository businessRepository;
     private final HairshopRepository hairshopRepository;
+    private final RedisTemplate redisTemplate;
+    private final JavaMailSender emailSender;
+    @Value("${home-url}")
+    String homeUrl;
+    @Value("${spring.redis.mail-expired-time}" )
+    int expiredTime;
 
     @Override
     public void create(BusinessCreationRequestDto businessCreationRequestDto) {
         Business business = businessCreationRequestDto.toEntity();
+        //Redis email(sha) 로 저장
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(BusinessCreationRequestDto.class));
+        Duration expireDuration = Duration.ofSeconds(expiredTime);
+        String email = businessCreationRequestDto.getEmail();
+        String key = CryptoUtil.Sha256.hash(String.format("%f%s%f",
+                Math.random(),
+                email,
+                Math.random()));
 
-        businessRepository.save(business);
+        logger.warn("crypt key: "+ key);
+
+        redisTemplate.opsForValue().set(key,businessCreationRequestDto,expireDuration);
+
+        //회원 정보 메일 발송
+        try {// 예외처리
+
+            MimeMessage message = createMessage(email, key); // 메일 발송
+            emailSender.send(message);
+        } catch( UnsupportedEncodingException e ){
+            //e.printStackTrace();
+            throw new MailSendException("메일 생성에 문제가 있습니다.(UnsupportedEncodingException)");
+        }catch(MessagingException e){
+            //e.printStackTrace();
+            throw new MailSendException("메일 생성에 문제가 있습니다.(MessagingException)");
+        }
+        catch (MailException e) {
+            //e.printStackTrace();
+            throw new MailSendException("메일 전송에 문제가 있습니다.(MailException)");
+        }
+
+        //DB저장 기능: redis 구현 시 삭제
+        /*
+        businessRepository.save(business);//DB저장
 
         Hairshop hairshop = Hairshop
                 .builder()
                 .business(business)
                 .build();
-        hairshopRepository.save(hairshop);
+        hairshopRepository.save(hairshop);//DB저장
+        */
     }
 
     @Override
@@ -48,4 +103,34 @@ public class BusinessServiceImpl implements BusinessService {
                 .build();
         businessRepository.save(quitBusiness);
     }
+
+    public MimeMessage createMessage(String email, String key) throws MessagingException, UnsupportedEncodingException {
+
+
+        MimeMessage message = emailSender.createMimeMessage();
+
+        message.addRecipients(RecipientType.TO, email);// 보내는 대상
+        message.setSubject("Ieng 회원가입 이메일 인증");// 제목
+
+        String msgg = "";
+        msgg += "<div style='margin:100px;'>";
+        msgg += "<h1> 안녕하세요</h1>";
+        msgg += "<h1> Ebs 입니다</h1>";
+        msgg += "<br>";
+        msgg += "<p>아래 링크를 클릭하시면 회원가입이 완료 됩니다.<p>";
+        msgg += "<br>";
+        msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg += "<h3 style='color:blue;'>회원가입 링크입니다.</h3>";
+        msgg += "<div style='font-size:130%'>";
+        msgg += "LINK : <strong>";
+        msgg += "<a href=" + homeUrl + "/business/verify-email/"+ key + "> 회원가입 완료 링크"+"</href>";
+        msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
+        msgg += "</div>";
+        message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+        // 보내는 사람의 이메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress("ebsManger@gmail.com", "Ebs_Manager"));// 보내는 사람
+
+        return message;
+    }
+
 }

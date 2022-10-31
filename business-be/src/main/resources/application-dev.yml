@@ -1,3 +1,5 @@
+home-url:
+  http://localhost
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -16,6 +18,22 @@ spring:
         dialect: org.hibernate.dialect.MariaDB103Dialect
         format_sql: true
 
+  redis:
+    host: localhost
+    port: 6379
+    mail-expired-time: 300
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ebsmanager365@gmail.com
+    password: nmopijidkslurtua
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 #JWT settings
 jwt:
   access:

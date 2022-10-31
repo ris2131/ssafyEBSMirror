@@ -1,6 +1,7 @@
 package com.ssafyebs.businessbe.global.exceptionhandler;
 
 
+import com.ssafyebs.businessbe.global.exception.MailSendException;
 import com.ssafyebs.businessbe.global.exception.InvalidateRefreshTokenException;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.exception.NotLoggeedInException;
@@ -22,6 +23,10 @@ public class CommonExceptionHandler {
     @ExceptionHandler(NoExistBusinessException.class)
     public ResponseEntity<CommonResponse> handleNoExistBusinessException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CommonResponse.createError(e.getMessage()));
+    }
+    @ExceptionHandler(MailSendException.class)
+    public ResponseEntity<CommonResponse> handleMailSendException(RuntimeException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
     }
     @ExceptionHandler(NotLoggeedInException.class)
     public ResponseEntity<CommonResponse> handleNotLoggedInException(RuntimeException e){
