@@ -24,6 +24,8 @@ public class MailServiceImpl implements MailService {
         if (businessCreationRequestDto == null) throw new InvalidVerificationKeyException("유효하지 않은 접근입니다.");
         Business business = businessCreationRequestDto.toEntity();
 
+        //TODO: DuplicateEmailException
+
         businessRepository.save(business);
 
         redisTemplate.delete(verificationKey);

@@ -96,4 +96,11 @@ public class ManageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
         }
     }
+
+    @GetMapping("calandar/{date}")
+    public ResponseEntity<?> scheduleGet(HttpServletRequest request, @PathVariable("date") String date) {
+        long businessSeq = (long) request.getAttribute("business_seq");
+        manageService.scheduleDesigner(businessSeq, date);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", null));
+    }
 }
