@@ -40,7 +40,7 @@ public class SubscriptionController {
 	public ResponseEntity<?> checkSubscription(HttpServletRequest request, @PathVariable("pricing_seq")Long seq){
 		String memberUid = (String)request.getAttribute("memberUid");
 		//String memberUid = "3262732023";
-		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_PricingSeq(memberUid, seq)));
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, seq)));
 	}
 	
 	@PostMapping("/{pricing_seq}")

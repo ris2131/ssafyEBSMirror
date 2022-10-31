@@ -29,8 +29,8 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 	}
 
 	@Override
-	public Boolean findByMember_MemberUidAndFederatedSubscription_PricingSeq(String uid, Long seq) {
-		List<Subscription> list = subscriptionRepository.findByMember_MemberUidAndFederatedSubscription_PricingSeq(uid, seq);
+	public Boolean findByMember_MemberUidAndFederatedSubscription_BusinessSeq(String uid, Long seq) {
+		List<Subscription> list = subscriptionRepository.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(uid, seq);
 		
 		for(Subscription s : list) {
 			//for문 안에서 중간에 유효기간 안지난거 있는지 체크해봐야 함. 있는경우 return true;

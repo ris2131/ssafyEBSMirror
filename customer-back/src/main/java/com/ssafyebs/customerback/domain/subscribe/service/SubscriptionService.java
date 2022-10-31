@@ -7,6 +7,6 @@ import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 public interface SubscriptionService {
 	List<Subscription> findByMember_MemberUid(String uid);
 	Subscription makeSubscription(Subscription subscription);
-	Boolean findByMember_MemberUidAndFederatedSubscription_PricingSeq(String uid, Long seq);
+	Boolean findByMember_MemberUidAndFederatedSubscription_BusinessSeq(String uid, Long seq);
 
 }

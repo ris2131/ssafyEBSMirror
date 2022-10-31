@@ -8,5 +8,5 @@ import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long>{
 	List<Subscription> findByMember_MemberUid(String uid);
-	List<Subscription> findByMember_MemberUidAndFederatedSubscription_PricingSeq(String uid, Long seq);
+	List<Subscription> findByMember_MemberUidAndFederatedSubscription_BusinessSeq(String uid, Long seq);
 }
