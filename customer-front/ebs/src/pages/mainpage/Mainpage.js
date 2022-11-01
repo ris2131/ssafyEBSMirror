@@ -35,7 +35,7 @@ const Mainpage = (props) => {
         <div className={style.Layout}>
           {/* <Ebsnav /> */}
             <div className={style.Comment}>
-                안녕하세요 {User_name}님.
+                안녕하세요 {member_nickname}님.
             </div>
             <div className={style.Termday}>
                 미용실을 이용한지 {haircut_term}일이 되었습니다.

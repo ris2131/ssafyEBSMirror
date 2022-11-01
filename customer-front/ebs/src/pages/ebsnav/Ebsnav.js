@@ -34,7 +34,7 @@ const Ebsnav = () => {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   <NavLink to="/mypage">마이페이지</NavLink>
                   <NavLink to="/shop-search">헤어숍 검색</NavLink>
-                  <NavLink to="/reservation-history">예약 내역</NavLink>
+                  <NavLink to="/reservation-info">예약 내역</NavLink>
                   <NavLink to="/subscribe-info">구독 정보</NavLink>
                   <span>로그아웃</span> 
                 </Nav>      

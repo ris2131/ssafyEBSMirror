@@ -13,7 +13,7 @@ import Mypage from "./pages/mypage/Mypage";
 import { useSelector } from "react-redux";
 import ShopSearch from './pages/shopsearch/ShopSearch';
 import ReservationHistory from './pages/reservation/ReservationHistory';
-import SubscribeInfo from './pages/subscribe/SubscribeInfo';
+
 import Home from './pages/home/Home';
 
 
@@ -22,13 +22,13 @@ function App() {
   return (
     // <BrowserRouter>
       <Routes>
-        <Route
+        {/* <Route
           path="/"
           element={
             <Ebsnav />
             } 
           >
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} /> */}
           
             <Route path="/mainpage" element={<Mainpage />} />
             <Route path="/reservation-info" element={<ReservationInfo />} />
@@ -36,7 +36,7 @@ function App() {
             <Route path="/subscribe-info" element={<SubscribeInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/shop-search" element={<ShopSearch />} />   
-        </Route>
+        {/* </Route> */}
       </Routes>
       // </BrowserRouter>
     
