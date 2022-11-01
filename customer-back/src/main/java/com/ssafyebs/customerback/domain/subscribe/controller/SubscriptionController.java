@@ -18,6 +18,7 @@ import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 import com.ssafyebs.customerback.domain.subscribe.service.FederatedSubscriptionService;
 import com.ssafyebs.customerback.domain.subscribe.service.SubscriptionService;
+import com.ssafyebs.customerback.global.exception.DuplicateSubscriptionException;
 import com.ssafyebs.customerback.global.exception.NoExistSubscriptionException;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
@@ -34,6 +35,7 @@ public class SubscriptionController {
 	@GetMapping("")
 	public ResponseEntity<?> getSubscriptionList(HttpServletRequest request){
 		String memberUid = (String)request.getAttribute("memberuid");
+//		String memberUid = "3262732023";
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",subscriptionService.findByMember_MemberUid(memberUid)));
 	}
 	
@@ -53,6 +55,9 @@ public class SubscriptionController {
 		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
 		if(f.isPresent()) {
 			FederatedSubscription fs = f.get();
+			if(subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, fs.getBusinessSeq())) {
+				throw new DuplicateSubscriptionException("이미 구독중입니다.");
+			}
 			Subscription subscription = new Subscription();
 			subscription.setMember(memberService.findByMemberUid(memberUid).get());
 			subscription.setSubscriptionLeft(fs.getPricingNumber());

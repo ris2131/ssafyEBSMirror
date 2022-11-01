@@ -8,5 +8,6 @@ public interface SubscriptionService {
 	List<Subscription> findByMember_MemberUid(String uid);
 	Subscription makeSubscription(Subscription subscription);
 	Boolean findByMember_MemberUidAndFederatedSubscription_BusinessSeq(String uid, Long seq);
+	List<Subscription> findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(String uid, Long seq);
 
 }
