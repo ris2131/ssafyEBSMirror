@@ -8,6 +8,7 @@ import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchDesignerResponseDto;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchHairshopResponseDto;
 import com.ssafyebs.businessbe.domain.search.vo.DesignerVo;
+import com.ssafyebs.businessbe.domain.search.vo.HairshopVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,18 +23,26 @@ public class SearchServiceImpl implements SearchService{
     private final HairshopRepository hairshopRepository;
     private final DesignerRepository designerRepository;
 
-    final static Logger logger = LogManager.getLogger(BusinessController.class);
     @Override
     public SearchHairshopResponseDto searchHairshopByKeyword(String keyword) {
-        logger.warn("keyword: "+keyword);
-
         List<Hairshop> hairshopList = hairshopRepository.findHairshopsByVisibleAndNameContaining(true, keyword);
+        List<HairshopVo> hairshopVoList = new LinkedList<>();
+        HairshopVo hairshopVo;
         for(Hairshop hairshop: hairshopList){
-            logger.warn(hairshop.getAddress());
+            hairshopVo = HairshopVo.builder()
+                    .businessSeq(hairshop.getBusinessSeq())
+                    .name(hairshop.getName())
+                    .phone(hairshop.getPhone())
+                    .address(hairshop.getAddress())
+                    .photo(hairshop.getPhoto())
+                    .notice(hairshop.getNotice())
+                    .description(hairshop.getDescription())
+                    .homepage(hairshop.getHomepage())
+                    .build();
+            hairshopVoList.add(hairshopVo);
         }
 
-        return new SearchHairshopResponseDto(hairshopList);
-
+        return new SearchHairshopResponseDto(hairshopVoList);
     }
     @Override
     public SearchDesignerResponseDto searchDesignerByHairshop(long businessSeq) {
