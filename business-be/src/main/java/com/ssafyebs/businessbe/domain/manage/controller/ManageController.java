@@ -3,7 +3,9 @@ package com.ssafyebs.businessbe.domain.manage.controller;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.DesignerRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.ManageRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.DesignerResponseDto;
+import com.ssafyebs.businessbe.domain.manage.dto.responseDto.DetailResponseDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ManageResponseDto;
+import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ScheduleResponseDto;
 import com.ssafyebs.businessbe.domain.manage.service.ManageService;
 import com.ssafyebs.businessbe.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -95,5 +97,19 @@ public class ManageController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
         }
+    }
+
+    @GetMapping("/calendar")
+    public ResponseEntity<?> scheduleGet(HttpServletRequest request, @RequestParam("date") String date) {
+        long businessSeq = (long) request.getAttribute("business_seq");
+        List<ScheduleResponseDto> resultList = manageService.schedule(businessSeq, date);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", resultList));
+    }
+
+    @GetMapping("/calendar/detail")
+    public ResponseEntity<?> scheduleDetailGet(HttpServletRequest request, @RequestParam("reservation_seq") long reservationSeq) {
+        long businessSeq = (long) request.getAttribute("business_seq");
+        DetailResponseDto detailResponseDto = manageService.detail(businessSeq, reservationSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", detailResponseDto));
     }
 }

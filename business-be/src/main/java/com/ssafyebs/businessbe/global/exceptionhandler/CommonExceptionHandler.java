@@ -28,6 +28,11 @@ public class CommonExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
 
+    @ExceptionHandler(InvalidDateException.class)
+    public ResponseEntity<CommonResponse<?>> handleInvalidDateException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
+    }
+
     @ExceptionHandler(InvalidVerificationKeyException.class)
     public ResponseEntity<CommonResponse<?>> handleInvalidVerificationKeyException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));

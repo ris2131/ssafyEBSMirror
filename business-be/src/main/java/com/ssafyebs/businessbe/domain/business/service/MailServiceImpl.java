@@ -19,7 +19,7 @@ public class MailServiceImpl implements MailService {
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void verifyEmail(String emailVerificationCode) throws InvalidVerificationKeyException, DuplicateEmailException {
+    public void verifyEmail(String emailVerificationCode) {
         BusinessCreationRequestDto businessCreationRequestDto = (BusinessCreationRequestDto) redisTemplate.opsForValue().get(emailVerificationCode);
 
         if (businessCreationRequestDto == null) throw new InvalidVerificationKeyException("유효하지 않은 접근입니다.");
@@ -39,7 +39,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void resetPassword(String passwordResetCode) throws InvalidVerificationKeyException {
+    public void resetPassword(String passwordResetCode) {
         /*
         TODO: 1. Redis에서 인증키(256자리)를 가져온다.
         TODO: 2. Redis에 없는 키라면 잘못된 접근임. throw exception
