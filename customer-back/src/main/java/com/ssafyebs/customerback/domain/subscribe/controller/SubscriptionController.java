@@ -24,7 +24,7 @@ import com.ssafyebs.customerback.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/subscriptions")
+@RequestMapping("/subscribe")
 @RequiredArgsConstructor
 public class SubscriptionController {
 	private final SubscriptionService subscriptionService;
