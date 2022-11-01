@@ -37,18 +37,19 @@ public class SubscriptionController {
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",subscriptionService.findByMember_MemberUid(memberUid)));
 	}
 	
-	@GetMapping("/{pricing_seq}")
-	public ResponseEntity<?> checkSubscription(HttpServletRequest request, @PathVariable("pricing_seq")Long seq){
+	
+	@GetMapping("/{business_seq}")
+	public ResponseEntity<?> checkSubscription(HttpServletRequest request, @PathVariable("business_seq")Long seq){
 		String memberUid = (String)request.getAttribute("memberUid");
-		//String memberUid = "3262732023";
+//		String memberUid = "3262732023";
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, seq)));
 	}
 	
 	@PostMapping("/{pricing_seq}")
 	public ResponseEntity<?> makeSubscription(HttpServletRequest request, @PathVariable("pricing_seq")Long seq){
 		
-//		String memberUid = (String)request.getAttribute("memberuid");
-		String memberUid = "3262732023";
+		String memberUid = (String)request.getAttribute("memberuid");
+//		String memberUid = "3262732023";
 		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
 		if(f.isPresent()) {
 			FederatedSubscription fs = f.get();
