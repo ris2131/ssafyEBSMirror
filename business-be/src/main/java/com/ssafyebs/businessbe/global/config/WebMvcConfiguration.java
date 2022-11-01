@@ -21,6 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/business/check-email")
                 .excludePathPatterns("/business/login")
                 .excludePathPatterns("/business/verify-email/**")
+                .excludePathPatterns("/business/reset-password/**")
                 .excludePathPatterns("/search/**");
 
     }

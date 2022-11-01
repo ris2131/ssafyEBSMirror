@@ -9,5 +9,5 @@ public interface BusinessService {
     void create(BusinessCreationRequestDto businessCreationRequestDto);
     boolean checkEmail(BusinessEmailRequestDto businessEmailRequestDto);
     void quit(long businessSeq);
-    void resetPassword(BusinessEmailRequestDto businessEmailRequestDto);
+    void resetPassword(long businessSeq);
 }

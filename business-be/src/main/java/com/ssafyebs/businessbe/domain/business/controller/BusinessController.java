@@ -50,8 +50,10 @@ public class BusinessController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPasswordPost(@RequestBody BusinessEmailRequestDto businessEmailRequestDto) {
-        businessService.resetPassword(businessEmailRequestDto);
+    public ResponseEntity<?> resetPasswordPost(HttpServletRequest request) {
+        long businessSeq = (long) request.getAttribute("business_seq");
+        businessService.resetPassword(businessSeq);
+
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("인증 메일이 발송되었습니다.",false));
     }
 }

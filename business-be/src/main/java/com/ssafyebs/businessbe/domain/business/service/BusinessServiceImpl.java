@@ -33,30 +33,29 @@ public class BusinessServiceImpl implements BusinessService {
     private final JavaMailSender emailSender;
     private final RedisTemplate<String, Object> redisTemplate;
     @Value("${home-url}")
-    String homeUrl;
+    String HOME_URL;
     @Value("${spring.redis.mail-expired-time}")
-    int expiredTime;
+    int EXPIRATION_TIME;
 
     @Override
     public void create(BusinessCreationRequestDto businessCreationRequestDto) {
         //Redis email(sha) 로 저장
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(BusinessCreationRequestDto.class));
-        Duration expireDuration = Duration.ofSeconds(expiredTime);
+        Duration expireDuration = Duration.ofSeconds(EXPIRATION_TIME);
         String email = businessCreationRequestDto.getEmail();
-        String key = CryptoUtil.Sha256.hash(String.format("%f%s%f",
+        String code = CryptoUtil.Sha256.hash(String.format("%f%s%f",
                 Math.random(),
                 email,
                 Math.random()));
 
-        logger.warn("crypt key: " + key);
+        logger.warn("crypt code: " + code);
 
-        redisTemplate.opsForValue().set(key, businessCreationRequestDto, expireDuration);
+        redisTemplate.opsForValue().set(code, businessCreationRequestDto, expireDuration);
 
         //회원 정보 메일 발송
         try {// 예외처리
-
-            MimeMessage message = createMessage(email, key); // 메일 발송
+            MimeMessage message = createMessage(email, code); // 메일 발송
             emailSender.send(message);
         } catch (UnsupportedEncodingException e) {
             //e.printStackTrace();
@@ -87,11 +86,39 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public void resetPassword(BusinessEmailRequestDto businessEmailRequestDto) {
-        if (!businessRepository.existsByEmail(businessEmailRequestDto.getEmail())) {
+    public void resetPassword(long businessSeq) {
+        if (!businessRepository.findEmailByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("존재하지 않는 사용자입니다.");
         }
+        String email = businessRepository.findEmailByBusinessSeq(businessSeq).get().getEmail();
 
+        //Redis email(sha) 로 저장
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(BusinessCreationRequestDto.class));
+        Duration expireDuration = Duration.ofSeconds(EXPIRATION_TIME);
+        String code = CryptoUtil.Sha256.hash(String.format("%f%s%f",
+                Math.random(),
+                email,
+                Math.random()));
+
+        logger.warn("crypt code: " + code);
+
+        redisTemplate.opsForValue().set(code, email, expireDuration);
+
+        //회원 정보 메일 발송
+        try {// 예외처리
+            MimeMessage message = createResetMessage(email, code); // 메일 발송
+            emailSender.send(message);
+        } catch (UnsupportedEncodingException e) {
+            //e.printStackTrace();
+            throw new MailSendException("메일 생성에 문제가 있습니다.(UnsupportedEncodingException)");
+        } catch (MessagingException e) {
+            //e.printStackTrace();
+            throw new MailSendException("메일 생성에 문제가 있습니다.(MessagingException)");
+        } catch (MailException e) {
+            //e.printStackTrace();
+            throw new MailSendException("메일 전송에 문제가 있습니다.(MailException)");
+        }
     }
 
     public MimeMessage createMessage(String email, String key) throws MessagingException, UnsupportedEncodingException {
@@ -111,7 +138,7 @@ public class BusinessServiceImpl implements BusinessService {
         msgg += "<h3 style='color:blue;'>회원가입 링크입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "LINK : <strong>";
-        msgg += "<a href=" + homeUrl + "/business/verify-email/" + key + "> 회원가입 완료 링크" + "</href>";
+        msgg += "<a href=" + HOME_URL + "/business/verify-email/" + key + "> 회원가입 완료 링크" + "</href>";
         msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
@@ -138,7 +165,7 @@ public class BusinessServiceImpl implements BusinessService {
         msgg += "<h3 style='color:blue;'>비밀번호 재설정 링크입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "LINK : <strong>";
-        msgg += "<a href=" + homeUrl + "/business/reset-password/" + key + ">비밀번호 재설정 링크" + "</href>";
+        msgg += "<a href=" + HOME_URL + "/business/reset-password/" + key + ">비밀번호 재설정 링크" + "</href>";
         msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
