@@ -9,6 +9,5 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class SearchDesignerResponseDto {
-    //List<Designer>designerList;
-    List<DesignerVo>designerList;
+    private List<DesignerVo>designerList;
 }
