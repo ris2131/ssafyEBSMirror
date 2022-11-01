@@ -5,19 +5,22 @@ import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.DesignerRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.ManageRequestDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.DesignerResponseDto;
+import com.ssafyebs.businessbe.domain.manage.dto.responseDto.DetailResponseDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ManageResponseDto;
 import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ScheduleResponseDto;
 import com.ssafyebs.businessbe.domain.manage.entity.Designer;
+import com.ssafyebs.businessbe.domain.manage.entity.FederatedReservation;
 import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
 import com.ssafyebs.businessbe.domain.manage.repository.DesignerRepository;
+import com.ssafyebs.businessbe.domain.manage.repository.FederatedReservationRepository;
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
-import com.ssafyebs.businessbe.global.exception.AlreadyVisibleException;
-import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
-import com.ssafyebs.businessbe.global.exception.NoSuchDesignerException;
-import com.ssafyebs.businessbe.global.exception.UnauthorizedAccessException;
+import com.ssafyebs.businessbe.global.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,8 +30,9 @@ public class ManageService {
     private final BusinessRepository businessRepository;
     private final HairshopRepository hairshopRepository;
     private final DesignerRepository designerRepository;
+    private final FederatedReservationRepository reservationRepository;
 
-    public void registerHairshop(long businessSeq) throws Exception {
+    public void registerHairshop(long businessSeq) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -45,7 +49,7 @@ public class ManageService {
         hairshopRepository.save(hairshop);
     }
 
-    public ManageResponseDto management(long businessSeq) throws NoExistBusinessException {
+    public ManageResponseDto management(long businessSeq) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -59,7 +63,7 @@ public class ManageService {
         return manageResponseDto;
     }
 
-    public void managementModify(long businessSeq, ManageRequestDto manageRequestDto) throws NoExistBusinessException {
+    public void managementModify(long businessSeq, ManageRequestDto manageRequestDto) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -89,7 +93,7 @@ public class ManageService {
         return returnList;
     }
 
-    public void designerInsert(long businessSeq, DesignerRequestDto designerRequestDto) throws NoExistBusinessException {
+    public void designerInsert(long businessSeq, DesignerRequestDto designerRequestDto) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -97,7 +101,7 @@ public class ManageService {
         designerRepository.save(designerRequestDto.toEntity(business));
     }
 
-    public void designerModify(long businessSeq, DesignerRequestDto designerRequestDto) throws Exception {
+    public void designerModify(long businessSeq, DesignerRequestDto designerRequestDto) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -117,7 +121,7 @@ public class ManageService {
         designerRepository.save(designer);
     }
 
-    public void designerDelete(long businessSeq, long designerSeq) throws Exception {
+    public void designerDelete(long businessSeq, long designerSeq) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
@@ -132,15 +136,59 @@ public class ManageService {
         designerRepository.delete(designer);
     }
 
-    public void scheduleDesigner(long businessSeq, String date) {
+    public List<ScheduleResponseDto> schedule(long businessSeq, String date) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
         List<Designer> designers = designerRepository.findAllByBusinessBusinessSeq(businessSeq);
+
+        Calendar day = Calendar.getInstance();
+        SimpleDateFormat formatToCalendar = new SimpleDateFormat("yyyyMMdd");
+        try {
+            day.setTime(formatToCalendar.parse(date));
+        } catch (ParseException e) {
+            throw new InvalidDateException("유효하지 않은 날짜입니다.");
+        }
+
+        SimpleDateFormat formatToString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        System.out.println(formatToString.format(day.getTime()));
+
+        day.set(Calendar.HOUR_OF_DAY, 0);
+        day.set(Calendar.MINUTE, 0);
+        day.set(Calendar.SECOND, 0);
+        String startTime = formatToString.format(day.getTime());
+
+        day.add(Calendar.DATE, 1);
+        String endTime = formatToString.format(day.getTime());
+
         LinkedList<ScheduleResponseDto> resultList = new LinkedList<>();
         for (Designer designer : designers) {
+            if (!reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).isPresent()) continue;
+            String reservationTime = reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).get().getReservationDate();
             ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
-
+            scheduleResponseDto.setDesignerSeq(designer.getDesignerSeq());
+            scheduleResponseDto.setName(designer.getName());
+            scheduleResponseDto.setPhoto(designer.getPhoto());
+            scheduleResponseDto.setTime(reservationTime);
+            resultList.add(scheduleResponseDto);
         }
+        return resultList;
+    }
+
+    public DetailResponseDto detail(long businessSeq,long reservationSeq) {
+        // TODO: 예약한 곳이 로그인한 사용자와 일치하는지 확인
+        if (!reservationRepository.findByReservationSeq(reservationSeq).isPresent()) throw new InvalidRequestParamException("잘못된 요청입니다.");
+
+        FederatedReservation reservation = reservationRepository.findByReservationSeq(reservationSeq).get();
+
+
+
+        DetailResponseDto detailResponseDto = new DetailResponseDto();
+        detailResponseDto.setMemberNickname(reservation.getMemberNickname());
+        detailResponseDto.setReservationStyle(reservation.getReservationStyle());
+        detailResponseDto.setReservationService(reservation.getReservationService());
+        detailResponseDto.setReservationEtc(reservation.getReservationEtc());
+        return detailResponseDto;
     }
 }
