@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import style from './Mainpage.module.css';
 import axiosClient from "../../api";
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
 import Card from 'react-bootstrap/Card';
+// import Ebsnav from '../ebsnav/Ebsnav';
 
-const Mainpage = () => {
+
+const Mainpage = (props) => {
     const member_nickname = "김싸피"
     const haircut_term = 35
+    const [User_name, setUsers] = useState();
 
     // const accessToken = useSelector((state) => state.auth.accessToken);
 
@@ -30,8 +33,9 @@ const Mainpage = () => {
 
     return (
         <div className={style.Layout}>
+          {/* <Ebsnav /> */}
             <div className={style.Comment}>
-                안녕하세요 {member_nickname}님.
+                안녕하세요 {User_name}님.
             </div>
             <div className={style.Termday}>
                 미용실을 이용한지 {haircut_term}일이 되었습니다.
