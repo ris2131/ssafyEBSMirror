@@ -1,9 +1,17 @@
 import React from 'react';
+import SubscribeInfoComponent from "../../components/SubscribeInfo/SubscribeInfoComponent";
 
 const SubscribeInfo = () => {
     return (
         <div>
-            구독내역 조회 페이지
+            <div>
+                <h1> 
+                    구독 내역 
+                </h1>
+                    <div>
+                        <SubscribeInfoComponent />
+                    </div>
+            </div>
         </div>
     );
 };
