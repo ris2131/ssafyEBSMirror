@@ -1,7 +1,7 @@
 #Google OAuth settings
 google:
   client:
-    id: 1073658882403-2f8tns9h5ungbodg5kd40u1gu1pfn7cc.apps.googleusercontent.com
+    id: 466872041505-7jo7kpr1tn4h1l8venup3u2vm9dgp0ec.apps.googleusercontent.com
 #JWT
 jwt:
   access:
