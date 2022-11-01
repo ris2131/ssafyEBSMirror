@@ -37,7 +37,7 @@ const Mainpage = () => {
                 미용실을 이용한지 {haircut_term}일이 되었습니다.
             </div>
             <div className={style.Carousel}>
-            <HairshopCarouselComponent />
+                <HairshopCarouselComponent />
             </div>
             
         </div>
