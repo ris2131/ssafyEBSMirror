@@ -1,15 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes,  Navigate } from "react-router-dom";
-import Mainpage from "./pages/mainpage/Mainpage";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
+import Home from "./pages/mainpage/Home"
+import Login from "./pages/Auth/Login";
+import GoogleIntro from './pages/Auth/GoogleIntro';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/mainpage" element={<Mainpage />}></Route>
-        
+        {/* 랜딩페이지 */}
+        <Route path="/" element={<Home />} />
+        {/* 로그인 */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/googleintro" element={<GoogleIntro />} />
 
       </Routes>
     </BrowserRouter>
