@@ -1,7 +1,6 @@
-package com.ssafyebs.customerback.domain.reservation.entity;
+package com.ssafyebs.customerback.domain.subscribe.entity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,37 +22,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="reservations")
+@Table(name="subscriptions")
 @Getter
 @Setter
-public class Reservation {
-
+public class Subscription {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="reservation_seq")
-	private Long reservationSeq;
+	@Column(name="subscription_seq")
+	private Long subscriptionSeq;
 	
 	@ManyToOne
 	@JoinColumn(name="member_seq", referencedColumnName="member_seq")
 	private Member member;
 	
 	@ManyToOne
-	@JoinColumn(name="designer_seq", referencedColumnName="designer_seq", foreignKey=@ForeignKey(ConstraintMode.NO_CONSTRAINT))
-	private FederatedReservation federatedReservation;
-
-	@Column(name = "reservation_date")
+	@JoinColumn(name="pricing_seq", referencedColumnName="pricing_seq",foreignKey=@ForeignKey(ConstraintMode.NO_CONSTRAINT))
+	private FederatedSubscription federatedSubscription;
+	
+	@Column(name="subscription_expiration")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar reservationDate;
+	private Calendar subscriptionExpiration;
 	
-	@Column(name = "reservation_photo")
-	private String reservationPhoto;
-	
-	@Column(name = "reservation_style")
-	private String reservationStyle;
-	
-	@Column(name = "reservation_service")
-	private String reservationService;
-	
-	@Column(name = "reservation_etc")
-	private String reservationEtc;
+	@Column(name="subscription_left")
+	private Long subscriptionLeft;
 }

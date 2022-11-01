@@ -85,6 +85,16 @@ public class CommonExceptionHandler {
     public ResponseEntity<CommonResponse> handleDuplicateDateException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(CommonResponse.createError(e.getMessage()));
     }
+    
+    @ExceptionHandler(NoExistSubscriptionException.class)
+    public ResponseEntity<CommonResponse> handleNoExistSubscriptionException(RuntimeException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CommonResponse.createError(e.getMessage()));
+    }
+    
+    @ExceptionHandler(DuplicateSubscriptionException.class)
+    public ResponseEntity<CommonResponse> handleDuplicateSubscriptionException(RuntimeException e){
+    	return ResponseEntity.status(HttpStatus.CONFLICT).body(CommonResponse.createError(e.getMessage()));
+    }
 
 }
 

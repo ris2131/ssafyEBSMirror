@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback.domain.reservation.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, String date) {
+	public Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, Calendar date) {
 		// TODO Auto-generated method stub
 		return reservationRepository.findByFederatedReservation_DesignerSeqAndReservationDate(seq, date);
 	}

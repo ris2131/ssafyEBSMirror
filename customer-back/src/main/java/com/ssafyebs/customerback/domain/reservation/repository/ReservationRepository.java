@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback.domain.reservation.repository;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,5 +10,5 @@ import com.ssafyebs.customerback.domain.reservation.entity.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 	List<Reservation> findByMember_MemberUid(String memberUid);
-	Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, String date);
+	Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, Calendar date);
 }
