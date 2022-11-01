@@ -1,4 +1,3 @@
-import Mainpage from '../mainpage/Mainpage';
 import Mypage from '../mypage/Mypage';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';

@@ -1,15 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from './slices/userSlice';
+import userReducer from "../store/slices/userSlice"
 
 
 export const store = configureStore({
   reducer: {
-    user: userSlice,
+    user: userReducer
   },
-  // 이거 뭔지 모름.
-  middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({
-    immutableCheck: false,
-    serializableCheck: false,
-  }),
 });
+
+export default store;
