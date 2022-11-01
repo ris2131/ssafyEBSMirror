@@ -164,7 +164,8 @@ public class ManageService {
 
         LinkedList<ScheduleResponseDto> resultList = new LinkedList<>();
         for (Designer designer : designers) {
-            if (!reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).isPresent()) continue;
+            if (!reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).isPresent())
+                continue;
             String reservationTime = reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).get().getReservationDate();
             ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
             scheduleResponseDto.setDesignerSeq(designer.getDesignerSeq());
@@ -176,13 +177,14 @@ public class ManageService {
         return resultList;
     }
 
-    public DetailResponseDto detail(long businessSeq,long reservationSeq) {
-        // TODO: 예약한 곳이 로그인한 사용자와 일치하는지 확인
-        if (!reservationRepository.findByReservationSeq(reservationSeq).isPresent()) throw new InvalidRequestParamException("잘못된 요청입니다.");
+    public DetailResponseDto detail(long businessSeq, long reservationSeq) {
+        if (!reservationRepository.findByReservationSeq(reservationSeq).isPresent())
+            throw new InvalidRequestParamException("잘못된 요청입니다.");
 
         FederatedReservation reservation = reservationRepository.findByReservationSeq(reservationSeq).get();
 
-
+        if (!designerRepository.existsByDesignerSeqAndBusiness_BusinessSeq(reservation.getDesignerSeq(), businessSeq))
+            throw new UnauthorizedAccessException("잘못된 접근입니다.");
 
         DetailResponseDto detailResponseDto = new DetailResponseDto();
         detailResponseDto.setMemberNickname(reservation.getMemberNickname());

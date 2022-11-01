@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface DesignerRepository extends JpaRepository<Designer, Long> {
     List<Designer> findAllByBusinessBusinessSeq(long businessSeq);
     Optional<Designer> findDesignerByDesignerSeq(long designerSeq);
+    boolean existsByDesignerSeqAndBusiness_BusinessSeq(long designerSeq, long businessSeq);
 }
