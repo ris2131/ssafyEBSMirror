@@ -17,11 +17,11 @@ export const login = createAsyncThunk(
   "AuthSlice/login",
   async (data, { rejectWithValue }) => {
     try {
-      console.log("1")
       const res = await authApi.login(data);
-      console.log("2?");
-      localStorage.setItem("token", res.headers.authorization);
-      console.log("3?");
+      console.log("res: ",res);
+      console.log("res.header: ",res.headers);
+      localStorage.setItem("token", res.headers.authorization);//token 이 undefined 임.
+      console.log("authrorization: ",res.headers.authorization);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);

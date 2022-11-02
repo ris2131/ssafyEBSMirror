@@ -1,4 +1,5 @@
 import axios from "./api";
+
 export const authApi = {
   // 이메일 중복 체크
   //checkemail: (email) => axios.post("api/members/email/check", email),
