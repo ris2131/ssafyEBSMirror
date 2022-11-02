@@ -47,6 +47,10 @@ public class CommonExceptionHandler {
     public ResponseEntity<CommonResponse<?>> handleNoExistBusinessException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CommonResponse.createError(e.getMessage()));
     }
+    @ExceptionHandler(NoMatchCurPasswordException.class)
+    public ResponseEntity<CommonResponse<?>> handleMatchCurPasswordException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
+    }
 
     @ExceptionHandler(NoSuchDesignerException.class)
     public ResponseEntity<CommonResponse<?>> handleNoSuchDesignerException(RuntimeException e) {

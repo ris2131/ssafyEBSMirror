@@ -48,8 +48,7 @@ public class BusinessServiceImpl implements BusinessService {
                 Math.random(),
                 email,
                 Math.random()));
-
-        logger.warn("crypt code: " + code);
+        businessCreationRequestDto.setPassword(CryptoUtil.Sha256.hash(businessCreationRequestDto.getPassword()));
 
         redisTemplate.opsForValue().set(code, businessCreationRequestDto, expireDuration);
 

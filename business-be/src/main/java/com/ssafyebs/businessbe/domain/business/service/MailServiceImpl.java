@@ -8,6 +8,8 @@ import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.DuplicateEmailException;
 import com.ssafyebs.businessbe.global.exception.InvalidVerificationKeyException;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,15 @@ public class MailServiceImpl implements MailService {
     private final HairshopRepository hairshopRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
+    final static Logger logger = LogManager.getLogger(MailServiceImpl.class);
+
     @Override
     public void verifyEmail(String emailVerificationCode) {
         BusinessCreationRequestDto businessCreationRequestDto = (BusinessCreationRequestDto) redisTemplate.opsForValue().get(emailVerificationCode);
 
         if (businessCreationRequestDto == null) throw new InvalidVerificationKeyException("유효하지 않은 접근입니다.");
         Business business = businessCreationRequestDto.toEntity();
-
+        logger.warn("verifyMail password : "+business.getPassword());
         if (businessRepository.existsByEmail(businessCreationRequestDto.getEmail())) throw new DuplicateEmailException("이미 가입된 이메일입니다.");
 
         businessRepository.save(business);

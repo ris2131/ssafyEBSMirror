@@ -30,8 +30,4 @@ public class BusinessCreationRequestDto {
                 .registration(this.registration)
                 .build();
     }
-    //sha-256 으로 dto 만들어질때 자동으로 encoding
-    public void setPassword(String password) {
-        this.password = CryptoUtil.Sha256.hash(password);
-    }
 }

@@ -5,6 +5,8 @@ import com.ssafyebs.businessbe.domain.business.dto.responsedto.LoginResponseDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
+import com.ssafyebs.businessbe.global.exception.NoMatchCurPasswordException;
+import com.ssafyebs.businessbe.global.util.CryptoUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,9 +36,16 @@ public class LoginServiceImpl implements LoginService{
         businessRepository.save(business);
     }
 
-    //미구현
     @Override
     public LoginResponseDto loginEbs(LoginRequestDto loginRequestDto) {
+        String email = loginRequestDto.getEmail();
+        Business business = businessRepository.findByEmail(email).orElseThrow(()->new NoExistBusinessException("로그인 할 수 없습니다."));
+
+        String cPassword = CryptoUtil.Sha256.hash(loginRequestDto.getPassword());
+
+        if(!business.getPassword().equals(cPassword)){
+            throw new NoMatchCurPasswordException("로그인 할 수 없습니다.");
+        }
         return null;
     }
 }
