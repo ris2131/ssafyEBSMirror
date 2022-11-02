@@ -21,6 +21,7 @@ const Home = () => {
         navigate("/login");
       }
     }, [isLoggedIn, navigate]);
+    // console.log(state.user)
   
         // const accessToken = useSelector((state) => state.auth.accessToken);
   
