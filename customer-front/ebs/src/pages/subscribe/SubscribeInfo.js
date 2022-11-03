@@ -8,6 +8,7 @@ const SubscribeInfo = () => {
     // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
     // const = [subscribe, setSubscribe] = useState();
     const accesstoken = localStorage.getItem("token")
+    // const [mysubscribe, setMysubscribe] = useState();
 
     useEffect(() => {
         axios.get("/api/subscribe", {
@@ -18,13 +19,16 @@ const SubscribeInfo = () => {
         .then((res) => {
             console.log("구독정보");
             console.log(res.data);
+            
         })
         .catch((error) => {
             console.log("에러");
             console.log(error);
         });
     }, []);
-        
+    
+    
+    
     return (
         <div>
             <div>
