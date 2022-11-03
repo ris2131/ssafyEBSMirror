@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import Menu from "@mui/material/Menu";
@@ -30,7 +30,7 @@ const HamBar = styled.div`
 `;
 
 const NavBar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -64,12 +64,15 @@ const NavBar = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        {/* <MenuItem onClick={() => navigate("/mypage")}>
-          My account
+        <MenuItem onClick={() => navigate("/mypage")}>
+          내정보
         </MenuItem>
-        <MenuItem onClick={() => navigate("/profileedit")}>
-          회원정보 수정
-        </MenuItem> */}
+        <MenuItem onClick={() => navigate("/reservation-info")}>
+          예약정보
+        </MenuItem>
+        <MenuItem onClick={() => navigate("/subscribe-info")}>
+          구독정보
+        </MenuItem>
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </NavDiv>

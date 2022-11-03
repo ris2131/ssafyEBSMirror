@@ -36,6 +36,7 @@ export const removeRefreshToken = () => {
         }
         return res.data
       } catch (err) {
+        console.log("@@@@@@@@@@@@@")
         return rejectWithValue(err.response);
       }
     }
