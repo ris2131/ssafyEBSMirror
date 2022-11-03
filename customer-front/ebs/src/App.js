@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes, Router, Navigate } from "react-router-dom";
 import Home from "./pages/mainpage/Home";
@@ -9,7 +8,7 @@ import SubscribeInfo from './pages/subscribe/SubscribeInfo';
 import Login from './pages/Auth/Login';
 
 
-import Ebsnav from "./pages/ebsnav/Ebsnav";
+
 import Mypage from "./pages/mypage/Mypage";
 import { useSelector } from "react-redux";
 import HairshopSearch from './pages/search/HairshopSearch';
