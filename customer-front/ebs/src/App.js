@@ -9,7 +9,7 @@ import Login from './pages/Auth/Login';
 import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
 import HairshopSearch from './pages/search/HairshopSearch';
-
+import HairshopInfo from './pages/hairshop/HairshopInfo';
 
 
 
@@ -37,7 +37,7 @@ function App() {
             <Route path="/subscribe-info" element={<SubscribeInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/search" element={<HairshopSearch />} />   
-
+            <Route path="/hairshop-info" element={<HairshopInfo />} />
       </Routes>
 
     </BrowserRouter>
