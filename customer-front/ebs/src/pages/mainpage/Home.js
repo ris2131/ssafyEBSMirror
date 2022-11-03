@@ -1,9 +1,11 @@
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
+import NavBar from "../../components/NavBar"
 import style from './Home.module.css';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
 
 
 
@@ -37,7 +39,9 @@ const Home = () => {
     //   console.log("에러");
     //   console.
   return (
-    <div className={style.Layout}>
+    <Container>
+      <NavBar />
+      <div className={style.Layout}>
         <div className={style.Comment}>
             안녕하세요 {member_nickname}님.
         </div>
@@ -46,9 +50,10 @@ const Home = () => {
         </div>
         <div className={style.Carousel}>
         <HairshopCarouselComponent />
-        </div>
-        
+        </div>        
     </div>
+    </Container>
+    
   );
 };
 
