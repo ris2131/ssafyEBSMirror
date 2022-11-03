@@ -6,9 +6,6 @@ import ReservationInfo from './pages/reservation/ReservationInfo';
 import ReservationInfoDetail from './pages/reservation/ReservationInfoDetail';
 import SubscribeInfo from './pages/subscribe/SubscribeInfo';
 import Login from './pages/Auth/Login';
-
-
-
 import Mypage from "./pages/mypage/Mypage";
 import { useSelector } from "react-redux";
 import HairshopSearch from './pages/search/HairshopSearch';
