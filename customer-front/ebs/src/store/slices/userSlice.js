@@ -28,7 +28,7 @@ export const removeRefreshToken = () => {
     "userSlice/googleLogin",
     async (data, { rejectWithValue }) => {
       try {
-
+        console.log("!!!!!!!!!!!")
         const res = await authApi.googlelogin(data);
         console.log(res)
         if (res.headers.authorization) {
