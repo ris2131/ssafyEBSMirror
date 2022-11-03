@@ -1,8 +1,13 @@
 import baseaxios from "axios";
 
+<<<<<<< HEAD
+// const baseURL = "https://k7d107.p.ssafy.io/api/"
+const baseURL = "/api" 
+=======
 
 // const baseURL = "https://k7d107.p.ssafy.io/api/"
 const baseURL = "/api" //nginx로 할때
+>>>>>>> b29f0cdef90c62f53a3063ff7c7864d4b25ee4e4
 //const baseURL = "";
 
 

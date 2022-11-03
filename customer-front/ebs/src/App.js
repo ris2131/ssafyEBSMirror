@@ -6,8 +6,8 @@ import ReservationInfo from './pages/reservation/ReservationInfo';
 import ReservationInfoDetail from './pages/reservation/ReservationInfoDetail';
 import SubscribeInfo from './pages/subscribe/SubscribeInfo';
 import Login from './pages/Auth/Login';
+import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
-import { useSelector } from "react-redux";
 import HairshopSearch from './pages/search/HairshopSearch';
 
 
@@ -15,32 +15,31 @@ import HairshopSearch from './pages/search/HairshopSearch';
 
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-
+  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = true;
   return (
     <BrowserRouter>
+      <div >
+        {
+          isLoggedIn
+          ? <NavBar />
+          : null
+        }
+      </div>
       <Routes>
-        {/* <Route> */}
-        {/* <Route
-          path="/"
-          element={
-            isLoggedIn ? <Ebsnav /> : <Navigate to="/login" /> //replace="replace"
-            } 
-          > */}
-            <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
+
+            <Route path="/" element={<Home />} />
+            
             <Route path="/googleintro" element={<GoogleIntro />} />
             <Route path="/reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation-info-detail" element={<ReservationInfoDetail />} />
             <Route path="/subscribe-info" element={<SubscribeInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/search" element={<HairshopSearch />} />   
-        {/* </Route> */}
-        {/* <Route
-          path="/login"
-          element={!isLoggedIn ? <GoogleIntro /> : <Navigate to="/" />}
-        /> */}
+
       </Routes>
+
     </BrowserRouter>
       
     
