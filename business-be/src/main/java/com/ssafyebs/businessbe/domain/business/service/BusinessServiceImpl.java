@@ -137,7 +137,7 @@ public class BusinessServiceImpl implements BusinessService {
         msgg += "<h3 style='color:blue;'>회원가입 링크입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "LINK : <strong>";
-        msgg += "<a href=" + HOME_URL + "/business/verify-email/" + key + "> 회원가입 완료 링크" + "</href>";
+        msgg += "<a href=" + HOME_URL + "/api/business/verify-email/" + key + "> 회원가입 완료 링크" + "</href>";
         msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
@@ -164,7 +164,7 @@ public class BusinessServiceImpl implements BusinessService {
         msgg += "<h3 style='color:blue;'>비밀번호 재설정 링크입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "LINK : <strong>";
-        msgg += "<a href=" + HOME_URL + "/business/reset-password/" + key + ">비밀번호 재설정 링크" + "</href>";
+        msgg += "<a href=" + HOME_URL + "/api/business/reset-password/" + key + ">비밀번호 재설정 링크" + "</href>";
         msgg += "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype

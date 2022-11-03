@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://k7d107.p.ssafy.io:3306/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
-    username: d107
-    password: gumi107
+    url: jdbc:mariadb://k7d107.p.ssafy.io:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
+    username: d107_business
+    password: business107
 
   jpa:
     hibernate:
