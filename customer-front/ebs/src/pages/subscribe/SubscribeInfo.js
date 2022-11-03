@@ -6,11 +6,15 @@ import axios from 'axios';
 
 const SubscribeInfo = () => {
     // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-    const = [subscribe, setSubscribe] = useState();
-  
+    // const = [subscribe, setSubscribe] = useState();
+    const accesstoken = localStorage.getItem("token")
 
     useEffect(() => {
-        axios.get("https://k7d107.p.ssafy.io/api/subscribe")
+        axios.get("/api/subscribe", {
+            headers: {
+                    Authorization: accesstoken
+            }
+        })
         .then((res) => {
             console.log("구독정보");
             console.log(res.data);

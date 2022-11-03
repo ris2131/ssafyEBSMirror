@@ -6,8 +6,14 @@ import axios from 'axios';
 
 const ReservationInfo = () => {
     //const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const accesstoken = localStorage.getItem("token")
+
     useEffect(() => {
-        axios.get("https://k7d107.p.ssafy.io/api/reservations")
+        axios.get("/api/reservations", {
+            headers: {
+                    Authorization: accesstoken
+            }
+        })
         .then((res) => {
             console.log("예약내역");
             console.log(res.data);
