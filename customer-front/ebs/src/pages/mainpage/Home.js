@@ -1,13 +1,22 @@
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
 import NavBar from "../../components/NavBar"
 import React from 'react';
-import style from './Home.module.css';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
+import styled from "styled-components";
 
+// const Container = styled.div`
+//   background-color: #F9F9F9;
+//   justify-content: center;
 
+// `;
+
+// const TitleDiv = styled.div`
+//   justify-content: center;
+//   font-size: 20px;
+// `;
 
 const Home = () => {
 
@@ -22,40 +31,24 @@ const Home = () => {
     }
   }, [isLoggedIn, navigate]);
 
-      // const accessToken = useSelector((state) => state.auth.accessToken);
-
-    // // 유저 닉네임, 헤어숍이용텀, 구독한 헤어숍 정보 받아오기  
-    // axiosClient
-    // .get('', {
-    //   headers: {
-    //     Authorization: accessToken,
-    //   },
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    //   const myinformation = response
-    //   console.log(myinformation)
-    // })
-    // .catch((error) => {
-    //   console.log("에러");
-    //   console.
   return (
-    <Container>
+    <div>
       <NavBar />
-      <div className={style.Layout}>
-        <div className={style.Comment}>
+      
+        <div>
             안녕하세요 {member_nickname}님.
         </div>
-        <div className={style.Termday}>
+        <div>
             미용실을 이용한지 {haircut_term}일이 되었습니다.
         </div>
-        <div className={style.Carousel}>
+        <div>
         <HairshopCarouselComponent />
         </div>        
+    
     </div>
-    </Container>
     
   );
 };
 
 export default Home;
+
