@@ -1,28 +1,45 @@
-import axiosClient from "../../api";
 import style from './Mypage.module.css';
+import styled from "styled-components";
 import Card from 'react-bootstrap/Card';
 import HorizonLine from '../../components/mypage/HorizonLine';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getuser } from "../../store/slices/userSlice";
+
+
+const MyButton = styled.button`
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #42a5f5;
+  padding: 10px;
+  margin-top: 40px;
+  width: 60px;
+  font-size: 14px;
+  cursor: pointer;
+`;
 
 const Mypage = () => {
-    const Nickname = '김싸피'
-    const Adress = "대구광역시 달서구 파호동"
+
+    const nickName = useSelector((state) => state.user.member.nickname)
+    const address = useSelector((state) => state.user.member.address)
+    const data = {
+        nickname : nickName,
+        address : address, 
+    } 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
-        axios.get("/api/members", {
-            headers: {
-                    Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYnMiLCJzdWIiOiJJRW5nIEFjY2Vzc1Rva2VuIiwiZXhwIjoxNjY3NDY4MzE1LCJtZW1iZXJ1aWQiOiIxMDIyNzUwNDY4MTA1NjA1MjY3NjQifQ.5ALt9ex4azAeNll0kJnx0UdWP51JZb2P4Q4S4Tg33lw"
-            }
-        })
-        .then((res) => {
-            
-            console.log(res.data);
-        })
-        .catch((error) => {
-            console.log("에러");
-            console.log(error);
-        });
+       dispatch(getuser())
     }, []);
+    const handleEdit = () => {
+        navigate("/myinfo-edit", { state: { ...data } })
+    }
+    // const handleQuit = () => {
+    //     dispatch(quituser())
+    // }
+
     return (
         <div className={style.Layout}>
             <div className={style.Title}>
@@ -30,21 +47,21 @@ const Mypage = () => {
                     마이페이지
                 </h1>
             </div>
-            <div className={style.Nickname}>
+            <div className={style.nickName}>
                 <span>
-                    닉네임
+                    닉네임 : 
                 </span>
                 <span>
-                    {Nickname}
+                    {nickName}
                 </span>
                 <HorizonLine />
             </div>
-            <div className={style.Adress}>
+            <div className={style.address}>
                 <span>
-                    주소
+                    주소 : 
                 </span>
                 <span>
-                    {Adress}
+                    {address}
                 </span>
                 <HorizonLine/>
             </div>
@@ -58,6 +75,8 @@ const Mypage = () => {
                     <Card.Body>예약 내역</Card.Body>
                 </Card>
             </div>
+            <MyButton onClick={handleEdit}>수정</MyButton>
+            {/* <MyButton onClick={handleQuit}>탈퇴</MyButton> */}
         </div>
     );
 };
