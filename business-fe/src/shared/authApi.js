@@ -8,10 +8,12 @@ export const authApi = {
   // 인증번호 검증
   //confirmemail: (data) => axios.post("api/members/email/confirm", data),
 
-  login: (data) => axios.post("business/login", data)//,
+  login: (data) => axios.post("business/login", data),//,
   //googlelogin: (data) => axios.post("api/google-login", data),
   //getuser: () => axios.get("api/members"),
   //putpassword: (pwd) => axios.put("api/members/password", pwd),
   //deleteuser: () => axios.delete("api/members"),
   //getMyhistory: (date) => axios.get("api/histories", { params: { date } }),
+
+  signup: (data) => axios.post("members/sign-up", data),
 };

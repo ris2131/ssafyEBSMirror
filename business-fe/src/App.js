@@ -9,26 +9,12 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Main/Home";
 // 로그인
 import Login from "./pages/Auth/Login";
+import SignUp from './pages/Auth/SignUp';
 
 function App() {
   //const dispatch = useDispatch();
   //const navigate = useNavigate();
   //const token = localStorage.getItem("token");
-
-  //왜 필요?
-  // useEffect(() => {
-  //   if (token) {
-  //     const getUser = () => {
-  //       dispatch(getuser())
-  //         .unwrap()
-  //         .catch(() => {
-  //           localStorage.setItem("token", "");
-  //           navigate("/login");
-  //         });
-  //     };
-  //     getUser();
-  //   }
-  // }, [dispatch, navigate, token]);
 
   return (
     <div className="App">
@@ -38,6 +24,10 @@ function App() {
         
         {/* 로그인 */}
         <Route path="/login" element={<Login/>} />
+        
+        {/* 회원가입 */}
+        <Route path="/signup" element={<SignUp />} />
+
       </Routes>
     </div>
   );

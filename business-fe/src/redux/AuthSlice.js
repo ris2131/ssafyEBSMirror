@@ -13,6 +13,19 @@ const initialState = {
   },
 };
 
+export const signup = createAsyncThunk(
+  "AuthSlice/signup",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await authApi.signup(data);
+      localStorage.setItem("token", res.headers.authorization);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 export const login = createAsyncThunk(
   "AuthSlice/login",
   async (data, { rejectWithValue }) => {
