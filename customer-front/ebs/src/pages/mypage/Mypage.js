@@ -1,13 +1,28 @@
-import React from 'react';
 import axiosClient from "../../api";
 import style from './Mypage.module.css';
 import Card from 'react-bootstrap/Card';
 import HorizonLine from '../../components/mypage/HorizonLine';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Mypage = () => {
     const Nickname = '김싸피'
     const Adress = "대구광역시 달서구 파호동"
+    useEffect(() => {
+        axios.get("/api/members", {
+            headers: {
+                    Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYnMiLCJzdWIiOiJJRW5nIEFjY2Vzc1Rva2VuIiwiZXhwIjoxNjY3NDY4MzE1LCJtZW1iZXJ1aWQiOiIxMDIyNzUwNDY4MTA1NjA1MjY3NjQifQ.5ALt9ex4azAeNll0kJnx0UdWP51JZb2P4Q4S4Tg33lw"
+            }
+        })
+        .then((res) => {
+            
+            console.log(res.data);
+        })
+        .catch((error) => {
+            console.log("에러");
+            console.log(error);
+        });
+    }, []);
     return (
         <div className={style.Layout}>
             <div className={style.Title}>

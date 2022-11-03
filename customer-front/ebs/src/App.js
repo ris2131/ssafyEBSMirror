@@ -9,14 +9,14 @@ import Login from './pages/Auth/Login';
 import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
 import HairshopSearch from './pages/search/HairshopSearch';
-
+import { useSelector } from "react-redux";
 
 
 
 
 function App() {
-  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  
   return (
     <BrowserRouter>
       <div >
