@@ -8,20 +8,21 @@ import SubscribeInfo from './pages/subscribe/SubscribeInfo';
 import Login from './pages/Auth/Login';
 import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
+import MyInfoEdit from './pages/mypage/MyInfoEdit';
 import HairshopSearch from './pages/search/HairshopSearch';
-
+import { useSelector } from "react-redux";
 
 
 
 
 function App() {
-  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const token = localStorage.getItem('token')
   return (
     <BrowserRouter>
       <div >
         {
-          isLoggedIn
+          isLoggedIn || token
           ? <NavBar />
           : null
         }
@@ -36,6 +37,7 @@ function App() {
             <Route path="/reservation-info-detail" element={<ReservationInfoDetail />} />
             <Route path="/subscribe-info" element={<SubscribeInfo />} />
             <Route path="/mypage" element={<Mypage />} />
+            <Route path="/myinfo-edit" element={<MyInfoEdit />} />
             <Route path="/search" element={<HairshopSearch />} />   
 
       </Routes>

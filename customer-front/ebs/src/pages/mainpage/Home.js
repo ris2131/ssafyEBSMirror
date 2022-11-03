@@ -1,5 +1,4 @@
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
-import NavBar from "../../components/NavBar"
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -33,7 +32,6 @@ const Home = () => {
 
   return (
     <div>
-      <NavBar />
       
         <div>
             안녕하세요 {member_nickname}님.

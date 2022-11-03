@@ -4,6 +4,11 @@ import { Cookies } from "react-cookie";
 
 const initialState = {
     isLoggedIn: false,
+    member : {
+      nickname: "",
+      address : "",
+      logintype : "",
+    },
 };
 
 const cookies = new Cookies();
@@ -28,15 +33,12 @@ export const removeRefreshToken = () => {
     "userSlice/googleLogin",
     async (data, { rejectWithValue }) => {
       try {
-        console.log("!!!!!!!!!!!")
         const res = await authApi.googlelogin(data);
-        console.log(res)
         if (res.headers.authorization) {
           localStorage.setItem("token", res.headers.authorization);
         }
         return res.data
       } catch (err) {
-        console.log("@@@@@@@@@@@@@")
         return rejectWithValue(err.response);
       }
     }
@@ -54,6 +56,31 @@ export const removeRefreshToken = () => {
       }
     }
   );
+
+  export const getuser = createAsyncThunk(
+    "userSlice/getuser",
+    async (data, { rejectWithValue }) => {
+      try {
+        const res = await authApi.getuser();
+        return res.data;
+      } catch (err) {
+        return rejectWithValue(err.response);
+      }
+    }
+  );
+  
+  export const putuser = createAsyncThunk(
+    "userSlice/putuser",
+    async (data, { rejectWithValue }) => {
+      try {
+        const res = await authApi.putuser(data);
+        return res.data;
+      } catch (err) {
+        return rejectWithValue(err.response);
+      }
+    }
+  );
+
 
   const userSlice = createSlice({
     name: "user",
@@ -76,6 +103,17 @@ export const removeRefreshToken = () => {
       [googleNickname.fulfilled]: (state) => {
         state.isLoggedIn = true;
       },
+      [getuser.fulfilled]: (state, action) => {
+        const { data } = action.payload;
+        state.isLoggedIn = true;
+        state.member.nickname = data.member_nickname;
+        state.member.address = data.member_address;
+        state.member.logintype = data.member_logintype;
+      },
+      [putuser.fulfilled]: (state) => {
+        state.isLoggedIn = true;
+      },
+  
     },
 
 });

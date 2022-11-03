@@ -45,6 +45,7 @@ const NavBar = () => {
     localStorage.setItem("token", "");
     removeRefreshToken();
     dispatch(userActions.logout());
+    navigate("/login");
   };
 
   return (
