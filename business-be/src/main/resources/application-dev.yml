@@ -43,9 +43,5 @@ jwt:
     expiration: '180'
   secret: S0f7AZxciEDA4asdRYUBohQukyrttdGdzv7xcvRneXo
 
-server:
-  port: 80
 home-url:
   http://localhost
-front-base-url:
-  http://localhost:3000
