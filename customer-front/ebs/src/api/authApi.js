@@ -2,6 +2,8 @@ import axios from "./index";
 export const authApi = {
   googlelogin: (data) => axios.post("/members/login", data),
   googlesignup: (data) => axios.post("/members/signup", data),
+  getuser : () => axios.get("/members"),
+  putuser : (data) => axios.put("/members", data),
 //   signup: (data) => axios.post("api/members/sign-up", data),
 //   login: (data) => axios.post("api/login", data),
   // googlelogin: (data) => axios.post("/members/login", data),
