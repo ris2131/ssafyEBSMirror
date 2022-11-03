@@ -1,8 +1,12 @@
 import axios from "./api";
 
+const OPENAPI_REG_SERVICEKEY = process.env.REACT_APP_OPENAPI_REG_SERVICEKEY;
+
 export const authApi = {
+  //회원가입
+  signup: (data) => axios.post("business/sign-up", data),
   // 이메일 중복 체크
-  //checkemail: (email) => axios.post("api/members/email/check", email),
+  checkemail: (email) => axios.post("business/check-email", email),
   // 인증번호 보내기
   //sendemail: (email) => axios.post("api/members/email/send", email),
   // 인증번호 검증
@@ -15,5 +19,5 @@ export const authApi = {
   //deleteuser: () => axios.delete("api/members"),
   //getMyhistory: (date) => axios.get("api/histories", { params: { date } }),
 
-  signup: (data) => axios.post("members/sign-up", data),
+  checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=" + OPENAPI_REG_SERVICEKEY ),
 };

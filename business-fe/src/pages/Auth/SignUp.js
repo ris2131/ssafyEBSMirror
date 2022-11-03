@@ -2,11 +2,15 @@ import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { Toast } from "../../assets/Toast";
+
 import {
-  // checkEmail,
+  signup,
+  checkEmail,
   // confirmEmail,
   // sendEmail,
-  signup,
+  
+  checkReg,
 } from "../../redux/AuthSlice";
 //import { Toast } from "../../assets/Toast";
 
@@ -25,7 +29,7 @@ import Swal from "sweetalert2";
 
 //const backgroundImage = process.env.PUBLIC_URL + `/assets/testground.jpg`;
 
-import logoImage from '../../assets/logo.jpg'
+import logoImage from '../../assets/Logo.png'
 
 
 const SignUpBox = styled.div`
@@ -171,8 +175,9 @@ const SignUp = () => {
   const [emailCheck, setEmailCheck] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [represent, setRepresent] = useState("");
-  const [registrationNum, setRegistrationNum] = useState("");
+  const [regOwner, setRegOwner] = useState("");
+  const [regFoundDate, setRegFoundDate] = useState("");
+  const [regNum, setRegNum] = useState("");
   
 
   const [profile, setProfile] = useState("");
@@ -180,215 +185,225 @@ const SignUp = () => {
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
   const [nickname, setNickname] = useState("");
-  const [page, setPage] = useState(1);
-  const [emailPass, setEmailPass] = useState(false);
-  const [timeOn, setTimeOn] = useState(false);
+  //const [page, setPage] = useState(1);
+  //const [timeOn, setTimeOn] = useState(false);
 
+  //이메일 형식
   const [emailStatus, setEmailStatus] = useState(false);
+
+  
+  const [emailPass, setEmailPass] = useState(false);
+  const [regPass, setRegPass] = useState(false);
 
   const inputRef = useRef();
   const nicknameRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-// 회원가입 요청
-const handleSubmit = () => {
-  const data = {
-    provider: "G",
-    username: email,
-    password,
-    nickname,
+  // 회원가입 요청
+  const handleSubmit = () => {
+    const data = {
+      email,
+      password,
+      regOwner,
+      regNum: "G",
+    };
+    if(emailPass ===false){
+      Toast.fire({
+        icon: "error",
+        title: "이메일 중복체크를 해주세요",
+      });
+      console.log("emailPass");
+      return;
+    }
+    if (password !== passwordCheck) {
+      Toast.fire({
+        icon: "error",
+        title: "비밀번호를 다시 확인해주세요",
+      });
+      console.log("diff pass");
+      return;
+    }
+    if(regPass===false){
+      Toast.fire({
+        icon: "error",
+        title: "사업자등록정보를 다시 확인해주세요",
+      });
+      console.log("diff regnumPass");
+      return;
+    }
+    dispatch(signup(data))
+      .unwrap()
+      .then(() => {
+        Swal.fire({ icon: "success", title: "회원가입 완료!" });
+        navigate("/");
+      })
+      .catch((err) => {
+        if (err.status === 409) {
+          Swal.fire({ icon: "error", title: "중복된 닉네임입니다!" });
+        }
+      });
   };
+  // 이메일 형식 체크 함수
+  const handleEmailCheck = (email) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const check = !emailRegex.test(email) ? false : true;
+    setEmailStatus(check);
+  };
+  
+  //이메일 중복 확인 함수
+  const handleEmailValidation = () => {
+    const data = {
+      email,
+    };
+    if (!emailStatus) {
+      setEmailPass(false)
+      Swal.fire({ icon: "error", title: "이메일 형식이 올바르지 않습니다" });
+      return;
+    }
+    
+    dispatch(checkEmail(data))
+      .unwrap()
+      .then((res) => {
+        if (res.data === true) {
+          //handleSendMail();
+          setEmailPass(true);
+          Swal.fire({ icon: "success", title: "사용 가능한 이메일입니다." });
+        } else{
+          setEmailPass(false);
+          Swal.fire({ icon: "error", title: "이미 가입한 이메일입니다." });
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+  //사업자등록번호 인증 
+  const handleRegistrationValidation = () => {
+    const data = {
+      regNum,
+      regFoundDate,
+      regOwner,
+    };
+    //api 호출하고 then REGPASS 설정
+    dispatch(checkReg(data))
+      .unwrap()
+      .then((res) => { 
+        if(res.data.valid === "01"){
+          console.log("사업자등록번호 valid");
+        }else{
+          console.log("사업자등록번호 invalid");
+        }
+      })
+    setRegPass(true);
+  };
+  // const fetchState = useCallback(() => {
+  //   setEmail(originData.email);
+  //   setNickname(originData.nickname);
+  //   setBirth(originData.birth_YMD);
+  //   setPreview(originData.picturePath);
+  // }, [originData]);
 
-  const formData = new FormData();
-
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-
-  formData.append("data", blob);
-  formData.append("profile_image", profile);
-
-  dispatch(signup(formData))
-    .unwrap()
-    .then(() => {
-      Swal.fire({ icon: "success", title: "회원가입 완료!" });
-      navigate("/");
-    })
-    .catch((err) => {
-      if (err.status === 409) {
-        Swal.fire({ icon: "error", title: "중복된 닉네임입니다!" });
-      }
-    });
-};
 
   return (
-    
     <SignUpBox>
       <LogoImg src={logoImage} alt="#logo_image" />
       <LogoDiv>
         <LogoText>회원가입</LogoText>
       </LogoDiv>
-      {page === 1 ? (
-        <>
-          <FlexInputDiv>
-            <TextField
-              fullWidth
-              label="ID (email)"
-              variant="standard"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                //handleEmailCheck(e.target.value);
-              }}
-            />
-            <SButton
-              onClick={() => {
-                //getCode();
-              }}
-            >
-              중복 체크
-            </SButton>
-          </FlexInputDiv>
-          
-          <InputDiv>
-            <TextField
-              fullWidth
-              label="password"
-              type="password"
-              variant="standard"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </InputDiv>
-          <InputDiv>
-            <TextField
-              fullWidth
-              label="password check"
-              type="password"
-              variant="standard"
-              value={passwordCheck}
-              onChange={(e) => setPasswordCheck(e.target.value)}
-              onKeyPress={(e) => (e.key === "Enter" ? setPage(2) : null)}
-            />
-          </InputDiv>
-          <InputDiv>
-            <TextField
-              fullWidth
-              label="대표자명"
-              variant="standard"
-              value={represent}
-              onChange={(e) => {
-                setRepresent(e.target.value);
-                //handleEmailCheck(e.target.value);
-              }}
-            />
-          </InputDiv>
-          <InputDiv>
-            <TextField
-              fullWidth
-              label="설립연월일(yymdd)"
-              variant="standard"
-              value={represent}
-              onChange={(e) => {
-                setRepresent(e.target.value);
-                //handleEmailCheck(e.target.value);
-              }}
-            />
-          </InputDiv>
-          <FlexInputDiv>
-            <TextField
-              fullWidth
-              label="사업자등록번호"
-              variant="standard"
-              value={registrationNum}
-              onChange={(e) => {
-                setRegistrationNum(e.target.value);
-                //handleEmailCheck(e.target.value);
-              }}
-            />
-            <SButton
-              onClick={() => {
-                //getCode();
-              }}
-            >
-              인증하기
-            </SButton>
-          </FlexInputDiv>
-          <SButton margin="7vw" onClick={handleSubmit}>
-            가입하기
+      <>
+        <FlexInputDiv>
+          <TextField
+            fullWidth
+            label="ID (email)"
+            variant="standard"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailPass(false);
+              handleEmailCheck(e.target.value);
+            }}
+          />
+          <SButton
+            onClick={() => {
+              handleEmailValidation();
+            }}
+          >
+            중복 체크
           </SButton>
-          <IconDiv onClick={() => navigate("/login")}>로그인 페이지로</IconDiv>
-        </>
-      ) : (
-        <>
-          <h1>프로필 입력</h1>
-          <InputDiv>
-            <ProfileContainer>
-              <ProfileSection>
-                <ProfileBox>
-                  <Profileimg src={preview} alt="" />
-                </ProfileBox>
-                <input
-                  type="file"
-                  name="file"
-                  onChange={(e) => {
-                    //changeImg(e);
-                    //encodeFileToBase64(e.target.files[0]);
-                  }}
-                  ref={inputRef}
-                  style={{ display: "none" }}
-                />
-                <div style={{ fontSize: "20px", marginTop: "5px" }}>
-                  {/* <TbCameraPlus
-                    onClick={() => inputRef.current.click()}
-                    style={{ cursor: "pointer" }}
-                  /> */}
-                </div>
-              </ProfileSection>
-            </ProfileContainer>
-          </InputDiv>
-          <InputDiv>
-            <TextField
-              fullWidth
-              label="닉네임"
-              ref={nicknameRef}
-              variant="standard"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-          </InputDiv>
-          <DateWrapper>
-            <TextField
-              fullWidth
-              label="년(4자)"
-              variant="standard"
-              //value={year}
-              //onChange={handleYear}
-            />
-            <SelectBox>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                //value={month}
-                //onChange={handleMonth}
-                label="월"
-              >
-              </Select>
-            </SelectBox>
-            <TextField
-              fullWidth
-              label="일"
-              variant="standard"
-              //onChange={handleDay}
-            />
-          </DateWrapper>
-          <IconDiv>
-            {/* <GrLinkPrevious onClick={handlePage} /> */}
-          </IconDiv>
-          <SButton margin="7vw" onClick={handleSubmit}>
-            회원가입
+        </FlexInputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="password"
+            type="password"
+            variant="standard"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </InputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="password check"
+            type="password"
+            variant="standard"
+            value={passwordCheck}
+            onChange={(e) => setPasswordCheck(e.target.value)}
+            //onKeyPress={(e) => (e.key === "Enter" ? setPage(2) : null)}
+          />
+        </InputDiv>
+        
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="대표자명"
+            variant="standard"
+            value={regOwner}
+            onChange={(e) => {
+              setRegOwner(e.target.value);
+              setRegPass(false);
+            }}
+          />
+        </InputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="설립연월일(yymdd)"
+            variant="standard"
+            value={regFoundDate}
+            onChange={(e) => {
+              setRegFoundDate(e.target.value);
+              setRegPass(false);
+            }}
+          />
+        </InputDiv>
+        <FlexInputDiv>
+          <TextField
+            fullWidth
+            label="사업자등록번호"
+            variant="standard"
+            value={regNum}
+            onChange={(e) => {
+              setRegNum(e.target.value);
+              setRegPass(false);
+            }}
+          />
+          <SButton
+            onClick={() => {
+              //사업자등록번호 API
+              //getCode();
+              handleRegistrationValidation();
+            }}
+          >
+            인증하기
           </SButton>
-        </>
-      )}
+        </FlexInputDiv>
+        <SButton margin="7vw" onClick={handleSubmit}>
+          가입하기
+        </SButton>
+        <IconDiv onClick={() => navigate("/login")}>로그인 페이지로</IconDiv>
+      </>
+      
     </SignUpBox>
   );
 };
