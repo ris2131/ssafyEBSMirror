@@ -23,6 +23,7 @@ const ReservationInfo = () => {
             console.log(error);
         });
     }, []);
+
     return (
         <div className={style.Layout}>
             <div className={style.Title}>

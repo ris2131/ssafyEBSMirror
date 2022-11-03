@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    mySubscribe: []
+    mysubscribe: []
 };
 
 const subscribeSlice = createSlice({
     name: "subscribe",
     initialState,
     reducers: {
-        setSubscribe(state, action) {
-            state.mySubscribe = action.payload
+        setMysubscribe(state, action) {
+            state.mysubscribe = action.payload
         },
     },
 });
 export const {
-    setSubscribe,
+    setMysubscribe,
 } = subscribeSlice.actions;
 export default subscribeSlice.reducer;
