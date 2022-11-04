@@ -1,5 +1,5 @@
-import { Description } from '@mui/icons-material';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -21,6 +21,11 @@ const Description1 = styled.div`
 `;
 
 const HomeComponent = () => {
+    const params = { search_keyword : "이" }
+    useEffect(() => {
+        axios.get("http://localhost:8080/search/hairshop/1/designer").then((res) => (console.log(res))).catch(()=>(console.log("!!!!!!!!!")))
+     }, []);
+    
     return (
         <Container>
             <Adress>
