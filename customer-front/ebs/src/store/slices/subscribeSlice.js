@@ -2,14 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { subscribeApi } from "../../api/subscribeApi"
 
 const initialState = {
-    mysubscribe: []
+    mysubscribe: [],
 };
 
-export const getSubscribe = createAsyncThunk(
-    "subscribeSlice/getSubscribe",
+export const getsubscribeinfo = createAsyncThunk(
+    "subscribeSlice/getsubscribeinfo",
     async(data, { rejectWithValue }) => {
         try{
             const res = await subscribeApi.getsubscribeinfo();
+            console.log(res.data)
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response);
@@ -24,9 +25,10 @@ const subscribeSlice = createSlice({
         
     },
     extraReducers:{
-        [getSubscribe.fulfilled]:(state, action) =>{
-            state.mysubscribe = action.payload
-        }
+        [getsubscribeinfo.fulfilled]:(state, action) =>{
+            state.mysubscribe = action.payload.data;
+            console.log(state.mysubscribe);
+        },
     },
 });
 export const subscribeActions = subscribeSlice.actions;
