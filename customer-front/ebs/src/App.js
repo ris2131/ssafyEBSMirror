@@ -10,7 +10,11 @@ import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
 import MyInfoEdit from './pages/mypage/MyInfoEdit';
 import HairshopSearch from './pages/search/HairshopSearch';
+
+import HairshopInfo from './pages/hairshop/HairshopInfo';
+
 import { useSelector } from "react-redux";
+
 
 
 
@@ -39,7 +43,7 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/myinfo-edit" element={<MyInfoEdit />} />
             <Route path="/search" element={<HairshopSearch />} />   
-
+            <Route path="/hairshop-info" element={<HairshopInfo />} />
       </Routes>
 
     </BrowserRouter>
