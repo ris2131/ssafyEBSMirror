@@ -34,7 +34,7 @@ const SignUpBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  flex: 1;
 `;
 
 const LogoDiv = styled.div`

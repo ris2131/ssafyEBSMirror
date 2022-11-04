@@ -3,14 +3,7 @@ import { authApi } from "../shared/authApi.js";
 // import { imgApi } from "../shared/imgApi";
 
 const initialState = {
-  isLoggedIn: false,
-  user: {
-    nickname: "",
-    email: "",
-    userImg: "",
-    birth: "",
-    provider: "",
-  },
+  isVisible: false,
 };
 
 export const signup = createAsyncThunk(
