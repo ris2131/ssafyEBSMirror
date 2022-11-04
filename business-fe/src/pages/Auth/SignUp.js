@@ -12,9 +12,6 @@ import {
   
   checkReg,
 } from "../../redux/AuthSlice";
-//import { Toast } from "../../assets/Toast";
-
-//import GoogleComponent from "../OauthLogin/GoogleComponent";
 
 // style
 import styled from "styled-components";
@@ -119,7 +116,7 @@ const SButton = styled.button`
   border-radius: 5px;
   color: white;
   border: none;
-  background-color: #947EFF;
+  background-color: #9D7F5C;
   padding: 8px;
   margin: 10px 20px;
   width: 20vw;
@@ -205,8 +202,8 @@ const SignUp = () => {
     const data = {
       email,
       password,
-      regOwner,
-      regNum: "G",
+      "owner" : regOwner,
+      "registration" : regNum,
     };
     if(emailPass ===false){
       Toast.fire({
@@ -280,21 +277,30 @@ const SignUp = () => {
   //사업자등록번호 인증 
   const handleRegistrationValidation = () => {
     const data = {
-      regNum,
-      regFoundDate,
-      regOwner,
-    };
+      businesses : [{
+        b_no : regNum,
+        start_dt : regFoundDate,
+        p_nm : regOwner,
+      }]
+    }
+    const businesses = [{
+      b_no : regNum,
+      start_dt : regFoundDate,
+      p_nm : regOwner,
+    }];
     //api 호출하고 then REGPASS 설정
     dispatch(checkReg(data))
       .unwrap()
       .then((res) => { 
-        if(res.data.valid === "01"){
-          console.log("사업자등록번호 valid");
+        if(res.data[0].valid === "01"){
+          setRegPass(true);
+          Swal.fire({ icon: "success", title: "사업자등록번호 인증이 완료 되었습니다." });
         }else{
-          console.log("사업자등록번호 invalid");
+          setRegPass(false);
+          Swal.fire({ icon: "error", title: "사업자등록번호 인증 실패." });
         }
       })
-    setRegPass(true);
+    
   };
   // const fetchState = useCallback(() => {
   //   setEmail(originData.email);
@@ -310,99 +316,97 @@ const SignUp = () => {
       <LogoDiv>
         <LogoText>회원가입</LogoText>
       </LogoDiv>
-      <>
-        <FlexInputDiv>
-          <TextField
-            fullWidth
-            label="ID (email)"
-            variant="standard"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailPass(false);
-              handleEmailCheck(e.target.value);
-            }}
-          />
-          <SButton
-            onClick={() => {
-              handleEmailValidation();
-            }}
-          >
-            중복 체크
-          </SButton>
-        </FlexInputDiv>
-        <InputDiv>
-          <TextField
-            fullWidth
-            label="password"
-            type="password"
-            variant="standard"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </InputDiv>
-        <InputDiv>
-          <TextField
-            fullWidth
-            label="password check"
-            type="password"
-            variant="standard"
-            value={passwordCheck}
-            onChange={(e) => setPasswordCheck(e.target.value)}
-            //onKeyPress={(e) => (e.key === "Enter" ? setPage(2) : null)}
-          />
-        </InputDiv>
-        
-        <InputDiv>
-          <TextField
-            fullWidth
-            label="대표자명"
-            variant="standard"
-            value={regOwner}
-            onChange={(e) => {
-              setRegOwner(e.target.value);
-              setRegPass(false);
-            }}
-          />
-        </InputDiv>
-        <InputDiv>
-          <TextField
-            fullWidth
-            label="설립연월일(yymdd)"
-            variant="standard"
-            value={regFoundDate}
-            onChange={(e) => {
-              setRegFoundDate(e.target.value);
-              setRegPass(false);
-            }}
-          />
-        </InputDiv>
-        <FlexInputDiv>
-          <TextField
-            fullWidth
-            label="사업자등록번호"
-            variant="standard"
-            value={regNum}
-            onChange={(e) => {
-              setRegNum(e.target.value);
-              setRegPass(false);
-            }}
-          />
-          <SButton
-            onClick={() => {
-              //사업자등록번호 API
-              //getCode();
-              handleRegistrationValidation();
-            }}
-          >
-            인증하기
-          </SButton>
-        </FlexInputDiv>
-        <SButton margin="7vw" onClick={handleSubmit}>
-          가입하기
+      <FlexInputDiv>
+        <TextField
+          fullWidth
+          label="ID (email)"
+          variant="standard"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setEmailPass(false);
+            handleEmailCheck(e.target.value);
+          }}
+        />
+        <SButton
+          onClick={() => {
+            handleEmailValidation();
+          }}
+        >
+          중복 체크
         </SButton>
-        <IconDiv onClick={() => navigate("/login")}>로그인 페이지로</IconDiv>
-      </>
+      </FlexInputDiv>
+      <InputDiv>
+        <TextField
+          fullWidth
+          label="password"
+          type="password"
+          variant="standard"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </InputDiv>
+      <InputDiv>
+        <TextField
+          fullWidth
+          label="password check"
+          type="password"
+          variant="standard"
+          value={passwordCheck}
+          onChange={(e) => setPasswordCheck(e.target.value)}
+          //onKeyPress={(e) => (e.key === "Enter" ? setPage(2) : null)}
+        />
+      </InputDiv>
+      
+      <InputDiv>
+        <TextField
+          fullWidth
+          label="대표자명"
+          variant="standard"
+          value={regOwner}
+          onChange={(e) => {
+            setRegOwner(e.target.value);
+            setRegPass(false);
+          }}
+        />
+      </InputDiv>
+      <InputDiv>
+        <TextField
+          fullWidth
+          label="설립연월일(yymdd)"
+          variant="standard"
+          value={regFoundDate}
+          onChange={(e) => {
+            setRegFoundDate(e.target.value);
+            setRegPass(false);
+          }}
+        />
+      </InputDiv>
+      <FlexInputDiv>
+        <TextField
+          fullWidth
+          label="사업자등록번호"
+          variant="standard"
+          value={regNum}
+          onChange={(e) => {
+            setRegNum(e.target.value);
+            setRegPass(false);
+          }}
+        />
+        <SButton
+          onClick={() => {
+            //사업자등록번호 API
+            setRegPass(false);
+            handleRegistrationValidation();
+          }}
+        >
+          인증하기
+        </SButton>
+      </FlexInputDiv>
+      <SButton margin="7vw" onClick={handleSubmit}>
+        가입하기
+      </SButton>
+      <IconDiv onClick={() => navigate("/login")}>로그인 페이지로</IconDiv>
       
     </SignUpBox>
   );
