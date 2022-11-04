@@ -97,7 +97,7 @@ const GoogleIntro = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </InputBox>
-        <MyButton onClick={handleSubmit}>전송</MyButton>
+        <MyButton onClick={handleSubmit}>가입</MyButton>
       </Wrapper>
     </Container>
   );

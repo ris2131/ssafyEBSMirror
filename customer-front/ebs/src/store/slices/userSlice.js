@@ -36,6 +36,7 @@ export const removeRefreshToken = () => {
         const res = await authApi.googlelogin(data);
         if (res.headers.authorization) {
           localStorage.setItem("token", res.headers.authorization);
+          localStorage.setItem("nickname", res.data.data.member_nickname)
         }
         return res.data
       } catch (err) {
@@ -50,6 +51,7 @@ export const removeRefreshToken = () => {
       try {
         const res = await authApi.googlesignup(data);
         localStorage.setItem("token", res.headers.authorization);
+        localStorage.setItem("nickname", res.data.data.member_nickname)
         return res.data;
       } catch (err) {
         return rejectWithValue(err.response);
@@ -74,6 +76,21 @@ export const removeRefreshToken = () => {
     async (data, { rejectWithValue }) => {
       try {
         const res = await authApi.putuser(data);
+        return res.data;
+      } catch (err) {
+        return rejectWithValue(err.response);
+      }
+    }
+  );
+
+  export const quituser = createAsyncThunk(
+    "userSlice/quituser",
+    async (data, { rejectWithValue }) => {
+      try {
+        const res = await authApi.quituser();
+        localStorage.setItem("token", "");
+        localStorage.setItem("nickname", "");
+        removeRefreshToken()
         return res.data;
       } catch (err) {
         return rejectWithValue(err.response);
@@ -113,7 +130,9 @@ export const removeRefreshToken = () => {
       [putuser.fulfilled]: (state) => {
         state.isLoggedIn = true;
       },
-  
+      [quituser.fulfilled]: (state) => {
+        state.isLoggedIn = false;
+      },
     },
 
 });

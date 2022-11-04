@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from 'react';
 import bgImage from '../../assets/Hairshopimage03.png'
+import logoImage from '../../assets/Logo.png'
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
@@ -105,7 +106,7 @@ const Login = () => {
       <LoginContainer>
         <LogoDiv>
           <LogoImg
-            src= {bgImage}
+            src= {logoImage}
             alt="#"
           ></LogoImg>
           <LogoText>Ebs</LogoText>

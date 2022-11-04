@@ -4,6 +4,7 @@ export const authApi = {
   googlesignup: (data) => axios.post("/members/signup", data),
   getuser : () => axios.get("/members"),
   putuser : (data) => axios.put("/members", data),
+  quituser : () => axios. put("/members/quit"),
 //   signup: (data) => axios.post("api/members/sign-up", data),
 //   login: (data) => axios.post("api/login", data),
   // googlelogin: (data) => axios.post("/members/login", data),
