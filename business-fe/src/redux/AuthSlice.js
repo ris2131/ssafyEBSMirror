@@ -13,6 +13,20 @@ const initialState = {
   },
 };
 
+export const signup = createAsyncThunk(
+  "AuthSlice/signup",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await authApi.signup(data);
+      //localStorage.setItem("token", res.headers.authorization);
+      console.log("data: "+data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 export const login = createAsyncThunk(
   "AuthSlice/login",
   async (data, { rejectWithValue }) => {
@@ -28,6 +42,31 @@ export const login = createAsyncThunk(
     }
   }
 );
+// 이메일 중복체크
+export const checkEmail = createAsyncThunk(
+  "AuthSlice/checkEmail",
+  async (email, { rejectWithValue }) => {
+    try {
+      const res = await authApi.checkemail(email);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+//
+export const checkReg = createAsyncThunk(
+  "AuthSlice/checkReg",
+  async(data, {rejectWithValue})=>{
+    try{
+      const res = await authApi.checkReg(data);
+      return res.data;
+    } catch(err){
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 
 export const getuser = createAsyncThunk(
   "AuthSlice/getuser",
