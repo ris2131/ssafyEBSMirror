@@ -5,7 +5,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import CenteredTabs from "../../components/hairshop/TabmenuComponent";
+//import CenteredTabs from "../../components/hairshop/TabmenuComponent";
 import BasicTabs from "../../components/hairshop/TabmenuComponent2";
 
 
