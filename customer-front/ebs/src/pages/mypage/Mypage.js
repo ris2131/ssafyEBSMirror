@@ -1,5 +1,5 @@
 import Modal from "@mui/material/Modal";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from 'react-bootstrap/Card'
 import Typography from "@mui/material/Typography";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser, quituser } from "../../store/slices/userSlice";
 import MyButton from '../../components/MyButton';
+import styled from "styled-components";
 
 const style = {
     position: "absolute",
@@ -26,6 +27,45 @@ const style = {
     alignItems: "center",
   };
 
+const InfoContainer = styled.div`
+  background-color: #F9F9F9;
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+`;
+
+const Nicknamecontainer = styled.div`
+  text-align: center;
+`;
+
+const Nickname = styled.div`
+  display: inline;
+  margin-left: 10px;
+  
+`;
+
+const Realname = styled.div`
+  display: inline;
+  margin-left: 20px;
+  
+`;
+
+const AdressContainer = styled.div`
+  text-align: center;
+`;
+
+const AdressTitle = styled.div`
+  display: inline;
+  margin-left: 10px;
+`;
+
+const Adress = styled.div`
+  display: inline;
+  margin-left: 20px;
+`;
 
 const Mypage = () => {
 
@@ -103,30 +143,29 @@ const Mypage = () => {
 
 
     return (
-        <div>
-            <div>
-                <h1>
+        <InfoContainer>
+                <Title>
                     마이페이지
-                </h1>
-            </div>
-            <div>
-                <span>
-                    닉네임 : 
-                </span>
-                <span>
-                    {nickName}
-                </span>
+                </Title>
+                <Nicknamecontainer>
+                  <Nickname>
+                      닉네임  
+                  </Nickname>
+                  <Realname>
+                      {nickName}
+                  </Realname>
+                </Nicknamecontainer>
                 <HorizonLine />
-            </div>
-            <div>
-                <span>
-                    주소 : 
-                </span>
-                <span>
-                    {address}
-                </span>
+                <AdressContainer>
+                  <AdressTitle>
+                      주소  
+                  </AdressTitle>
+                  <Adress>
+                      {address}
+                  </Adress>
+                </AdressContainer>
                 <HorizonLine/>
-            </div>
+            
             <div>
                 <Card>
                     <Card.Body>구독 정보</Card.Body>
@@ -147,7 +186,7 @@ const Mypage = () => {
             </Button>
             </div>
             
-        </div>
+        </InfoContainer>
     );
 };
 

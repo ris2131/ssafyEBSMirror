@@ -1,4 +1,3 @@
-import style from './ReservationInfo.module.css';
 import ReservationInfocardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent";   
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -25,11 +24,11 @@ const ReservationInfo = () => {
     }, []);
 
     return (
-        <div className={style.Layout}>
-            <div className={style.Title}>
+        <div>
+            <div>
                 <h1>예약 내역</h1>
             </div>
-                <div className={style.Infocard}>
+                <div>
                     <ReservationInfocardComponent />
                 </div>
             
