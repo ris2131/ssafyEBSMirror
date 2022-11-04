@@ -1,17 +1,15 @@
 package com.ssafyebs.businessbe.domain.search.service;
 
-import com.ssafyebs.businessbe.domain.business.controller.BusinessController;
 import com.ssafyebs.businessbe.domain.manage.entity.Designer;
 import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
 import com.ssafyebs.businessbe.domain.manage.repository.DesignerRepository;
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
+import com.ssafyebs.businessbe.domain.search.dto.responsedto.InfoResponseDto;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchDesignerResponseDto;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchHairshopResponseDto;
 import com.ssafyebs.businessbe.domain.search.vo.DesignerVo;
 import com.ssafyebs.businessbe.domain.search.vo.HairshopVo;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -60,5 +58,21 @@ public class SearchServiceImpl implements SearchService{
             designerVoList.add(designerVo);
         }
         return new SearchDesignerResponseDto(designerVoList);
+    }
+
+    @Override
+    public InfoResponseDto getInfoBySequence(long businessSeq) {
+        Hairshop hairshop = hairshopRepository.findHairshopByBusinessSeq(businessSeq);
+        HairshopVo hairshopVo = HairshopVo.builder()
+                .businessSeq(hairshop.getBusinessSeq())
+                .name(hairshop.getName())
+                .phone(hairshop.getPhone())
+                .address(hairshop.getAddress())
+                .photo(hairshop.getPhoto())
+                .notice(hairshop.getNotice())
+                .description(hairshop.getDescription())
+                .homepage(hairshop.getHomepage())
+                .build();
+        return new InfoResponseDto(hairshopVo);
     }
 }

@@ -1,5 +1,6 @@
 package com.ssafyebs.businessbe.domain.search.controller;
 
+import com.ssafyebs.businessbe.domain.search.dto.responsedto.InfoResponseDto;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchDesignerResponseDto;
 import com.ssafyebs.businessbe.domain.search.dto.responsedto.SearchHairshopResponseDto;
 import com.ssafyebs.businessbe.domain.search.service.SearchService;
@@ -24,5 +25,11 @@ public class SearchController {
     public ResponseEntity<?> searchDesigner(@PathVariable("business_seq")long businessSeq){
         SearchDesignerResponseDto searchDesignerResponseDto = searchService.searchDesignerByHairshop(businessSeq);
         return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("디자이너 검색 완료.", searchDesignerResponseDto));
+    }
+
+    @GetMapping("/hairshop/{business_seq}/info")
+    public ResponseEntity<?> getInfo(@PathVariable("business_seq")long businessSeq){
+        InfoResponseDto infoResponseDto = searchService.getInfoBySequence(businessSeq);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("헤어샵 검색 완료.", infoResponseDto));
     }
 }
