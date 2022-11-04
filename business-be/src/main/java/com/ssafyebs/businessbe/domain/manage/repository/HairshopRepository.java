@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface HairshopRepository extends JpaRepository<Hairshop, Long> {
     Optional<Hairshop> findHairshopByBusiness(Business business);
     List<Hairshop> findHairshopsByVisibleAndNameContaining(boolean visible, String name);
-
+    Hairshop findHairshopByBusinessSeq(long businessSeq);//refactor : optional 처리
 }
