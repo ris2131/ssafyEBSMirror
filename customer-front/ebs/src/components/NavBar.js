@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import { removeRefreshToken } from "../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store/slices/userSlice";
+import logoImg  from "../assets/Logo.png"
 
 const NavDiv = styled.div`
   display: flex;
@@ -17,13 +18,13 @@ const NavDiv = styled.div`
   font-size: 40px;
 `;
 
-// const logoImage = `../assets/Hairshopimage01.png`;
 
-// const StyledImage = styled.img`
-//   width: 80px;
-//   height: 80px;
-//   cursor: pointer;
-// `;
+
+const StyledImage = styled.img`
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+`;
 const HamBar = styled.div`
   cursor: pointer;
   padding: 10px;
@@ -43,16 +44,18 @@ const NavBar = () => {
 
   const handleLogout = () => {
     localStorage.setItem("token", "");
+    localStorage.setItem("nickname", "")
     removeRefreshToken();
     dispatch(userActions.logout());
     navigate("/login");
   };
 
+
   return (
     <NavDiv>
-      {/* <div>
-        <StyledImage src={logoImage} alt="#" onClick={() => navigate("/")} />
-      </div> */}
+      <div>
+        <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
+      </div>
       <HamBar>
         <Avatar onClick={handleClick}>H</Avatar>
       </HamBar>
@@ -65,13 +68,13 @@ const NavBar = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => navigate("/mypage")}>
+        <MenuItem onClick={() => {setAnchorEl(null); navigate("/mypage"); }}>
           내정보
         </MenuItem>
-        <MenuItem onClick={() => navigate("/reservation-info")}>
+        <MenuItem onClick={() => {setAnchorEl(null); navigate("/reservation-info")}}>
           예약정보
         </MenuItem>
-        <MenuItem onClick={() => navigate("/subscribe-info")}>
+        <MenuItem onClick={() => {setAnchorEl(null); navigate("/subscribe-info")}}>
           구독정보
         </MenuItem>
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>

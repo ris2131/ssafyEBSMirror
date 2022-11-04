@@ -20,9 +20,8 @@ import styled from "styled-components";
 const Home = () => {
 
   const navigate = useNavigate();
+  const nickName = localStorage.getItem("nickname")
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const member_nickname = "김싸피"
-  const haircut_term = 35
   console.log(isLoggedIn)
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -34,10 +33,7 @@ const Home = () => {
     <div>
       
         <div>
-            안녕하세요 {member_nickname}님.
-        </div>
-        <div>
-            미용실을 이용한지 {haircut_term}일이 되었습니다.
+            안녕하세요 {nickName}님 환영합니다 *^_^*
         </div>
         <div>
         <HairshopCarouselComponent />
