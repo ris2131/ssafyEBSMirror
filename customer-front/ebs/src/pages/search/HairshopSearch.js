@@ -45,7 +45,7 @@ const HairshopSearch = () => {
     return (
         <Container>
             <form >
-                <CustomInput />    
+                <CustomInput type="text" placeholder="헤어숍 이름을 검색하세요."/>    
                 <SearchButton>
                     검색
                 </SearchButton>
