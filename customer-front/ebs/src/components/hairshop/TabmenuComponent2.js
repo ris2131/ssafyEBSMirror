@@ -9,8 +9,9 @@ import DesignerComponent from './DesignerComponent';
 import SubscribeComponent from './SubscribeComponent';
 import ReservationComponent from './ReservationComponent';
 
+
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index,  ...other } = props;
 
   return (
     <div
@@ -21,7 +22,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 4 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
