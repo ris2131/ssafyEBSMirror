@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+//import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -107,19 +108,13 @@ const SButton = styled.button`
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
-  const [emailCheck, setEmailCheck] = useState("");
+  //const [emailCheck, setEmailCheck] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [regOwner, setRegOwner] = useState("");
   const [regFoundDate, setRegFoundDate] = useState("");
   const [regNum, setRegNum] = useState("");
   
-
-  const [profile, setProfile] = useState("");
-  const [preview, setPreview] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
-  const [nickname, setNickname] = useState("");
   //const [page, setPage] = useState(1);
   //const [timeOn, setTimeOn] = useState(false);
 
@@ -130,8 +125,8 @@ const SignUp = () => {
   const [emailPass, setEmailPass] = useState(false);
   const [regPass, setRegPass] = useState(false);
 
-  const inputRef = useRef();
-  const nicknameRef = useRef();
+  //const inputRef = useRef();
+  //const nicknameRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -221,11 +216,7 @@ const SignUp = () => {
         p_nm : regOwner,
       }]
     }
-    const businesses = [{
-      b_no : regNum,
-      start_dt : regFoundDate,
-      p_nm : regOwner,
-    }];
+    
     //api 호출하고 then REGPASS 설정
     dispatch(checkReg(data))
       .unwrap()

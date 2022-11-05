@@ -1,9 +1,9 @@
 import './App.css';
 
-import { useEffect } from "react";
-import { getuser } from "./redux/AuthSlice";
-import { useDispatch } from "react-redux";
-import { Routes, Route, useNavigate } from "react-router-dom";
+//import { useEffect } from "react";
+//import { getuser } from "./redux/AuthSlice";
+//import { useDispatch } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 
 // 메인
 import Home from "./pages/Main/Home";
@@ -14,9 +14,9 @@ import SignUp from './pages/Auth/SignUp';
 import Info from "./pages/Info/Info";
 
 function App() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  //const dispatch = useDispatch();
+  //const navigate = useNavigate();
+  //const token = localStorage.getItem("token"); 
 
   // useEffect(() => {
   //   if (token) {
