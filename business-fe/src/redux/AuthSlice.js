@@ -27,14 +27,21 @@ export const login = createAsyncThunk(
       const res = await authApi.login(data);
       console.log("res: ",res);
       console.log("res.header: ",res.headers);
-      localStorage.setItem("token", res.headers.authorization);//token 이 undefined 임.
-      console.log("authrorization: ",res.headers.authorization);
+      localStorage.setItem("token", res.headers['authorization']);//token 이 undefined 임.
+      console.log("authorization: ",res.headers['authorization']);
+
+      console.log("등록 여부 : " + res.data['data']['hairshop_visible']);
+      initialState.isVisible = res.data['data']['hairshop_visible'];
+
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
     }
   }
 );
+
+export const getVisible = initialState.isVisible;
+
 // 이메일 중복체크
 export const checkEmail = createAsyncThunk(
   "AuthSlice/checkEmail",

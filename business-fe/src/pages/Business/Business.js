@@ -51,7 +51,7 @@ const SSection = styled.section`
   }
 
   &:hover {
-    width: 40%;
+    width: 45%;
     filter: brightness(1);
     transition-duration: 100ms;
     z-index: 1;
@@ -60,9 +60,13 @@ const SSection = styled.section`
 
 const Business = () => {
   let scheduleStr = "예약 정보";
-  if (!localStorage.getItem("token")) {
-    scheduleStr = "매장 등록"
-  }
+
+
+  // console.log(getVisible);
+  // console.log(authSlice(isVisible()));
+  // if (!authSlice().isVisible) {
+  //   scheduleStr = "매장 등록";
+  // }
 
   return (
     <>
