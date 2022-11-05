@@ -34,6 +34,10 @@ const Home = () => {
         }
     }, [isLoggedIn, navigate]);
 
+		const info = ()=>{
+			navigate("/info");
+		};
+
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
@@ -41,7 +45,7 @@ const Home = () => {
 
     return (
         <>
-            <div>안녕하세홈화면</div>
+            <SButton onClick={info}>매장 관리</SButton>
             <SButton onClick={logout}>로그아웃</SButton>
         </>
     );
