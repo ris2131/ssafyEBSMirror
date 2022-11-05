@@ -6,18 +6,8 @@ const axios = baseaxios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
-
     accept: "application/json",
-    //accept: "Authorization",
   },
-  // headers : {headers: {
-  //   "content-type": "application/json;charset=UTF-8",
-  //   accept: "application/json",
-  // }},
-
-  // headers : {
-  //   "content-type": "application/json;charset=UTF-8",
-  //   accept: "application/json"}
 });
 
 axios.interceptors.request.use((config) => {
