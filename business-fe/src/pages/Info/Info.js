@@ -2,13 +2,14 @@
 
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
+
 import pencil from "../../assets/Pencil.png";
 
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import {useNavigate} from "react-router-dom";
-import { infoApi } from "../../shared/infoApi";
-import { info } from "../../redux/InfoSlice";
+import {useNavigate} from "react-router-dom";
+import { getinfo, modifyinfo } from "../../redux/InfoSlice";
 //import { set } from "immer/dist/internal";
 
 const InfoBox = styled.div`
@@ -78,11 +79,12 @@ const Info = () =>{
   const[noticeDisabled, setNoticeDisabled] = useState(true);
 
   const dispatch = useDispatch();
-  
+
+  const navigate = useNavigate();
+
   const fetchInfo = useCallback(() => {
-    console.log("1");
     // infoApi.getinfo().then((Response) => setOriginData(Response)).then(console.log("2"));
-    dispatch(info())
+    dispatch(getinfo());
     // .then((res) => {console.log("!!!!!!!!!!!!"); console.log(res); }).catch(()=>console.log("??????????????")) 
     setName(originName);
     setPhone(originPhone);
@@ -90,14 +92,30 @@ const Info = () =>{
     setHomepage(originHomepage);
     setDescription(originDescription);
     setNotice(originNotice);
-    
-
   }, [originName,originPhone, originAddress, originHomepage, originDescription, originNotice]);
-  //?
-
+  
+  //컴포넌트가 렌더링 될 때 특정 작업을 실행할 수 있도록 하는 Hook
   useEffect(() => {
     fetchInfo();
   },[fetchInfo]);
+
+  const handleSubmit = () => {
+    const data = {
+      name,
+      phone, 
+      address,
+      homepage,
+      description,
+      notice,
+    };
+    dispatch(modifyinfo(data))
+      .unwrap()
+      .then(Swal.fire({ icon: "success", title: "수정 완료되었습니다." }))
+      .then(() => navigate("/"))
+      .catch(() => {
+        Swal.fire({ icon: "error", title: "정보를 확인해주세요" });
+      });
+  };
 
   return(
     <InfoBox>
@@ -174,7 +192,7 @@ const Info = () =>{
         <PButton src={pencil} alt="pencil_image"  onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
       </FlexInputDiv>
       <InputDiv>
-        <SButton>
+        <SButton onClick={handleSubmit}>
           정보수정
         </SButton>
       </InputDiv>

@@ -16,8 +16,8 @@ const initialState = {
   },
 };
 
-export const info = createAsyncThunk(
-  "InfoSlice/info",
+export const getinfo = createAsyncThunk(
+  "InfoSlice/getinfo",
   async (data, {rejectWithValue}) => {
     try {
       console.log("getinfo start")
@@ -30,6 +30,19 @@ export const info = createAsyncThunk(
     } catch (err) {
       console.log("getInfo err");
       console.error(err);
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const modifyinfo = createAsyncThunk(
+  "InfoSlice/modifyinfo",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await infoApi.modifyinfo(data);
+      //localStorage.setItem("token", res.headers.authorization);
+      console.log("data: "+data);
+      return res.data;
+    } catch (err) {
       return rejectWithValue(err.response);
     }
   }
@@ -61,7 +74,7 @@ const InfoSlice = createSlice({
   //   [googleNickname.fulfilled]: (state) => {
   //     state.isLoggedIn = true;
   //   },
-    [info.fulfilled]: (state, action) => {
+    [getinfo.fulfilled]: (state, action) => {
       const {data} = action.payload;
       state.isLoggedIn = true;
       state.profile.name = data.name;
