@@ -1,12 +1,15 @@
 package com.ssafyebs.customerback.domain.subscribe.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafyebs.customerback.domain.subscribe.dto.SubscriptionResponseDto;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 import com.ssafyebs.customerback.domain.subscribe.repository.SubscriptionRepository;
 
@@ -18,10 +21,24 @@ import lombok.RequiredArgsConstructor;
 public class SubscriptionServiceImpl implements SubscriptionService{
 
 	private final SubscriptionRepository subscriptionRepository;
-	
 	@Override
-	public List<Subscription> findByMember_MemberUid(String uid) {
-		return subscriptionRepository.findByMember_MemberUid(uid);
+	public List<SubscriptionResponseDto> findByMember_MemberUid(String uid) {
+		List<SubscriptionResponseDto> list = new ArrayList<SubscriptionResponseDto>();
+		List<Subscription> slist = subscriptionRepository.findByMember_MemberUidOrderBySubscriptionSeqDesc(uid);
+		
+		for(Subscription s : slist) {
+			SubscriptionResponseDto dto = new SubscriptionResponseDto();
+			dto.setHairshopName(s.getFederatedSubscription().getHairshopName());
+			dto.setSubscriptionExpiration(s.getSubscriptionExpiration());
+			dto.setPricingNumber(s.getFederatedSubscription().getPricingNumber());
+			dto.setSubscriptionLeft(s.getSubscriptionLeft());
+			Calendar cal = (Calendar) s.getSubscriptionExpiration().clone();
+			int value = s.getFederatedSubscription().getPricingMonth().intValue();
+			cal.add(Calendar.MONTH, -1*value);
+			dto.setSubscriptionStart(cal);
+			list.add(dto);
+		}
+		return list;
 	}
 
 	@Override
