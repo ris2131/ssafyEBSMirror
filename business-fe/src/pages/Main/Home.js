@@ -43,9 +43,14 @@ const Home = () => {
         navigate("/login");
     };
 
+    const designerAdd = () =>{
+      navigate("/designer/add");
+    }
+
     return (
         <>
             <SButton onClick={info}>매장 관리</SButton>
+            <SButton onClick={designerAdd}>디자이너 추가</SButton>
             <SButton onClick={logout}>로그아웃</SButton>
         </>
     );
