@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authApi } from "../shared/authApi.js";
 import { infoApi } from "../shared/infoApi.js";
 // import { imgApi } from "../shared/imgApi";
 
