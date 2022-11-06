@@ -26,23 +26,28 @@ const SButton = styled.button`
 const Home = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const isVisible = useSelector((state) => state.auth.isVisible);
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
         titleElement.innerHTML = `Ebs`;
         if (!localStorage.getItem("token")) {
             navigate("/login");
         }
-    }, [isLoggedIn, navigate]);
+    }, [isLoggedIn,isVisible, navigate]);
 
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
+    };
+    const handleVisible = () => {
+        console.log("isvisible 은"+isVisible);
     };
 
     return (
         <>
             <div>안녕하세홈화면</div>
             <SButton onClick={logout}>로그아웃</SButton>
+            <SButton onClick={handleVisible}>visible 상태 알려줘</SButton>
         </>
     );
 };

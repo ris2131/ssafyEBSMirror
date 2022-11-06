@@ -3,6 +3,7 @@ import { authApi } from "../shared/authApi.js";
 // import { imgApi } from "../shared/imgApi";
 
 const initialState = {
+  isLoggedIn: false,
   isVisible: false,
 };
 
@@ -12,7 +13,7 @@ export const signup = createAsyncThunk(
     try {
       const res = await authApi.signup(data);
       //localStorage.setItem("token", res.headers.authorization);
-      console.log("data: "+data);
+      console.log("data: "+ data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -25,13 +26,12 @@ export const login = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await authApi.login(data);
-      console.log("res: ",res);
-      console.log("res.header: ",res.headers);
+      //console.log("res: ",res);
+      //console.log("res.header: ",res.headers);
       localStorage.setItem("token", res.headers['authorization']);//token 이 undefined 임.
-      console.log("authorization: ",res.headers['authorization']);
+      //console.log("authorization: ",res.headers['authorization']);
 
-      console.log("등록 여부 : " + res.data['data']['hairshop_visible']);
-      initialState.isVisible = res.data['data']['hairshop_visible'];
+      //console.log("등록 여부 : " + res.data['data']['hairshop_visible']);
 
       return res.data;
     } catch (err) {
@@ -39,8 +39,6 @@ export const login = createAsyncThunk(
     }
   }
 );
-
-export const getVisible = initialState.isVisible;
 
 // 이메일 중복체크
 export const checkEmail = createAsyncThunk(
@@ -95,8 +93,15 @@ const authSlice = createSlice({
   //   [signup.fulfilled]: (state) => {
   //     state.isLoggedIn = true;
   //   },
-    [login.fulfilled]: (state) => {
+    [login.fulfilled]: (state, action) => {
+      const {data} = action.payload;
+      console.log("payload는 "+data);
+      console.log("payload.isVisible는 "+data.hairshop_visible);
+      
       state.isLoggedIn = true;
+      state.isVisible = data.hairshop_visible;
+      console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
+      console.log("fulfilled후 state는 "+state.isVisible);
     },
   //   [googleLogin.fulfilled]: (state, action) => {
   //     if (action.payload.data) {
