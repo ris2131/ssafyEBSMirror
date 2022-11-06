@@ -11,6 +11,9 @@ export const authApi = {
   //confirmemail: (data) => axios.post("api/members/email/confirm", data),
 
   login: (data) => axios.post("business/login", data),//,
+
+  getBusiness: () => axios.get("business"),
+
   //googlelogin: (data) => axios.post("api/google-login", data),
   //getuser: () => axios.get("api/members"),
   //putpassword: (pwd) => axios.put("api/members/password", pwd),

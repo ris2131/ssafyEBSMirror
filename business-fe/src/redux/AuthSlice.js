@@ -39,7 +39,20 @@ export const login = createAsyncThunk(
     }
   }
 );
+export const getBusiness = createAsyncThunk(
+  "AuthSlice/getBusiness",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await authApi.getBusiness();
+      
+      //console.log("등록 여부 : " + res.data['data']['hairshop_visible']);
 
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
 // 이메일 중복체크
 export const checkEmail = createAsyncThunk(
   "AuthSlice/checkEmail",
@@ -94,6 +107,16 @@ const authSlice = createSlice({
   //     state.isLoggedIn = true;
   //   },
     [login.fulfilled]: (state, action) => {
+      const {data} = action.payload;
+      console.log("payload는 "+data);
+      console.log("payload.isVisible는 "+data.hairshop_visible);
+      
+      state.isLoggedIn = true;
+      state.isVisible = data.hairshop_visible;
+      console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
+      console.log("fulfilled후 state는 "+state.isVisible);
+    },
+    [getBusiness.fulfilled]: (state, action) => {
       const {data} = action.payload;
       console.log("payload는 "+data);
       console.log("payload.isVisible는 "+data.hairshop_visible);
