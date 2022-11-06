@@ -23,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<ReservationResponseDto> findByMember_MemberUid(String memberUid) {
 		// TODO Auto-generated method stub
 		List<ReservationResponseDto> list = new ArrayList<ReservationResponseDto>();
-		List<Reservation> rlist = reservationRepository.findByMember_MemberUid(memberUid);
+		List<Reservation> rlist = reservationRepository.findByMember_MemberUidOrderByReservationSeq(memberUid);
 		
 		for(Reservation r : rlist) {
 			ReservationResponseDto dto = new ReservationResponseDto();
