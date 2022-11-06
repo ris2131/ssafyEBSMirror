@@ -1,7 +1,9 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import ebs_logo from "../../assets/ebs_logo.png"
+import { searchByname } from '../../store/slices/businessSlice';
+import HairshopSearchComponent from "../../components/hairshop/HairshopSearchComponent";
 
 const Container = styled.div`
     background-color: #F9F9F9;
@@ -51,22 +53,16 @@ const MyButton = styled.button`
 //     setSearch(e.target.value);
 // };
 
-const HairshopSearch = () => {
 
+const HairshopSearch = () => {
+    const dispatch = useDispatch();
     const [keyword, setKeyword] = useState("");
     const params = { search_keyword : keyword }
+    const hairshopList = useSelector((state) => state.business.hairshopList)
     const submitKeyword = () => {
-        
-             // const data = {
-        //     keyword
-        // };
-        // console.log(keyword)
-        axios.get("http://localhost:8080/search/hairshop",{params} ).then((res)=>(console.log(res))).catch(()=>(console.log("!!!!!")))
 
-                // dispatch(googleNickname(data))
-        //   .unwrap()
-        //   .then((res) => {console.log(res); navigate("/")})
-        //   .catch((err) => console.error(err));
+        dispatch(searchByname(params))
+
         };
   
     
@@ -78,6 +74,23 @@ const HairshopSearch = () => {
                 <MyButton onClick={submitKeyword}>
                     검색
                 </MyButton>
+                <div>
+                {hairshopList.length ? (
+            
+                 hairshopList.map((a, i) => {
+              return (
+                <HairshopSearchComponent
+                  hairshop={hairshopList[i]}
+                  num={i}
+                  key={i}
+                />
+              );
+            })
+          ) : (
+            <>검색 결과가 없습니다.</>
+          )}
+
+                </div>
             </div>
         </Container>
     );
