@@ -26,7 +26,15 @@ public class ReservationServiceImpl implements ReservationService{
 		List<Reservation> rlist = reservationRepository.findByMember_MemberUid(memberUid);
 		
 		for(Reservation r : rlist) {
-			list.add(new ReservationResponseDto(r));
+			ReservationResponseDto dto = new ReservationResponseDto();
+			dto.setDesignerName(r.getFederatedReservation().getDesignerName());
+			dto.setHairshopName(r.getFederatedReservation().getHairshopName());
+			dto.setReservationDate(r.getReservationDate());
+			dto.setReservationPhoto(r.getReservationPhoto());
+			dto.setReservationStyle(r.getReservationStyle());
+			dto.setReservationService(r.getReservationService());
+			dto.setReservationEtc(r.getReservationEtc());
+			list.add(dto);
 		}
 		
 		return list;
