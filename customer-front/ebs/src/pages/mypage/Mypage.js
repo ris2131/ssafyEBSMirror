@@ -1,7 +1,6 @@
 import Modal from "@mui/material/Modal";
 import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
-import Card from 'react-bootstrap/Card'
 import Typography from "@mui/material/Typography";
 import HorizonLine from '../../components/mypage/HorizonLine';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getuser, quituser } from "../../store/slices/userSlice";
 import MyButton from '../../components/MyButton';
 import styled from "styled-components";
+import ReservationcardComponent from "../../components/mypage/ReservationcardComponent";
+import SubscribecardComponent from "../../components/mypage/SubscribecardComponent";
 
 const style = {
     position: "absolute",
@@ -35,10 +36,11 @@ const Title = styled.div`
   font-size: 50px;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 30px;
 `;
 
 const Nicknamecontainer = styled.div`
-  text-align: center;
+  text-align: jstify;
 `;
 
 const Nickname = styled.div`
@@ -54,18 +56,21 @@ const Realname = styled.div`
 `;
 
 const AdressContainer = styled.div`
-  text-align: center;
+  text-align: jstify;
 `;
 
 const AdressTitle = styled.div`
   display: inline;
   margin-left: 10px;
+  
 `;
 
 const Adress = styled.div`
   display: inline;
   margin-left: 20px;
+  
 `;
+
 
 const Mypage = () => {
 
@@ -165,17 +170,11 @@ const Mypage = () => {
                   </Adress>
                 </AdressContainer>
                 <HorizonLine/>
+
+              <ReservationcardComponent/>
+              <SubscribecardComponent/>
+
             
-            <div>
-                <Card>
-                    <Card.Body>구독 정보</Card.Body>
-                </Card>
-            </div>
-            <div>
-                <Card>
-                    <Card.Body>예약 내역</Card.Body>
-                </Card>
-            </div>
         
             <div>
             <Button variant="outlined" color="primary" onClick={handleEdit}>
