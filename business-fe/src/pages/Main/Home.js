@@ -15,21 +15,21 @@ import scheduleImg from "../../assets/schedule.jpg";
 import { getBusiness } from "../../redux/AuthSlice";
 
 
-const SButton = styled.button`
-  @media screen and (max-width: 1000px) {
-    width: 50vw;
-  }
-  border-radius: 5px;
-  color: white;
-  border: none;
-  background-color: #9D7F5C;
-  padding: 5px;
-  margin-top: 40px;
-  width: 10vw;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-`;
+// const SButton = styled.button`
+//   @media screen and (max-width: 1000px) {
+//     width: 50vw;
+//   }
+//   border-radius: 5px;
+//   color: white;
+//   border: none;
+//   background-color: #9D7F5C;
+//   padding: 5px;
+//   margin-top: 40px;
+//   width: 10vw;
+//   font-size: 16px;
+//   font-weight: bold;
+//   cursor: pointer;
+// `;
 
 const SMain = styled.main`
   display: flex;
@@ -97,14 +97,17 @@ const Home = () => {
       
   }, [isLoggedIn,isVisible, navigate, dispatch]);
 
-  const logout = () => {
-      localStorage.removeItem("token");
-      navigate("/login");
-  };
-  const handleVisible = () => {
-      console.log("isvisible 은"+isVisible);
-      console.log("isLoggedIn 은"+isLoggedIn);
-  };
+  //로그아웃
+  // const logout = () => {
+  //     localStorage.removeItem("token");
+  //     navigate("/login");
+  // };
+
+  //Test
+  // const handleVisible = () => {
+  //     console.log("isvisible 은"+isVisible);
+  //     console.log("isLoggedIn 은"+isLoggedIn);
+  // };
 
   return (
       <>
@@ -113,7 +116,7 @@ const Home = () => {
           <SSection className={"manage"} onClick={navigate("/manage")} >
             <div>매장 관리</div>
           </SSection>
-          <SSection className={"designer"}>
+          <SSection className={"designer"} onClick={navigate("/manage")}>
             <div>디자이너 관리</div>
           </SSection>
           <SSection className={"schedule"}>

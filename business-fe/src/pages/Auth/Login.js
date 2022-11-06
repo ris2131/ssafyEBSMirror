@@ -74,7 +74,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 

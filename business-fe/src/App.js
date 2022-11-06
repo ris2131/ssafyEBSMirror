@@ -11,11 +11,29 @@ import Home from "./pages/Main/Home";
 import Login from "./pages/Auth/Login";
 import SignUp from './pages/Auth/SignUp';
 import Business from "./pages/Business/Business";
+//매장 관리
+import Info from "./pages/Info/Info";
+import Designer from './pages/Designer/Designer';
+import DesignerAdd from './pages/Designer/DesignerAdd';
 
 function App() {
   //const dispatch = useDispatch();
   //const navigate = useNavigate();
-  //const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token"); 
+
+  // useEffect(() => {
+  //   if (token) {
+  //     const getUser = () => {
+  //       dispatch(getuser())
+  //         .unwrap()
+  //         .catch(() => {
+  //           localStorage.setItem("token", "");
+  //           navigate("/login");
+  //         });
+  //     };
+  //     getUser();
+  //   }
+  // }, [dispatch, navigate, token]);
 
   return (
     <div className="App">
@@ -27,11 +45,17 @@ function App() {
         <Route path="/login" element={<Login/>} />
         
         {/* 회원가입 */}
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp/>} />
+        {/*점주 정보 수정*/}
+        <Route path="/info" element={<Info/>}/>
 
         {/* 회원가입 */}
         <Route path="/business" element={<Business/>}/>
 
+        {/* 디자이너 관리 페이지 */}
+        <Route path="/designer" element={<Designer/>}/>
+        {/* 디자이너 추가 페이지 */}
+        <Route path="/designer/add" element={<DesignerAdd/>}/>
       </Routes>
     </div>
   );

@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+//import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -16,15 +17,9 @@ import {
 // style
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-//import { GrLinkNext } from "react-icons/gr";
-//import { GrLinkPrevious } from "react-icons/gr";
-//import { TbCameraPlus } from "react-icons/tb";
+//import MenuItem from "@mui/material/MenuItem";
+//import Select from "@mui/material/Select";
 import Swal from "sweetalert2";
-//import Timer from "./components/Timer";
-
-//const backgroundImage = process.env.PUBLIC_URL + `/assets/testground.jpg`;
 
 import logoImage from '../../assets/Logo.png'
 
@@ -76,18 +71,6 @@ const FlexInputDiv = styled.div`
   cursor: pointer;
 `;
 
-const CheckButton = styled.button`
-  margin-top: 20px;
-  margin-left: 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: ${(props) => props.back};
-  padding: 5px;
-  color: white;
-  width: 100px;
-  cursor: ${(props) => props.pointer};
-`;
-
 const InputDiv = styled.div`
   @media screen and (max-width: 1000px) {
     width: 45vw;
@@ -123,65 +106,15 @@ const SButton = styled.button`
   cursor: pointer;
 `;
 
-const ProfileContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileBox = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 70%;
-  overflow: hidden;
-`;
-
-const Profileimg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const DateWrapper = styled.div`
-  @media screen and (max-width: 1000px) {
-    width: 45vw;
-  }
-  display: flex;
-  align-items: center;
-  width: 20vw;
-`;
-
-const MarginBox = styled.div`
-  @media screen and (max-width: 1000px) {
-  }
-`;
-
-const SelectBox = styled.div`
-  margin: 0px 10px;
-`;
-
 const SignUp = () => {
   const [email, setEmail] = useState("");
-  const [emailCheck, setEmailCheck] = useState("");
+  //const [emailCheck, setEmailCheck] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [regOwner, setRegOwner] = useState("");
   const [regFoundDate, setRegFoundDate] = useState("");
   const [regNum, setRegNum] = useState("");
   
-
-  const [profile, setProfile] = useState("");
-  const [preview, setPreview] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
-  const [nickname, setNickname] = useState("");
   //const [page, setPage] = useState(1);
   //const [timeOn, setTimeOn] = useState(false);
 
@@ -192,8 +125,8 @@ const SignUp = () => {
   const [emailPass, setEmailPass] = useState(false);
   const [regPass, setRegPass] = useState(false);
 
-  const inputRef = useRef();
-  const nicknameRef = useRef();
+  //const inputRef = useRef();
+  //const nicknameRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -283,11 +216,7 @@ const SignUp = () => {
         p_nm : regOwner,
       }]
     }
-    const businesses = [{
-      b_no : regNum,
-      start_dt : regFoundDate,
-      p_nm : regOwner,
-    }];
+    
     //api 호출하고 then REGPASS 설정
     dispatch(checkReg(data))
       .unwrap()
@@ -354,10 +283,8 @@ const SignUp = () => {
           variant="standard"
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
-          //onKeyPress={(e) => (e.key === "Enter" ? setPage(2) : null)}
         />
       </InputDiv>
-      
       <InputDiv>
         <TextField
           fullWidth
