@@ -15,22 +15,6 @@ import scheduleImg from "../../assets/schedule.jpg";
 import { getBusiness } from "../../redux/AuthSlice";
 
 
-// const SButton = styled.button`
-//   @media screen and (max-width: 1000px) {
-//     width: 50vw;
-//   }
-//   border-radius: 5px;
-//   color: white;
-//   border: none;
-//   background-color: #9D7F5C;
-//   padding: 5px;
-//   margin-top: 40px;
-//   width: 10vw;
-//   font-size: 16px;
-//   font-weight: bold;
-//   cursor: pointer;
-// `;
-
 const SMain = styled.main`
   display: flex;
   flex: 1;
@@ -80,6 +64,7 @@ const SSection = styled.section`
 `;
 const Home = () => {
   let scheduleStr = "예약 정보";
+  let registrationStr = "매장등록하기";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -108,20 +93,39 @@ const Home = () => {
   //     console.log("isvisible 은"+isVisible);
   //     console.log("isLoggedIn 은"+isLoggedIn);
   // };
+  const info = ()=>{
+    navigate("/info");
+  };
+  const designerAdd = () =>{
+    navigate("/designer/add");
+  }
+  
+  const checkVisible = () => {
+      console.log("isvisible 은"+isVisible);
+      console.log("isLoggedIn 은"+isLoggedIn);
 
+  };
   return (
       <>
         <NavBar></NavBar>
         <SMain>
-          <SSection className={"manage"} onClick={navigate("/manage")} >
+          <SSection className={"manage"} onClick={info} >
             <div>매장 관리</div>
           </SSection>
-          <SSection className={"designer"} onClick={navigate("/manage")}>
+          <SSection className={"designer"} onClick={designerAdd}>
             <div>디자이너 관리</div>
           </SSection>
-          <SSection className={"schedule"}>
-            <div>{scheduleStr}</div>
-          </SSection>
+          {isVisible ? (
+            // 예약정보
+            <SSection className={"schedule"} onClick={""}>
+              <div>{scheduleStr}</div>
+            </SSection>
+          ):(
+            //등록하기
+            <SSection className={"schedule"} onClick={""}>
+              <div>{registrationStr}</div>
+            </SSection>
+          )}
         </SMain>
           {/* <div>안녕하세홈화면</div> */}
           {/* <SButton onClick={logout}>로그아웃</SButton> */}
