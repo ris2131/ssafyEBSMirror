@@ -2,6 +2,8 @@ package com.ssafyebs.businessbe.domain.business.controller;
 
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRequestDto;
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
+import com.ssafyebs.businessbe.domain.business.dto.requestdto.LoginRequestDto;
+import com.ssafyebs.businessbe.domain.business.dto.responsedto.BusinessResponseDto;
 import com.ssafyebs.businessbe.domain.business.service.BusinessService;
 import com.ssafyebs.businessbe.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,13 @@ public class BusinessController {
     //회원가입
     private final BusinessService businessService;
     final static Logger logger = LogManager.getLogger(BusinessController.class);
+    @GetMapping()
+    public ResponseEntity<?> getBusiness(HttpServletRequest request){
+        System.out.println("getBusiness");
+        long businessSeq = (long)request.getAttribute("business_seq");
+        BusinessResponseDto businessResponseDto = businessService.getBusiness(businessSeq);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("반환 성공", businessResponseDto));
+    }
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> createBusiness(@RequestBody BusinessCreationRequestDto businessCreationRequestDto){

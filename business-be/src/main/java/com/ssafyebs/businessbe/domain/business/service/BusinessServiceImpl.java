@@ -2,8 +2,11 @@ package com.ssafyebs.businessbe.domain.business.service;
 
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRequestDto;
 import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessEmailRequestDto;
+import com.ssafyebs.businessbe.domain.business.dto.responsedto.BusinessResponseDto;
+import com.ssafyebs.businessbe.domain.business.dto.responsedto.LoginResponseDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
+import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.MailSendException;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.util.CryptoUtil;
@@ -30,6 +33,7 @@ import java.time.Duration;
 public class BusinessServiceImpl implements BusinessService {
     final static Logger logger = LogManager.getLogger(BusinessServiceImpl.class);
     private final BusinessRepository businessRepository;
+    private final HairshopRepository hairshopRepository;
     private final JavaMailSender emailSender;
     private final RedisTemplate<String, Object> redisTemplate;
     @Value("${home-url}")
@@ -118,6 +122,17 @@ public class BusinessServiceImpl implements BusinessService {
             //e.printStackTrace();
             throw new MailSendException("메일 전송에 문제가 있습니다.(MailException)");
         }
+    }
+
+    @Override
+    public BusinessResponseDto getBusiness(long businessSeq) {
+        Business business = businessRepository.findByBusinessSeq(businessSeq).orElseThrow(()->new NoExistBusinessException("회원정보를 가져올수 없습니다."));
+        boolean isVisible = hairshopRepository.findHairshopByBusiness(business).get().isVisible();
+
+        BusinessResponseDto businessResponseDto = new BusinessResponseDto();
+        businessResponseDto.setHairShopVisible(isVisible);
+
+        return businessResponseDto;
     }
 
     public MimeMessage createMessage(String email, String key) throws MessagingException, UnsupportedEncodingException {
