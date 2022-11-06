@@ -4,6 +4,7 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.LoginRequestDto;
 import com.ssafyebs.businessbe.domain.business.dto.responsedto.LoginResponseDto;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
+import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.exception.NoMatchCurPasswordException;
 import com.ssafyebs.businessbe.global.util.CryptoUtil;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService{
 
     private final BusinessRepository businessRepository;
+    private final HairshopRepository hairshopRepository;
 
     final static Logger logger = LogManager.getLogger(LoginServiceImpl.class);
 
@@ -46,6 +48,16 @@ public class LoginServiceImpl implements LoginService{
         if(!business.getPassword().equals(cPassword)){
             throw new NoMatchCurPasswordException("로그인 할 수 없습니다.");
         }
-        return null;
+
+        if (!hairshopRepository.findHairshopByBusiness(business).isPresent()) {
+            System.out.println("holy shit");
+            throw new NoExistBusinessException("로그인 할 수 없습니다.");
+        }
+
+        boolean isVisible = hairshopRepository.findHairshopByBusiness(business).get().isVisible();
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setHairShopVisible(isVisible);
+        return loginResponseDto;
     }
 }
