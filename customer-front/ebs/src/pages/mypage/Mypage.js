@@ -29,7 +29,7 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #695D85;
+  background-color: #BEB2A7;
   
 `;
 

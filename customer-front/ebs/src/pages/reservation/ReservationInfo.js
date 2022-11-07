@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getreservations } from "../../store/slices/reservationSlice";
 import styled from "styled-components";
 import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
+import Test from "../../components/ReservationInfo/Test";
 
 const Container = styled.div`
-  background-color: #8B4513;
+  background-color: #BEB2A7;
 `;
 
 const Title = styled.div`
@@ -29,28 +30,49 @@ const ReservationInfo = () => {
     });
   }, []);
 
-  return (
-    <Container>
-      <Title>예약 내역</Title>
-      
-      <div>
-        {myreservation.length ? (
-          // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
-          myreservation.map((a, i) => {
-            return (
-              <ReservationInfocardComponent
-                reservation={myreservation[i]}
-                num={i}
-                key={i}
-              />
-            );
-          })
-        ) : (
-          <ReservationEmpty/>
-        )}
-      </div>
-    </Container>
-  );
+//   return (
+//     <Container>
+//       <Title>예약 내역</Title>
+//       <div>
+//         {myreservation.length ? (
+//           // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
+//           myreservation.map((a, i) => {
+//             return (
+//               <ReservationInfocardComponent
+//                 reservation={myreservation[i]}
+//                 num={i}
+//                 key={i}
+//               />
+//             );
+//           })
+//         ) : (
+//           <ReservationEmpty/>
+//         )}
+//       </div>
+//     </Container>
+//   );
+// };
+
+return (
+  <Container>
+    <Title>예약 내역</Title>
+    <div>
+      {myreservation.length ? (
+        myreservation.map((a, i) => {
+          return (
+            <Test
+              reservation={myreservation[i]}
+              num={i}
+              key={i}
+            />
+          );
+        })
+      ) : (
+        <ReservationEmpty/>
+      )}
+    </div>
+  </Container>
+);
 };
 
 export default ReservationInfo;

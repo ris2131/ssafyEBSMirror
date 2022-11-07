@@ -1,6 +1,9 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 // const CustomCard = styled.Card`
 //   width: 40px;
@@ -8,7 +11,7 @@ import styled from "styled-components";
 
 const ReservationInfocardComponent = (props) => {
   return (
-    <Card>
+    <Card style={{ width: '90%' }}>
       <Card.Header>
         <span> 예약 일시 : {props.reservation.reservationDate}</span>
       </Card.Header>
