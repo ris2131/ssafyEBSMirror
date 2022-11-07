@@ -16,8 +16,9 @@ const SubscribeInfo = () => {
       <div>
         <h1>구독 내역</h1>
         <div>
-          {mysubscribe.length ? (
-            // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
+          {mysubscribe.length === 0? (
+            <>구독 정보가 없습니다.</>
+          ) : (
             mysubscribe.map((a, i) => {
               return (
                 <SubscribeInfoComponent
@@ -27,8 +28,6 @@ const SubscribeInfo = () => {
                 />
               );
             })
-          ) : (
-            <>구독 정보가 없습니다.</>
           )}
         </div>
         {/* {mysubscribe.length ? <>a</> : <>구독 정보가 없습니다.</>} */}
