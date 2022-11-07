@@ -28,4 +28,7 @@ public class FederatedSubscription {
 	
 	@Column(name="pricing_month")
 	private Long pricingMonth;
+	
+	@Column(name="pricing_price")
+	private Long pricingPrice;
 }
