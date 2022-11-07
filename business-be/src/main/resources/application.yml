@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://13.125.49.111:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
     username: d107_business
     password: business107
 
@@ -17,7 +17,7 @@ spring:
         format_sql: true
 
   redis:
-    host: localhost
+    host: 13.125.49.111
     port: 17103
     mail-expired-time: 300
 
