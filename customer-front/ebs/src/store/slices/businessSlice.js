@@ -30,6 +30,7 @@ export const searchByname = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await businessApi.searchByname(data);
+      console.log(res.data)
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
