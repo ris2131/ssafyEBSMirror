@@ -81,6 +81,8 @@ const Mypage = () => {
 
     const nickName = useSelector((state) => state.user.member.nickname)
     const address = useSelector((state) => state.user.member.address)
+    const businessSeq = useSelector((state) => state.business.hairshop.businessSeq);
+    console.log(businessSeq)
     const title = "탈퇴 확인";
     const description = "정말 우리 서비스 탈퇴하실건가요?ㅠ.ㅠ";
     const data = {
