@@ -62,7 +62,6 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const home = () => {
-    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -72,7 +71,6 @@ const NavBar = () => {
   // };
 
   const designer = () => {
-    localStorage.removeItem("token");
     navigate("/designer");
   };
 
