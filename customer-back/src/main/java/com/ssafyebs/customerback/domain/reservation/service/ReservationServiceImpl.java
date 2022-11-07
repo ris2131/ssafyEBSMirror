@@ -1,14 +1,19 @@
 package com.ssafyebs.customerback.domain.reservation.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.ssafyebs.customerback.domain.reservation.dto.ReservationResponseDto;
+import com.ssafyebs.customerback.domain.reservation.entity.FederatedReservation;
 import com.ssafyebs.customerback.domain.reservation.entity.Reservation;
+import com.ssafyebs.customerback.domain.reservation.repository.FederatedReservationRepository;
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ReservationServiceImpl implements ReservationService{
 
 	private final ReservationRepository reservationRepository;
+	private final FederatedReservationRepository federatedReservationRepository;
 	
 	@Override
 	public List<ReservationResponseDto> findByMember_MemberUid(String memberUid) {
@@ -49,6 +55,29 @@ public class ReservationServiceImpl implements ReservationService{
 	public Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, Calendar date) {
 		// TODO Auto-generated method stub
 		return reservationRepository.findByFederatedReservation_DesignerSeqAndReservationDate(seq, date);
+	}
+
+	@Override
+	public List<FederatedReservation> findByFederatedReservation_BusinessSeqAndReservationDateNot(Long seq, String datestr) {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
+		try {
+			Date date = simpleDateFormat.parse(datestr);
+			calendar.setTime(date);
+			List<Long> list = new ArrayList<Long>();
+			for( Reservation r : reservationRepository.findByFederatedReservation_BusinessSeqAndReservationDate(seq, calendar)) {
+				list.add(r.getFederatedReservation().getDesignerSeq());
+			}
+			if(list.size() != 0)
+				return federatedReservationRepository.findByBusinessSeqAndDesignerSeqNotIn(seq, list);
+			else
+				return federatedReservationRepository.findByBusinessSeq(seq);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 }

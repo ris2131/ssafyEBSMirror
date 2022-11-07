@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,5 +79,10 @@ public class ReservationController {
 		}else {
 			throw new DuplicateDateException("시간대가 중복됩니다.");
 		}
+	}
+	
+	@GetMapping("/{business_seq}/{reservation_date}")
+	public ResponseEntity<?> getAvailableDesignerList(HttpServletRequest request, @PathVariable("business_seq")Long seq, @PathVariable("reservation_date")String date){
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("디자이너 리스트 조회 완료.", reservationService.findByFederatedReservation_BusinessSeqAndReservationDateNot(seq, date)));
 	}
 }
