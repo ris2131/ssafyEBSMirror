@@ -28,8 +28,8 @@ const MyButton = styled.button`
     <div>
       <Card>
         <Card.Body>
-          <Card.Title onClick={getInfor}>디자이너 이름 : {props.designer.name}</Card.Title>
-          <Card.Text onClick={getInfor} >
+          <Card.Title >디자이너 이름 : {props.designer.name}</Card.Title>
+          <Card.Text >
             설명 : {props.designer.description}
             <MyButton  onClick={getInfor}>예약</MyButton>
           </Card.Text>

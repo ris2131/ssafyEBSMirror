@@ -4,6 +4,8 @@ import { businessApi } from "../../api/businessApi"
 
 const initialState = {
     isLoggedIn: false,
+    mode : 0,
+    reservationDate : "",
     hairshopList : [],
     designerList : [],
     hairshop : {
@@ -64,11 +66,18 @@ export const getDesignerInfo = createAsyncThunk(
   }
 );
 
+
+
 const businessSlice = createSlice({
     name: "business",
     initialState,
     reducers: {
-        
+      setMode(state, data){
+        state.mode = data;        
+    },
+      setDate(state, data){
+        state.reservationDate= data;
+      }
     },
     extraReducers: {
     [searchByname.fulfilled]: (state, action) => {
