@@ -47,7 +47,7 @@ function App() {
         <Route path="/signup" element={<SignUp/>} />
         {/*점주 정보 수정*/}
         <Route path="/info" element={<Info/>}/>
-\
+
 
         {/* 디자이너 관리 페이지 */}
         <Route path="/designer" element={<Designer/>}/>
