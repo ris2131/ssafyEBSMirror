@@ -9,7 +9,6 @@ import DesignerComponent from './DesignerComponent';
 import SubscribeComponent from './SubscribeComponent';
 import ReservationComponent from './ReservationComponent';
 
-
 function TabPanel(props) {
   const { children, value, index,  ...other } = props;
 
