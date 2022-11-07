@@ -29,7 +29,7 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #F9F9F9;
+  background-color: #D1C6BF;
 `;
 
 const Title = styled.div`
