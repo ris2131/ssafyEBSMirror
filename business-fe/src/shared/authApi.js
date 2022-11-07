@@ -17,6 +17,8 @@ export const authApi = {
   //deleteuser: () => axios.delete("api/members"),
   //getMyhistory: (date) => axios.get("api/histories", { params: { date } }),
 
-  checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey="+process.env.REACT_APP_OPENAPI_REG_SERVICEKEY ,data),
+  //checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey="+process.env.REACT_APP_OPENAPI_REG_SERVICEKEY ,data),
+  checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=WQmEhbolzfQFCrn8v1NnwXhtNFlVsMQKmE5mr1eyVibvWFrpTTfo3rzuf%2Fcu5lGnHdaJCAM9ZchZAfOPF2wa2w%3D%3D",data),
+
   //OPENAPI_REG_SERVICEKEY
 };
