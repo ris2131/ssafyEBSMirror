@@ -1,8 +1,24 @@
-import style from "./ReservationInfo.module.css";
 import ReservationInfocardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getreservations } from "../../store/slices/reservationSlice";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: #8B4513;
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+`;
+
+// const Reservation = styled.div`
+//   color: #FFFFFF;
+// `;
 
 const ReservationInfo = () => {
   const myreservation = useSelector((state) => state.reservation.myreservation);
@@ -15,11 +31,10 @@ const ReservationInfo = () => {
   }, []);
 
   return (
-    <div className={style.Layout}>
-      <div className={style.Title}>
-        <h1>예약 내역</h1>
-      </div>
-      <div className={style.Infocard}>
+    <Container>
+      <Title>예약 내역</Title>
+      
+      <div>
         {myreservation.length ? (
           // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
           myreservation.map((a, i) => {
@@ -35,7 +50,7 @@ const ReservationInfo = () => {
           <>예약 정보가 없습니다.</>
         )}
       </div>
-    </div>
+    </Container>
   );
 };
 
