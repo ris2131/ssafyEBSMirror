@@ -1,7 +1,19 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-
+import styled from "styled-components";
+const MyButton = styled.button`
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #42a5f5;
+  padding: 10px;
+  margin-top: 40px;
+  width: 60px;
+  font-size: 14px;
+  cursor: pointer;
+`;
 const SubscribeItemComponent = (props) => {
+  
   return (
     <div>
       <Card>
@@ -13,9 +25,11 @@ const SubscribeItemComponent = (props) => {
           <Card.Text>
             유효기간 : {props.item.pricingMonth} 개월
           </Card.Text>
+          <MyButton>구독하기</MyButton>
           <Card.Text>
             횟수 : {props.item.pricingNumber}
           </Card.Text>
+          
         </Card.Body>
         <Card.Footer>
           <Card.Text>
