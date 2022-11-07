@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SubscribeInfoComponent from "../../components/SubscribeInfo/SubscribeInfoComponent";
-import { subscribeApi } from "../../api/subscribeApi";
-import axios from 'axios';
-import { style } from '@mui/system';
+import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
 
 const SubscribeInfo = () => {
-    // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-    // const = [subscribe, setSubscribe] = useState();
-    const accesstoken = localStorage.getItem("token")
-    //const [mysubscribe, setMysubscribe] = useState();
-    
-    useEffect(() => {
-        axios.get("/api/subscribe", {
-            headers: {
-                    Authorization: accesstoken
-            }
-        })
-        .then((res) => {
-            console.log("구독정보");
-            console.log(res.data);
-            const mysubscribe = res.data
-            console.log(mysubscribe)
-            
-        })
-        .catch((error) => {
-            console.log("에러");
-            console.log(error);
-        });
-    }, []);
-            
-    return (
+  const mysubscribe = useSelector((state) => state.subscribe.mysubscribe);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getsubscribeinfo());
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <h1>구독 내역</h1>
         <div>
-            <div>
-                <h1> 
-                    구독 내역 
-                </h1>
-                    <div>
-                        <SubscribeInfoComponent />
-                    </div>
-            </div>
+          {mysubscribe.length ? (
+            // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
+            mysubscribe.map((a, i) => {
+              return (
+                <SubscribeInfoComponent
+                  subscribe={mysubscribe[i]}
+                  num={i}
+                  key={i}
+                />
+              );
+            })
+          ) : (
+            <>구독 정보가 없습니다.</>
+          )}
         </div>
-    );
+        {/* {mysubscribe.length ? <>a</> : <>구독 정보가 없습니다.</>} */}
+      </div>
+    </div>
+  );
 };
 
 export default SubscribeInfo;
