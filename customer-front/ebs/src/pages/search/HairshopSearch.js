@@ -75,7 +75,7 @@ const HairshopSearch = () => {
                     검색
                 </MyButton>
                 <div>
-                {hairshopList.length ? (
+                {hairshopList.length !== 0  ? (
             
                  hairshopList.map((a, i) => {
               return (
