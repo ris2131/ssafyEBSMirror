@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getreservations } from "../../store/slices/reservationSlice";
 import styled from "styled-components";
+import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
 
 const Container = styled.div`
   background-color: #8B4513;
@@ -16,9 +17,7 @@ const Title = styled.div`
   color: #FFFFFF;
 `;
 
-// const Reservation = styled.div`
-//   color: #FFFFFF;
-// `;
+
 
 const ReservationInfo = () => {
   const myreservation = useSelector((state) => state.reservation.myreservation);
@@ -47,7 +46,7 @@ const ReservationInfo = () => {
             );
           })
         ) : (
-          <>예약 정보가 없습니다.</>
+          <ReservationEmpty/>
         )}
       </div>
     </Container>

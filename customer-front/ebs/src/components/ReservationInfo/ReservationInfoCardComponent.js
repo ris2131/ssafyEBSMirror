@@ -1,5 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import styled from "styled-components";
+
+// const CustomCard = styled.Card`
+//   width: 40px;
+// `;
 
 const ReservationInfocardComponent = (props) => {
   return (
