@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback.domain.subscribe.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,12 @@ public class FederatedSubscriptionServiceImpl implements FederatedSubscriptionSe
 	@Override
 	public Optional<FederatedSubscription> findByPricingSeq(Long seq) {
 		return federatedSubscriptionRepository.findByPricingSeq(seq);
+	}
+
+	@Override
+	public List<FederatedSubscription> findByBusinessSeq(Long seq) {
+		// TODO Auto-generated method stub
+		return federatedSubscriptionRepository.findByBusinessSeq(seq);
 	}
 	
 	

@@ -75,4 +75,9 @@ public class SubscriptionController {
 		else
 			throw new NoExistSubscriptionException("상품이 존재하지 않습니다.");
 	}
+	
+	@GetMapping("/items/{business_seq}")
+	public ResponseEntity<?> getItemList(HttpServletRequest request, @PathVariable("business_seq")Long seq){
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",federatedSubscriptionService.findByBusinessSeq(seq)));
+	}
 }
