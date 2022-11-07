@@ -77,6 +77,9 @@ const NavBar = () => {
         <MenuItem onClick={() => {setAnchorEl(null); navigate("/subscribe-info")}}>
           구독정보
         </MenuItem>
+        <MenuItem onClick={() => {setAnchorEl(null); navigate("/search")}}>
+          검색하기
+        </MenuItem>
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </NavDiv>
