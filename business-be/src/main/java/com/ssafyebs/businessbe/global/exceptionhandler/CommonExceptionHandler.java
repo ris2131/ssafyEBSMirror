@@ -23,6 +23,11 @@ public class CommonExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
     }
 
+    @ExceptionHandler(InsufficientHairshopInfoException.class)
+    public ResponseEntity<CommonResponse<?>> handleInsufficientHairshopInfoException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
+    }
+
     @ExceptionHandler(InvalidateRefreshTokenException.class)
     public ResponseEntity<CommonResponse<?>> handleInvalidateRefreshTokenException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
