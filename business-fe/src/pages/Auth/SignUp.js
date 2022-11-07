@@ -327,7 +327,7 @@ const SignUp = () => {
             handleRegistrationValidation();
           }}
         >
-          인증하기!
+          인증하기!!!!
         </SButton>
       </FlexInputDiv>
       <SButton margin="7vw" onClick={handleSubmit}>
