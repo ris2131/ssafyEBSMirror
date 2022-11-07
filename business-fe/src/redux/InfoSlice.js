@@ -38,7 +38,6 @@ export const modifyinfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await infoApi.modifyinfo(data);
-      //localStorage.setItem("token", res.headers.authorization);
       console.log("data: "+data);
       return res.data;
     } catch (err) {

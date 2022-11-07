@@ -11,6 +11,7 @@ import NavBar from "../../components/NavBar";
 import manageImg from "../../assets/manage.jpg";
 import designerImg from "../../assets/designer.jpg";
 import scheduleImg from "../../assets/schedule.jpg";
+import registrationImg from "../../assets/schedule.jpg";
 
 import { getBusiness } from "../../redux/AuthSlice";
 
@@ -53,6 +54,10 @@ const SSection = styled.section`
 
   &.schedule {
     background-image: url(${scheduleImg});
+  } 
+  
+  &.registration {
+    background-image: url(${registrationImg});
   }
 
   &:hover {
@@ -96,8 +101,8 @@ const Home = () => {
   const info = ()=>{
     navigate("/info");
   };
-  const designerAdd = () =>{
-    navigate("/designer/add");
+  const designer = () =>{
+    navigate("/designer");
   }
   
   const checkVisible = () => {
@@ -112,17 +117,17 @@ const Home = () => {
           <SSection className={"manage"} onClick={info} >
             <div>매장 관리</div>
           </SSection>
-          <SSection className={"designer"} onClick={designerAdd}>
+          <SSection className={"designer"} onClick={designer}>
             <div>디자이너 관리</div>
           </SSection>
           {isVisible ? (
             // 예약정보
-            <SSection className={"schedule"} onClick={""}>
+            <SSection className={"schedule"}>
               <div>{scheduleStr}</div>
             </SSection>
           ):(
             //등록하기
-            <SSection className={"schedule"} onClick={""}>
+            <SSection className={"registration"} >
               <div>{registrationStr}</div>
             </SSection>
           )}
