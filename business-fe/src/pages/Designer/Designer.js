@@ -29,12 +29,12 @@ const Designer = () =>{
       console.log("isvisible 은"+isVisible);
       console.log("isLoggedIn 은"+isLoggedIn);
   };
+  
   return (
     <>
       디자이너페이지
       <SButton  onClick={navigateDesignerAdd} >디자이너 추가 </SButton>
       <SButton  onClick={handleVisible} >visible? </SButton>
-      
     </>
   );
 };

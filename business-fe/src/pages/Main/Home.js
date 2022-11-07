@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import NavBar from "../../components/NavBar";
 import manageImg from "../../assets/manage.jpg";
@@ -14,6 +15,8 @@ import scheduleImg from "../../assets/schedule.jpg";
 import registrationImg from "../../assets/schedule.jpg";
 
 import { getBusiness } from "../../redux/AuthSlice";
+
+import { registerinfo } from "../../redux/InfoSlice";
 
 
 const SMain = styled.main`
@@ -55,7 +58,7 @@ const SSection = styled.section`
   &.schedule {
     background-image: url(${scheduleImg});
   } 
-  
+
   &.registration {
     background-image: url(${registrationImg});
   }
@@ -98,13 +101,30 @@ const Home = () => {
   //     console.log("isvisible 은"+isVisible);
   //     console.log("isLoggedIn 은"+isLoggedIn);
   // };
-  const info = ()=>{
+  //매장 관리 페이지 ㄱ
+  const handleInfo = ()=>{
     navigate("/info");
   };
-  const designer = () =>{
+  //디자이너 페이지 ㄱ
+  const handleDesigner = () =>{
     navigate("/designer");
   }
+  //등록.
+  const handleRegistration= () =>{
+    dispatch(registerinfo())
+      .unwrap()
+      .then(()=>{
+        Swal.fire({ icon: "success", title: "매장이 등록되었습니다" })
+        .then(()=>{window.location.reload()});
+      })
+      .catch(() => {
+        Swal.fire({ icon: "error", title: "필수 정보가 제대로 기입 되지 않았습니다." })
+      });
+      
+  }
+
   
+
   const checkVisible = () => {
       console.log("isvisible 은"+isVisible);
       console.log("isLoggedIn 은"+isLoggedIn);
@@ -114,10 +134,10 @@ const Home = () => {
       <>
         <NavBar></NavBar>
         <SMain>
-          <SSection className={"manage"} onClick={info} >
+          <SSection className={"manage"} onClick={handleInfo} >
             <div>매장 관리</div>
           </SSection>
-          <SSection className={"designer"} onClick={designer}>
+          <SSection className={"designer"} onClick={handleDesigner}>
             <div>디자이너 관리</div>
           </SSection>
           {isVisible ? (
@@ -127,7 +147,7 @@ const Home = () => {
             </SSection>
           ):(
             //등록하기
-            <SSection className={"registration"} >
+            <SSection className={"registration"} onClick={handleRegistration}>
               <div>{registrationStr}</div>
             </SSection>
           )}
