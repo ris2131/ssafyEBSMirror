@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://k7d107.p.ssafy.io:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
     username: d107_business
     password: business107
 
@@ -18,7 +18,7 @@ spring:
 
   redis:
     host: localhost
-    port: 6379
+    port: 17103
     mail-expired-time: 300
 
   mail:
@@ -42,3 +42,6 @@ jwt:
     subject: Ebs RefreshToken
     expiration: '180'
   secret: S0f7AZxciEDA4asdRYUBohQukyrttdGdzv7xcvRneXo
+
+home-url:
+  https://business.ssafy-ebs.com
