@@ -5,6 +5,7 @@ import { businessApi } from "../../api/businessApi"
 const initialState = {
     isLoggedIn: false,
     hairshopList : [],
+    designerList : [],
     hairshop : {
       businessSeq: 0,
       address : "",
@@ -56,7 +57,6 @@ export const getDesignerInfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await businessApi.getDesignerInfo(data);
-      console.log(res.data)
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -89,12 +89,13 @@ const businessSlice = createSlice({
       },    
       [getDesignerInfo.fulfilled]: (state, action) => {
         const { data } = action.payload;
-        state.isLoggedIn = true;     
-        state.designer.designerSeq = data.designerList[0].designerSeq 
-        state.designer.name = data.designerList[0].name 
-        state.designer.description = data.designerList[0].description 
-        state.designer.photo = data.designerList[0].photo 
-        state.designer.businessSeq = data.designerList[0].businessSeq 
+        state.isLoggedIn = true;   
+        state.designerList = data.designerList;
+        // state.designer.designerSeq = data.designerList[0].designerSeq 
+        // state.designer.name = data.designerList[0].name 
+        // state.designer.description = data.designerList[0].description 
+        // state.designer.photo = data.designerList[0].photo 
+        // state.designer.businessSeq = data.designerList[0].businessSeq 
       },    
     },
 
