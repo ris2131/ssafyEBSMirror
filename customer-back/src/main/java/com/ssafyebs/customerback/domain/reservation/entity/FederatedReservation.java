@@ -28,4 +28,10 @@ public class FederatedReservation {
 	
 	@Column(name="hairshop_name")
 	private String hairshopName;
+	
+	@Column(name="designer_photo")
+	private String designerPhoto;
+	
+	@Column(name="designer_description")
+	private String designerDescription;
 }

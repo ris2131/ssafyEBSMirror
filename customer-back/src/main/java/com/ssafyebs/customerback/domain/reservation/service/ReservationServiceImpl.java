@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafyebs.customerback.domain.reservation.dto.FederatedReservationResponseDto;
 import com.ssafyebs.customerback.domain.reservation.dto.ReservationResponseDto;
 import com.ssafyebs.customerback.domain.reservation.entity.FederatedReservation;
 import com.ssafyebs.customerback.domain.reservation.entity.Reservation;
@@ -58,20 +59,28 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public List<FederatedReservation> findByFederatedReservation_BusinessSeqAndReservationDateNot(Long seq, String datestr) {
+	public List<FederatedReservationResponseDto> findByFederatedReservation_BusinessSeqAndReservationDateNot(Long seq, String datestr) {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
 		try {
+			List<FederatedReservationResponseDto> resultlist = new ArrayList<FederatedReservationResponseDto>();
 			Date date = simpleDateFormat.parse(datestr);
 			calendar.setTime(date);
 			List<Long> list = new ArrayList<Long>();
 			for( Reservation r : reservationRepository.findByFederatedReservation_BusinessSeqAndReservationDate(seq, calendar)) {
 				list.add(r.getFederatedReservation().getDesignerSeq());
 			}
-			if(list.size() != 0)
-				return federatedReservationRepository.findByBusinessSeqAndDesignerSeqNotIn(seq, list);
-			else
-				return federatedReservationRepository.findByBusinessSeq(seq);
+			if(list.size() != 0) {
+				for( FederatedReservation r : federatedReservationRepository.findByBusinessSeqAndDesignerSeqNotIn(seq, list)) {
+					resultlist.add(new FederatedReservationResponseDto(r));
+				}
+			}
+			else {
+				for( FederatedReservation r : federatedReservationRepository.findByBusinessSeq(seq)) {
+					resultlist.add(new FederatedReservationResponseDto(r));
+				}
+			}
+			return resultlist;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
