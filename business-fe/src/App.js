@@ -14,6 +14,8 @@ import SignUp from './pages/Auth/SignUp';
 import Info from "./pages/Info/Info";
 import Designer from './pages/Designer/Designer';
 import DesignerAdd from './pages/Designer/DesignerAdd';
+import MyCalendar from './pages/Schedule/MyCalendar';
+import TimeSheet from './pages/Schedule/TimeSheet';
 
 function App() {
   //const dispatch = useDispatch();
@@ -53,6 +55,13 @@ function App() {
         <Route path="/designer" element={<Designer/>}/>
         {/* 디자이너 추가 페이지 */}
         <Route path="/designer/add" element={<DesignerAdd/>}/>
+
+        {/* 예약정보 페이지 */}
+        <Route path="/schedule/my-calendar" element={<MyCalendar/>}/>
+
+        {/* 시간표 페이지 */}
+        <Route path="/schedule/time-sheet" element={<TimeSheet/>}/>
+
       </Routes>
     </div>
   );
