@@ -1,5 +1,6 @@
 package com.ssafyebs.businessbe.domain.manage.projection;
 
-public interface ReservationTime {
+public interface ReservationTimeAndSeq {
     String getReservationDate();
+    Long getReservationSeq();
 }
