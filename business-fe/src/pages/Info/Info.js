@@ -177,6 +177,7 @@ const Info = () =>{
         multiline
         rows={4}
         value={description}
+        onChange={(e) => setDescription(e.target.value)}
         />
         <PButton src={pencil} alt="pencil_image"  onClick={(e) => setDescriptionDisabled(!descriptionDisabled)}/>
       </FlexInputDiv>
@@ -188,6 +189,7 @@ const Info = () =>{
         multiline
         rows={4}
         value={notice}
+        onChange={(e) => setNotice(e.target.value)}
         />
         <PButton src={pencil} alt="pencil_image"  onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
       </FlexInputDiv>

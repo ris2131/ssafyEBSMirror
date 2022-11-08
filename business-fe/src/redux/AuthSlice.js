@@ -4,13 +4,7 @@ import { authApi } from "../shared/authApi.js";
 
 const initialState = {
   isLoggedIn: false,
-  user: {
-    nickname: "",
-    email: "",
-    userImg: "",
-    birth: "",
-    provider: "",
-  },
+  isVisible: false,
 };
 
 export const signup = createAsyncThunk(
@@ -18,8 +12,7 @@ export const signup = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await authApi.signup(data);
-      //localStorage.setItem("token", res.headers.authorization);
-      console.log("data: "+data);
+      console.log("data: "+ data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -32,10 +25,19 @@ export const login = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await authApi.login(data);
-      console.log("res: ",res);
-      console.log("res.header: ",res.headers);
-      localStorage.setItem("token", res.headers.authorization);//token 이 undefined 임.
-      console.log("authrorization: ",res.headers.authorization);
+      localStorage.setItem("token", res.headers['authorization']);//token 이 undefined 임.
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+export const getBusiness = createAsyncThunk(
+  "AuthSlice/getBusiness",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await authApi.getBusiness();
+
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -95,8 +97,25 @@ const authSlice = createSlice({
   //   [signup.fulfilled]: (state) => {
   //     state.isLoggedIn = true;
   //   },
-    [login.fulfilled]: (state) => {
+    [login.fulfilled]: (state, action) => {
+      const {data} = action.payload;
+      // console.log("payload는 "+data);
+      // console.log("payload.isVisible는 "+data.hairshop_visible);
+      
       state.isLoggedIn = true;
+      //state.isVisible = data.hairshop_visible;
+      // console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
+      // console.log("fulfilled후 state는 "+state.isVisible);
+    },
+    [getBusiness.fulfilled]: (state, action) => {
+      const {data} = action.payload;
+      console.log("payload는 "+data);
+      //console.log("payload.isVisible는 "+data.hairshop_visible);
+      
+      state.isLoggedIn = true;
+      state.isVisible = data.hairshop_visible;
+      console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
+      //console.log("fulfilled후 isvisible state는 "+state.isVisible);
     },
   //   [googleLogin.fulfilled]: (state, action) => {
   //     if (action.payload.data) {

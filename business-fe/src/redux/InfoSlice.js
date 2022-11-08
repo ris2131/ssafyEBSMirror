@@ -38,8 +38,19 @@ export const modifyinfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await infoApi.modifyinfo(data);
-      //localStorage.setItem("token", res.headers.authorization);
       console.log("data: "+data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
+export const registerinfo = createAsyncThunk(
+  "InfoSlice/registerinfo",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await infoApi.registerinfo();
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -59,20 +70,6 @@ const InfoSlice = createSlice({
     },
   },
   extraReducers: {
-  //   [signup.fulfilled]: (state) => {
-  //     state.isLoggedIn = true;
-  //   },
-    // [login.fulfilled]: (state) => {
-    //   state.isLoggedIn = true;
-    // },
-  //   [googleLogin.fulfilled]: (state, action) => {
-  //     if (action.payload.data) {
-  //       state.isLoggedIn = true;
-  //     }
-  //   },
-  //   [googleNickname.fulfilled]: (state) => {
-  //     state.isLoggedIn = true;
-  //   },
     [getinfo.fulfilled]: (state, action) => {
       const {data} = action.payload;
       state.isLoggedIn = true;
@@ -83,15 +80,6 @@ const InfoSlice = createSlice({
       state.profile.description = data.description;
       state.profile.notice = data.notice;
     },
-  //   [getuser.fulfilled]: (state, action) => {
-  //     const { data } = action.payload;
-  //     state.isLoggedIn = true;
-  //     state.user.nickname = data.nickname;
-  //     state.user.email = data.email;
-  //     state.user.userImg = data.picturePath;
-  //     state.user.birth = data.birth_YMD;
-  //     state.user.provider = data.provider;
-  //   },
   },
 });
 

@@ -15,8 +15,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-size: 100vw 100vh;
+  flex: 1;
 `;
 
 const LogoText = styled.h1`
