@@ -7,6 +7,7 @@ import moment from "moment";
 
 const initialState = {
   date : moment().format('YYYYMMDD'),
+  reservations: [],
 };
 
 export const clickCalendarDate = createAsyncThunk(
@@ -15,7 +16,6 @@ export const clickCalendarDate = createAsyncThunk(
     try {
       //initialState.date = moment(day).format('YYYY-MM-DD');
       const res = moment(day).format('YYYYMMDD');
-      console.log("slice date(day) : " + moment(day).format('YYYYMMDD'));
       //state.date = moment(day).format('YYYY-MM-DD');
       return res;
     } catch (err) {
@@ -28,7 +28,6 @@ export const getTimeSheet = createAsyncThunk(
   "scheduleSlice/getTimeSheet",
   async (date,{ rejectWithValue }) => {
     try {
-      console.log("getTimesheet func : "+ date)
       const res =  await scheduleApi.getTimeSheet(date);
       
       return res.data;
@@ -52,7 +51,16 @@ const scheduleSlice = createSlice({
     [clickCalendarDate.fulfilled]:(state, action)=>{
       state.date = action.payload;
       
-      console.log("state data: "+state.date);
+      // console.log("state data: "+state.date);
+      //state.date = moment(data.day).format('YYYY-MM-DD');
+      //console.log("extra Reducer(day) : " + moment(data.day).format('YYYY-MM-DD'));
+      //state.date = data.date;
+    },
+    [getTimeSheet.fulfilled]: (state, action)=>{
+      state.reservations = action.payload.data;
+      
+      // console.log("getTimesheet fulfilled state.data: "+ JSON.stringify(state.reservations));
+      
       //state.date = moment(data.day).format('YYYY-MM-DD');
       //console.log("extra Reducer(day) : " + moment(data.day).format('YYYY-MM-DD'));
       //state.date = data.date;

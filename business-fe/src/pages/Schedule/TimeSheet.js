@@ -1,9 +1,11 @@
-import React, { useState  ,useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import NavBar from "../../components/NavBar";
 import styled from "styled-components";
 import { getTimeSheet } from '../../redux/ScheduleSlice';
+import moment from "moment";
+import {getDesigner} from "../../redux/DesignerSlice";
 
 const ScheduleMain = styled.main`
   display: flex;
@@ -74,76 +76,20 @@ const TimeTableData = styled.td`
 const TimeSheet = () => {
   const date = useSelector((state) => state.schedule.date) // state.
 
+  const dateStr = moment(date).format("yyyy-MM-DD");
   const dispatch = useDispatch();
-
+  const reservations = useSelector((state) => state.schedule.reservations);
+  const designers = useSelector((state) => state.designer.designers);
+  
   useEffect(() => {
     dispatch(getTimeSheet(date))
       .unwrap()
-      .then((res) => {
-        console.log(res);
-      })
       .catch((err) => console.error(err));
-  },[date]);
+    dispatch(getDesigner());
+  },[dispatch, date]);
 
   const time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",];
-  const designers = [
-    {
-      "name": "Marine King",
-      "description": "돌격컷의 제왕",
-      "photo": "https://business.ssafy-ebs.com/download/designer3.png",
-      "designer_seq": 1
-    },
-    {
-      "name": "David Ryu",
-      "description": "투블럭 마스터",
-      "photo": "https://business.ssafy-ebs.com/download/designer2.png",
-      "designer_seq": 2
-    },
-    {
-      "name": "Daegu Bank",
-      "description": "은행나무컷 마스터",
-      "photo": "https://business.ssafy-ebs.com/download/designer2.png",
-      "designer_seq": 3
-    }
-  ];
-  const reservations = [
-    {
-      "name": "Marine King",
-      "photo": "https://business.ssafy-ebs.com/download/designer1.png",
-      "time": "2022-11-06 12:30:00",
-      "reservation_seq": 1,
-      "designer_seq": 1
-    },
-    {
-      "name": "Marine King",
-      "photo": "https://business.ssafy-ebs.com/download/designer1.png",
-      "time": "2022-11-06 10:30:00",
-      "reservation_seq": 6,
-      "designer_seq": 1
-    },
-    {
-      "name": "David Ryu",
-      "photo": "https://business.ssafy-ebs.com/download/designer1.png",
-      "time": "2022-11-06 15:30:00",
-      "reservation_seq": 7,
-      "designer_seq": 2
-    },
-    {
-      "name": "Daegu Bank",
-      "photo": "https://business.ssafy-ebs.com/download/designer1.png",
-      "time": "2022-11-06 11:00:00",
-      "reservation_seq": 8,
-      "designer_seq": 3
-    },
-    {
-      "name": "Daegu Bank",
-      "photo": "https://business.ssafy-ebs.com/download/designer1.png",
-      "time": "2022-11-06 14:00:00",
-      "reservation_seq": 9,
-      "designer_seq": 3
-    },
-  ];
-
+  
   function isReserved(designerName, timeStr) {
     let result = 0;
     reservations.forEach((reservation) => {
@@ -159,7 +105,7 @@ const TimeSheet = () => {
       <NavBar></NavBar>
       <ScheduleMain>
         <ScheduleSection>
-          <TitleDiv>0000-00-00 예약 시간표</TitleDiv>
+          <TitleDiv>{dateStr} 예약 시간표</TitleDiv>
           <TimeTable>
             <TimeTableHead>
               <TimeTableHeadRow>

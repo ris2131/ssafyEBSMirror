@@ -74,7 +74,7 @@ const NavBar = () => {
   };
 
   const schedule = () => {
-    navigate("/schedule");
+    navigate("/schedule/my-calendar");
   };
 
   const logout = () => {
