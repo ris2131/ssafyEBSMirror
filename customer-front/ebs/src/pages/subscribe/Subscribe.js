@@ -27,20 +27,23 @@ const Subscribe = () => {
         pricingSeq : item.pricingSeq
     }
 
+    const move = () =>{
+        navigate('/hairshop-info', {state:{...data}});
+    };
+
     const postSubscribe = () => {
         dispatch(makeSubscribe(subseq.pricingSeq))
         .then((res)=>{
             {
                 res.payload.status === "SUCCESS"?
                 (alert("구독 결제에 성공했습니다")):
-                (alert("구독에 실패했습니다. 관리자에게 문의바랍니다."))
+                (alert("구독에 실패했습니다. 관리자에게 문의바랍니다.")
+                )
             }
-        navigate('/')})
+            res.payload.status === "SUCCESS"?navigate('/'):navigate('/hairshop-info', {state:{...data}});})
     }
 
-    const move = () =>{
-        navigate('/hairshop-info', {state:{...data}});
-    };
+    
 
 
     return (
