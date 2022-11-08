@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ScheduleResponseDto {
+    private long reservationSeq;
     private long designerSeq;
     private String name;
     private String photo;

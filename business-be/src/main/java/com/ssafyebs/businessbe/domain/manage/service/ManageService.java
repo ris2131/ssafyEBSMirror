@@ -11,6 +11,7 @@ import com.ssafyebs.businessbe.domain.manage.dto.responseDto.ScheduleResponseDto
 import com.ssafyebs.businessbe.domain.manage.entity.Designer;
 import com.ssafyebs.businessbe.domain.manage.entity.FederatedReservation;
 import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
+import com.ssafyebs.businessbe.domain.manage.projection.ReservationTimeAndSeq;
 import com.ssafyebs.businessbe.domain.manage.repository.DesignerRepository;
 import com.ssafyebs.businessbe.domain.manage.repository.FederatedReservationRepository;
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
@@ -172,15 +173,18 @@ public class ManageService {
 
         LinkedList<ScheduleResponseDto> resultList = new LinkedList<>();
         for (Designer designer : designers) {
-            if (!reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).isPresent())
+            if (!reservationRepository.findReservationByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).isPresent())
                 continue;
-            String reservationTime = reservationRepository.findReservationDateByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).get().getReservationDate();
-            ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
-            scheduleResponseDto.setDesignerSeq(designer.getDesignerSeq());
-            scheduleResponseDto.setName(designer.getName());
-            scheduleResponseDto.setPhoto(designer.getPhoto());
-            scheduleResponseDto.setTime(reservationTime);
-            resultList.add(scheduleResponseDto);
+            List<ReservationTimeAndSeq> reservations = reservationRepository.findReservationByDesignerSeqAndReservationDateBetween(designer.getDesignerSeq(), startTime, endTime).get();
+            for (ReservationTimeAndSeq reservation : reservations) {
+                ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto();
+                scheduleResponseDto.setReservationSeq(reservation.getReservationSeq());
+                scheduleResponseDto.setTime(reservation.getReservationDate());
+                scheduleResponseDto.setDesignerSeq(designer.getDesignerSeq());
+                scheduleResponseDto.setName(designer.getName());
+                scheduleResponseDto.setPhoto(designer.getPhoto());
+                resultList.add(scheduleResponseDto);
+            }
         }
         return resultList;
     }
