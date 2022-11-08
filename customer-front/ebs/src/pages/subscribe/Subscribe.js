@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { makeSubscribe } from "../../store/slices/subscribeSlice";
 const MyButton = styled.button`
   border: none;
   border-radius: 10px;
@@ -14,19 +16,27 @@ const MyButton = styled.button`
 const Subscribe = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const item = location.state.item;
     const data = {
         businessSeq : item.businessSeq
     }
 
-    const subseq = () => {
-
+    const subseq = {
+        pricingSeq : item.pricingSeq
     }
 
     const postSubscribe = () => {
-
-    };
+        dispatch(makeSubscribe(subseq.pricingSeq))
+        .then((res)=>{
+            {
+                res.payload.status === "SUCCESS"?
+                (alert("구독 결제에 성공했습니다")):
+                (alert("구독에 실패했습니다. 관리자에게 문의바랍니다."))
+            }
+        navigate('/')})
+    }
 
     const move = () =>{
         navigate('/hairshop-info', {state:{...data}});
