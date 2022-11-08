@@ -22,13 +22,31 @@ export const getAvailableDesigners = createAsyncThunk(
     "reservationSlice/getAvailableDesigners",
     async(data, {rejectWithValue}) => {
         try{
-            const res = await reservationApi.getAvailableDesigners(data);
+            
+            const res = await reservationApi.getAvailableDesigners(data.seq, data.finalDate);
+            console.log(res.data)
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response);
         }
     }
 )
+
+export const makeReservation = createAsyncThunk(
+    "reservationSlice/makeReservation",
+    async(data, {rejectWithValue}) => {
+        console.log(data)
+        try{
+            
+            const res = await reservationApi.makeReservation(data);
+            console.log(res.data)
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response);
+        }
+    }
+)
+
 
 
 const reservationSlice = createSlice({
@@ -44,7 +62,7 @@ const reservationSlice = createSlice({
         },
         [getAvailableDesigners.fulfilled]:(state,action)=>{
             state.designers = action.payload.data;
-            console.log(state.designers.data);
+            console.log(state.designers);
         }
     },
 });

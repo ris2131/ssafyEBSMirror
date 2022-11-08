@@ -7,10 +7,10 @@ const baseURL = "/api"
 
 const axios = baseaxios.create({
   baseURL,
-  headers : {headers: {
-    "content-type": "application/json;charset=UTF-8",
+  headers : {
+    "Content-Type": "application/json;charset=UTF-8",
     accept: "application/json",
-  }},
+  },
 });
 
 axios.interceptors.request.use((config) => {
