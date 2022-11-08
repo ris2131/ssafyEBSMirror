@@ -41,6 +41,14 @@ public class ManageService {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
         Hairshop hairshop = hairshopRepository.findHairshopByBusiness(business).get();
+        if(hairshop.getName()==null || hairshop.getPhone()==null || hairshop.getAddress()==null){
+            throw new InsufficientHairshopInfoException("헤어샵 정보가 모두 기입 되지 않았습니다. : 헤어숍");
+        }
+        List<Designer> designerList = designerRepository.findAllByBusinessBusinessSeq(businessSeq);
+        if(designerList.size()==0){
+            System.out.println("designer size 0");
+            throw new InsufficientHairshopInfoException("헤어샵 정보가 모두 기입 되지 않았습니다. : 디자이너");
+        }
 
         if (hairshop.isVisible()) {
             throw new AlreadyVisibleException("이미 등록된 매장입니다.");

@@ -25,23 +25,17 @@ public class ManageController {
     @PutMapping("/register")
     public ResponseEntity<?> registerHairshop(HttpServletRequest request) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        try {
-            manageService.registerHairshop(businessSeq);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
-        }
+        manageService.registerHairshop(businessSeq);
+
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 등록되었습니다.", null));
     }
 
     @GetMapping("")
     public ResponseEntity<?> managementGet(HttpServletRequest request) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        try {
-            ManageResponseDto manageResponseDto = manageService.management(businessSeq);
-            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", manageResponseDto));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
-        }
+
+        ManageResponseDto manageResponseDto = manageService.management(businessSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", manageResponseDto));
     }
 
     @PutMapping("")
