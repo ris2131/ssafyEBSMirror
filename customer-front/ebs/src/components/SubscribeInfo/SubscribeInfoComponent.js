@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 const Item = styled(Paper)(() => ({
   
   textAlign: 'center',
@@ -13,6 +14,7 @@ const Item = styled(Paper)(() => ({
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
+  
   backgroundColor: '#F9F9F9',
 //   color: '#FFFFFF',
   borderRadius: '10px',
@@ -41,7 +43,6 @@ export default function SubscribeInfoComponent(props) {
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                     <div>구독 시작일 : {props.subscribe.subscriptionStart} </div>
                     <div>구독 만료일 : {props.subscribe.subscriptionExpiration}</div>
-                    <Button variant="contained" color="brown">상세보기</Button>
                   </ThemeProvider>
                 </Item>
             </Box>

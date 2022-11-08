@@ -9,25 +9,28 @@ import Avatar from "@mui/material/Avatar";
 import { removeRefreshToken } from "../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store/slices/userSlice";
-import logoImg  from "../assets/Logo.png"
+import logoImg  from "../assets/ebs_logo.png"
 
 const NavDiv = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5px;
   font-size: 40px;
+  background-color: 	#BEB2A7;
 `;
 
 
 
 const StyledImage = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
+  margin-bottom: 10px;
 `;
 const HamBar = styled.div`
   cursor: pointer;
   padding: 10px;
+  
 `;
 
 const NavBar = () => {

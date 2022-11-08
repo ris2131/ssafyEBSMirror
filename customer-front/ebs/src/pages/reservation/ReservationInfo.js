@@ -7,7 +7,8 @@ import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty"
 import Test from "../../components/ReservationInfo/Test";
 
 const Container = styled.div`
-  background-color: #BEB2A7;
+  background-color: #DBD7CC;
+  font-family: GowunBatang-Regular;
 `;
 
 const Title = styled.div`

@@ -5,9 +5,11 @@ import SubscribeEmptyComponent from "../../components/SubscribeInfo/SubscribeEmp
 import SubscribeInfoComponent from "../../components/SubscribeInfo/SubscribeInfoComponent";
 import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
 import styled from "styled-components";
+import hairshop_image from "../../assets/hairshop_image.png"
 
 const Container = styled.div`
-  background-color: #BEB2A7;
+  background-color: #DBD7CC;
+  
 `;
 
 const Title = styled.div`

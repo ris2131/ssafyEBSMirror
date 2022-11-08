@@ -4,7 +4,7 @@ import Hairshopimage01  from "../../assets/Hairshopimage01.png";
 
 const CarouselTest = (props) => {
     return (
-        <Carousel>
+        
           <Carousel.Item>
                 <img
                 className="d-block w-100"
@@ -16,7 +16,7 @@ const CarouselTest = (props) => {
                     <ReservationButton/>
                 </Carousel.Caption>
             </Carousel.Item>
-        </Carousel>
+        
     );
 };
 

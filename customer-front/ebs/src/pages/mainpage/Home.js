@@ -10,7 +10,7 @@ import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
 import Carousel from 'react-bootstrap/Carousel';
 
 const Container = styled.div`
-  background-color: #F9F9F9;
+  background-color: #DBD7CC;
   justify-content: center;
 
 `;
@@ -54,21 +54,21 @@ const Home = () => {
         <Name>
           {nickName}님 환영합니다 *^_^*
         </Name> 
-        <div>
-      {mysubscribe.length ? (
-        mysubscribe.map((a, i) => {
-          return (
-            <CarouselTest
-              subscribe={mysubscribe[i]}
-              num={i}
-              key={i}
-            />
-          );
-        })
-      ) : (
-        <HairshopCarouselComponent/>
-      )}
-    </div>
+        <Carousel>
+          {mysubscribe.length === 0? (
+              <HairshopCarouselComponent/>
+            ) : (
+              mysubscribe.map((a, i) => {
+                return (
+                  <CarouselTest
+                    subscribe={mysubscribe[i]}
+                    num={i}
+                    key={i}
+                  />
+                );
+              })
+            )}
+        </Carousel>
     </Container>
     
   );

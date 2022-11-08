@@ -6,7 +6,7 @@ import { searchByname } from '../../store/slices/businessSlice';
 import HairshopSearchComponent from "../../components/hairshop/HairshopSearchComponent";
 
 const Container = styled.div`
-    background-color: #F9F9F9;
+    background-color: #DBD7CC;
     height: 100vh;
     background-image: url(${ebs_logo});
     background-repeat: no-repeat;

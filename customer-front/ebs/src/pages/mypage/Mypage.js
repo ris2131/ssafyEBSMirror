@@ -29,7 +29,8 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #BEB2A7;
+  background-color: #DBD7CC;
+  font-family: GowunBatang-Regular;
   
 `;
 
