@@ -20,8 +20,8 @@ const Subscribe = () => {
         businessSeq : item.businessSeq
     }
 
-    const subseq = {
-        
+    const subseq = () => {
+
     }
 
     const postSubscribe = () => {
