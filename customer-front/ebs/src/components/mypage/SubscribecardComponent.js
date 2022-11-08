@@ -4,11 +4,11 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
 import CardMembershipSharpIcon from '@mui/icons-material/CardMembershipSharp';
 
 
@@ -43,7 +43,7 @@ export default function SubscribeInfoComponent() {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <CardMembershipSharpIcon sx={{ fontSize: 50 }}/>
+                    <CardMembershipSharpIcon sx={{ fontSize: 55 }}/>
                     구독 정보
                   </ThemeProvider>
                 </Item>

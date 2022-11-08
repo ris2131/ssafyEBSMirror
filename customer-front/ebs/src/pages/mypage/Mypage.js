@@ -111,7 +111,7 @@ const Mypage = () => {
         const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
-    
+    ;
         return (
           <div>
             <div onClick={handleOpen}>탈퇴하기</div>
