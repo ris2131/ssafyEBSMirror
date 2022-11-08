@@ -65,19 +65,17 @@ const NavBar = () => {
     navigate("/");
   };
 
-  // const manage = () => {
-  //   localStorage.removeItem("token");
-  //   navigate("/login");
-  // };
+  const info = () => {
+    navigate("/info");
+  };
 
   const designer = () => {
     navigate("/designer");
   };
 
-  // const reservation = () => {
-  //   localStorage.removeItem("token");
-  //   navigate("/reservation");
-  // };
+  const schedule = () => {
+    navigate("/schedule/my-calendar");
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -91,9 +89,9 @@ const NavBar = () => {
         <TitleH1>EBS</TitleH1>
         <SpringSpan></SpringSpan>
         <MenuNav>
-          <MenuButton>매장</MenuButton>
+          <MenuButton onClick={info}>매장</MenuButton>
           <MenuButton onClick={designer}>디자이너</MenuButton>
-          <MenuButton>예약</MenuButton>
+          <MenuButton onClick={schedule}>예약</MenuButton>
           <MenuButton onClick={logout}>로그아웃</MenuButton>
         </MenuNav>
       </NavHeader>

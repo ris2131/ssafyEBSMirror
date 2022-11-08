@@ -122,6 +122,10 @@ const Home = () => {
       });
       
   }
+  //예약관리 페이지(캘린더)ㄱ
+  const handleCalendar = () =>{
+    navigate("/schedule/my-calendar");
+  }
 
   
 
@@ -142,7 +146,7 @@ const Home = () => {
           </SSection>
           {isVisible ? (
             // 예약정보
-            <SSection className={"schedule"}>
+            <SSection className={"schedule"} onClick={handleCalendar}>
               <div>{scheduleStr}</div>
             </SSection>
           ):(

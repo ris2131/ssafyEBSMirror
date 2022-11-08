@@ -7,11 +7,13 @@ import thunk from 'redux-thunk';
 import AuthReducer from "./AuthSlice";
 import InfoReducer from "./InfoSlice";
 import DesignerReducer from "./DesignerSlice";
+import ScheduleReducer from "./ScheduleSlice";
 
 const reducers = combineReducers({
   auth: AuthReducer,
   info: InfoReducer,
   designer: DesignerReducer,
+  schedule: ScheduleReducer,
 });
 
 const persistConfig = {
