@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class ReservationRequestDto {
 	private Long designerSeq;
-	private Calendar reservationDate;
+	private String reservationDate;
 	private String reservationPhoto;
 	private String reservationStyle;
 	private String reservationService;

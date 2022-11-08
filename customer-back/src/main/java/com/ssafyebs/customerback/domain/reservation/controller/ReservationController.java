@@ -1,6 +1,12 @@
 package com.ssafyebs.customerback.domain.reservation.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,20 +52,24 @@ public class ReservationController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> makeReservation(HttpServletRequest request, @RequestBody ReservationRequestDto reservationRequestDto){
+	public ResponseEntity<?> makeReservation(HttpServletRequest request, @RequestBody ReservationRequestDto reservationRequestDto) throws ParseException{
 		
 		//jwt에서 아이디 불러오는 부분 있어야함
 		String memberUid = (String)request.getAttribute("memberuid");
 //		String memberUid = "3262732023";
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
+		Date date = simpleDateFormat.parse(reservationRequestDto.getReservationDate());
+		cal.setTime(date);
 		
-		if(!reservationService.findByFederatedReservation_DesignerSeqAndReservationDate(reservationRequestDto.getDesignerSeq(), reservationRequestDto.getReservationDate()).isPresent()) {
+		if(!reservationService.findByFederatedReservation_DesignerSeqAndReservationDate(reservationRequestDto.getDesignerSeq(), cal).isPresent()) {
 		
 			//reservation 객체 생성
 			Reservation reservation = new Reservation();
 			FederatedReservation f = federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get();
 			reservation.setMember(memberService.findByMemberUid(memberUid).get());
 			reservation.setFederatedReservation(f);
-			reservation.setReservationDate(reservationRequestDto.getReservationDate());
+			reservation.setReservationDate(cal);
 			reservation.setReservationPhoto(reservationRequestDto.getReservationPhoto());
 			reservation.setReservationEtc(reservationRequestDto.getReservationEtc());
 			reservation.setReservationService(reservationRequestDto.getReservationService());
