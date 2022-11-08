@@ -4,6 +4,7 @@ import Home from "./pages/mainpage/Home";
 import GoogleIntro from './pages/Auth/GoogleIntro';
 import ReservationInfo from './pages/reservation/ReservationInfo';
 import ReservationInfoDetail from './pages/reservation/ReservationInfoDetail';
+import Subscribe from './pages/subscribe/Subscribe';
 import SubscribeInfo from './pages/subscribe/SubscribeInfo';
 import Login from './pages/Auth/Login';
 import NavBar from "./components/NavBar"
@@ -39,6 +40,7 @@ function App() {
             <Route path="/googleintro" element={<GoogleIntro />} />
             <Route path="/reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation-info-detail" element={<ReservationInfoDetail />} />
+            <Route path="/subscribe" element={<Subscribe/>}/>
             <Route path="/subscribe-info" element={<SubscribeInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/myinfo-edit" element={<MyInfoEdit />} />

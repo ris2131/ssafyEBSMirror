@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 const MyButton = styled.button`
   border: none;
   border-radius: 10px;
@@ -13,6 +14,16 @@ const MyButton = styled.button`
   cursor: pointer;
 `;
 const SubscribeItemComponent = (props) => {
+
+  const navigate = useNavigate();
+
+  const move = () => {
+    navigate('/subscribe', {
+      state: {
+        item: props.item
+      }
+    });
+  };
   
   return (
     <div>
@@ -25,7 +36,7 @@ const SubscribeItemComponent = (props) => {
           <Card.Text>
             유효기간 : {props.item.pricingMonth} 개월
           </Card.Text>
-          <MyButton>구독하기</MyButton>
+          <MyButton onClick={move}>구독하기</MyButton>
           <Card.Text>
             횟수 : {props.item.pricingNumber}
           </Card.Text>

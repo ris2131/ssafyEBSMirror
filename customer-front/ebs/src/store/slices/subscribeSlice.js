@@ -32,6 +32,19 @@ export const getitemlist = createAsyncThunk(
   }
 );
 
+export const makeSubscribe = createAsyncThunk(
+  "subscribeSlice/makeSubscribe",
+  async(data, {rejectWithValue}) => {
+    try{
+      const res = await subscribeApi.makeSubscribe(data);
+      console.log(res)
+      return res.data;
+    } catch (err){
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 const subscribeSlice = createSlice({
   name: "subscribe",
   initialState,
