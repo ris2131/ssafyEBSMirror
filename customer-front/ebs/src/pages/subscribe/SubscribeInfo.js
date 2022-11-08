@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "../../fonts/font.css"
 import { useDispatch, useSelector } from "react-redux";
 import SubscribeEmptyComponent from "../../components/SubscribeInfo/SubscribeEmptyComponent";
 import SubscribeInfoComponent from "../../components/SubscribeInfo/SubscribeInfoComponent";
@@ -15,6 +16,7 @@ const Title = styled.div`
   font-weight: bold;
   margin-bottom: 30px;
   color: #FFFFFF;
+  font-family: "GowunBatang-Regular";
 `;
 
 const SubscribeInfo = () => {

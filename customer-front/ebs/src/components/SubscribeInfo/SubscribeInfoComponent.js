@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "../../fonts/font.css"
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
@@ -14,7 +15,8 @@ const Item = styled(Paper)(() => ({
   lineHeight: '60px',
   backgroundColor: '#F9F9F9',
 //   color: '#FFFFFF',
-  borderRadius: '10px'
+  borderRadius: '10px',
+  fontFamily: 'GowunBatang-Regular'
   
   
   

@@ -1,10 +1,13 @@
 import HairshopCarouselComponent from "../../components/mainpage/HairshopCarouselComponent";
+import CarouselTest from "../../components/mainpage/CarouselTest";
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // import { Container } from "react-bootstrap";
 import styled from "styled-components";
+import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
+import Carousel from 'react-bootstrap/Carousel';
 
 const Container = styled.div`
   background-color: #F9F9F9;
@@ -36,6 +39,13 @@ const Home = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  const mysubscribe = useSelector((state) => state.subscribe.mysubscribe);
+  console.log(mysubscribe)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getsubscribeinfo());
+  }, []);
+
   return (
     <Container>
         <Welcome>
@@ -44,7 +54,21 @@ const Home = () => {
         <Name>
           {nickName}님 환영합니다 *^_^*
         </Name> 
-        <HairshopCarouselComponent />
+        <div>
+      {mysubscribe.length ? (
+        mysubscribe.map((a, i) => {
+          return (
+            <CarouselTest
+              subscribe={mysubscribe[i]}
+              num={i}
+              key={i}
+            />
+          );
+        })
+      ) : (
+        <HairshopCarouselComponent/>
+      )}
+    </div>
     </Container>
     
   );
