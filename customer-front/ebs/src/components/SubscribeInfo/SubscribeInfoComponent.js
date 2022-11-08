@@ -1,31 +1,55 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import * as React from 'react';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const SubscribeInfoComponent = (props) => {
+const Item = styled(Paper)(() => ({
+  
+  textAlign: 'center',
+  margin: '30px 30px 30px 30px',
+  height: 'auto',
+  width: 'auto',
+  lineHeight: '60px',
+  backgroundColor: '#F9F9F9',
+//   color: '#FFFFFF',
+  borderRadius: '10px'
+  
+  
+  
+}));
+
+const theme = createTheme({
+    palette: {
+        brown: {
+            main: '#9D7F5C'
+        }
+    }
+});
+
+export default function SubscribeInfoComponent(props) {
   return (
-    <div>
-      <Card>
-        <Card.Header>
-          <span> 2022.10.22</span>
-          <span>방문 완료</span>
-        </Card.Header>
-        <Card.Body>
-          <Card.Title>헤어숍 이름 : {props.subscribe.hairshopName}</Card.Title>
-          <Card.Text>
-            전체 횟수 : {props.subscribe.pricingNumber} 남은 횟수 :
-            {props.subscribe.subscriptionLeft}
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <Card.Text>
-            구독 시작일 : {props.subscribe.subscriptionStart} 구독 만료일 :
-            {props.subscribe.subscriptionExpiration}
-          </Card.Text>
-        </Card.Footer>
-      </Card>
-    </div>
+            <Box>
+                <Item elevation={24}>
+                  
+                  <ThemeProvider theme={theme}>
+                    <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                    <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
+                    <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
+                    <div>구독 시작일 : {props.subscribe.subscriptionStart} </div>
+                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration}</div>
+                    <Button variant="contained" color="brown">상세보기</Button>
+                  </ThemeProvider>
+                </Item>
+            </Box>
+          
   );
-};
+}
 
-export default SubscribeInfoComponent;
+
+
+
+
+
+

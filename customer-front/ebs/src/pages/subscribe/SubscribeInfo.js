@@ -1,7 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import SubscribeEmptyComponent from "../../components/SubscribeInfo/SubscribeEmptyComponent";
 import SubscribeInfoComponent from "../../components/SubscribeInfo/SubscribeInfoComponent";
 import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: #BEB2A7;
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+`;
 
 const SubscribeInfo = () => {
   const mysubscribe = useSelector((state) => state.subscribe.mysubscribe);
@@ -12,12 +26,11 @@ const SubscribeInfo = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>구독 내역</h1>
+    <Container>
+        <Title>구독 내역</Title>
         <div>
           {mysubscribe.length === 0? (
-            <>구독 정보가 없습니다.</>
+            <SubscribeEmptyComponent/>
           ) : (
             mysubscribe.map((a, i) => {
               return (
@@ -31,8 +44,7 @@ const SubscribeInfo = () => {
           )}
         </div>
         {/* {mysubscribe.length ? <>a</> : <>구독 정보가 없습니다.</>} */}
-      </div>
-    </div>
+    </Container>
   );
 };
 
