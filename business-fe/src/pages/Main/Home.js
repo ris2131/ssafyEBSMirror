@@ -108,11 +108,7 @@ const Home = () => {
   //디자이너 페이지 ㄱ
   const handleDesigner = () =>{
     navigate("/designer");
-  };
-  //디자이너 페이지 ㄱ
-  const handleSchedule = () =>{
-    navigate("/schedule");
-  };
+  }
   //등록.
   const handleRegistration= () =>{
     dispatch(registerinfo())
@@ -125,6 +121,10 @@ const Home = () => {
         Swal.fire({ icon: "error", title: "필수 정보가 제대로 기입 되지 않았습니다." })
       });
       
+  }
+  //예약관리 페이지(캘린더)ㄱ
+  const handleCalendar = () =>{
+    navigate("/schedule/my-calendar");
   }
 
   
@@ -146,7 +146,7 @@ const Home = () => {
           </SSection>
           {isVisible ? (
             // 예약정보
-            <SSection className={"schedule"} onClick={handleSchedule}>
+            <SSection className={"schedule"} onClick={handleCalendar}>
               <div>{scheduleStr}</div>
             </SSection>
           ):(

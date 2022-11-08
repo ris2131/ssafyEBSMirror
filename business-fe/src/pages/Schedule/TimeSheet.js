@@ -1,5 +1,9 @@
+import React, { useState  ,useCallback, useEffect} from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
 import NavBar from "../../components/NavBar";
 import styled from "styled-components";
+import { getTimeSheet } from '../../redux/ScheduleSlice';
 
 const ScheduleMain = styled.main`
   display: flex;
@@ -68,6 +72,19 @@ const TimeTableData = styled.td`
 `;
 
 const TimeSheet = () => {
+  const date = useSelector((state) => state.schedule.date) // state.
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTimeSheet(date))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+  },[date]);
+
   const time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",];
   const designers = [
     {
