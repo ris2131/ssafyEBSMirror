@@ -18,7 +18,7 @@ const SubscribeItemComponent = (props) => {
   const navigate = useNavigate();
 
   const move = () => {
-    navigate('/api', {
+    navigate('/subscribe', {
       state: {
         item: props.item
       }
