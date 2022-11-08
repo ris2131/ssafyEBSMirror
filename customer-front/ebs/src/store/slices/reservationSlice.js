@@ -32,6 +32,22 @@ export const getAvailableDesigners = createAsyncThunk(
     }
 )
 
+export const makeReservation = createAsyncThunk(
+    "reservationSlice/makeReservation",
+    async(data, {rejectWithValue}) => {
+        console.log(data)
+        try{
+            
+            const res = await reservationApi.makeReservation(data);
+            console.log(res.data)
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response);
+        }
+    }
+)
+
+
 
 const reservationSlice = createSlice({
     name: "reservation",

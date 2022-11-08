@@ -1,6 +1,6 @@
 import axios from "./index";
 
-const baseurl = "http://localhost:8080";
+const baseurl = "https://business.ssafy-ebs.com/api";
 // const baseurl = "서버주소"
 export const businessApi = {
   
