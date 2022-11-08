@@ -108,7 +108,11 @@ const Home = () => {
   //디자이너 페이지 ㄱ
   const handleDesigner = () =>{
     navigate("/designer");
-  }
+  };
+  //디자이너 페이지 ㄱ
+  const handleSchedule = () =>{
+    navigate("/schedule");
+  };
   //등록.
   const handleRegistration= () =>{
     dispatch(registerinfo())
@@ -142,7 +146,7 @@ const Home = () => {
           </SSection>
           {isVisible ? (
             // 예약정보
-            <SSection className={"schedule"}>
+            <SSection className={"schedule"} onClick={handleSchedule}>
               <div>{scheduleStr}</div>
             </SSection>
           ):(
