@@ -11,6 +11,16 @@ import MyButton from '../../components/MyButton';
 import styled from "styled-components";
 import ReservationcardComponent from "../../components/mypage/ReservationcardComponent";
 import SubscribecardComponent from "../../components/mypage/SubscribecardComponent";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+      brown: {
+          main: '#9D7F5C'
+      }
+  }
+});
+
 
 const style = {
     position: "absolute",
@@ -76,6 +86,7 @@ const Adress = styled.div`
   margin-left: 20px;
   
 `;
+
 
 
 const Mypage = () => {
@@ -183,16 +194,16 @@ const Mypage = () => {
               <SubscribecardComponent/>
 
             
-        
-            <div>
-            <Button variant="outlined" color="primary" onClick={handleEdit}>
-            수정하기
-            </Button>
-            <Button variant="outlined" color="primary">
-              <BasicModal title={title} description={description} />
-            </Button>
-            </div>
-            
+            <ThemeProvider theme={theme}>
+              <div>
+              <Button variant="contained" color="primary" onClick={handleEdit}>
+              수정하기
+              </Button>
+              <Button variant="contained" color="primary">
+                <BasicModal title={title} description={description} />
+              </Button>
+              </div>
+            </ThemeProvider>
         </InfoContainer>
     );
 };
