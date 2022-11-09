@@ -1,6 +1,6 @@
 // import React from "react";
 
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar/NavBar";
 import styled from "styled-components";
 
 import {getDesigner} from "../../redux/DesignerSlice";
@@ -140,7 +140,7 @@ const Designer = () => {
           designerList.length ? (
             designerList.map((designer) => {
               return (
-                <DesignerDiv>
+                <DesignerDiv key={designer["name"]}>
                   <ProfileDiv>
                     <ProfileImg src={designer["photo"]}></ProfileImg>
                   </ProfileDiv>

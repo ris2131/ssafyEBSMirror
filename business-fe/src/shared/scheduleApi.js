@@ -7,6 +7,8 @@ export const scheduleApi = {
 
   getTimeSheet: (data) => axios.get("manage/calendar" , {params: { date: data}}),
 
+  getDetail: (data) => axios.get("manage/calendar/detail", {params: {reservation_seq: data}}),
+
   //googlelogin: (data) => axios.post("api/google-login", data),
   //getuser: () => axios.get("api/members"),
   //putpassword: (pwd) => axios.put("api/members/password", pwd),

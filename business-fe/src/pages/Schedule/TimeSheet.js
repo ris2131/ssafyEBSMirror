@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar/NavBar";
 import styled from "styled-components";
-import { getTimeSheet } from '../../redux/ScheduleSlice';
+import {getReservationDetail, getTimeSheet} from '../../redux/ScheduleSlice';
 import moment from "moment";
 import {getDesigner} from "../../redux/DesignerSlice";
+import ScheduleDetail from "../../components/ScheduleDetail/ScheduleDetail";
 
 const ScheduleMain = styled.main`
   display: flex;
@@ -34,6 +35,7 @@ const TitleDiv = styled.div`
 
 const TimeTable = styled.table`
   color: #ffffff;
+  user-select: none;
 `;
 
 const TimeTableHead = styled.thead`
@@ -73,31 +75,54 @@ const TimeTableData = styled.td`
   }
 `;
 
+const DisplayBlock = styled.div`
+  background-color: #7f7f7f7f;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
 const TimeSheet = () => {
+  const dispatch = useDispatch();
+
   const date = useSelector((state) => state.schedule.date) // state.
 
-  const dateStr = moment(date).format("yyyy-MM-DD");
-  const dispatch = useDispatch();
   const reservations = useSelector((state) => state.schedule.reservations);
   const designers = useSelector((state) => state.designer.designers);
-  
+  const detail = useSelector((state) => state.schedule.reservationDetail);
+
+  const [showDetail, setShowDetail] = useState(false);
+
+  const time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",];
+
+  const dateStr = moment(date).format("yyyy-MM-DD");
+  const scheduleMain = document.querySelector('main');
+
+  let reservationSeq = 0;
+
   useEffect(() => {
     dispatch(getTimeSheet(date))
       .unwrap()
       .catch((err) => console.error(err));
     dispatch(getDesigner());
-  },[dispatch, date]);
+  }, [dispatch, date]);
 
-  const time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",];
-  
-  function isReserved(designerName, timeStr) {
-    let result = 0;
+  useCallback(() => {
+    dispatch(getReservationDetail(reservationSeq));
+  }, [dispatch, reservationSeq]);
+
+  if (reservations.length && scheduleMain) {
     reservations.forEach((reservation) => {
-      if (reservation["name"] === designerName && reservation["time"].slice(11, 16) === timeStr) {
-        result = reservation["reservation_seq"];
-      }
+      // console.log(`${reservation["name"].replace(' ', '_')} ${reservation["time"].slice(11, 16)}`);
+      const reservedCell = document.getElementsByClassName(`${reservation['name'].replace(' ', '_')} ${reservation['time'].slice(11, 16)}`)[0];
+      // console.log(reservedCell);
+      reservedCell.classList.add('reserved');
+      reservedCell.addEventListener('click', () => {
+        setShowDetail(!showDetail);
+      });
     });
-    return result;
   }
 
   return (
@@ -132,9 +157,7 @@ const TimeSheet = () => {
                           time.length ?
                             time.map((timeStr) => {
                               return (
-                                isReserved(designer["name"], timeStr) === 0 ?
-                                  <TimeTableData key={timeStr}></TimeTableData> :
-                                  <TimeTableData className={"reserved"} key={timeStr}>상세</TimeTableData>
+                                <TimeTableData key={timeStr} className={`${designer["name"].replace(' ', '_')} ${timeStr}`}></TimeTableData>
                               );
                             }) :
                             <></>
@@ -147,6 +170,16 @@ const TimeSheet = () => {
             </TimeTableBody>
           </TimeTable>
         </ScheduleSection>
+        {
+          showDetail ?
+            <>
+              <DisplayBlock onClick={()=> {
+                setShowDetail(!showDetail);
+              }}></DisplayBlock>
+              <ScheduleDetail detail={detail}></ScheduleDetail>
+            </> :
+            <></>
+        }
       </ScheduleMain>
     </>
   );
