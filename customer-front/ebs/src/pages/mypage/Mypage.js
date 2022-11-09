@@ -1,7 +1,6 @@
 import Modal from "@mui/material/Modal";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
-import Card from 'react-bootstrap/Card'
 import Typography from "@mui/material/Typography";
 import HorizonLine from '../../components/mypage/HorizonLine';
 import React, { useEffect, useState } from 'react';
@@ -9,6 +8,19 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser, quituser } from "../../store/slices/userSlice";
 import MyButton from '../../components/MyButton';
+import styled from "styled-components";
+import ReservationcardComponent from "../../components/mypage/ReservationcardComponent";
+import SubscribecardComponent from "../../components/mypage/SubscribecardComponent";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+      brown: {
+          main: '#9D7F5C'
+      }
+  }
+});
+
 
 const style = {
     position: "absolute",
@@ -25,6 +37,56 @@ const style = {
     flexDirection: "column",
     alignItems: "center",
   };
+
+const InfoContainer = styled.div`
+  background-color: #DBD7CC;
+  font-family: GowunBatang-Regular;
+  
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+`;
+
+const Nicknamecontainer = styled.div`
+  text-align: justify;
+  
+`;
+
+const Nickname = styled.div`
+  display: inline;
+  margin-left: 10px;
+  color: #FFFFFF;
+`;
+
+const Realname = styled.div`
+  display: inline;
+  margin-left: 20px;
+  color: #FFFFFF;
+  
+`;
+
+const AdressContainer = styled.div`
+  text-align: justify;
+  color: #FFFFFF;
+`;
+
+const AdressTitle = styled.div`
+  display: inline;
+  margin-left: 10px;
+  
+`;
+
+const Adress = styled.div`
+  display: inline;
+  margin-left: 20px;
+  
+`;
+
 
 
 const Mypage = () => {
@@ -60,7 +122,7 @@ const Mypage = () => {
         const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
-    
+    ;
         return (
           <div>
             <div onClick={handleOpen}>탈퇴하기</div>
@@ -105,51 +167,44 @@ const Mypage = () => {
 
 
     return (
-        <div>
-            <div>
-                <h1>
+        <InfoContainer>
+                <Title>
                     마이페이지
-                </h1>
-            </div>
-            <div>
-                <span>
-                    닉네임 : 
-                </span>
-                <span>
-                    {nickName}
-                </span>
+                </Title>
+                <Nicknamecontainer>
+                  <Nickname>
+                      닉네임  
+                  </Nickname>
+                  <Realname>
+                      {nickName}
+                  </Realname>
+                </Nicknamecontainer>
                 <HorizonLine />
-            </div>
-            <div>
-                <span>
-                    주소 : 
-                </span>
-                <span>
-                    {address}
-                </span>
+                <AdressContainer>
+                  <AdressTitle>
+                      주소  
+                  </AdressTitle>
+                  <Adress>
+                      {address}
+                  </Adress>
+                </AdressContainer>
                 <HorizonLine/>
-            </div>
-            <div>
-                <Card>
-                    <Card.Body>구독 정보</Card.Body>
-                </Card>
-            </div>
-            <div>
-                <Card>
-                    <Card.Body>예약 내역</Card.Body>
-                </Card>
-            </div>
-        
-            <div>
-            <Button variant="outlined" color="primary" onClick={handleEdit}>
-            수정하기
-            </Button>
-            <Button variant="outlined" color="primary">
-              <BasicModal title={title} description={description} />
-            </Button>
-            </div>
+
+              <ReservationcardComponent/>
+              <SubscribecardComponent/>
+
             
-        </div>
+            <ThemeProvider theme={theme}>
+              <div>
+              <Button variant="contained" color="primary" onClick={handleEdit}>
+              수정하기
+              </Button>
+              <Button variant="contained" color="primary">
+                <BasicModal title={title} description={description} />
+              </Button>
+              </div>
+            </ThemeProvider>
+        </InfoContainer>
     );
 };
 

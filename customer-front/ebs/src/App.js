@@ -16,7 +16,7 @@ import HairshopInfo from './pages/hairshop/HairshopInfo';
 
 import { useSelector } from "react-redux";
 
-
+// import Ebsnav from './pages/ebsnav/Ebsnav';
 
 
 
@@ -28,7 +28,7 @@ function App() {
       <div >
         {
           isLoggedIn || token
-          ? <NavBar />
+          ? <NavBar/>
           : null
         }
       </div>

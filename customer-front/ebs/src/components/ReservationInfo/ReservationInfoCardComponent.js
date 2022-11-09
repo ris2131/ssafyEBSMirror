@@ -1,6 +1,16 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import styled from "styled-components";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+
+// const CustomCard = styled.Card`
+//   width: 40px;
+// `;
+
 import { useNavigate } from "react-router-dom";
+
 
 const ReservationInfocardComponent = (props) => {
   console.log(typeof props.reservation.reservationDate)
@@ -29,7 +39,7 @@ const ReservationInfocardComponent = (props) => {
 
   //reservationDate는 String으로 넘어온다.
   return (
-    <Card>
+    <Card style={{ width: '90%' }}>
       <Card.Header>
         <span> 예약 일시 : {props.reservation.reservationDate}</span>
         <span>                              </span>

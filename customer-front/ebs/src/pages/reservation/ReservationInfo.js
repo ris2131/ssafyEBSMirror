@@ -1,8 +1,25 @@
-import style from "./ReservationInfo.module.css";
 import ReservationInfocardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getreservations } from "../../store/slices/reservationSlice";
+import styled from "styled-components";
+import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
+import Test from "../../components/ReservationInfo/Test";
+
+const Container = styled.div`
+  background-color: #DBD7CC;
+  font-family: GowunBatang-Regular;
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+`;
+
+
 
 const ReservationInfo = () => {
   const myreservation = useSelector((state) => state.reservation.myreservation);
@@ -14,29 +31,49 @@ const ReservationInfo = () => {
     });
   }, []);
 
-  return (
-    <div className={style.Layout}>
-      <div className={style.Title}>
-        <h1>예약 내역</h1>
-      </div>
-      <div className={style.Infocard}>
-        {myreservation.length ? (
-          // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
-          myreservation.map((a, i) => {
-            return (
-              <ReservationInfocardComponent
-                reservation={myreservation[i]}
-                num={i}
-                key={i}
-              />
-            );
-          })
-        ) : (
-          <>예약 정보가 없습니다.</>
-        )}
-      </div>
+//   return (
+//     <Container>
+//       <Title>예약 내역</Title>
+//       <div>
+//         {myreservation.length ? (
+//           // <SubscribeInfoComponent subscribe={mysubscribe[0]} />
+//           myreservation.map((a, i) => {
+//             return (
+//               <ReservationInfocardComponent
+//                 reservation={myreservation[i]}
+//                 num={i}
+//                 key={i}
+//               />
+//             );
+//           })
+//         ) : (
+//           <ReservationEmpty/>
+//         )}
+//       </div>
+//     </Container>
+//   );
+// };
+
+return (
+  <Container>
+    <Title>예약 내역</Title>
+    <div>
+      {myreservation.length ? (
+        myreservation.map((a, i) => {
+          return (
+            <Test
+              reservation={myreservation[i]}
+              num={i}
+              key={i}
+            />
+          );
+        })
+      ) : (
+        <ReservationEmpty/>
+      )}
     </div>
-  );
+  </Container>
+);
 };
 
 export default ReservationInfo;
