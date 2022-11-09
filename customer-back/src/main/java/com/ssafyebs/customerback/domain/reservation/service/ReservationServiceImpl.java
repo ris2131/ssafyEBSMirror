@@ -41,6 +41,7 @@ public class ReservationServiceImpl implements ReservationService{
 			dto.setReservationStyle(r.getReservationStyle());
 			dto.setReservationService(r.getReservationService());
 			dto.setReservationEtc(r.getReservationEtc());
+			dto.setBusinessSeq(r.getFederatedReservation().getBusinessSeq());
 			list.add(dto);
 		}
 		

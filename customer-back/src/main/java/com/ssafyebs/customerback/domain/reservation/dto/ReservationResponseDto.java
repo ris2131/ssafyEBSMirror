@@ -12,6 +12,7 @@ public class ReservationResponseDto {
 	
 	private String designerName;
 	private String hairshopName;
+	private Long businessSeq;
 	private Calendar reservationDate;
 	private String reservationPhoto;
 	private String reservationStyle;
