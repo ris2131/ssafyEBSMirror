@@ -60,6 +60,15 @@ public class ManageController {
         }
     }
 
+    @GetMapping("/designers/{designer_seq}")
+    public ResponseEntity<?> designerInfoGet(HttpServletRequest request, @PathVariable("designer_seq")long designerSeq) {
+        long businessSeq = (long) request.getAttribute("business_seq");
+
+        DesignerResponseDto designerResponseDto = manageService.designerInfoGet(designerSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", designerResponseDto));
+
+    }
+
     @PostMapping("/designers")
     public ResponseEntity<?> designerPost(HttpServletRequest request, @RequestBody DesignerRequestDto designerRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
