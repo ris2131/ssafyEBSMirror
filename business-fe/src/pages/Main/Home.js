@@ -14,8 +14,6 @@ import designerImg from "../../assets/designer.jpg";
 import scheduleImg from "../../assets/schedule.jpg";
 import registrationImg from "../../assets/schedule.jpg";
 
-import { getBusiness } from "../../redux/AuthSlice";
-
 import { registerinfo } from "../../redux/InfoSlice";
 
 
@@ -85,22 +83,10 @@ const Home = () => {
     if (!localStorage.getItem("token")) {
         navigate("/login");
     }
-    dispatch(getBusiness());
     console.log("useeffect isvisible 은"+isVisible);
       
-  }, [isLoggedIn,isVisible, navigate, dispatch]);
+  }, [isLoggedIn,isVisible, navigate]);
 
-  //로그아웃
-  // const logout = () => {
-  //     localStorage.removeItem("token");
-  //     navigate("/login");
-  // };
-
-  //Test
-  // const handleVisible = () => {
-  //     console.log("isvisible 은"+isVisible);
-  //     console.log("isLoggedIn 은"+isLoggedIn);
-  // };
   //매장 관리 페이지 ㄱ
   const handleInfo = ()=>{
     navigate("/info");
@@ -127,13 +113,6 @@ const Home = () => {
     navigate("/schedule/my-calendar");
   }
 
-  
-
-  const checkVisible = () => {
-      console.log("isvisible 은"+isVisible);
-      console.log("isLoggedIn 은"+isLoggedIn);
-
-  };
   return (
       <>
         <NavBar></NavBar>
@@ -156,9 +135,6 @@ const Home = () => {
             </SSection>
           )}
         </SMain>
-          {/* <div>안녕하세홈화면</div> */}
-          {/* <SButton onClick={logout}>로그아웃</SButton> */}
-          {/* <SButton onClick={handleVisible}>visible 상태 알려줘</SButton> */}
       </>
   );
 };

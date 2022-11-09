@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../shared/authApi.js";
-// import { imgApi } from "../shared/imgApi";
 
 const initialState = {
   isLoggedIn: false,
@@ -32,18 +31,7 @@ export const login = createAsyncThunk(
     }
   }
 );
-export const getBusiness = createAsyncThunk(
-  "AuthSlice/getBusiness",
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await authApi.getBusiness();
 
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response);
-    }
-  }
-);
 // 이메일 중복체크
 export const checkEmail = createAsyncThunk(
   "AuthSlice/checkEmail",
@@ -70,17 +58,17 @@ export const checkReg = createAsyncThunk(
 );
 
 
-export const getuser = createAsyncThunk(
-  "AuthSlice/getuser",
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await authApi.getuser();
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response);
-    }
-  }
-);
+// export const getuser = createAsyncThunk(
+//   "AuthSlice/getuser",
+//   async (data, { rejectWithValue }) => {
+//     try {
+//       const res = await authApi.getuser();
+//       return res.data;
+//     } catch (err) {
+//       return rejectWithValue(err.response);
+//     }
+//   }
+// );
 
 const authSlice = createSlice({
   name: "auth",
@@ -99,32 +87,13 @@ const authSlice = createSlice({
   //   },
     [login.fulfilled]: (state, action) => {
       const {data} = action.payload;
-      // console.log("payload는 "+data);
-      // console.log("payload.isVisible는 "+data.hairshop_visible);
-      
-      state.isLoggedIn = true;
-      //state.isVisible = data.hairshop_visible;
-      // console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
-      // console.log("fulfilled후 state는 "+state.isVisible);
-    },
-    [getBusiness.fulfilled]: (state, action) => {
-      const {data} = action.payload;
-      console.log("payload는 "+data);
-      //console.log("payload.isVisible는 "+data.hairshop_visible);
       
       state.isLoggedIn = true;
       state.isVisible = data.hairshop_visible;
-      console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
-      //console.log("fulfilled후 isvisible state는 "+state.isVisible);
+      // console.log("fulfilled후 isLoggedIn는 "+state.isLoggedIn);
+      console.log("login fulfilled후 state는 "+state.isVisible);
     },
-  //   [googleLogin.fulfilled]: (state, action) => {
-  //     if (action.payload.data) {
-  //       state.isLoggedIn = true;
-  //     }
-  //   },
-  //   [googleNickname.fulfilled]: (state) => {
-  //     state.isLoggedIn = true;
-  //   },
+  
   //   [getuser.fulfilled]: (state, action) => {
   //     const { data } = action.payload;
   //     state.isLoggedIn = true;
