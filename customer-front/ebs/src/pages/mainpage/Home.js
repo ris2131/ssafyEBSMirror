@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
 import TestComponent from "../../components/mainpage/TestComponent";
+import EmptyComponent from "../../components/mainpage/EmptyComponent";
 
 const Container = styled.div`
   background-color: #DBD7CC;
@@ -63,7 +64,7 @@ const Home = () => {
         </Subinfo>
         <div>
           {mysubscribe.length === 0? (
-              <HairshopCarouselComponent/>
+              <EmptyComponent/>
             ) : (
               mysubscribe.map((a, i) => {
                 return (

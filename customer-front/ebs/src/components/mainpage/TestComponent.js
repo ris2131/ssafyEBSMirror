@@ -7,30 +7,38 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import Hairshopimage01  from "../../assets/Hairshopimage01.png";
 import styled from "styled-components";
 
+const Customcard = styled.div`
+    width: 80%;
+    margin-bottom: 20px;
+    
+`;
+
 
 
 export default function MultiActionAreaCard(props) {
   return (
-    <Card sx={{ Width: '50%' }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="100"
-          image={require('../../assets/Hairshopimage01.png')}
-          alt="HairshopImage"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.subscribe.hairshopName}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          예약하러 가기
-        </Button>
-      </CardActions>
-    </Card>
+    <Customcard>
+        <Card sx={{ Width: '50%' }}>
+        <CardActionArea>
+            <CardMedia
+            component="img"
+            height="100"
+            image={require('../../assets/Hairshopimage01.png')}
+            alt="HairshopImage"
+            />
+            <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+                {props.subscribe.hairshopName}
+            </Typography>
+            </CardContent>
+        </CardActionArea>
+        <CardActions>
+            <Button size="small" color="primary">
+            예약하러 가기
+            </Button>
+        </CardActions>
+        </Card>
+    </Customcard>
   );
 }
 
