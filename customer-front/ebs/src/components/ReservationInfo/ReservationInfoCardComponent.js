@@ -3,8 +3,12 @@ import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 
 const ReservationInfocardComponent = (props) => {
-
+  console.log(typeof props.reservation.reservationDate)
   const navigate = useNavigate();
+
+  const data = {
+    businessSeq : props.reservation.businessSeq
+  }
 
   const move = () => {
     navigate('/reservation-info-detail', {
@@ -13,14 +17,26 @@ const ReservationInfocardComponent = (props) => {
       }
     });
   };
+
+  const moveshop = () => {
+    navigate('/hairshop-info', {state:{...data}});
+  }
+
+  const date1 = new Date(props.reservation.reservationDate);
+  const date2 = new Date();
+  
+  
+
   //reservationDate는 String으로 넘어온다.
   return (
     <Card>
       <Card.Header>
         <span> 예약 일시 : {props.reservation.reservationDate}</span>
+        <span>                              </span>
+        {date1>date2?<span>방문 예정</span>:<span>방문 완료</span>}
       </Card.Header>
       <Card.Body>
-        <Card.Title>헤어샵 이름 : {props.reservation.hairshopName}</Card.Title>
+        <Card.Title onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</Card.Title>
         <Card.Text>디자이너 이름 : {props.reservation.designerName}</Card.Text>
         
         <Button variant="primary" onClick={move}>상세 보기</Button>
