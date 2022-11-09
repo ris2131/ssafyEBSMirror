@@ -101,7 +101,12 @@ public class ManageService {
         }
         return returnList;
     }
-
+    public DesignerResponseDto designerInfoGet(long designerSeq){
+        Designer designer = designerRepository.findDesignerByDesignerSeq(designerSeq).orElseThrow(() -> new NoSuchDesignerException("존재하지 않는 디자이너 정보입니다."));
+        DesignerResponseDto designerResponseDto = new DesignerResponseDto();
+        designerResponseDto.getDtoFromEntity(designer);
+        return designerResponseDto;
+    }
     public void designerInsert(long businessSeq, DesignerRequestDto designerRequestDto) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
