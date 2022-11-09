@@ -94,12 +94,14 @@ const Mypage = () => {
     const nickName = useSelector((state) => state.user.member.nickname)
     const address = useSelector((state) => state.user.member.address)
     const businessSeq = useSelector((state) => state.business.hairshop.businessSeq);
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
     console.log(businessSeq)
     const title = "탈퇴 확인";
     const description = "정말 우리 서비스 탈퇴하실건가요?ㅠ.ㅠ";
     const data = {
         nickname : nickName,
-        address : address, 
+        address : address,
+        isLoggedIn : isLoggedIn, 
     } 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -111,6 +113,15 @@ const Mypage = () => {
     const handleEdit = () => {
         navigate("/myinfo-edit", { state: { ...data } })
     }
+
+    const moveSubscription = () => {
+      navigate("/subscribe-info", { state: { ...data } })
+    };
+
+    const moveReservation = () => {
+      navigate("/reservation-info", { state: { ...data } })
+    };
+
     const handleQuit = () => {
         dispatch(quituser())
         .unwrap()
@@ -123,6 +134,8 @@ const Mypage = () => {
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
     ;
+
+    
         return (
           <div>
             <div onClick={handleOpen}>탈퇴하기</div>
@@ -189,9 +202,12 @@ const Mypage = () => {
                   </Adress>
                 </AdressContainer>
                 <HorizonLine/>
-
-              <ReservationcardComponent/>
-              <SubscribecardComponent/>
+                <div onClick={moveReservation}>
+                  <ReservationcardComponent/>
+                </div>
+                <div onClick={moveSubscription}>
+                  <SubscribecardComponent/>
+                </div>
 
             
             <ThemeProvider theme={theme}>
