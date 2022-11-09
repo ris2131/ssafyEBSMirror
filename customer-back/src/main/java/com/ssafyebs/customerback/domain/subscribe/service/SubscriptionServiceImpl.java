@@ -32,6 +32,7 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 			dto.setSubscriptionExpiration(s.getSubscriptionExpiration());
 			dto.setPricingNumber(s.getFederatedSubscription().getPricingNumber());
 			dto.setSubscriptionLeft(s.getSubscriptionLeft());
+			dto.setBusinessSeq(s.getFederatedSubscription().getBusinessSeq());
 			Calendar cal = (Calendar) s.getSubscriptionExpiration().clone();
 			int value = s.getFederatedSubscription().getPricingMonth().intValue();
 			cal.add(Calendar.MONTH, -1*value);
@@ -48,14 +49,10 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 
 	@Override
 	public Boolean findByMember_MemberUidAndFederatedSubscription_BusinessSeq(String uid, Long seq) {
-		List<Subscription> list = subscriptionRepository.findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(uid, seq);
+		List<Subscription> list = subscriptionRepository.findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(uid, Calendar.getInstance(), (long) 0, seq);
 		
-		Calendar cal = Calendar.getInstance();
-		for(Subscription s : list) {
-			//for문 안에서 중간에 유효기간 안지난거 있는지 체크해봐야 함. 있는경우 return true;
-			if(s.getSubscriptionExpiration().compareTo(cal)>=0 && s.getSubscriptionLeft() > 0)
-				return true;
-		}
+		if(list.size()>0)
+			return true;
 		
 		return false;
 	}
@@ -64,7 +61,28 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 	public List<Subscription> findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(
 			String uid, Long seq) {
 		
-		return subscriptionRepository.findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(uid, seq);
+		return subscriptionRepository.findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(uid, Calendar.getInstance(), (long) 0, seq);
+	}
+
+	@Override
+	public List<SubscriptionResponseDto> findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanOrderBySubscriptionSeqDesc(
+			String uid) {
+		List<Subscription> slist = subscriptionRepository.findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanOrderBySubscriptionSeqDesc(uid, Calendar.getInstance(), (long) 0);
+		List<SubscriptionResponseDto> list = new ArrayList<SubscriptionResponseDto>();
+		for(Subscription s : slist) {
+			SubscriptionResponseDto dto = new SubscriptionResponseDto();
+			dto.setHairshopName(s.getFederatedSubscription().getHairshopName());
+			dto.setSubscriptionExpiration(s.getSubscriptionExpiration());
+			dto.setPricingNumber(s.getFederatedSubscription().getPricingNumber());
+			dto.setSubscriptionLeft(s.getSubscriptionLeft());
+			dto.setBusinessSeq(s.getFederatedSubscription().getBusinessSeq());
+			Calendar cal = (Calendar) s.getSubscriptionExpiration().clone();
+			int value = s.getFederatedSubscription().getPricingMonth().intValue();
+			cal.add(Calendar.MONTH, -1*value);
+			dto.setSubscriptionStart(cal);
+			list.add(dto);
+		}
+		return list;
 	}
 
 }

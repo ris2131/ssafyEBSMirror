@@ -80,4 +80,10 @@ public class SubscriptionController {
 	public ResponseEntity<?> getItemList(HttpServletRequest request, @PathVariable("business_seq")Long seq){
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",federatedSubscriptionService.findByBusinessSeq(seq)));
 	}
+	
+	@GetMapping("/active")
+	public ResponseEntity<?> getActiveSubscribe(HttpServletRequest request){
+		String memberUid = (String) request.getAttribute("memberuid");
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("현재 활성화된 구독 리스트 조회 완료.", subscriptionService.findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanOrderBySubscriptionSeqDesc(memberUid)));
+	}
 }

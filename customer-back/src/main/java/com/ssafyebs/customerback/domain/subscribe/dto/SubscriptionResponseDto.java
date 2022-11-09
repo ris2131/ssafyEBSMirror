@@ -21,5 +21,7 @@ public class SubscriptionResponseDto {
 	
 	private Long subscriptionLeft;
 	
+	private Long businessSeq;
+	
 	
 }
