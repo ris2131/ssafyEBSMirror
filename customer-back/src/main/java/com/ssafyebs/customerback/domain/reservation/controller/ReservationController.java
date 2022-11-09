@@ -28,6 +28,7 @@ import com.ssafyebs.customerback.domain.reservation.service.ReservationService;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 import com.ssafyebs.customerback.domain.subscribe.service.SubscriptionService;
 import com.ssafyebs.customerback.global.exception.DuplicateDateException;
+import com.ssafyebs.customerback.global.exception.NoExistSubscriptionException;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -63,10 +64,21 @@ public class ReservationController {
 		cal.setTime(date);
 		
 		if(!reservationService.findByFederatedReservation_DesignerSeqAndReservationDate(reservationRequestDto.getDesignerSeq(), cal).isPresent()) {
-		
+			
+			//디자이너 조회
+			FederatedReservation f = federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get();
+			
+			//구독 조회
+			if(!subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, f.getBusinessSeq())) {
+				throw new NoExistSubscriptionException("구독권이 없거나 만료되었습니다.");
+			}
+			Subscription s = subscriptionService.findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(memberUid, f.getBusinessSeq()).get(0);
+			s.setSubscriptionLeft(s.getSubscriptionLeft()-1);
+			subscriptionService.makeSubscription(s);
+			em.clear();
+			
 			//reservation 객체 생성
 			Reservation reservation = new Reservation();
-			FederatedReservation f = federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get();
 			reservation.setMember(memberService.findByMemberUid(memberUid).get());
 			reservation.setFederatedReservation(f);
 			reservation.setReservationDate(cal);
@@ -75,15 +87,9 @@ public class ReservationController {
 			reservation.setReservationService(reservationRequestDto.getReservationService());
 			reservation.setReservationStyle(reservationRequestDto.getReservationStyle());
 			
-			Subscription s = subscriptionService.findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(memberUid, f.getBusinessSeq()).get(0);
-			s.setSubscriptionLeft(s.getSubscriptionLeft()-1);
-			subscriptionService.makeSubscription(s);
-			em.clear();
-			
 			//reservation 객체 저장
 			reservationService.makeReserve(reservation);
 			em.clear();
-			
 			
 			return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("예약 완료.",reservation));
 		}else {
