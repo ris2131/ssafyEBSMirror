@@ -3,7 +3,8 @@ import { subscribeApi } from "../../api/subscribeApi";
 
 const initialState = {
   mysubscribe: [],
-  itemlist: []
+  itemlist: [],
+  myactivesubscribe: [],
 };
 
 export const getsubscribeinfo = createAsyncThunk(
@@ -24,6 +25,19 @@ export const getitemlist = createAsyncThunk(
   async(data, {rejectWithValue}) => {
     try{
       const res = await subscribeApi.getitemlist(data);
+      console.log(res)
+      return res.data;
+    } catch (err){
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
+export const getactivesubscribe = createAsyncThunk(
+  "subscribeSlice/getactivesubscribe",
+  async(data, {rejectWithValue}) => {
+    try{
+      const res = await subscribeApi.getactivesubscribe(data);
       console.log(res)
       return res.data;
     } catch (err){
@@ -57,6 +71,10 @@ const subscribeSlice = createSlice({
     [getitemlist.fulfilled]: (state, action) =>{
       state.itemlist = action.payload.data;
       console.log(state.itemlist);
+    },
+    [getactivesubscribe.fulfilled]: (state, action) => {
+      state.myactivesubscribe = action.payload.data;
+      console.log(state.myactivesubscribe);
     },
   },
 });

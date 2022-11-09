@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { Container } from "react-bootstrap";
 import styled from "styled-components";
-import { getsubscribeinfo } from "../../store/slices/subscribeSlice";
+import { getactivesubscribe } from "../../store/slices/subscribeSlice";
 import TestComponent from "../../components/mainpage/TestComponent";
 import EmptyComponent from "../../components/mainpage/EmptyComponent";
 
@@ -44,11 +44,11 @@ const Home = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const mysubscribe = useSelector((state) => state.subscribe.mysubscribe);
-  console.log(mysubscribe)
+  const myactivesubscribe = useSelector((state) => state.subscribe.myactivesubscribe);
+  console.log(myactivesubscribe)
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getsubscribeinfo());
+    dispatch(getactivesubscribe());
   }, []);
 
   return (
@@ -63,13 +63,13 @@ const Home = () => {
           예약하러 가볼까요?
         </Subinfo>
         <div>
-          {mysubscribe.length === 0? (
+          {myactivesubscribe.length === 0? (
               <EmptyComponent/>
             ) : (
-              mysubscribe.map((a, i) => {
+              myactivesubscribe.map((a, i) => {
                 return (
                   <TestComponent
-                    subscribe={mysubscribe[i]}
+                    subscribe={myactivesubscribe[i]}
                     num={i}
                     key={i}
                   />
