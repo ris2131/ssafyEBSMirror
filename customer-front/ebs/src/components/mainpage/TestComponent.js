@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import Hairshopimage01  from "../../assets/Hairshopimage01.png";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Customcard = styled.div`
     width: 80%;
@@ -16,6 +17,14 @@ const Customcard = styled.div`
 
 
 export default function MultiActionAreaCard(props) {
+    // const navigate = useNavigate();
+    // const data = {
+    //     businessSeq : props.subscription.businessSeq
+    //   }
+    // const moveshop = () => {
+    //     navigate('/hairshop-info', {state:{...data}});
+    //   }
+
   return (
     <Customcard>
         <Card sx={{ Width: '50%' }}>
@@ -33,6 +42,7 @@ export default function MultiActionAreaCard(props) {
             </CardContent>
         </CardActionArea>
         <CardActions>
+            {/* onClick={moveshop} */}
             <Button size="small" color="primary">
             예약하러 가기
             </Button>
