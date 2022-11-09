@@ -17,13 +17,14 @@ const Customcard = styled.div`
 
 
 export default function MultiActionAreaCard(props) {
-    // const navigate = useNavigate();
-    // const data = {
-    //     businessSeq : props.subscription.businessSeq
-    //   }
-    // const moveshop = () => {
-    //     navigate('/hairshop-info', {state:{...data}});
-    //   }
+    const navigate = useNavigate();
+    console.log(props)
+    const data = {
+        businessSeq : props.subscribe.businessSeq
+      }
+    const moveshop = () => {
+        navigate('/hairshop-info', {state:{...data}});
+      }
 
   return (
     <Customcard>
@@ -42,8 +43,8 @@ export default function MultiActionAreaCard(props) {
             </CardContent>
         </CardActionArea>
         <CardActions>
-            {/* onClick={moveshop} */}
-            <Button size="small" color="primary">
+            
+            <Button onClick={moveshop} size="small" color="primary">
             예약하러 가기
             </Button>
         </CardActions>
