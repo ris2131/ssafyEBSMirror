@@ -40,6 +40,8 @@ export const getReservationDetail = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await scheduleApi.getDetail(data);
+      console.log("slice:"+data);
+      console.log("sliceResult:"+JSON.stringify(res.data));
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -66,17 +68,18 @@ const scheduleSlice = createSlice({
       //console.log("extra Reducer(day) : " + moment(data.day).format('YYYY-MM-DD'));
       //state.date = data.date;
     },
-    [getTimeSheet.fulfilled]: (state, action)=>{
-      state.reservations = action.payload.data;
-      
-      // console.log("getTimesheet fulfilled state.data: "+ JSON.stringify(state.reservations));
-      
-      //state.date = moment(data.day).format('YYYY-MM-DD');
-      //console.log("extra Reducer(day) : " + moment(data.day).format('YYYY-MM-DD'));
-      //state.date = data.date;
-    },
-    [getReservationDetail().fulfilled]: (state, action)=>{
+    // [getTimeSheet.fulfilled]: (state, action)=>{
+    //   state.reservations = action.payload.data;
+    //
+    //   // console.log("getTimesheet fulfilled state.data: "+ JSON.stringify(state.reservations));
+    //
+    //   //state.date = moment(data.day).format('YYYY-MM-DD');
+    //   //console.log("extra Reducer(day) : " + moment(data.day).format('YYYY-MM-DD'));
+    //   //state.date = data.date;
+    // },
+    [getReservationDetail.fulfilled]: (state, action)=>{
       state.reservationDetail = action.payload.data;
+      console.log("fulfilled: "+ action.payload.data);
     },
   },
 });
