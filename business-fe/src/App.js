@@ -12,8 +12,11 @@ import Login from "./pages/Auth/Login";
 import SignUp from './pages/Auth/SignUp';
 //매장 관리
 import Info from "./pages/Info/Info";
+//디자이너 관리
 import Designer from './pages/Designer/Designer';
 import DesignerAdd from './pages/Designer/DesignerAdd';
+import DesignerModify from './pages/Designer/DesignerModify';
+//예약내역 관리
 import MyCalendar from './pages/Schedule/MyCalendar';
 import TimeSheet from './pages/Schedule/TimeSheet';
 
@@ -56,6 +59,9 @@ function App() {
 
         {/* 디자이너 추가 페이지 */}
         <Route path="/designer/add" element={<DesignerAdd/>}/>
+
+        {/* 디자이너 수정 페이지 */}
+        <Route path="/designer/modify" element={<DesignerModify/>}/>
 
         {/* 예약정보 페이지 */}
         <Route path="/schedule/my-calendar" element={<MyCalendar/>}/>
