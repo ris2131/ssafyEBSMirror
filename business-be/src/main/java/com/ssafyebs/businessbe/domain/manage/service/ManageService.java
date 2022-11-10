@@ -17,10 +17,15 @@ import com.ssafyebs.businessbe.domain.manage.repository.FederatedReservationRepo
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +37,13 @@ public class ManageService {
     private final HairshopRepository hairshopRepository;
     private final DesignerRepository designerRepository;
     private final FederatedReservationRepository reservationRepository;
+
+    private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
+    @Value("${image-path.hairshop}")
+    String IMAGE_PATH;
+
+    @Value("${image-url.hairshop}")
+    String IMAGE_URL_PREFIX;
 
     public void registerHairshop(long businessSeq) {
         if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
@@ -89,6 +101,27 @@ public class ManageService {
         hairshop.setDescription(manageRequestDto.getDescription());
         hairshop.setHomepage(manageRequestDto.getHomepage());
         hairshopRepository.save(hairshop);
+    }
+
+    public String uploadFile(MultipartFile multipartFile, long businessSeq) {
+        if (multipartFile == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
+            throw new InvalidFileException("잘못된 파일 입력입니다.");
+        }
+        String file = multipartFile.getOriginalFilename();
+        if (file == null) {
+            System.out.println("왜 파일명 없음?");
+            throw new InvalidFileException("잘못된 파일 입력입니다.");
+        }
+        String fileExt = file.substring(file.lastIndexOf(".") + 1);
+
+        File newFile = new File(IMAGE_PATH + businessSeq + "." +  fileExt);
+        System.out.println(businessSeq + "." +  fileExt);
+        try {
+            multipartFile.transferTo(newFile);
+        } catch (IOException e) {
+            throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
+        }
+        return IMAGE_URL_PREFIX + newFile.getName();
     }
 
     public List<DesignerResponseDto> designerList(long businessSeq) {
