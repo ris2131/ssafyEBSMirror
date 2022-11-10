@@ -7,7 +7,7 @@ import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate,useLocation} from "react-router-dom";
 
-import {addDesigner, modifyDesigner, getDesignerInfo} from "../../redux/DesignerSlice";
+import { modifyDesigner, getDesignerInfo, deleteDesigner} from "../../redux/DesignerSlice";
 import NavBar from "../../components/NavBar";
 
 import testImage from '../../assets/Logo.png'
@@ -91,12 +91,17 @@ const SButton = styled.button`
   border-radius: 5px;
   color: white;
   border: none;
-  background-color: #9D7F5C;
   padding: 10px;
   margin-top: 40px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  &.submit{
+    background-color: #9D7F5C;
+  }
+  &.delete {
+    background-color: #ff00007f;
+  }
 `;
 
 const DesignerModify = () => {
@@ -144,6 +149,21 @@ const DesignerModify = () => {
       });
   };
 
+  const handleDelete = () => {
+    //const designer_seq = designerSeq;
+    const data = {
+      "designer_seq" : designerSeq, 
+    }
+    //console.log("seq::" +data.designer_seq);
+    dispatch(deleteDesigner(data))
+      .unwrap()
+      .then(Swal.fire({icon: "success", title: "디자이너 삭제되었습니다."}))
+      .then(() => navigate("/designer"))
+      .catch(() => {
+        Swal.fire({icon: "error", title: "정보를 확인해주세요"});
+      });
+  };
+
   return (
     <>
       <NavBar></NavBar>
@@ -152,10 +172,10 @@ const DesignerModify = () => {
           <ProfileDiv>
             <TestImg src={testImage}/>
             <ImgButton className={"edit"}>
-              변경
+              사진변경
             </ImgButton>
             <ImgButton className={"delete"}>
-              삭제
+              사진삭제
             </ImgButton>
           </ProfileDiv>
           <FlexInputDiv>
@@ -164,7 +184,7 @@ const DesignerModify = () => {
               type="text"
               label="디자이너이름"
               variant="standard"
-              value={name}
+              value={name||""}
               onChange={(e) => setName(e.target.value)}
             />
             
@@ -176,13 +196,16 @@ const DesignerModify = () => {
               type="text"
               multiline
               rows={8}
-              value={description}
+              value={description||""}
               onChange={(e) => setDescription(e.target.value)}
             />
           </FlexInputDiv>
           <ButtonDiv>
-            <SButton onClick={handleModify}>
+            <SButton onClick={handleModify} className={"submit"}>
               디자이너 수정
+            </SButton>
+            <SButton onClick={handleDelete} className={"delete"}>
+              디자이너 삭제
             </SButton>
             
           </ButtonDiv>
