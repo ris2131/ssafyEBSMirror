@@ -109,13 +109,12 @@ public class ManageService {
         }
         String file = multipartFile.getOriginalFilename();
         if (file == null) {
-            System.out.println("왜 파일명 없음?");
             throw new InvalidFileException("잘못된 파일 입력입니다.");
         }
         String fileExt = file.substring(file.lastIndexOf(".") + 1);
 
         File newFile = new File(IMAGE_PATH + businessSeq + "." +  fileExt);
-        System.out.println(businessSeq + "." +  fileExt);
+        System.out.println(newFile.getPath());
         try {
             multipartFile.transferTo(newFile);
         } catch (IOException e) {
