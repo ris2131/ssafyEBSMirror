@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -113,10 +114,11 @@ public class ManageService {
         }
         String fileExt = file.substring(file.lastIndexOf(".") + 1);
 
-        File newFile = new File(IMAGE_PATH + businessSeq + "." +  fileExt);
-        System.out.println(newFile.getPath());
+        File newFile = new File(IMAGE_PATH + businessSeq + "." + fileExt);
         try {
             multipartFile.transferTo(newFile);
+        } catch (FileNotFoundException e) {
+            throw new FileNotWritableException("존재하지 않는 파일입니다.");
         } catch (IOException e) {
             throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
         }
