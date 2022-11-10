@@ -45,3 +45,15 @@ jwt:
 
 home-url:
   http://localhost
+
+image-url:
+  designer:
+    http://localhost/photo/designer/
+  hairshop:
+    http://localhost/photo/hairshop/
+
+image-path:
+  designer:
+    C:\Project\designer\
+  hairshop:
+    C:\Project\hairshop\

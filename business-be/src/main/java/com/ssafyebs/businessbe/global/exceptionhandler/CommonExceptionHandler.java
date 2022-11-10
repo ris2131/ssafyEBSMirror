@@ -23,6 +23,11 @@ public class CommonExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
     }
 
+    @ExceptionHandler(FileNotWritableException.class)
+    public ResponseEntity<CommonResponse<?>> handleFileNotWritableException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
+    }
+
     @ExceptionHandler(InsufficientHairshopInfoException.class)
     public ResponseEntity<CommonResponse<?>> handleInsufficientHairshopInfoException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
@@ -36,6 +41,11 @@ public class CommonExceptionHandler {
     @ExceptionHandler(InvalidDateException.class)
     public ResponseEntity<CommonResponse<?>> handleInvalidDateException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidFileException.class)
+    public ResponseEntity<CommonResponse<?>> handleInvalidFileException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(CommonResponse.createError(e.getMessage()));
     }
 
     @ExceptionHandler(InvalidVerificationKeyException.class)

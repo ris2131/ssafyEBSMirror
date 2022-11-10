@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -39,14 +40,12 @@ public class ManageController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestBody ManageRequestDto manageRequestDto) {
+    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestPart("photo") MultipartFile multipartFile, @RequestPart("data") ManageRequestDto manageRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        try {
-            manageService.managementModify(businessSeq, manageRequestDto);
-            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 수정되었습니다.", null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
-        }
+        String photoUrl = manageService.uploadFile(multipartFile, businessSeq);
+        manageRequestDto.setPhoto(photoUrl);
+        manageService.managementModify(businessSeq, manageRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 수정되었습니다.", null));
     }
 
     @GetMapping("/designers")
@@ -61,8 +60,7 @@ public class ManageController {
     }
 
     @GetMapping("/designers/{designer_seq}")
-    public ResponseEntity<?> designerInfoGet(HttpServletRequest request, @PathVariable("designer_seq")long designerSeq) {
-        long businessSeq = (long) request.getAttribute("business_seq");
+    public ResponseEntity<?> designerInfoGet(@PathVariable("designer_seq")long designerSeq) {
 
         DesignerResponseDto designerResponseDto = manageService.designerInfoGet(designerSeq);
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", designerResponseDto));
