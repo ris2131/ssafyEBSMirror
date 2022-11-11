@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { getinfo, modifyinfo } from "../../redux/InfoSlice";
 //import { set } from "immer/dist/internal";
+import defaultPreview from "../../assets/Logo_trans.png";
 
 const InfoBox = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ const PimgBox = styled.div`
 const Pimg = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 10px;
   object-fit: cover;
 `;
 
@@ -91,7 +93,7 @@ const PButton = styled.img`
 
 const Info = () =>{
   
-  const [preview, setPreview] = useState("../../assets/Logo_trans.png");//default 박아두면 될듯
+  const [preview, setPreview] = useState(defaultPreview);//default 박아두면 될듯
   const [photo, setPhoto] = useState("");//사진
   const[name, setName] = useState(""); // 이페이지에서 요로콤 이름을 핸들링하겠다  name이라는변수를 ("")초기값설정해두고 
   const [phone, setPhone] = useState("");// 내가 name을 변경하면 알아서 setname통해서 name변수를 바까라 대신에 요페이지한정
@@ -122,9 +124,7 @@ const Info = () =>{
   const navigate = useNavigate();
 
   const fetchInfo = useCallback(() => {
-    // infoApi.getinfo().then((Response) => setOriginData(Response)).then(console.log("2"));
     dispatch(getinfo());
-    // .then((res) => {console.log("!!!!!!!!!!!!"); console.log(res); }).catch(()=>console.log("??????????????")) 
     setName(originName);
     setPhone(originPhone);
     setAddress(originAddress);
@@ -174,7 +174,7 @@ const Info = () =>{
     <InfoBox>
       <InputBox>
         <PimgBox>
-          <Pimg src={preview} alt="#"></Pimg>
+          <Pimg src={preview} alt="#hairshop_image"></Pimg>
         </PimgBox>
         <input
           id="file"
@@ -190,6 +190,9 @@ const Info = () =>{
         <ImgTextBox>
           <ImgText color="#42a5f5" onClick={() => inputRef.current.click()}>
             변경
+          </ImgText>
+          <ImgText color="#42a5f5" onClick={() => setPreview(defaultPreview)}>
+            초기화
           </ImgText>
         </ImgTextBox>
       </InputBox>
