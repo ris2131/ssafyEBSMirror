@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { getactivesubscribe } from "../../store/slices/subscribeSlice";
 import TestComponent from "../../components/mainpage/TestComponent";
 import EmptyComponent from "../../components/mainpage/EmptyComponent";
+import { getuser } from "../../store/slices/userSlice";
 
 const Container = styled.div`
   background-color: #DBD7CC;
@@ -35,7 +36,14 @@ const Subinfo = styled.div`
 const Home = () => {
 
   const navigate = useNavigate();
-  const nickName = localStorage.getItem("nickname")
+  // const nickName = localStorage.getItem("nickname")
+  
+  const nickName = useSelector((state) => state.user.member.nickname)
+
+  useEffect(() => {
+    dispatch(getuser())
+ }, []);
+  
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   console.log(isLoggedIn)
   useEffect(() => {
