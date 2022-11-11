@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { infoApi } from "../shared/infoApi.js";
-// import { imgApi } from "../shared/imgApi";
+import { imgApi } from "../shared/imgApi.js";
 
 const initialState = {
   isLoggedIn: false,
@@ -33,11 +33,12 @@ export const getinfo = createAsyncThunk(
     }
   }
 );
+//from imgApi
 export const modifyinfo = createAsyncThunk(
   "InfoSlice/modifyinfo",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await infoApi.modifyinfo(data);
+      const res = await imgApi.modifyinfo(data);
       console.log("data: "+data);
       return res.data;
     } catch (err) {

@@ -9,8 +9,10 @@ import pencil from "../../assets/Pencil.png";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
-import { getinfo, modifyinfo } from "../../redux/InfoSlice";
+import { getinfo} from "../../redux/InfoSlice";
 //import { set } from "immer/dist/internal";
+
+import { imgApi } from "../../shared/imgApi";
 import defaultPreview from "../../assets/Logo_trans.png";
 
 const InfoBox = styled.div`
@@ -137,7 +139,10 @@ const Info = () =>{
   useEffect(() => {
     fetchInfo();
   },[fetchInfo]);
-
+  const clearImg = (e)=>{
+    setPreview(defaultPreview);
+    setPhoto(defaultPreview);
+  }
   const changeImg = (e) => {
     setPhoto(e.target.files[0]);
   };
@@ -161,13 +166,37 @@ const Info = () =>{
       description,
       notice,
     };
-    dispatch(modifyinfo(data))
-      .unwrap()
-      .then(Swal.fire({ icon: "success", title: "수정 완료되었습니다." }))
-      .then(() => navigate("/"))
-      .catch(() => {
-        Swal.fire({ icon: "error", title: "정보를 확인해주세요" });
-      });
+
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(data)], {
+      type: "application/json",
+    }); 
+    formData.append("data", blob);
+    console.log("fD:"+formData.get("data").size);
+
+    if (photo === defaultPreview) {
+      //없을때 img 없이 보내는 api 를 썼던거 같긴 하다.
+      console.log("nophoto no api");
+    } else {
+      formData.append("photo", photo);
+      imgApi.modifyinfo(formData)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            Swal.fire({ icon: "error", title: "닉네임 중복입니다!" });
+          }
+        });
+    }
+
+    // dispatch(modifyinfo(data))
+    //   .unwrap()
+    //   .then(Swal.fire({ icon: "success", title: "수정 완료되었습니다." }))
+    //   .then(() => navigate("/"))
+    //   .catch(() => {
+    //     Swal.fire({ icon: "error", title: "정보를 확인해주세요" });
+    //   });
   };
 
   return(
@@ -191,7 +220,7 @@ const Info = () =>{
           <ImgText color="#42a5f5" onClick={() => inputRef.current.click()}>
             변경
           </ImgText>
-          <ImgText color="#42a5f5" onClick={() => setPreview(defaultPreview)}>
+          <ImgText color="#42a5f5" onClick={() => clearImg()}>
             초기화
           </ImgText>
         </ImgTextBox>
