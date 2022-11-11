@@ -11,10 +11,11 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { removeRefreshToken } from "../../store/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/slices/userSlice";
 import logoImg from "../../assets/ebs_logo.png"
 import { GrClose } from "react-icons/gr"
+import { getuser } from "../../store/slices/userSlice";
 
 const StyledImage = styled.img`
   width: 50px;
@@ -24,7 +25,11 @@ const StyledImage = styled.img`
 `;
 
 const Ebsnav = () => {
-  const User_name = "김싸피"
+  // const nickName = localStorage.getItem("nickname")
+  const nickName = useSelector((state) => state.user.member.nickname)
+  useEffect(() => {
+    dispatch(getuser())
+ }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -60,9 +65,9 @@ const Ebsnav = () => {
             >
               <Offcanvas.Header>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  {User_name}
+                {nickName}님
                 </Offcanvas.Title>
-                <GrClose onClick={handleShow}/>
+                <GrClose onClick={handleShow} size="30"/>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
