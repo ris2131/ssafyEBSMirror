@@ -1,5 +1,6 @@
 package com.ssafyebs.businessbe.domain.manage.service;
 
+import com.ssafyebs.businessbe.domain.business.controller.LoginController;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.DesignerRequestDto;
@@ -17,6 +18,8 @@ import com.ssafyebs.businessbe.domain.manage.repository.FederatedReservationRepo
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +41,8 @@ public class ManageService {
     private final HairshopRepository hairshopRepository;
     private final DesignerRepository designerRepository;
     private final FederatedReservationRepository reservationRepository;
+
+    final static Logger logger = LogManager.getLogger(LoginController.class);
 
     private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
     @Value("${image-path.hairshop}")
@@ -115,6 +120,7 @@ public class ManageService {
         String fileExt = file.substring(file.lastIndexOf(".") + 1);
 
         File newFile = new File(IMAGE_PATH + businessSeq + "." + fileExt);
+        logger.debug(newFile.getPath());
         try {
             multipartFile.transferTo(newFile);
         } catch (FileNotFoundException e) {
