@@ -14,6 +14,7 @@ import { removeRefreshToken } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/slices/userSlice";
 import logoImg from "../../assets/ebs_logo.png"
+import { GrClose } from "react-icons/gr"
 
 const StyledImage = styled.img`
   width: 50px;
@@ -29,7 +30,7 @@ const Ebsnav = () => {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => setShow(!show);
 
   const handleLogout = () => {
     localStorage.setItem("token", "");
@@ -48,26 +49,27 @@ const Ebsnav = () => {
           <Container fluid>
             {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
             <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} />
             <Navbar.Offcanvas
-              // show={show} 
+              show={show} 
               // onHide={handleClose}
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
               className={style.Offcanvas}
             >
-              <Offcanvas.Header closeButton>
+              <Offcanvas.Header>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   {User_name}
                 </Offcanvas.Title>
+                <GrClose onClick={handleShow}/>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <div onClick={() => { handleClose(); navigate("/mypage"); }} >마이페이지</div>
-                  <div onClick={() => { navigate("/search")}}>헤어숍 검색</div>
-                  <div onClick={() => { navigate("/reservation-info")}}>예약 내역</div>
-                  <div onClick={() => { navigate("/subscribe-info")}}>구독 정보</div>
+                  <div onClick={() => { handleShow(); navigate("/mypage"); }} >마이페이지</div>
+                  <div onClick={() => { handleShow(); navigate("/search"); }}>헤어숍 검색</div>
+                  <div onClick={() => { handleShow(); navigate("/reservation-info"); }}>예약 내역</div>
+                  <div onClick={() => { handleShow(); navigate("/subscribe-info"); }}>구독 정보</div>
                   <div onClick={handleLogout}>로그아웃</div> 
                 </Nav>      
               </Offcanvas.Body>
