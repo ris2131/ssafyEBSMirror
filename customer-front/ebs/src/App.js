@@ -11,8 +11,8 @@ import NavBar from "./components/NavBar"
 import Mypage from "./pages/mypage/Mypage";
 import MyInfoEdit from './pages/mypage/MyInfoEdit';
 import HairshopSearch from './pages/search/HairshopSearch';
-
 import HairshopInfo from './pages/hairshop/HairshopInfo';
+import Approved from './pages/pay/Approved';
 
 import { useSelector } from "react-redux";
 
@@ -46,6 +46,7 @@ function App() {
             <Route path="/myinfo-edit" element={<MyInfoEdit />} />
             <Route path="/search" element={<HairshopSearch />} />   
             <Route path="/hairshop-info" element={<HairshopInfo />} />
+            <Route path="/pay/approved" element={<Approved/>} />
       </Routes>
 
     </BrowserRouter>
