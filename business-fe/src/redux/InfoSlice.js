@@ -12,6 +12,7 @@ const initialState = {
     homepage:"",
     description:"",
     notice:"",
+    photo:"",
   },
 };
 
@@ -22,9 +23,8 @@ export const getinfo = createAsyncThunk(
       console.log("getinfo start")
       const res = await infoApi.getinfo();
       //const res = await authApi.login(data);
-      //console.log("authrorization: ",res.headers.authorization);
-      console.log("getInfo done");
       console.log(res.data.data)
+      console.log("getInfo done");
       return res.data;
     } catch (err) {
       console.log("getInfo err");
@@ -80,6 +80,7 @@ const InfoSlice = createSlice({
       state.profile.homepage = data.homepage;
       state.profile.description = data.description;
       state.profile.notice = data.notice;
+      state.profile.photo = data.photo;
     },
   },
 });

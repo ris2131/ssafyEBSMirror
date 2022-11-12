@@ -10,7 +10,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { getinfo} from "../../redux/InfoSlice";
-//import { set } from "immer/dist/internal";
 
 import { imgApi } from "../../shared/imgApi";
 import defaultPreview from "../../assets/Logo_trans.png";
@@ -95,7 +94,7 @@ const PButton = styled.img`
 
 const Info = () =>{
   
-  const [preview, setPreview] = useState(defaultPreview);//default 박아두면 될듯
+  const [preview, setPreview] = useState("");//default 박아두면 될듯
   const [photo, setPhoto] = useState("");//사진
   const[name, setName] = useState(""); // 이페이지에서 요로콤 이름을 핸들링하겠다  name이라는변수를 ("")초기값설정해두고 
   const [phone, setPhone] = useState("");// 내가 name을 변경하면 알아서 setname통해서 name변수를 바까라 대신에 요페이지한정
@@ -103,10 +102,11 @@ const Info = () =>{
   const [homepage, setHomepage] = useState("");
   const [description, setDescription] = useState("");
   const [notice, setNotice] = useState("");
-  
+
   const inputRef = useRef();
 
 
+  const originPhoto = useSelector((state) => state.info.profile.photo) // state. 
   const originName = useSelector((state) => state.info.profile.name) // state.
   const originPhone = useSelector((state) => state.info.profile.phone) // state.
   const originAddress = useSelector((state) => state.info.profile.address) // state.
@@ -125,26 +125,35 @@ const Info = () =>{
 
   const navigate = useNavigate();
 
-  const fetchInfo = useCallback(() => {
+  const fetchInfo =(() => {
     dispatch(getinfo());
+    console.log("fetch");
+  });
+  
+  //컴포넌트가 렌더링 될 때 특정 작업을 실행할 수 있도록 하는 Hook
+  useEffect(() => {
+    fetchInfo();
+  },[]);
+  useEffect(()=>{
+    setPreview(originPhoto);
+    setPhoto(originPhoto);
     setName(originName);
     setPhone(originPhone);
     setAddress(originAddress);
     setHomepage(originHomepage);
     setDescription(originDescription);
     setNotice(originNotice);
-  }, [originName,originPhone, originAddress, originHomepage, originDescription, originNotice]);
-  
-  //컴포넌트가 렌더링 될 때 특정 작업을 실행할 수 있도록 하는 Hook
-  useEffect(() => {
-    fetchInfo();
-  },[fetchInfo]);
+  },[originPhoto, originName,originPhone, originAddress, originHomepage, originDescription, originNotice]);
+
   const clearImg = (e)=>{
-    setPreview(defaultPreview);
-    setPhoto(defaultPreview);
+    setPreview(originPhoto);
+    setPhoto(originPhoto);
+    
   }
   const changeImg = (e) => {
     setPhoto(e.target.files[0]);
+    setPreview(e.target.files[0]);
+    console.log("photochanged");
   };
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -171,32 +180,22 @@ const Info = () =>{
     const blob = new Blob([JSON.stringify(data)], {
       type: "application/json",
     }); 
+    
     formData.append("data", blob);
-    console.log("fD:"+formData.get("data").size);
+    formData.append("photo", photo);
 
-    if (photo === defaultPreview) {
-      //없을때 img 없이 보내는 api 를 썼던거 같긴 하다.
-      console.log("nophoto no api");
-    } else {
-      formData.append("photo", photo);
-      imgApi.modifyinfo(formData)
-        .then(() => {
-          window.location.reload();
-        })
-        .catch((err) => {
-          if (err.response.status === 409) {
-            Swal.fire({ icon: "error", title: "닉네임 중복입니다!" });
-          }
-        });
-    }
-
-    // dispatch(modifyinfo(data))
-    //   .unwrap()
-    //   .then(Swal.fire({ icon: "success", title: "수정 완료되었습니다." }))
-    //   .then(() => navigate("/"))
-    //   .catch(() => {
-    //     Swal.fire({ icon: "error", title: "정보를 확인해주세요" });
-    //   });
+    imgApi.modifyinfo(formData)
+      .then(() => {
+        Swal.fire({ icon: "success", title: "매장정보가 수정되었습니다!" })
+        //.then(()=>{window.location.reload()});
+        .then(()=>{navigate("/")});
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          Swal.fire({ icon: "error", title: "닉네임 중복입니다!" });
+        }
+      });
+    
   };
 
   return(
@@ -212,8 +211,10 @@ const Info = () =>{
           style={{ display: "none" }}
           ref={inputRef}
           onChange={(e) => {
-            changeImg(e);
-            encodeFileToBase64(e.target.files[0]);
+            if(e.target.files.length){
+              changeImg(e);
+              encodeFileToBase64(e.target.files[0]);
+            }
           }}
         />
         <ImgTextBox>
