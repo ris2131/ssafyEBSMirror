@@ -1,11 +1,13 @@
-import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useCallback, useEffect, useState, useRef} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar/NavBar";
 import styled from "styled-components";
-import { getTimeSheet } from '../../redux/ScheduleSlice';
+import {getReservationDetail, getTimeSheet} from '../../redux/ScheduleSlice';
 import moment from "moment";
 import {getDesigner} from "../../redux/DesignerSlice";
+import ScheduleDetail from "../../components/ScheduleDetail/ScheduleDetail";
+import DesignerRow from "../../components/ScheduleDetail/DesignerRow";
 
 const ScheduleMain = styled.main`
   display: flex;
@@ -34,6 +36,7 @@ const TitleDiv = styled.div`
 
 const TimeTable = styled.table`
   color: #ffffff;
+  user-select: none;
 `;
 
 const TimeTableHead = styled.thead`
@@ -73,39 +76,93 @@ const TimeTableData = styled.td`
   }
 `;
 
-const TimeSheet = () => {
-  const date = useSelector((state) => state.schedule.date) // state.
+const DisplayBlock = styled.div`
+  background-color: #7f7f7f7f;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
 
-  const dateStr = moment(date).format("yyyy-MM-DD");
+const TimeSheet = () => {
   const dispatch = useDispatch();
-  const reservations = useSelector((state) => state.schedule.reservations);
+
+  const originDate = useSelector((state) => state.schedule.date) // state.
+  const [date,setDate] = useState("");
+  //const reservations = useSelector((state) => state.schedule.reservations);
+  const [reservations, setReservations] = useState("");
+
   const designers = useSelector((state) => state.designer.designers);
-  
-  useEffect(() => {
-    dispatch(getTimeSheet(date))
-      .unwrap()
-      .catch((err) => console.error(err));
-    dispatch(getDesigner());
-  },[dispatch, date]);
+
+  const [showDetail, setShowDetail] = useState(false);
 
   const time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",];
-  
-  function isReserved(designerName, timeStr) {
-    let result = 0;
-    reservations.forEach((reservation) => {
-      if (reservation["name"] === designerName && reservation["time"].slice(11, 16) === timeStr) {
-        result = reservation["reservation_seq"];
-      }
-    });
-    return result;
-  }
 
+  const scheduleMain = document.querySelector('main');
+  
+  const addDetailButton = (() => {
+    console.log("addDB 내 date"+date+", 호출직전(length):"+reservations.length);
+    if (reservations.length && scheduleMain) {
+      reservations.forEach((reservation) => {
+        const reservedCell = document.getElementsByClassName(`${reservation['designerSeq']} ${reservation['time'].slice(11, 16)}`)[0];
+        if (reservedCell) {
+          reservedCell.classList.add('reserved');
+          reservedCell.addEventListener('click', eventAction.bind(null, reservation["reservationSeq"]));
+        }
+      });
+    }
+  });
+
+  function eventAction(seq) {
+    dispatch(getReservationDetail(seq));
+    console.log("eventAction!");
+    setShowDetail(true);
+  };
+
+  const dateMounted = useRef(false);
+  const reservationsMounted = useRef(false);
+
+  //designer 가져오기(이건 순서 노상관임).
+  useEffect(()=>{
+    
+    dispatch(getDesigner());
+    console.log("designer 초기화");
+  },[])
+
+  //redux.state 변경시 origin date 를 렌더 이후에 가져오기에 이에따라 date 변경
+  useEffect(()=>{
+    setDate(originDate);
+  },[originDate]);
+  //reservations를 state.schedule 에서 가져옴 , state 바뀔떄만(mount 됐을떄만) 하기.
+  useEffect(()=>{
+    if (!dateMounted.current) {
+      dateMounted.current = true;
+    } else {
+      dispatch(getTimeSheet(date))
+      .then((res)=>{
+        setReservations(res.payload.data);
+        //console.log("res.data"+JSON.stringify(res));
+      });
+    }
+  },[date]);
+ 
+  useEffect(()=>{
+    if (!reservationsMounted.current) {
+      reservationsMounted.current = true;
+    } else {
+      //console.log("reservations:"+reservations);
+      addDetailButton();
+    }
+  },[reservations]);
+
+  
   return (
     <>
       <NavBar></NavBar>
       <ScheduleMain>
         <ScheduleSection>
-          <TitleDiv>{dateStr} 예약 시간표</TitleDiv>
+          <TitleDiv>{moment(date).format("yyyy-MM-DD")} 예약 시간표</TitleDiv>
           <TimeTable>
             <TimeTableHead>
               <TimeTableHeadRow>
@@ -126,20 +183,7 @@ const TimeSheet = () => {
                 designers.length ?
                   designers.map((designer) => {
                     return (
-                      <TimeTableRow key={designer["name"]}>
-                        <TimeTableDesignerName>{designer["name"]}</TimeTableDesignerName>
-                        {
-                          time.length ?
-                            time.map((timeStr) => {
-                              return (
-                                isReserved(designer["name"], timeStr) === 0 ?
-                                  <TimeTableData key={timeStr}></TimeTableData> :
-                                  <TimeTableData className={"reserved"} key={timeStr}>상세</TimeTableData>
-                              );
-                            }) :
-                            <></>
-                        }
-                      </TimeTableRow>
+                      <DesignerRow key={designer["designer_seq"]} designerSeq={designer["designer_seq"]} designerName={designer["name"]}></DesignerRow>
                     );
                   }) :
                   <></>
@@ -147,9 +191,21 @@ const TimeSheet = () => {
             </TimeTableBody>
           </TimeTable>
         </ScheduleSection>
+        {
+          showDetail ?
+            <>
+              <DisplayBlock onClick={() => {
+                setShowDetail(false);
+              }}></DisplayBlock>
+              <ScheduleDetail></ScheduleDetail>
+            </> :
+            <></>
+        }
       </ScheduleMain>
     </>
   );
+
+  
 }
 
 export default TimeSheet;

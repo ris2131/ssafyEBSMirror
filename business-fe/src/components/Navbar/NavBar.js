@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-import logoImg from "../assets/logo_white.png";
+import logoImg from "../../assets/logo_white.png";
 import {useNavigate} from "react-router-dom";
 
 const NavHeader = styled.header`

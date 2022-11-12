@@ -8,7 +8,7 @@ import { useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar/NavBar";
 import manageImg from "../../assets/manage.jpg";
 import designerImg from "../../assets/designer.jpg";
 import scheduleImg from "../../assets/schedule.jpg";
