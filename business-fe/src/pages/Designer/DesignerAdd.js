@@ -3,13 +3,15 @@ import TextField from "@mui/material/TextField";
 
 import Swal from "sweetalert2";
 
-import {useState} from "react";
+import {useState,useEffect ,useRef} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addDesigner} from "../../redux/DesignerSlice";
 import NavBar from "../../components/Navbar/NavBar";
 
-import testImage from '../../assets/Logo.png'
+import defaultImage from '../../assets/Logo.png';
+
+import {imgApi} from "../../shared/imgApi";
 
 const DesignerMain = styled.main`
   display: flex;
@@ -42,7 +44,7 @@ const ProfileDiv = styled.div`
   margin-bottom: 80px;
 `;
 
-const TestImg = styled.img`
+const Pimg = styled.img`
   width: 150px;
   height: 150px;
   border: solid 1px #3f3f3f;
@@ -99,24 +101,61 @@ const SButton = styled.button`
 `;
 
 const DesignerAdd = () => {
+  const [preview, setPreview] = useState("");//미리보기 사진
+  const [photo, setPhoto] = useState("");//보낼 파일 사진
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  const inputRef = useRef();
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    setPreview(defaultImage);
+    setPhoto(defaultImage);
+  },[]);
+
+  const clearImg = (e)=>{
+    setPreview(defaultImage);
+    setPhoto(defaultImage);
+  }
+  
+  const changeImg = (e) => {
+    setPhoto(e.target.files[0]);
+    setPreview(e.target.files[0]);
+    console.log("photochanged");
+  };
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setPreview(reader.result);
+        resolve();
+      };
+    });
+  };
 
   const handleSubmit = () => {
     const data = {
       name,
       description,
     };
+    //exception
     if (name === "") {
       Swal.fire({icon: "error", title: "디자이너 이름을 확인해주세요."});
       return;
     }
-    dispatch(addDesigner(data))
-      .unwrap()
+    //post
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(data)], {
+      type: "application/json",
+    }); 
+    formData.append("data", blob);
+    formData.append("photo", photo);
+
+    //dispatch
+    imgApi.addDesigner(formData)
       .then(Swal.fire({icon: "success", title: "디자이너 추가되었습니다."}))
       .then(() => navigate("/designer"))
       .catch(() => {
@@ -130,12 +169,25 @@ const DesignerAdd = () => {
       <DesignerMain>
         <DesignerSection>
           <ProfileDiv>
-            <TestImg src={testImage}/>
-            <ImgButton className={"edit"}>
+            <Pimg src={preview} alt="#hairshop_image"></Pimg>
+            <input
+              id="file"
+              type="file"
+              name="file"
+              style={{ display: "none" }}
+              ref={inputRef}
+              onChange={(e) => {
+                if(e.target.files.length){
+                  changeImg(e);
+                  encodeFileToBase64(e.target.files[0]);
+                }
+              }}
+            />
+            <ImgButton className={"edit"} onClick={() => inputRef.current.click()}>
               변경
             </ImgButton>
-            <ImgButton className={"delete"}>
-              삭제
+            <ImgButton className={"delete"} onClick={() => clearImg()}>
+              초기화
             </ImgButton>
           </ProfileDiv>
           <FlexInputDiv>

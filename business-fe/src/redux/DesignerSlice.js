@@ -18,13 +18,12 @@ export const getDesigner = createAsyncThunk(
   }
 );
 
-
+//from imgApi
 export const addDesigner = createAsyncThunk(
   "DesignerSlice/add-designer",
-  async (data, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const res = await designerApi.addDesigner(data);
-      
+      const res = await designerApi.addDesigner(formData);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -60,7 +59,6 @@ export const deleteDesigner = createAsyncThunk(
   "DesignerSlice/delete-designer",
   async (data, { rejectWithValue }) => {
     try {
-      //console.log("dD::"+JSON.stringify(data));
       const res = await designerApi.deleteDesigner(data);
       return res.data;
     } catch (err) {

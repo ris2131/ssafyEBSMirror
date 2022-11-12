@@ -6,13 +6,12 @@ import Swal from "sweetalert2";
 
 import pencil from "../../assets/Pencil.png";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { getinfo} from "../../redux/InfoSlice";
 
 import { imgApi } from "../../shared/imgApi";
-import defaultPreview from "../../assets/Logo_trans.png";
 
 const InfoBox = styled.div`
   display: flex;
@@ -148,7 +147,6 @@ const Info = () =>{
   const clearImg = (e)=>{
     setPreview(originPhoto);
     setPhoto(originPhoto);
-    
   }
   const changeImg = (e) => {
     setPhoto(e.target.files[0]);
