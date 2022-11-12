@@ -89,9 +89,7 @@ const Adress = styled.div`
   
 `;
 
-const CustomButton = styled.div`
 
-`;
 
 
 const Mypage = () => {
@@ -215,20 +213,20 @@ const Mypage = () => {
                 </div>
 
             
-            <ThemeProvider theme={theme}>
-              <Grid container spacing={14} justifyContent="center">
-                <Grid item>
-                  <Button variant="contained" color="brown" onClick={handleEdit}>
-                  수정하기
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="brown" >
-                    <BasicModal title={title} description={description} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </ThemeProvider>
+                <ThemeProvider theme={theme}>
+                  <Grid container spacing={5} justifyContent="center" mt={2} >
+                    <Grid item>
+                      <Button variant="contained" color="brown" onClick={handleEdit}>
+                      수정하기
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button variant="contained" color="brown" >
+                        <BasicModal title={title} description={description} />
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </ThemeProvider>
         </InfoContainer>
     );
 };
