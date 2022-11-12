@@ -12,6 +12,8 @@ import styled from "styled-components";
 import ReservationcardComponent from "../../components/mypage/ReservationcardComponent";
 import SubscribecardComponent from "../../components/mypage/SubscribecardComponent";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Grid from '@mui/material/Grid'; // Grid version 1
+import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 const theme = createTheme({
   palette: {
@@ -87,6 +89,9 @@ const Adress = styled.div`
   
 `;
 
+const CustomButton = styled.div`
+
+`;
 
 
 const Mypage = () => {
@@ -211,14 +216,18 @@ const Mypage = () => {
 
             
             <ThemeProvider theme={theme}>
-              <div>
-              <Button variant="contained" color="primary" onClick={handleEdit}>
-              수정하기
-              </Button>
-              <Button variant="contained" color="primary">
-                <BasicModal title={title} description={description} />
-              </Button>
-              </div>
+              <Grid container spacing={14} justifyContent="center">
+                <Grid item>
+                  <Button variant="contained" color="brown" onClick={handleEdit}>
+                  수정하기
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="brown" >
+                    <BasicModal title={title} description={description} />
+                  </Button>
+                </Grid>
+              </Grid>
             </ThemeProvider>
         </InfoContainer>
     );
