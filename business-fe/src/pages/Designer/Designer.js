@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import {getinfo} from "../../redux/InfoSlice";
 import {useNavigate} from "react-router-dom";
 
+
 const DesignerMain = styled.main`
   display: flex;
   flex: 1;
@@ -127,7 +128,9 @@ const Designer = () => {
   const addDesigner = () => {
     navigate("/designer/add");
   };
-
+  const handleEdit = (designer_seq)=>{
+    navigate("/designer/modify",{state: designer_seq});
+  }
   return (
       <>
       <NavBar></NavBar>
@@ -140,14 +143,14 @@ const Designer = () => {
           designerList.length ? (
             designerList.map((designer) => {
               return (
-                <DesignerDiv key={designer["name"]}>
+                <DesignerDiv key={designer["designer_seq"]}>
                   <ProfileDiv>
                     <ProfileImg src={designer["photo"]}></ProfileImg>
                   </ProfileDiv>
                   <DescriptionDiv>
                     <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
                     <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
-                    <EditButton>편집</EditButton>
+                    <EditButton value={designer["designer_seq"]} onClick={(e) => handleEdit(e.target.value)} >편집</EditButton>
                   </DescriptionDiv>
                 </DesignerDiv>
               );

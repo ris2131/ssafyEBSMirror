@@ -5,23 +5,9 @@ export const authApi = {
   signup: (data) => axios.post("business/sign-up", data),
   // 이메일 중복 체크
   checkemail: (email) => axios.post("business/check-email", email),
-  // 인증번호 보내기
-  //sendemail: (email) => axios.post("api/members/email/send", email),
-  // 인증번호 검증
-  //confirmemail: (data) => axios.post("api/members/email/confirm", data),
-
+  //로그인
   login: (data) => axios.post("business/login", data),//,
-
-  getBusiness: () => axios.get("business"),
-
-  //googlelogin: (data) => axios.post("api/google-login", data),
-  //getuser: () => axios.get("api/members"),
-  //putpassword: (pwd) => axios.put("api/members/password", pwd),
-  //deleteuser: () => axios.delete("api/members"),
-  //getMyhistory: (date) => axios.get("api/histories", { params: { date } }),
-
-  //checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey="+process.env.REACT_APP_OPENAPI_REG_SERVICEKEY ,data),
+  //인증 번호 검증
   checkReg: (data) => axios.post("https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey="+process.env.REACT_APP_OPENAPI_REG_SERVICEKEY,data),
 
-  //OPENAPI_REG_SERVICEKEY
 };
