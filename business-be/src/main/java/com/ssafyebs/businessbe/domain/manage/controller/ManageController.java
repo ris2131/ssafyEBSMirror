@@ -40,10 +40,12 @@ public class ManageController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestPart("photo") MultipartFile multipartFile, @RequestPart("data") ManageRequestDto manageRequestDto) {
+    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestPart(value = "photo", required = false) MultipartFile multipartFile, @RequestPart("data") ManageRequestDto manageRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        String photoUrl = manageService.uploadFile(multipartFile, businessSeq);
-        manageRequestDto.setPhoto(photoUrl);
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String photoUrl = manageService.uploadFile(multipartFile, businessSeq, "hairshop/");
+            manageRequestDto.setPhoto(photoUrl);
+        }
         manageService.managementModify(businessSeq, manageRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 수정되었습니다.", null));
     }
@@ -61,32 +63,30 @@ public class ManageController {
 
     @GetMapping("/designers/{designer_seq}")
     public ResponseEntity<?> designerInfoGet(@PathVariable("designer_seq")long designerSeq) {
-
         DesignerResponseDto designerResponseDto = manageService.designerInfoGet(designerSeq);
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 조회되었습니다.", designerResponseDto));
-
     }
 
     @PostMapping("/designers")
-    public ResponseEntity<?> designerPost(HttpServletRequest request, @RequestBody DesignerRequestDto designerRequestDto) {
+    public ResponseEntity<?> designerPost(HttpServletRequest request, @RequestPart(value = "photo", required = false) MultipartFile multipartFile, @RequestPart("data") DesignerRequestDto designerRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        try {
-            manageService.designerInsert(businessSeq, designerRequestDto);
-            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 등록되었습니다.", null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String photoUrl = manageService.uploadFile(multipartFile, designerRequestDto.getDesignerSeq(), "designer/");
+            designerRequestDto.setPhoto(photoUrl);
         }
+        manageService.designerInsert(businessSeq, designerRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 등록되었습니다.", null));
     }
 
     @PutMapping("/designers")
-    public ResponseEntity<?> designerPut(HttpServletRequest request, @RequestBody DesignerRequestDto designerRequestDto) {
+    public ResponseEntity<?> designerPut(HttpServletRequest request, @RequestPart(value = "photo", required = false) MultipartFile multipartFile, @RequestPart("data") DesignerRequestDto designerRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
-        try {
-            manageService.designerModify(businessSeq, designerRequestDto);
-            return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 수정되었습니다.", null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.createError(e.getMessage()));
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String photoUrl = manageService.uploadFile(multipartFile, designerRequestDto.getDesignerSeq(), "designer/");
+            designerRequestDto.setPhoto(photoUrl);
         }
+        manageService.designerModify(businessSeq, designerRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 수정되었습니다.", null));
     }
 
     @DeleteMapping("/designers")

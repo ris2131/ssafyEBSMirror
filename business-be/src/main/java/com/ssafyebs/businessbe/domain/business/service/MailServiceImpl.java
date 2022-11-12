@@ -38,6 +38,7 @@ public class MailServiceImpl implements MailService {
         Hairshop hairshop = Hairshop
                 .builder()
                 .business(business)
+                .photo("https://business.ssafy-ebs.com/photo/hairshop/default.jpg")
                 .build();
         hairshopRepository.save(hairshop);
     }

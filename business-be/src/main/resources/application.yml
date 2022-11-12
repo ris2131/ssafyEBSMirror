@@ -47,13 +47,7 @@ home-url:
   https://business.ssafy-ebs.com
 
 image-url:
-  designer:
-    https://business.ssafy-ebs.com/photo/designer/
-  hairshop:
-    https://business.ssafy-ebs.com/photo/hairshop/
+  https://business.ssafy-ebs.com/
 
 image-path:
-  designer:
-    /pic/designer/
-  hairshop:
-    /pic/hairshop/
+  /pic
