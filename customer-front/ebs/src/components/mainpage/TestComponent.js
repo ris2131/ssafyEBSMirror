@@ -11,6 +11,12 @@ import { useNavigate } from "react-router-dom";
 const Customcard = styled.div`
     width: 80%;
     margin-bottom: 20px;
+    font-family: GowunBatang-Regular;
+    margin: auto;
+    // margin-bottom: 20px;
+    margin-top: 20px;
+    
+
     
 `;
 

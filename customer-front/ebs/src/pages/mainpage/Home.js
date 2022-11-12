@@ -13,7 +13,7 @@ import { getuser } from "../../store/slices/userSlice";
 const Container = styled.div`
   background-color: #DBD7CC;
   justify-content: center;
-
+  font-family: GowunBatang-Regular;
 `;
 
 const Welcome = styled.div`
@@ -32,6 +32,10 @@ const Subinfo = styled.div`
   font-weight: bold;
 
 `;
+const Myactivesubspan = styled.span`
+  
+`;
+
 
 const Home = () => {
 
@@ -68,9 +72,10 @@ const Home = () => {
           {nickName}님 환영합니다 *^_^*
         </Name> 
         <Subinfo>
-          예약하러 가볼까요?
+          <div>현재 구독권을 보유중인 헤어숍입니다!</div>
+          <div>예약하러 가볼까요?</div>
         </Subinfo>
-        <div>
+        <Myactivesubspan>
           {myactivesubscribe.length === 0? (
               <EmptyComponent/>
             ) : (
@@ -84,7 +89,7 @@ const Home = () => {
                 );
               })
             )}
-        </div>
+        </Myactivesubspan>
     </Container>
     
   );
