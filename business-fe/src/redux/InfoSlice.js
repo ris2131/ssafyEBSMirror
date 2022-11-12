@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { infoApi } from "../shared/infoApi.js";
-// import { imgApi } from "../shared/imgApi";
+import { imgApi } from "../shared/imgApi.js";
 
 const initialState = {
   isLoggedIn: false,
@@ -12,6 +12,7 @@ const initialState = {
     homepage:"",
     description:"",
     notice:"",
+    photo:"",
   },
 };
 
@@ -22,9 +23,8 @@ export const getinfo = createAsyncThunk(
       console.log("getinfo start")
       const res = await infoApi.getinfo();
       //const res = await authApi.login(data);
-      //console.log("authrorization: ",res.headers.authorization);
-      console.log("getInfo done");
       console.log(res.data.data)
+      console.log("getInfo done");
       return res.data;
     } catch (err) {
       console.log("getInfo err");
@@ -33,11 +33,12 @@ export const getinfo = createAsyncThunk(
     }
   }
 );
+//from imgApi
 export const modifyinfo = createAsyncThunk(
   "InfoSlice/modifyinfo",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await infoApi.modifyinfo(data);
+      const res = await imgApi.modifyinfo(data);
       console.log("data: "+data);
       return res.data;
     } catch (err) {
@@ -79,6 +80,7 @@ const InfoSlice = createSlice({
       state.profile.homepage = data.homepage;
       state.profile.description = data.description;
       state.profile.notice = data.notice;
+      state.profile.photo = data.photo;
     },
   },
 });
