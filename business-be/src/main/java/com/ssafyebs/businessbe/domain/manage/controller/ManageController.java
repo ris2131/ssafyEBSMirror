@@ -40,7 +40,7 @@ public class ManageController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestPart(value = "photo", required = true) MultipartFile multipartFile, @RequestPart("data") ManageRequestDto manageRequestDto) {
+    public ResponseEntity<?> managementPut(HttpServletRequest request, @RequestPart(value = "photo", required = false) MultipartFile multipartFile, @RequestPart("data") ManageRequestDto manageRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
         if (multipartFile != null && !multipartFile.isEmpty()) {
             String photoUrl = manageService.uploadFile(multipartFile, businessSeq, "hairshop/");
