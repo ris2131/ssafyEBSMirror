@@ -18,7 +18,7 @@ const Subscribe = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const item = location.state.item;
     const data = {
         businessSeq : item.businessSeq
@@ -64,6 +64,7 @@ const Subscribe = () => {
             params,
         }).then((res)=>{console.log(res);
             //window.location.assign(res.data.next_redirect_pc_url)
+            isMobile ?window.location.assign(res.data.next_redirect_app_url) : window.location.assign(res.data.next_redirect_pc_url);
         })
         
 

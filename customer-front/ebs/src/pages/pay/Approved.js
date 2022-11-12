@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getitemseq } from "../../store/slices/subscribeSlice";
 import axios from "axios";
 
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 export default function Approved(){
-    const itemseq = useSelector((state)=>state.subscribe.itemseq);
-   
     console.log(window.location.search);
-    console.log(itemseq);
 }
