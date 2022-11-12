@@ -43,7 +43,7 @@ const style = {
 const InfoContainer = styled.div`
   background-color: #DBD7CC;
   font-family: GowunBatang-Regular;
-  
+  height: 100vh;
 `;
 
 const Title = styled.div`
@@ -51,7 +51,7 @@ const Title = styled.div`
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const Nicknamecontainer = styled.div`
@@ -62,19 +62,19 @@ const Nicknamecontainer = styled.div`
 const Nickname = styled.div`
   display: inline;
   margin-left: 10px;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const Realname = styled.div`
   display: inline;
   margin-left: 20px;
-  color: #FFFFFF;
+  color: #000000;
   
 `;
 
 const AdressContainer = styled.div`
   text-align: justify;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const AdressTitle = styled.div`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from 'react';
-import bgImage from '../../assets/Hairshopimage03.png'
-import logoImage from '../../assets/Logo.png'
+import bgImage from '../../assets/Hairshopimage01.png'
+import logoImage from '../../assets/ebs_logo.png'
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
@@ -32,23 +32,23 @@ const LogoDiv = styled.div`
 
 const LogoImg = styled.img`
   @media screen and (max-width: 821px) {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
   }
 
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   margin: 10px;
 `;
 
 const LogoText = styled.h1`
   @media screen and (max-width: 821px) {
-    font-size: 50px;
+    font-size: 80px;
   }
 
-  font-size: 80px;
+  font-size: 120px;
   font-family: OKDDUNG;
-  color: red;
+  color: white;
   margin: 10px;
 `;
 
@@ -109,7 +109,7 @@ const Login = () => {
             src= {logoImage}
             alt="#"
           ></LogoImg>
-          <LogoText>Ebs</LogoText>
+          <LogoText>ebs</LogoText>
         </LogoDiv>
         <IconDiv2>
           <GoogleTest text="로그인" />
