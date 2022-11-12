@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate,useLocation} from "react-router-dom";
 
 import { modifyDesigner, getDesignerInfo, deleteDesigner} from "../../redux/DesignerSlice";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar/NavBar";
 
 import testImage from '../../assets/Logo.png'
 
