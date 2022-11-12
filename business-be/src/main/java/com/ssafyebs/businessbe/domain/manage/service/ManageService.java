@@ -1,6 +1,5 @@
 package com.ssafyebs.businessbe.domain.manage.service;
 
-import com.ssafyebs.businessbe.domain.business.controller.LoginController;
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.domain.manage.dto.requestDto.DesignerRequestDto;
@@ -18,8 +17,6 @@ import com.ssafyebs.businessbe.domain.manage.repository.FederatedReservationRepo
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,13 +39,11 @@ public class ManageService {
     private final DesignerRepository designerRepository;
     private final FederatedReservationRepository reservationRepository;
 
-    final static Logger logger = LogManager.getLogger(LoginController.class);
-
     private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
-    @Value("${image-path.hairshop}")
+    @Value("${image-path}")
     String IMAGE_PATH;
 
-    @Value("${image-url.hairshop}")
+    @Value("${image-url}")
     String IMAGE_URL_PREFIX;
 
     public void registerHairshop(long businessSeq) {
@@ -99,17 +94,18 @@ public class ManageService {
             throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
         }
         Hairshop hairshop = hairshopRepository.findHairshopByBusiness(business).get();
+
         hairshop.setName(manageRequestDto.getName());
         hairshop.setPhone(manageRequestDto.getPhone());
         hairshop.setAddress(manageRequestDto.getAddress());
-        hairshop.setPhoto(manageRequestDto.getPhoto());
+        if (manageRequestDto.getPhoto() != null) hairshop.setPhoto(manageRequestDto.getPhoto());
         hairshop.setNotice(manageRequestDto.getNotice());
         hairshop.setDescription(manageRequestDto.getDescription());
         hairshop.setHomepage(manageRequestDto.getHomepage());
         hairshopRepository.save(hairshop);
     }
 
-    public String uploadFile(MultipartFile multipartFile, long businessSeq) {
+    public String uploadFile(MultipartFile multipartFile, long fileName, String directory) {
         if (multipartFile == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
             throw new InvalidFileException("잘못된 파일 입력입니다.");
         }
@@ -119,8 +115,7 @@ public class ManageService {
         }
         String fileExt = file.substring(file.lastIndexOf(".") + 1);
 
-        File newFile = new File(IMAGE_PATH + businessSeq + "." + fileExt);
-        logger.debug(newFile.getPath());
+        File newFile = new File(IMAGE_PATH + directory + fileName + "." + fileExt);
         try {
             multipartFile.transferTo(newFile);
         } catch (FileNotFoundException e) {
@@ -128,7 +123,7 @@ public class ManageService {
         } catch (IOException e) {
             throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
         }
-        return IMAGE_URL_PREFIX + newFile.getName();
+        return IMAGE_URL_PREFIX + directory + newFile.getName();
     }
 
     public List<DesignerResponseDto> designerList(long businessSeq) {
@@ -171,7 +166,7 @@ public class ManageService {
         designer.setBusiness(business);
         designer.setName(designerRequestDto.getName());
         designer.setDescription(designerRequestDto.getDescription());
-        designer.setPhoto(designerRequestDto.getPhoto());
+        if (designerRequestDto.getPhoto() != null) designer.setPhoto(designerRequestDto.getPhoto());
         designerRepository.save(designer);
     }
 

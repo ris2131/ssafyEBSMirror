@@ -20,7 +20,7 @@ public class DesignerRequestDto {
                 .business(business)
                 .name(this.name)
                 .description(this.description)
-                .photo(this.photo)
+                .photo(this.photo == null ? "https://business.ssafy-ebs.com/photo/designer/default.jpg" : this.photo)
                 .build();
     }
 }

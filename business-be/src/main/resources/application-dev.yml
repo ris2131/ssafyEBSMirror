@@ -47,13 +47,7 @@ home-url:
   http://localhost
 
 image-url:
-  designer:
-    http://localhost/photo/designer/
-  hairshop:
-    http://localhost/photo/hairshop/
+  http://localhost/photo/
 
 image-path:
-  designer:
-    C:\Project\designer\
-  hairshop:
-    C:\Project\hairshop\
+  C:\Project\
