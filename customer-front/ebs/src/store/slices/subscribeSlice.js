@@ -5,7 +5,20 @@ const initialState = {
   mysubscribe: [],
   itemlist: [],
   myactivesubscribe: [],
+  itemseq: 0
 };
+
+export const getitemseq = createAsyncThunk(
+  "subscribeSlice/getitemseq",
+  async(data,{rejectWithValue}) => {
+    try{
+      const res = data;
+      return res;
+    }catch(err){
+      rejectWithValue(err.response);
+    }
+  },
+)
 
 export const getsubscribeinfo = createAsyncThunk(
   "subscribeSlice/getsubscribeinfo",
@@ -76,6 +89,10 @@ const subscribeSlice = createSlice({
       state.myactivesubscribe = action.payload.data;
       console.log(state.myactivesubscribe);
     },
+    [getitemseq.fulfilled]: (state, action) =>{
+      state.itemseq = action.payload;
+      console.log(state.itemseq);
+    }
   },
 });
 export const subscribeActions = subscribeSlice.actions;
