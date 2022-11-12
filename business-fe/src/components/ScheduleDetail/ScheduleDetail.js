@@ -51,18 +51,18 @@ const ScheduleDetail = () => {
   return (
     <DetailSection id='detail'>
       <TitleDiv>예약 상세 내용</TitleDiv>
-      <DetailDiv>{detail["member_nickname"]} 고객님</DetailDiv>
+      <DetailDiv>{detail["memberNickname"]} 고객님</DetailDiv>
       <DetailDiv>
         <ContentLi> 스타일 요청사항</ContentLi>
-        <DescriptionDiv>{detail["reservation_style"]}</DescriptionDiv>
+        <DescriptionDiv>{detail["reservationStyle"]}</DescriptionDiv>
       </DetailDiv>
       <DetailDiv>
         <ContentLi> 서비스 요청사항</ContentLi>
-        <DescriptionDiv>{detail["reservation_service"]}</DescriptionDiv>
+        <DescriptionDiv>{detail["reservationService"]}</DescriptionDiv>
       </DetailDiv>
       <DetailDiv>
         <ContentLi> 기타 요청사항</ContentLi>
-        <DescriptionDiv>{detail["reservation_etc"]}</DescriptionDiv>
+        <DescriptionDiv>{detail["reservationEtc"]}</DescriptionDiv>
       </DetailDiv>
     </DetailSection>
   );
