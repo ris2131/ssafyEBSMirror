@@ -7,6 +7,9 @@ const axios = baseaxios.create({
   headers :  {
     "Content-Type": "application/json; charset=UTF-8",
     accept: "application/json",
+    'Cache-Control': 'no-store',
+    Pragma: 'no-store',
+    Expires: '0',
   },
 });
 

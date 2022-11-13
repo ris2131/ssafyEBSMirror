@@ -19,7 +19,7 @@ let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-     
+    
     <BrowserRouter>
       <PersistGate loading={null} persistor={persistor}>
           <App />
