@@ -47,7 +47,7 @@ const ReservationInfoDetail = () => {
             </Card.Body>
         </Card>
         <br />
-        <MyButton onClick={move}>예약내역조회페이지로 돌아가기</MyButton>
+        <MyButton onClick={move}>돌아가기</MyButton>
       </>
     );
 };
