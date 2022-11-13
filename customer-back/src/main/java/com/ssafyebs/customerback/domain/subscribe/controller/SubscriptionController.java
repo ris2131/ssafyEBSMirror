@@ -1,5 +1,12 @@
 package com.ssafyebs.customerback.domain.subscribe.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -10,10 +17,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
+import com.ssafyebs.customerback.domain.subscribe.dto.SubscriptionRequestDto;
 import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 import com.ssafyebs.customerback.domain.subscribe.service.FederatedSubscriptionService;
@@ -23,6 +34,7 @@ import com.ssafyebs.customerback.global.exception.NoExistSubscriptionException;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.dynamic.loading.MultipleParentClassLoader.Builder;
 
 @RestController
 @RequestMapping("/subscribe")
@@ -48,11 +60,49 @@ public class SubscriptionController {
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, seq)));
 	}
 	
-	@PostMapping("/{pricing_seq}")
-	public ResponseEntity<?> makeSubscription(HttpServletRequest request, @PathVariable("pricing_seq")Long seq){
+	@PostMapping()
+	public ResponseEntity<?> makeSubscription(HttpServletRequest request, @RequestBody SubscriptionRequestDto subscriptionRequestDto) throws IOException{
 		
 		String memberUid = (String)request.getAttribute("memberuid");
 //		String memberUid = "3262732023";
+		
+		String reqURL = "https://kapi.kakao.com/v1/payment/approve";
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		
+		conn.setRequestMethod("POST");
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Authorization", "KakaoAK d08fb758ac87e7487a96eb2cf1bd4b5e");
+		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		StringBuilder sb = new StringBuilder();
+		sb.append("cid="+subscriptionRequestDto.getCid());
+		sb.append("&tid="+subscriptionRequestDto.getTid());
+		sb.append("&partner_order_id="+subscriptionRequestDto.getPartner_order_id());
+		sb.append("&partner_user_id="+subscriptionRequestDto.getPartner_user_id());
+		sb.append("&pg_token="+subscriptionRequestDto.getPg_token());
+		
+		bw.write(sb.toString());
+		bw.flush();
+		
+		int responseCode = conn.getResponseCode();
+		System.out.println("responseCode : " + responseCode);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String line = "";
+		String result = "";
+
+		while ((line = br.readLine()) != null) {
+			result += line;
+		}
+		System.out.println("response body : " + result);
+
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		
+		Long seq = Long.valueOf(subscriptionRequestDto.getPartner_order_id().substring(5));
+		
 		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
 		if(f.isPresent()) {
 			FederatedSubscription fs = f.get();
