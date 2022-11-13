@@ -70,11 +70,11 @@ public class ManageController {
     @PostMapping("/designers")
     public ResponseEntity<?> designerPost(HttpServletRequest request, @RequestPart(value = "photo", required = false) MultipartFile multipartFile, @RequestPart("data") DesignerRequestDto designerRequestDto) {
         long businessSeq = (long) request.getAttribute("business_seq");
+        long designerSeq = manageService.designerInsert(businessSeq, designerRequestDto, multipartFile);
         if (multipartFile != null && !multipartFile.isEmpty()) {
-            String photoUrl = manageService.uploadFile(multipartFile, designerRequestDto.getDesignerSeq(), "designer/");
+            String photoUrl = manageService.uploadFile(multipartFile, designerSeq, "designer/");
             designerRequestDto.setPhoto(photoUrl);
         }
-        manageService.designerInsert(businessSeq, designerRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("정상적으로 등록되었습니다.", null));
     }
 

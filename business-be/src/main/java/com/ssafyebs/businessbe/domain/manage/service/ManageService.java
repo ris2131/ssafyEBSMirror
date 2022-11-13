@@ -105,16 +105,12 @@ public class ManageService {
     }
 
     public String uploadFile(MultipartFile multipartFile, long fileName, String directory) {
-        if (multipartFile == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
-            throw new InvalidFileException("잘못된 파일 입력입니다.");
-        }
         String file = multipartFile.getOriginalFilename();
-        if (file == null) {
+        if (file == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
             throw new InvalidFileException("잘못된 파일 입력입니다.");
         }
-        String fileExt = file.substring(file.lastIndexOf(".") + 1);
 
-        File newFile = new File(IMAGE_PATH + directory + fileName + "." + fileExt);
+        File newFile = new File(IMAGE_PATH + directory + fileName + "." + file.substring(file.lastIndexOf(".") + 1));
         try {
             multipartFile.transferTo(newFile);
         } catch (IOException e) {
@@ -139,12 +135,21 @@ public class ManageService {
         designerResponseDto.getDtoFromEntity(designer);
         return designerResponseDto;
     }
-    public void designerInsert(long businessSeq, DesignerRequestDto designerRequestDto) {
-        if (!businessRepository.findByBusinessSeq(businessSeq).isPresent()) {
-            throw new NoExistBusinessException("잘못된 로그인 정보입니다.");
+
+    public long designerInsert(long businessSeq, DesignerRequestDto designerRequestDto, MultipartFile multipartFile) {
+        Business business = businessRepository.findByBusinessSeq(businessSeq).orElseThrow(()-> new NoExistBusinessException("잘못된 로그인 정보입니다."));
+        Designer designer = designerRequestDto.toEntity(business);
+        designerRepository.save(designer);
+
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            System.out.println("파일 이름만 먼저 저장");
+            String file = multipartFile.getOriginalFilename();
+            if (file == null) throw new InvalidFileException("잘못된 파일 입력입니다.");
+            designer.setPhoto(IMAGE_PATH + "designer/" + designer.getDesignerSeq() + "." + file.substring(file.lastIndexOf(".") + 1));
+            designerRepository.save(designer);
         }
-        Business business = businessRepository.findByBusinessSeq(businessSeq).get();
-        designerRepository.save(designerRequestDto.toEntity(business));
+
+        return designer.getDesignerSeq();
     }
 
     public void designerModify(long businessSeq, DesignerRequestDto designerRequestDto) {
