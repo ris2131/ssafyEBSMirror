@@ -21,6 +21,11 @@ spring:
     port: 17103
     mail-expired-time: 300
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
   mail:
     host: smtp.gmail.com
     port: 587
