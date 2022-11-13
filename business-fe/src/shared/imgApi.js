@@ -23,10 +23,9 @@ formApi.interceptors.request.use((config) => {
 export const imgApi = {
   //매장관리 수정.
   modifyinfo: (formData) => formApi.put("manage", formData),
-  // signup: (formData) => formApi.post("members/sign-up", formData),
-  // googlesignup: (formData) => formApi.post("members/google-sign-up", formData),
-  // putuserimage: (formData) => formApi.put("members/info-image", formData),
-  // putuser: (data) => formApi.put("members/info", data),
-  // postdiary: (formData) => formApi.post("/diaries", formData),
+  //디자이너 추가.
+  addDesigner: (formData) => formApi.post("manage/designers",formData),
+  //디자이너 수정
+  modifyDesigner: (formData)=> formApi.put(`manage/designers`,formData),
 };
 

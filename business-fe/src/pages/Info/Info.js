@@ -6,13 +6,13 @@ import Swal from "sweetalert2";
 
 import pencil from "../../assets/Pencil.png";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { getinfo} from "../../redux/InfoSlice";
 
 import { imgApi } from "../../shared/imgApi";
-import defaultPreview from "../../assets/Logo_trans.png";
+import NavBar from "../../components/Navbar/NavBar";
 
 const InfoBox = styled.div`
   display: flex;
@@ -148,7 +148,6 @@ const Info = () =>{
   const clearImg = (e)=>{
     setPreview(originPhoto);
     setPhoto(originPhoto);
-    
   }
   const changeImg = (e) => {
     setPhoto(e.target.files[0]);
@@ -199,115 +198,118 @@ const Info = () =>{
   };
 
   return(
-    <InfoBox>
-      <InputBox>
-        <PimgBox>
-          <Pimg src={preview} alt="#hairshop_image"></Pimg>
-        </PimgBox>
-        <input
-          id="file"
-          type="file"
-          name="file"
-          style={{ display: "none" }}
-          ref={inputRef}
-          onChange={(e) => {
-            if(e.target.files.length){
-              changeImg(e);
-              encodeFileToBase64(e.target.files[0]);
-            }
-          }}
-        />
-        <ImgTextBox>
-          <ImgText color="#42a5f5" onClick={() => inputRef.current.click()}>
-            변경
-          </ImgText>
-          <ImgText color="#42a5f5" onClick={() => clearImg()}>
-            초기화
-          </ImgText>
-        </ImgTextBox>
-      </InputBox>
-      <InputBox>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {nameDisabled}
-          label="상호명"
-          type="text"
-          variant="standard"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+    <>
+      <NavBar></NavBar>
+      <InfoBox>
+        <InputBox>
+          <PimgBox>
+            <Pimg src={preview} alt="#hairshop_image"></Pimg>
+          </PimgBox>
+          <input
+            id="file"
+            type="file"
+            name="file"
+            style={{ display: "none" }}
+            ref={inputRef}
+            onChange={(e) => {
+              if(e.target.files.length){
+                changeImg(e);
+                encodeFileToBase64(e.target.files[0]);
+              }
+            }}
           />
-          <PButton src={pencil} alt="pencil_image" onClick={(e) => setNameDisabled(!nameDisabled)}/>
-        </FlexInputDiv>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {phoneDisabled}
-          label="전화번호"
-          type="text"
-          variant="standard"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          />
-          
-          <PButton src={pencil} alt="pencil_image" onClick={(e) => setPhoneDisabled(!phoneDisabled)}/>
-        </FlexInputDiv>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {addressDisabled}
-          label="주소"
-          type="text"
-          variant="standard"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          
-          />
-          <PButton src={pencil} alt="pencil_image" onClick={(e) => setAddressDisabled(!addressDisabled)}/>
-        </FlexInputDiv>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {hompageDisabled}
-          label="홈페이지주소"
-          type="text"
-          variant="standard"
-          value={homepage}
-          onChange={(e) => setHomepage(e.target.value)}
-          />
-          <PButton src={pencil} alt="pencil_image"  onClick={(e) => setHompageDisabled(!hompageDisabled)}/>
-        </FlexInputDiv>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {descriptionDisabled}
-          label="매장소개란"
-          multiline
-          rows={4}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          />
-          <PButton src={pencil} alt="pencil_image"  onClick={(e) => setDescriptionDisabled(!descriptionDisabled)}/>
-        </FlexInputDiv>
-        <FlexInputDiv>
-          <TextField
-          fullWidth
-          disabled = {noticeDisabled}
-          label="공지 사항"
-          multiline
-          rows={4}
-          value={notice}
-          onChange={(e) => setNotice(e.target.value)}
-          />
-          <PButton src={pencil} alt="pencil_image"  onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
-        </FlexInputDiv>
-        <InputDiv>
-          <SButton onClick={handleSubmit}>
-            정보수정
-          </SButton>
-        </InputDiv>
-      </InputBox>
-    </InfoBox>
+          <ImgTextBox>
+            <ImgText color="#42a5f5" onClick={() => inputRef.current.click()}>
+              변경
+            </ImgText>
+            <ImgText color="#42a5f5" onClick={() => clearImg()}>
+              초기화
+            </ImgText>
+          </ImgTextBox>
+        </InputBox>
+        <InputBox>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {nameDisabled}
+            label="상호명"
+            type="text"
+            variant="standard"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            />
+            <PButton src={pencil} alt="pencil_image" onClick={(e) => setNameDisabled(!nameDisabled)}/>
+          </FlexInputDiv>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {phoneDisabled}
+            label="전화번호"
+            type="text"
+            variant="standard"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            />
+            
+            <PButton src={pencil} alt="pencil_image" onClick={(e) => setPhoneDisabled(!phoneDisabled)}/>
+          </FlexInputDiv>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {addressDisabled}
+            label="주소"
+            type="text"
+            variant="standard"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            
+            />
+            <PButton src={pencil} alt="pencil_image" onClick={(e) => setAddressDisabled(!addressDisabled)}/>
+          </FlexInputDiv>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {hompageDisabled}
+            label="홈페이지주소"
+            type="text"
+            variant="standard"
+            value={homepage}
+            onChange={(e) => setHomepage(e.target.value)}
+            />
+            <PButton src={pencil} alt="pencil_image"  onClick={(e) => setHompageDisabled(!hompageDisabled)}/>
+          </FlexInputDiv>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {descriptionDisabled}
+            label="매장소개란"
+            multiline
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            />
+            <PButton src={pencil} alt="pencil_image"  onClick={(e) => setDescriptionDisabled(!descriptionDisabled)}/>
+          </FlexInputDiv>
+          <FlexInputDiv>
+            <TextField
+            fullWidth
+            disabled = {noticeDisabled}
+            label="공지 사항"
+            multiline
+            rows={4}
+            value={notice}
+            onChange={(e) => setNotice(e.target.value)}
+            />
+            <PButton src={pencil} alt="pencil_image"  onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
+          </FlexInputDiv>
+          <InputDiv>
+            <SButton onClick={handleSubmit}>
+              정보수정
+            </SButton>
+          </InputDiv>
+        </InputBox>
+      </InfoBox>
+    </>
   );
 };
 

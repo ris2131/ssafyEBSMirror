@@ -1,20 +1,14 @@
 
-
-import styled from "styled-components";
-// 달력
-// import { format, addMonths, subMonths } from "date-fns";
-// import DaySection from "./DaySection";
-// import DayItems from "./DayItems";
-
 //달력 컴포넌트
 import CalendarComponent from "../../components/SchedulePage/CalendarComponent";
-
+import NavBar from "../../components/Navbar/NavBar";
 
 const MyCalendar = () => {
 
   return(
     <>
-      마이캘린더 페이지
+      <NavBar></NavBar>
+      
       <CalendarComponent></CalendarComponent>
     </>
   );

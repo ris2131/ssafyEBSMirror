@@ -20,11 +20,8 @@ export const getinfo = createAsyncThunk(
   "InfoSlice/getinfo",
   async (data, {rejectWithValue}) => {
     try {
-      console.log("getinfo start")
       const res = await infoApi.getinfo();
-      //const res = await authApi.login(data);
       console.log(res.data.data)
-      console.log("getInfo done");
       return res.data;
     } catch (err) {
       console.log("getInfo err");
@@ -39,7 +36,6 @@ export const modifyinfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await imgApi.modifyinfo(data);
-      console.log("data: "+data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
