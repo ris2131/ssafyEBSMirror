@@ -101,6 +101,7 @@ public class SubscriptionController {
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
 		
+		//response값 파싱해서 pay 엔티티 만들어서 넣어줘야함.
 		Long seq = Long.valueOf(subscriptionRequestDto.getPartner_order_id().substring(5));
 		
 		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
