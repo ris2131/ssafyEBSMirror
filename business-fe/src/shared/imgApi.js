@@ -25,5 +25,7 @@ export const imgApi = {
   modifyinfo: (formData) => formApi.put("manage", formData),
   //디자이너 추가.
   addDesigner: (formData) => formApi.post("manage/designers",formData),
+  //디자이너 수정
+  modifyDesigner: (formData)=> formApi.put(`manage/designers`,formData),
 };
 

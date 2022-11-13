@@ -42,13 +42,13 @@ export const getDesignerInfo = createAsyncThunk(
     }
   }
 );
-
+//from imgApi
 export const modifyDesigner = createAsyncThunk(
   "DesignerSlice/modify-designer",
-  async (data, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
       //console.log("mD::"+JSON.stringify(data));
-      const res = await designerApi.modifyDesigner(data);
+      const res = await designerApi.modifyDesigner(formData);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);

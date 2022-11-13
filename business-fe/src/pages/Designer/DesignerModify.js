@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 
 import Swal from "sweetalert2";
 
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate,useLocation} from "react-router-dom";
 
@@ -11,6 +11,8 @@ import { modifyDesigner, getDesignerInfo, deleteDesigner} from "../../redux/Desi
 import NavBar from "../../components/Navbar/NavBar";
 
 import testImage from '../../assets/Logo.png'
+
+import {imgApi} from "../../shared/imgApi";
 
 const DesignerMain = styled.main`
   display: flex;
@@ -43,7 +45,8 @@ const ProfileDiv = styled.div`
   margin-bottom: 80px;
 `;
 
-const TestImg = styled.img`
+
+const Pimg = styled.img`
   width: 150px;
   height: 150px;
   border: solid 1px #3f3f3f;
@@ -105,10 +108,12 @@ const SButton = styled.button`
 `;
 
 const DesignerModify = () => {
-  const {state} = useLocation();
+  const {state} = useLocation();//미리 가져오는
 
+  
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [preview, setPreview] = useState("");//미리보기 사진
   const [photo, setPhoto] = useState("");
   const [designerSeq, setDesignerSeq] = useState("");
 
@@ -117,31 +122,62 @@ const DesignerModify = () => {
   const originPhoto = useSelector((state) => state.designer.designers.photo) // state.
   const originDesignerSeq = useSelector((state) => state.designer.designers.designer_seq) // state.
 
+  const inputRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  // useEffect(()=>{
+  // },[]);
+
   useEffect(() => {
     dispatch(getDesignerInfo(state));
     setName(originName);
     setDescription(originDescription);
+    setPreview(originPhoto);
     setPhoto(originPhoto);
     setDesignerSeq(originDesignerSeq);
   }, [ dispatch, state, originName, originDescription, originPhoto, originDesignerSeq]);
 
+  const clearImg = (e)=>{
+    setPreview(originPhoto);
+    setPhoto(originPhoto);
+  }
+  const changeImg = (e) => {
+    setPhoto(e.target.files[0]);
+    setPreview(e.target.files[0]);
+    console.log("photochanged");
+  };
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setPreview(reader.result);
+        resolve();
+      };
+    });
+  };
+  //impApi
   const handleModify = () => {
     const data = {
       name,
       description,
-      photo,
       "designer_seq":designerSeq, 
     };
+    //exception
     if (name === "") {
       Swal.fire({icon: "error", title: "디자이너 이름을 확인해주세요."});
       return;
     }
-    console.log(photo);
-    dispatch(modifyDesigner(data))
-      .unwrap()
+    //post
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(data)], {
+      type: "application/json",
+    }); 
+    formData.append("data", blob);
+    formData.append("photo", photo);
+    //dispatch
+    imgApi.modifyDesigner(formData)
       .then(Swal.fire({icon: "success", title: "디자이너 수정되었습니다."}))
       .then(() => navigate("/designer"))
       .catch(() => {
@@ -170,12 +206,25 @@ const DesignerModify = () => {
       <DesignerMain>
         <DesignerSection>
           <ProfileDiv>
-            <TestImg src={testImage}/>
-            <ImgButton className={"edit"}>
-              사진변경
+            <Pimg src={preview} alt="#hairshop_image"></Pimg>
+              <input
+                id="file"
+                type="file"
+                name="file"
+                style={{ display: "none" }}
+                ref={inputRef}
+                onChange={(e) => {
+                  if(e.target.files.length){
+                    changeImg(e);
+                    encodeFileToBase64(e.target.files[0]);
+                  }
+                }}
+              />
+            <ImgButton className={"edit"} onClick={() => inputRef.current.click()}>
+              변경
             </ImgButton>
-            <ImgButton className={"delete"}>
-              사진삭제
+            <ImgButton className={"delete"} onClick={() => clearImg()}>
+              초기화
             </ImgButton>
           </ProfileDiv>
           <FlexInputDiv>
