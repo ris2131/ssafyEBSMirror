@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { makeSubscribe,getitemseq } from "../../store/slices/subscribeSlice";
 import axios from "axios";
 const MyButton = styled.button`
   border: none;
@@ -28,32 +27,20 @@ const Subscribe = () => {
         pricingSeq : item.pricingSeq
     }
 
-    const postSubscribe = () => {
-        dispatch(makeSubscribe(subseq.pricingSeq))
-        .then((res)=>{
-            {
-                res.payload.status === "SUCCESS"?
-                (alert("구독 결제에 성공했습니다")):
-                (alert("구독에 실패했습니다. 관리자에게 문의바랍니다."))
-            }
-        navigate('/')})
-    }
-
+    
     const trypurchase=()=>{
         const params = {
             cid : "TCSUBSCRIP",
-            partner_order_id : "testorderid1",
-            partner_user_id : "testuserid1",
-            item_name : item.hairshopName+" 구독권",
+            partner_order_id : "order"+item.pricingSeq,
+            partner_user_id : "testuserid",
+            item_name : item.hairshopName+" 구독권 "+item.pricingSeq,
             quantity : 1,
             total_amount : item.pricingPrice,
             tax_free_amount : 0,
             approval_url : "http://localhost/pay/approved/",
-            cancel_url : "http://localhost/purchasecanceled",
-            fail_url : "http://localhost/purchasefailed"
+            cancel_url : "http://localhost/pay/cancled/",
+            fail_url : "http://localhost/pay/failed/"
         }
-        dispatch(getitemseq(subseq.pricingSeq))
-        .then((res)=>{console.log(res)})
         axios({
             url: "https://kapi.kakao.com/v1/payment/ready",
             method : "POST",
@@ -64,6 +51,8 @@ const Subscribe = () => {
             params,
         }).then((res)=>{console.log(res);
             //window.location.assign(res.data.next_redirect_pc_url)
+            window.localStorage.setItem('tid', res.data.tid);
+            window.localStorage.setItem('order', JSON.stringify(params));
             isMobile ?window.location.assign(res.data.next_redirect_app_url) : window.location.assign(res.data.next_redirect_pc_url);
         })
         
