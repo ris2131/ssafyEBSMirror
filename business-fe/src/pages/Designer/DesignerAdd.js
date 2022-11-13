@@ -6,12 +6,13 @@ import Swal from "sweetalert2";
 import {useState,useEffect ,useRef} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {addDesigner} from "../../redux/DesignerSlice";
 import NavBar from "../../components/Navbar/NavBar";
 
-import defaultImage from '../../assets/Logo.png';
+//import defaultImage from '../../assets/Logo.png';
 
 import {imgApi} from "../../shared/imgApi";
+
+const defaultImage= "https://business.ssafy-ebs.com/photo/designer/default.jpg";
 
 const DesignerMain = styled.main`
   display: flex;
