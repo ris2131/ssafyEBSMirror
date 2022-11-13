@@ -145,7 +145,7 @@ public class ManageService {
             System.out.println("파일 이름만 먼저 저장");
             String file = multipartFile.getOriginalFilename();
             if (file == null) throw new InvalidFileException("잘못된 파일 입력입니다.");
-            designer.setPhoto(IMAGE_PATH + "designer/" + designer.getDesignerSeq() + "." + file.substring(file.lastIndexOf(".") + 1));
+            designer.setPhoto(IMAGE_URL_PREFIX + "designer/" + designer.getDesignerSeq() + "." + file.substring(file.lastIndexOf(".") + 1));
             designerRepository.save(designer);
         }
 
