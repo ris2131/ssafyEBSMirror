@@ -17,6 +17,8 @@ import Approved from './pages/pay/Approved';
 import { useSelector } from "react-redux";
 
 import Ebsnav from './components/ebsnav/Ebsnav';
+import Canceled from "./pages/pay/Canceled";
+import Failed from "./pages/pay/Failed";
 
 
 
@@ -46,7 +48,9 @@ function App() {
             <Route path="/myinfo-edit" element={<MyInfoEdit />} />
             <Route path="/search" element={<HairshopSearch />} />   
             <Route path="/hairshop-info" element={<HairshopInfo />} />
-            <Route path="/pay/approved" element={<Approved/>} />
+            <Route path="/pay/approved" element={<Approved />} />
+            <Route path="/pay/canceled" element={<Canceled />} />
+            <Route path="/pay/failed" element={<Failed />} />
       </Routes>
 
     </BrowserRouter>

@@ -37,9 +37,9 @@ const Subscribe = () => {
             quantity : 1,
             total_amount : item.pricingPrice,
             tax_free_amount : 0,
-            approval_url : "http://localhost/pay/approved/",
-            cancel_url : "http://localhost/pay/cancled/",
-            fail_url : "http://localhost/pay/failed/"
+            approval_url : "https://www.ssafy-ebs.com/pay/approved/",
+            cancel_url : "https://www.ssafy-ebs.com/pay/canceled/",
+            fail_url : "https://www.ssafy-ebs.com/pay/failed/"
         }
         axios({
             url: "https://kapi.kakao.com/v1/payment/ready",
