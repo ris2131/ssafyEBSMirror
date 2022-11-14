@@ -65,11 +65,15 @@ const HairshopSearch = () => {
 
         };
   
-    
+    const onKeyPress=(e)=>{
+      if(e.key==='Enter'){
+        submitKeyword();
+      }
+    }
     return (
         <Container>
             <div>
-                <CustomInput type="text" placeholder="헤어숍 이름을 검색하세요." value={keyword} onChange={(e) => setKeyword(e.target.value)}/> 
+                <CustomInput type="text" onKeyPress={onKeyPress} placeholder="헤어숍 이름을 검색하세요."  value={keyword} onChange={(e) => setKeyword(e.target.value)} /> 
                    
                 <MyButton onClick={submitKeyword}>
                     검색
