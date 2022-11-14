@@ -17,7 +17,7 @@ import { userActions } from "../../store/slices/userSlice";
 import logoImg from "../../assets/ebs_logo.png"
 import { GrClose } from "react-icons/gr"
 import { getuser } from "../../store/slices/userSlice";
-
+import { mergeBreakpointsInOrder } from '@mui/system';
 
 
 const StyledImage = styled.img`

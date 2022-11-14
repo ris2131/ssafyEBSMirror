@@ -46,11 +46,11 @@ const ReservationInfoDetail = () => {
                         <div>
                             요청사항
                         </div>
-                        <ul>
-                            {reservation.reservationStyle?<li>{reservation.reservationStyle}</li>:<></>}
-                            {reservation.reservationService?<li>{reservation.reservationService}</li>:<></>}
-                            {reservation.reservationEtc?<li>{reservation.reservationEtc}</li>:<></>}
-                        </ul>
+                        <div>
+                            {reservation.reservationStyle?<div>{reservation.reservationStyle}</div>:<></>}
+                            {reservation.reservationService?<div>{reservation.reservationService}</div>:<></>}
+                            {reservation.reservationEtc?<div>{reservation.reservationEtc}</div>:<></>}
+                        </div>
                     </Card.Text>
                 </Card.Body>
             </Card>
