@@ -34,3 +34,9 @@ spring:
         format_sql: true
   jackson:
     time-zone: Asia/Seoul
+
+image-url:
+  https://www.ssafy-ebs.com/photo/
+
+image-path:
+  /pic/

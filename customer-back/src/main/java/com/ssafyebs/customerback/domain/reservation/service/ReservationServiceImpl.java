@@ -1,13 +1,17 @@
 package com.ssafyebs.customerback.domain.reservation.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
+import com.ssafyebs.customerback.domain.reservation.entity.ReservationPhoto;
+import com.ssafyebs.customerback.domain.reservation.repository.ReservationPhotoRepository;
+import com.ssafyebs.customerback.global.exception.FileNotWritableException;
+import com.ssafyebs.customerback.global.exception.InvalidFileException;
+import com.ssafyebs.customerback.global.exception.InvalidReservationSeqException;
+import com.ssafyebs.customerback.global.exception.ReservationSeqNotGrantedException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ssafyebs.customerback.domain.reservation.dto.FederatedReservationResponseDto;
@@ -18,6 +22,7 @@ import com.ssafyebs.customerback.domain.reservation.repository.FederatedReservat
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +30,22 @@ public class ReservationServiceImpl implements ReservationService{
 
 	private final ReservationRepository reservationRepository;
 	private final FederatedReservationRepository federatedReservationRepository;
-	
+	private final ReservationPhotoRepository reservationPhotoRepository;
+
+    private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
+
+    @Value("${image-path}")
+    String IMAGE_PATH;
+
+    @Value("${image-url}")
+    String IMAGE_URL_PREFIX;
+
 	@Override
 	public List<ReservationResponseDto> findByMember_MemberUid(String memberUid) {
 		// TODO Auto-generated method stub
-		List<ReservationResponseDto> list = new ArrayList<ReservationResponseDto>();
+		List<ReservationResponseDto> list = new ArrayList<>();
 		List<Reservation> rlist = reservationRepository.findByMember_MemberUidOrderByReservationSeq(memberUid);
-		
+
 		for(Reservation r : rlist) {
 			ReservationResponseDto dto = new ReservationResponseDto();
 			dto.setDesignerName(r.getFederatedReservation().getDesignerName());
@@ -44,7 +58,7 @@ public class ReservationServiceImpl implements ReservationService{
 			dto.setBusinessSeq(r.getFederatedReservation().getBusinessSeq());
 			list.add(dto);
 		}
-		
+
 		return list;
 	}
 
@@ -64,10 +78,10 @@ public class ReservationServiceImpl implements ReservationService{
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
 		try {
-			List<FederatedReservationResponseDto> resultlist = new ArrayList<FederatedReservationResponseDto>();
+			List<FederatedReservationResponseDto> resultlist = new ArrayList<>();
 			Date date = simpleDateFormat.parse(datestr);
 			calendar.setTime(date);
-			List<Long> list = new ArrayList<Long>();
+			List<Long> list = new ArrayList<>();
 			for( Reservation r : reservationRepository.findByFederatedReservation_BusinessSeqAndReservationDate(seq, calendar)) {
 				list.add(r.getFederatedReservation().getDesignerSeq());
 			}
@@ -82,12 +96,45 @@ public class ReservationServiceImpl implements ReservationService{
 				}
 			}
 			return resultlist;
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
+	@Override
+	public void insertPhoto(String memberUid, long reservationSeq, MultipartFile multipartFile) {
+		Reservation reservation = reservationRepository.findByReservationSeq(reservationSeq).orElseThrow(() -> new InvalidReservationSeqException("예약 내역이 존재하지 않습니다."));
+		if (!memberUid.equals(reservation.getMember().getMemberUid())) throw new ReservationSeqNotGrantedException("잘못된 접근입니다.");
+        int fileCount;
+        try {
+            String fileName = reservationPhotoRepository.findTop1ByReservationOrderByFileName(reservation).orElseThrow(() ->
+                    new RuntimeException("")).getFileName();
+            fileCount = Integer.parseInt(fileName.substring(0,fileName.lastIndexOf(".")));
+        } catch (RuntimeException e) {
+            fileCount = 0;
+        }
+        fileCount++;
+
+        String file = multipartFile.getOriginalFilename();
+        if (file == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
+            throw new InvalidFileException("잘못된 파일 입력입니다.");
+        }
+        File newFile = new File(IMAGE_PATH + reservationSeq + "/" + fileCount + "." + file.substring(file.lastIndexOf(".") + 1));
+		try {
+			multipartFile.transferTo(newFile);
+		} catch (IOException e) {
+			throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
+		}
+		String photoUrl = IMAGE_URL_PREFIX + reservationSeq + "/" + newFile.getName();
+
+		ReservationPhoto reservationPhoto = ReservationPhoto.builder()
+				.fileName(newFile.getName())
+				.photoUrl(photoUrl)
+				.reservation(reservation)
+				.build();
+		reservationPhotoRepository.save(reservationPhoto);
+	}
 }

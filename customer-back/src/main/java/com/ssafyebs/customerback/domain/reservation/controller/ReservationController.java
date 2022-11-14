@@ -12,12 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.domain.reservation.dto.ReservationRequestDto;
@@ -32,6 +27,7 @@ import com.ssafyebs.customerback.global.exception.NoExistSubscriptionException;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/reservations")
@@ -100,5 +96,12 @@ public class ReservationController {
 	@GetMapping("/{business_seq}/{reservation_date}")
 	public ResponseEntity<?> getAvailableDesignerList(HttpServletRequest request, @PathVariable("business_seq")Long seq, @PathVariable("reservation_date")String date){
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("디자이너 리스트 조회 완료.", reservationService.findByFederatedReservation_BusinessSeqAndReservationDateNot(seq, date)));
+	}
+
+	@PostMapping("/photo")
+	public ResponseEntity<?> reservationPhotoPost(HttpServletRequest request, @RequestParam long reservationSeq, @RequestBody MultipartFile multipartFile) {
+		String memberUid = (String) request.getAttribute("memberuid");
+		reservationService.insertPhoto(memberUid, reservationSeq, multipartFile);
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("성공적으로 저장했습니다.", null));
 	}
 }

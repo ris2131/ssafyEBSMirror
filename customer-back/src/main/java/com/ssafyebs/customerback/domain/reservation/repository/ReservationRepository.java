@@ -13,4 +13,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 	List<Reservation> findByMember_MemberUidOrderByReservationSeq(String memberUid);
 	Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, Calendar date);
 	List<Reservation> findByFederatedReservation_BusinessSeqAndReservationDate(Long seq, Calendar date);
+	Optional<Reservation> findByReservationSeq(Long reservationSeq);
 }
