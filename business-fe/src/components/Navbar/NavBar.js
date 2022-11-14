@@ -9,24 +9,33 @@ const NavHeader = styled.header`
   display: flex;
   align-items: center;
   user-select: none;
+  padding: 0 50px;
+`;
+
+const TitleSpan = styled.span`
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    transition-duration: 300ms;
+  }
+
+  &:hover > * {
+    filter: brightness(0.4) sepia();
+    transition-duration: 300ms;
+  }
 `;
 
 const LogoImg = styled.img`
   width: auto;
   height: 50px;
   margin: 10px;
-  cursor: pointer;
-  transition-duration: 150ms;
-
-  &:hover {
-    filter: brightness(0.30);
-    transition-duration: 150ms;
-  }
 `;
 
 const TitleH1 = styled.h1`
   color: #DCD7C9;
-  margin: 10px 50px;
+  margin: 10px 0;
 `;
 
 const SpringSpan = styled.span`
@@ -36,7 +45,7 @@ const SpringSpan = styled.span`
 const MenuNav = styled.nav`
   display: flex;
   flex-direction: row;
-  margin: 10px 50px;
+  margin: 10px 0;
 `;
 
 const MenuButton = styled.button`
@@ -53,7 +62,7 @@ const MenuButton = styled.button`
 
   &:hover {
     background-color: #DCD7C9;
-    color: #455657; 
+    color: #455657;
     transition-duration: 1000ms;
   }
 `;
@@ -85,8 +94,10 @@ const NavBar = () => {
   return (
     <>
       <NavHeader>
-        <LogoImg alt="logo" className="logo" src={logoImg} onClick={home}></LogoImg>
-        <TitleH1>EBS</TitleH1>
+        <TitleSpan onClick={home}>
+          <LogoImg alt="logo" className="logo" src={logoImg}></LogoImg>
+          <TitleH1>EBS</TitleH1>
+        </TitleSpan>
         <SpringSpan></SpringSpan>
         <MenuNav>
           <MenuButton onClick={info}>매장</MenuButton>
