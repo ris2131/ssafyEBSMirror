@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,4 +44,10 @@ public class Pay {
 	
 	@Column(name="pay_tax_free_amount")
 	private Long payTaxFreeAmount;
+	
+	@OneToOne
+	@JoinColumn(name="subscription_seq", referencedColumnName="subscription_seq")
+	private Subscription subscription;
+	
+	
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
+import com.ssafyebs.customerback.domain.pay.entity.Pay;
 import com.ssafyebs.customerback.domain.subscribe.dto.SubscriptionRequestDto;
 import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
@@ -120,6 +121,16 @@ public class SubscriptionController {
 			subscription.setFederatedSubscription(fs);
 			
 			subscriptionService.makeSubscription(subscription);
+			Pay p = new Pay();
+			//원래는 실제 가맹점 cid가 들어가야 함.
+			p.setPayCid("TCSUBSCRIP");
+			p.setPaySid(element.getAsJsonObject().get("sid").getAsString());
+			p.setPayPartnerOrderId(element.getAsJsonObject().get("partner_order_id").getAsString());
+			p.setPayPartnerUserId(element.getAsJsonObject().get("partner_user_id").getAsString());
+			p.setPayQuantity(((long)1));
+			p.setPayTotalAmount(fs.getPricingPrice());
+			p.setPayTaxFreeAmount((long)0);
+			p.setSubscription(subscription);
 			
 			return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독완료.",null));
 		}

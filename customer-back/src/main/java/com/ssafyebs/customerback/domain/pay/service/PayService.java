@@ -1,5 +1,7 @@
 package com.ssafyebs.customerback.domain.pay.service;
 
-public interface PayService {
+import com.ssafyebs.customerback.domain.pay.entity.Pay;
 
+public interface PayService {
+	Pay save(Pay p);
 }
