@@ -27,7 +27,7 @@ const SSection = styled.section`
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position-x: center;
-  color: #ffffff;
+  color: #DCD7C9;
   display: flex;
   filter: brightness(0.5);
   font-size: 3rem;
