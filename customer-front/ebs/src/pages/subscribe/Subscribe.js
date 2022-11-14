@@ -53,7 +53,8 @@ const Subscribe = () => {
             //window.location.assign(res.data.next_redirect_pc_url)
             window.localStorage.setItem('tid', res.data.tid);
             window.localStorage.setItem('order', JSON.stringify(params));
-            isMobile ?window.location.assign(res.data.next_redirect_app_url) : window.location.assign(res.data.next_redirect_pc_url);
+            //ios는 app_url 잘되는데 안드로이드는 안된다...
+            isMobile ?window.location.assign(res.data.next_redirect_mobile_url) : window.location.assign(res.data.next_redirect_pc_url);
         })
         
 
