@@ -1,5 +1,6 @@
 package com.ssafyebs.customerback;
 
+import java.time.LocalDate;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,8 @@ public class CustomerBackApplication {
 
     public static void main(String[] args) {
         System.out.println("commit test");
+        LocalDate now = LocalDate.now();
+        System.out.println(now);
         SpringApplication.run(CustomerBackApplication.class, args);
     }
 
