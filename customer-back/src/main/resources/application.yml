@@ -32,3 +32,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MariaDB103Dialect
         format_sql: true
+  jackson:
+    time-zone: Asia/Seoul
