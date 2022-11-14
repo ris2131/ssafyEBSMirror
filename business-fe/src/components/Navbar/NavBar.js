@@ -1,5 +1,3 @@
-// import React from "react";
-
 import styled from "styled-components";
 
 import logoImg from "../../assets/logo_white.png";
@@ -16,10 +14,10 @@ const NavHeader = styled.header`
 const LogoImg = styled.img`
   width: auto;
   height: 60px;
-  margin: 10px 10px 10px 150px;
+  margin: 10px;
   cursor: pointer;
   transition-duration: 150ms;
-  
+
   &:hover {
     filter: brightness(0.25);
     transition-duration: 150ms;

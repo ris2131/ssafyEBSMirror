@@ -1,10 +1,8 @@
-// import React from "react";
-
 import '../../App.css';
 
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import { useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -14,8 +12,7 @@ import designerImg from "../../assets/designer.jpg";
 import scheduleImg from "../../assets/schedule.jpg";
 import registrationImg from "../../assets/schedule.jpg";
 
-import { registerinfo } from "../../redux/InfoSlice";
-
+import {registerinfo} from "../../redux/InfoSlice";
 
 const SMain = styled.main`
   display: flex;
@@ -55,7 +52,7 @@ const SSection = styled.section`
 
   &.schedule {
     background-image: url(${scheduleImg});
-  } 
+  }
 
   &.registration {
     background-image: url(${registrationImg});
@@ -77,65 +74,67 @@ const Home = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isVisible = useSelector((state) => state.auth.isVisible);
   useEffect(() => {
-    
+
     const titleElement = document.getElementsByTagName("title")[0];
     titleElement.innerHTML = `Ebs`;
     if (!localStorage.getItem("token")) {
-        navigate("/login");
+      navigate("/login");
     }
-    console.log("useeffect isvisible 은"+isVisible);
-      
-  }, [isLoggedIn,isVisible, navigate]);
+    console.log("useeffect isvisible 은" + isVisible);
+
+  }, [isLoggedIn, isVisible, navigate]);
 
   //매장 관리 페이지 ㄱ
-  const handleInfo = ()=>{
+  const handleInfo = () => {
     navigate("/info");
   };
   //디자이너 페이지 ㄱ
-  const handleDesigner = () =>{
+  const handleDesigner = () => {
     navigate("/designer");
   }
   //등록.
-  const handleRegistration= () =>{
+  const handleRegistration = () => {
     dispatch(registerinfo())
       .unwrap()
-      .then(()=>{
-        Swal.fire({ icon: "success", title: "매장이 등록되었습니다" })
-        .then(()=>{window.location.reload()});
+      .then(() => {
+        Swal.fire({icon: "success", title: "매장이 등록되었습니다"})
+          .then(() => {
+            window.location.reload()
+          });
       })
       .catch(() => {
-        Swal.fire({ icon: "error", title: "필수 정보가 제대로 기입 되지 않았습니다." })
+        Swal.fire({icon: "error", title: "필수 정보가 제대로 기입 되지 않았습니다."})
       });
-      
+
   }
   //예약관리 페이지(캘린더)ㄱ
-  const handleCalendar = () =>{
+  const handleCalendar = () => {
     navigate("/schedule/my-calendar");
   }
 
   return (
-      <>
-        <NavBar></NavBar>
-        <SMain>
-          <SSection className={"manage"} onClick={handleInfo} >
-            <div>매장 관리</div>
+    <>
+      <NavBar></NavBar>
+      <SMain>
+        <SSection className={"manage"} onClick={handleInfo}>
+          <div>매장 관리</div>
+        </SSection>
+        <SSection className={"designer"} onClick={handleDesigner}>
+          <div>디자이너 관리</div>
+        </SSection>
+        {isVisible ? (
+          // 예약정보
+          <SSection className={"schedule"} onClick={handleCalendar}>
+            <div>{scheduleStr}</div>
           </SSection>
-          <SSection className={"designer"} onClick={handleDesigner}>
-            <div>디자이너 관리</div>
+        ) : (
+          //등록하기
+          <SSection className={"registration"} onClick={handleRegistration}>
+            <div>{registrationStr}</div>
           </SSection>
-          {isVisible ? (
-            // 예약정보
-            <SSection className={"schedule"} onClick={handleCalendar}>
-              <div>{scheduleStr}</div>
-            </SSection>
-          ):(
-            //등록하기
-            <SSection className={"registration"} onClick={handleRegistration}>
-              <div>{registrationStr}</div>
-            </SSection>
-          )}
-        </SMain>
-      </>
+        )}
+      </SMain>
+    </>
   );
 };
 

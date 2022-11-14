@@ -1,5 +1,3 @@
-// import React from "react";
-
 import NavBar from "../../components/Navbar/NavBar";
 import styled from "styled-components";
 
@@ -8,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getinfo} from "../../redux/InfoSlice";
 import {useNavigate} from "react-router-dom";
-
 
 const DesignerMain = styled.main`
   display: flex;
@@ -128,11 +125,11 @@ const Designer = () => {
   const addDesigner = () => {
     navigate("/designer/add");
   };
-  const handleEdit = (designer_seq)=>{
-    navigate("/designer/modify",{state: designer_seq});
+  const handleEdit = (designer_seq) => {
+    navigate("/designer/modify", {state: designer_seq});
   }
   return (
-      <>
+    <>
       <NavBar></NavBar>
       <DesignerMain>
         <HeadDiv>
@@ -150,7 +147,8 @@ const Designer = () => {
                   <DescriptionDiv>
                     <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
                     <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
-                    <EditButton value={designer["designer_seq"]} onClick={(e) => handleEdit(e.target.value)} >편집</EditButton>
+                    <EditButton value={designer["designer_seq"]}
+                                onClick={(e) => handleEdit(e.target.value)}>편집</EditButton>
                   </DescriptionDiv>
                 </DesignerDiv>
               );
