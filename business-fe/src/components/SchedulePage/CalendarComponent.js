@@ -14,7 +14,7 @@ const CalendarComponent = () => {
   const navigate =useNavigate();
 
   const selectDate = (day) => {
-    console.log("click day:"+ day);
+    //console.log("click day:"+ day);
     dispatch(clickCalendarDate(day));
     //dispatch(clickCalendarDate(day))
     //.then(console.log("done"));

@@ -203,7 +203,11 @@ const Info = () => {
 
     imgApi.modifyinfo(formData)
       .then(() => {
-        Swal.fire({icon: "success", title: "매장정보가 수정되었습니다!"})
+        Swal.fire({icon: "success", 
+          title: "매장정보가 수정되었습니다!",
+          confirmButtonColor: '#688087', // confrim 버튼 색깔 지정
+          iconColor:'#688087',//아이콘 색깔 설정.
+        })
           //.then(()=>{window.location.reload()});
           .then(() => {
             navigate("/")
