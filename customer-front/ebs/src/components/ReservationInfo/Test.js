@@ -58,7 +58,7 @@ export default function Test(props) {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div> 예약 일시 : {props.reservation.reservationDate}</div>
+                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
                     <div>                              </div>
                     {date1>date2?<div>방문 예정</div>:<div>방문 완료</div>}
                     <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
