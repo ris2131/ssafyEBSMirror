@@ -105,10 +105,11 @@ const TimeSheet = () => {
     console.log("addDB 내 date"+date+", 호출직전(length):"+reservations.length);
     if (reservations.length && scheduleMain) {
       reservations.forEach((reservation) => {
-        const reservedCell = document.getElementsByClassName(`${reservation['designerSeq']} ${reservation['time'].slice(11, 16)}`)[0];
+        console.log("slice: "+document.getElementsByClassName(`${reservation['designer_seq']} ${reservation['time'].slice(11, 16)}`)[0]);
+        const reservedCell = document.getElementsByClassName(`${reservation['designer_seq']} ${reservation['time'].slice(11, 16)}`)[0];
         if (reservedCell) {
           reservedCell.classList.add('reserved');
-          reservedCell.addEventListener('click', eventAction.bind(null, reservation["reservationSeq"]));
+          reservedCell.addEventListener('click', eventAction.bind(null, reservation["reservation_seq"]));
         }
       });
     }
