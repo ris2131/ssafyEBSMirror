@@ -59,26 +59,26 @@ const Ebsnav = () => {
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} />
               <Navbar.Offcanvas
-                show={show} 
+                //show={show} 
                 // onHide={handleClose}
                 id={`offcanvasNavbar-expand-${expand}`}
                 aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                 placement="end"
                 className={style.Offcanvas}
               >
-                <Offcanvas.Header>
+                <Offcanvas.Header closeButton>
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   {nickName}님
                   </Offcanvas.Title>
-                  <GrClose onClick={handleShow} size="30"/>
+                  {/* <GrClose onClick={handleShow} size="30"/> */}
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <div onClick={() => { handleShow(); navigate("/mypage"); }} >마이페이지</div>
-                    <div onClick={() => { handleShow(); navigate("/search"); }}>헤어숍 검색</div>
-                    <div onClick={() => { handleShow(); navigate("/reservation-info"); }}>예약 내역</div>
-                    <div onClick={() => { handleShow(); navigate("/subscribe-info"); }}>구독 정보</div>
-                    <div onClick={handleLogout}>로그아웃</div> 
+                    <Nav.Link href="mypage">마이페이지</Nav.Link>
+                    <Nav.Link href="/search">헤어숍 검색</Nav.Link>
+                    <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
+                    <Nav.Link href="/subscribe-info">구독 정보</Nav.Link>
+                    <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
                   </Nav>      
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
