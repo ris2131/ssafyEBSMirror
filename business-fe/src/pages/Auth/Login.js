@@ -38,7 +38,6 @@ const LoginContents = styled.div`
 const LogoText = styled.h1`
   text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   font-size: 30px;
-  font-family: OKDDUNG;
   margin: 10px;
 `;
 

@@ -55,7 +55,6 @@ const LogoText = styled.h1`
   }
   text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   font-size: 30px;
-  font-family: OKDDUNG;
   margin: 10px;
 `;
 
@@ -97,7 +96,7 @@ const SButton = styled.button`
   }
 
   border-radius: 5px;
-  color: DCD7C9;
+  color: #DCD7C9;
   border: none;
   background-color: #9D7F5C;
   padding: 8px;
@@ -177,8 +176,8 @@ const SignUp = () => {
   // 이메일 형식 체크 함수
   const handleEmailCheck = (email) => {
     const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const check = !emailRegex.test(email) ? false : true;
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$/;
+    const check = emailRegex.test(email);
     setEmailStatus(check);
   };
   
