@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +63,12 @@ public class SubscriptionController {
 		String memberUid = (String)request.getAttribute("memberuid");
 //		String memberUid = "3262732023";
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, seq)));
+	}
+	
+	@DeleteMapping("/{business_seq}")
+	public ResponseEntity<?> inactivateSubscription(HttpServletRequest request, @PathVariable("business_seq")Long seq) throws MalformedURLException, IOException{
+		String memberUid = (String)request.getAttribute("memberuid");
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독 해지 완료", payService.deletePay(seq, memberUid)));
 	}
 	
 	@PostMapping()
@@ -152,4 +160,6 @@ public class SubscriptionController {
 		String memberUid = (String) request.getAttribute("memberuid");
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("현재 활성화된 구독 리스트 조회 완료.", subscriptionService.findByMember_MemberUidAndSubscriptionExpirationGreaterThanAndSubscriptionLeftGreaterThanOrderBySubscriptionSeqDesc(memberUid)));
 	}
+	
+
 }
