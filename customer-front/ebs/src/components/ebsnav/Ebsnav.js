@@ -77,7 +77,7 @@ const Ebsnav = () => {
                     <Nav.Link href="mypage">마이페이지</Nav.Link>
                     <Nav.Link href="/search">헤어숍 검색</Nav.Link>
                     <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
-                    <Nav.Link href="/subscribe-info">구독 정보</Nav.Link>
+                    <Nav.Link href="/subscribe-info">구독 내역</Nav.Link>
                     <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
                   </Nav>      
                 </Offcanvas.Body>
