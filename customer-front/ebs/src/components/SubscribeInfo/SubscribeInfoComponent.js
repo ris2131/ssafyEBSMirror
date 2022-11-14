@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import "../../fonts/font.css"
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -32,13 +33,35 @@ const theme = createTheme({
     }
 });
 
+
+
 export default function SubscribeInfoComponent(props) {
+  
+  // const data = {
+  //   businessSeq : props.reservation.businessSeq
+  // }
+  console.log(props.subscribe.businessSeq)
+
+  const data = {
+    businessSeq : props.subscribe.businessSeq
+  }
+
+  const navigate = useNavigate();
+
+  // const moveshop = () => {
+  // navigate('/hairshop-info', {state:{...data}});
+  // }
+
+  const moveshop = () => {
+    navigate('/hairshop-info', {state:{...data}});
+    }
+
   return (
             <Box>
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                    <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
                     <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                     <div>구독 시작일 : {props.subscribe.subscriptionStart} </div>

@@ -16,24 +16,24 @@ const Container = styled.div`
 
 const CustomInput = styled.input`
     display: inline;
-    width: 73%;
+    width: 97%;
     border-width: 2px 2px 2px 2px; 
     border-radius: 5px;
     height: 45px;
-    margin: 3px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
 `;
 
-const MyButton = styled.button`
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: #42a5f5;
-  padding: 10px;
-  margin-top: 40px;
-  width: 60px;
-  font-size: 14px;
-  cursor: pointer;
-`;
+// const MyButton = styled.button`
+//   border: none;
+//   border-radius: 10px;
+//   color: white;
+//   background-color: #42a5f5;
+//   padding: 10px;
+//   margin-top: 40px;
+//   width: 60px;
+//   font-size: 14px;
+//   cursor: pointer;
+// `;
 // const SearchButton = styled.button`
 //     display: inline;   
 //     border-radius: 5px;
@@ -75,9 +75,9 @@ const HairshopSearch = () => {
             <div>
                 <CustomInput type="text" onKeyPress={onKeyPress} placeholder="헤어숍 이름을 검색하세요."  value={keyword} onChange={(e) => setKeyword(e.target.value)} /> 
                    
-                <MyButton onClick={submitKeyword}>
+                {/* <MyButton onClick={submitKeyword}>
                     검색
-                </MyButton>
+                </MyButton> */}
                 <div>
                 {hairshopList.length !== 0  ? (
             

@@ -14,7 +14,7 @@ const Container = styled.div`
   background-color: #DBD7CC;
   justify-content: center;
   font-family: GowunBatang-Regular;
-  height: 100vh;
+  height: 100h;
 `;
 
 const Welcome = styled.div`
@@ -34,7 +34,7 @@ const Subinfo = styled.div`
 
 `;
 const Myactivesubspan = styled.span`
-  
+  // margin-bottom: 10px;
 `;
 
 

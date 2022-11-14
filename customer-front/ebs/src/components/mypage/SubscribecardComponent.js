@@ -44,7 +44,7 @@ export default function SubscribeInfoComponent() {
                   
                   <ThemeProvider theme={theme}>
                     <CardMembershipSharpIcon sx={{ fontSize: 55 }}/>
-                    구독 정보
+                    구독 내역
                   </ThemeProvider>
                 </Item>
             </Box>

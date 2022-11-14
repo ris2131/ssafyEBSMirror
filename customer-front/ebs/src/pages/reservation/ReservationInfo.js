@@ -5,6 +5,7 @@ import { getreservations } from "../../store/slices/reservationSlice";
 import styled from "styled-components";
 import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
 import Test from "../../components/ReservationInfo/Test";
+import { style } from "@mui/system";
 
 const Container = styled.div`
   background-color: #DBD7CC;
