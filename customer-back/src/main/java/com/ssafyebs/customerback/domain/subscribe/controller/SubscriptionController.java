@@ -25,6 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.domain.pay.entity.Pay;
+import com.ssafyebs.customerback.domain.pay.service.PayService;
 import com.ssafyebs.customerback.domain.subscribe.dto.SubscriptionRequestDto;
 import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
@@ -43,6 +44,7 @@ import net.bytebuddy.dynamic.loading.MultipleParentClassLoader.Builder;
 public class SubscriptionController {
 	private final SubscriptionService subscriptionService;
 	private final MemberService memberService;
+	private final PayService payService;
 	private final FederatedSubscriptionService federatedSubscriptionService;
 	
 	@GetMapping()
@@ -131,6 +133,8 @@ public class SubscriptionController {
 			p.setPayTotalAmount(fs.getPricingPrice());
 			p.setPayTaxFreeAmount((long)0);
 			p.setSubscription(subscription);
+			
+			payService.save(p);
 			
 			return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독완료.",null));
 		}
