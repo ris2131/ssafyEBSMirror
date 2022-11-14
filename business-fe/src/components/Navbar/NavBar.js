@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import logoImg from "../../assets/logo_white.png";
+import logoImg from "../../assets/logo_beige.png";
 import {useNavigate} from "react-router-dom";
 
 const NavHeader = styled.header`
-  height: 80px;
-  background-color: #7f7f7f;
+  height: 60px;
+  background-color: #2C3639;
   display: flex;
   align-items: center;
   user-select: none;
@@ -13,19 +13,19 @@ const NavHeader = styled.header`
 
 const LogoImg = styled.img`
   width: auto;
-  height: 60px;
+  height: 50px;
   margin: 10px;
   cursor: pointer;
   transition-duration: 150ms;
 
   &:hover {
-    filter: brightness(0.25);
+    filter: brightness(0.30);
     transition-duration: 150ms;
   }
 `;
 
 const TitleH1 = styled.h1`
-  color: #ffffff;
+  color: #DCD7C9;
   margin: 10px 50px;
 `;
 
@@ -40,19 +40,21 @@ const MenuNav = styled.nav`
 `;
 
 const MenuButton = styled.button`
-  background-color: #bfbfbf;
+  background-color: #455657;
   border: none;
   border-radius: 10px;
-  color: #ffffff;
+  color: #DCD7C9;
   cursor: pointer;
-  font-size: 16px;
-  margin: 10px;
-  padding: 10px;
-  transition-duration: 100ms;
+  font-size: 14px;
+  margin: 7px;
+  font-weight: bold;
+  padding: 7px;
+  transition-duration: 1000ms;
 
   &:hover {
-    background-color: #dfdfdf;
-    transition-duration: 100ms;
+    background-color: #DCD7C9;
+    color: #455657; 
+    transition-duration: 1000ms;
   }
 `;
 
