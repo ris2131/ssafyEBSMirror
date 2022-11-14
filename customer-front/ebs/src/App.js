@@ -26,35 +26,36 @@ function App() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const token = localStorage.getItem('token')
   return (
-    <BrowserRouter>
-      <div >
-        {
-          isLoggedIn || token
-          ? <Ebsnav/>
-          : null
-        }
-      </div>
-      <Routes>
-            <Route path="login" element={<Login />} />
+    <div className="App">
+      <BrowserRouter>
+        <div >
+          {
+            isLoggedIn || token
+            ? <Ebsnav/>
+            : null
+          }
+        </div>
+        <Routes>
+              <Route path="login" element={<Login />} />
 
-            <Route path="/" element={<Home />} />
-            
-            <Route path="/googleintro" element={<GoogleIntro />} />
-            <Route path="/reservation-info" element={<ReservationInfo />} />
-            <Route path="/reservation-info-detail" element={<ReservationInfoDetail />} />
-            <Route path="/subscribe" element={<Subscribe/>}/>
-            <Route path="/subscribe-info" element={<SubscribeInfo />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/myinfo-edit" element={<MyInfoEdit />} />
-            <Route path="/search" element={<HairshopSearch />} />   
-            <Route path="/hairshop-info" element={<HairshopInfo />} />
-            <Route path="/pay/approved" element={<Approved />} />
-            <Route path="/pay/canceled" element={<Canceled />} />
-            <Route path="/pay/failed" element={<Failed />} />
-      </Routes>
+              <Route path="/" element={<Home />} />
+              
+              <Route path="/googleintro" element={<GoogleIntro />} />
+              <Route path="/reservation-info" element={<ReservationInfo />} />
+              <Route path="/reservation-info-detail" element={<ReservationInfoDetail />} />
+              <Route path="/subscribe" element={<Subscribe/>}/>
+              <Route path="/subscribe-info" element={<SubscribeInfo />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/myinfo-edit" element={<MyInfoEdit />} />
+              <Route path="/search" element={<HairshopSearch />} />   
+              <Route path="/hairshop-info" element={<HairshopInfo />} />
+              <Route path="/pay/approved" element={<Approved />} />
+              <Route path="/pay/canceled" element={<Canceled />} />
+              <Route path="/pay/failed" element={<Failed />} />
+        </Routes>
 
-    </BrowserRouter>
-      
+      </BrowserRouter>
+    </div>
     
   );
 }
