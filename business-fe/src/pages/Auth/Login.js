@@ -10,12 +10,29 @@ import { login } from "../../redux/AuthSlice";
 
 import Swal from "sweetalert2";
 
+import backgroundImage from "../../assets/login_background.png";
+
+
+
 const LoginContainer = styled.div`
+  background: url(${backgroundImage});
+  background-size: cover;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
+`;
+
+const LoginContents = styled.div`
+  background-color: #DCD7C9;
+  filter: unset();
+  display: flex;
+  flex-direction: column;
+  border-radius:10px;
+  justify-content: center;
+  align-items: center;
+  padding : 50px;
+  box-shadow: #75726B 10px 10px 5px;
 `;
 
 const LogoText = styled.h1`
@@ -35,7 +52,7 @@ const SButton = styled.button`
   border-radius: 5px;
   color: white;
   border: none;
-  background-color: #9D7F5C;
+  background-color: #A27B5C;
   padding: 5px;
   margin-top: 40px;
   width: 20vw;
@@ -98,36 +115,38 @@ const Login = () => {
 
   return (
     <>
-    <LoginContainer>
-        <InputDiv>
-          <LogoText>Ebs에 오신것을 환영합니다</LogoText>
-        </InputDiv>
-        <InputDiv>
-          <TextField
-            fullWidth
-            label="ID(email)"
-            variant="standard"
-            value={email || ""}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </InputDiv>
-        <InputDiv>
-          <TextField
-            fullWidth
-            type="password"
-            label="Password"
-            variant="standard"
-            value={password || ""}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-        </InputDiv>
-        <LoginButtonBox>
-            <SButton onClick={handleSubmit}>로그인</SButton>
-        </LoginButtonBox>
-        <SignUpButtonBox>
-            <S2Button onClick={() =>  navigate("/signup")}>회원가입</S2Button>
-        </SignUpButtonBox>
+      <LoginContainer>
+        <LoginContents>
+          <InputDiv>
+            <LogoText>Ebs에 오신것을 환영합니다</LogoText>
+          </InputDiv>
+          <InputDiv>
+            <TextField
+              fullWidth
+              label="ID(email)"
+              variant="standard"
+              value={email || ""}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputDiv>
+          <InputDiv>
+            <TextField
+              fullWidth
+              type="password"
+              label="Password"
+              variant="standard"
+              value={password || ""}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </InputDiv>
+          <LoginButtonBox>
+              <SButton onClick={handleSubmit}>로그인</SButton>
+          </LoginButtonBox>
+          <SignUpButtonBox>
+              <S2Button onClick={() =>  navigate("/signup")}>회원가입</S2Button>
+          </SignUpButtonBox>
+        </LoginContents>
       </LoginContainer>
     </>
     );

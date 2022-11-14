@@ -97,7 +97,7 @@ const SButton = styled.button`
   }
 
   border-radius: 5px;
-  color: white;
+  color: DCD7C9;
   border: none;
   background-color: #9D7F5C;
   padding: 8px;
