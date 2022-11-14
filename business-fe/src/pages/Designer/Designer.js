@@ -6,29 +6,43 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getinfo} from "../../redux/InfoSlice";
 import {useNavigate} from "react-router-dom";
+import designerImg from "../../assets/designer_background.png";
 
 const DesignerMain = styled.main`
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 20px 100px;
+  background: center / cover no-repeat url(${designerImg});
+`;
+
+const DesignerSection = styled.section`
+  width: 60%;
+  flex: 0.9;
+  background-color: #DCD7C9;
+  padding: 50px;
+  border-radius: 50px;
 `;
 
 const HeadDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0 10px 10px 10px;
+  align-items: center;
+  margin: 0 10px 30px 10px;
   user-select: none;
 `;
 
 const TitleDiv = styled.div`
-  font-size: 40px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  vertical-align: bottom;
 `;
 
 const AddButton = styled.button`
-  background-color: #1e90ff7f;
+  background-color: #3F4E4F7f;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -39,7 +53,7 @@ const AddButton = styled.button`
   transition-duration: 100ms;
 
   &:hover {
-    background-color: #1e90ff;
+    background-color: #3F4E4F;
     transition-duration: 100ms;
   }
 `;
@@ -48,7 +62,7 @@ const DesignerDiv = styled.div`
   user-select: none;
   display: flex;
   flex-direction: row;
-  background-color: #7f7f7f;
+  background-color: #3F4E4F;
   border-radius: 10px;
   padding: 20px;
   align-items: center;
@@ -69,7 +83,7 @@ const ProfileImg = styled.img`
 
 const DescriptionDiv = styled.div`
   margin-left: 50px;
-  background-color: #ffffff;
+  background-color: #DCD7C9;
   border-radius: 10px;
   height: 150px;
   flex: 1;
@@ -78,20 +92,23 @@ const DescriptionDiv = styled.div`
 `;
 
 const DesignerNameDiv = styled.div`
+  font-family: 'Do Hyeon', sans-serif;
   font-size: 24px;
   margin: 10px;
+  color: #2E231A;
 `;
 
 const DesignerDescDiv = styled.div`
   font-size: 16px;
   margin-left: 10px;
+  color: #2E231A;
 `;
 
 const EditButton = styled.button`
   width: 100px;
   right: 0;
   top: 0;
-  background-color: #1e90ff7f;
+  background-color: #3F4E4F7f;
   border: none;
   border-radius: 10px;
   color: #ffffff;
@@ -104,7 +121,7 @@ const EditButton = styled.button`
   //display: none !important;
 
   &:hover {
-    background-color: #1e90ff;
+    background-color: #3F4E4F;
     transition-duration: 100ms;
   }
 `;
@@ -132,29 +149,31 @@ const Designer = () => {
     <>
       <NavBar></NavBar>
       <DesignerMain>
-        <HeadDiv>
-          <TitleDiv>{hairshopName}의 디자이너</TitleDiv>
-          <AddButton onClick={addDesigner}>디자이너 추가</AddButton>
-        </HeadDiv>
-        {
-          designerList.length ? (
-            designerList.map((designer) => {
-              return (
-                <DesignerDiv key={designer["designer_seq"]}>
-                  <ProfileDiv>
-                    <ProfileImg src={designer["photo"]}></ProfileImg>
-                  </ProfileDiv>
-                  <DescriptionDiv>
-                    <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
-                    <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
-                    <EditButton value={designer["designer_seq"]}
-                                onClick={(e) => handleEdit(e.target.value)}>편집</EditButton>
-                  </DescriptionDiv>
-                </DesignerDiv>
-              );
-            })
-          ) : <div>등록된 디자이너가 없습니다.</div>
-        }
+        <DesignerSection>
+          <HeadDiv>
+            <TitleDiv>{hairshopName}의 디자이너</TitleDiv>
+            <AddButton onClick={addDesigner}>디자이너 추가</AddButton>
+          </HeadDiv>
+          {
+            designerList.length ? (
+              designerList.map((designer) => {
+                return (
+                  <DesignerDiv key={designer["designer_seq"]}>
+                    <ProfileDiv>
+                      <ProfileImg src={designer["photo"]}></ProfileImg>
+                    </ProfileDiv>
+                    <DescriptionDiv>
+                      <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
+                      <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
+                      <EditButton value={designer["designer_seq"]}
+                                  onClick={(e) => handleEdit(e.target.value)}>편집</EditButton>
+                    </DescriptionDiv>
+                  </DesignerDiv>
+                );
+              })
+            ) : <div>등록된 디자이너가 없습니다.</div>
+          }
+        </DesignerSection>
       </DesignerMain>
     </>
   );

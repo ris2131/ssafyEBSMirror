@@ -17,22 +17,23 @@ import manageImg from "../../assets/manage_background.png"
 const InfoMain = styled.main`
   display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px 100px;
-  background: center / cover no-repeat url(${manageImg}), #0000007f;
+  background: center / cover no-repeat url(${manageImg});
 `;
 
 const InfoSection = styled.section`
-  display: flex;
-  flex-direction: row;
+  width: 60%;
   align-items: center;
-  justify-content: center;
-  padding: 50px 100px;
-  border-radius: 30px;
   background-color: #DCD7C9;
-  filter: none;
+  border-radius: 30px;
+  display: flex;
+  flex: 0.9;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 50px 100px;
   user-select: none;
 `;
 
@@ -42,10 +43,6 @@ const InputBox = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  &:not(:last-child) {
-    margin-right: 50px;
-  }
 `;
 
 const PimgBox = styled.div`
