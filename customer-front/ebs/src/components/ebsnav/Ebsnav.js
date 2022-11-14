@@ -66,7 +66,7 @@ const Ebsnav = () => {
                 placement="end"
                 className={style.Offcanvas}
               >
-                <Offcanvas.Header>
+                <Offcanvas.Header closeButton>
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   {nickName}님
                   </Offcanvas.Title>
