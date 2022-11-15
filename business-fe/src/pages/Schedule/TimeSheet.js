@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import NavBar from "../../components/Navbar/NavBar";
@@ -14,7 +14,7 @@ const ScheduleMain = styled.main`
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 20px 100px;
+  padding: 50px 100px;
 `;
 
 const ScheduleSection = styled.section`
@@ -24,7 +24,7 @@ const ScheduleSection = styled.section`
   align-items: center;
   flex: 1;
   //background-color: #cfcfcf;
-  padding: 40px;
+  padding: 50px;
   //box-shadow: #3f3f3f 10px 10px 5px;
 `;
 
@@ -119,7 +119,7 @@ const TimeSheet = () => {
     dispatch(getReservationDetail(seq));
     console.log("eventAction!");
     setShowDetail(true);
-  };
+  }
 
   const dateMounted = useRef(false);
   const reservationsMounted = useRef(false);

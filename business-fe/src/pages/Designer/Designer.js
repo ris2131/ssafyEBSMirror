@@ -14,13 +14,13 @@ const DesignerMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 100px;
+  padding: 50px 100px;
   background: center / cover no-repeat url(${designerImg});
 `;
 
 const DesignerSection = styled.section`
   width: 60%;
-  flex: 0.9;
+  flex: 1;
   background-color: #DCD7C9;
   padding: 50px;
   border-radius: 50px;
@@ -78,6 +78,7 @@ const ProfileImg = styled.img`
   height: 150px;
   width: auto;
   max-width: 150px;
+  background-color: #ffffff;
   border-radius: 10px;
 `;
 
