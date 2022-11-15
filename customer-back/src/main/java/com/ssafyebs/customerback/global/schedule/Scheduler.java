@@ -91,7 +91,7 @@ public class Scheduler {
 				Calendar cal = (Calendar)p.getSubscription().getSubscriptionExpiration().clone();
 				cal.add(Calendar.MONTH, p.getSubscription().getFederatedSubscription().getPricingMonth().intValue());
 				s.setSubscriptionExpiration(cal);
-				
+				s.setSubscriptionRenew(true);
 
 				subscriptionService.makeSubscription(s);
 				p.setSubscription(s);
