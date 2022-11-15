@@ -72,6 +72,7 @@ export const makeSubscribe = createAsyncThunk(
   }
 );
 
+
 const subscribeSlice = createSlice({
   name: "subscribe",
   initialState,
@@ -92,7 +93,7 @@ const subscribeSlice = createSlice({
     [getitemseq.fulfilled]: (state, action) =>{
       state.itemseq = action.payload;
       console.log(state.itemseq);
-    }
+    },
   },
 });
 export const subscribeActions = subscribeSlice.actions;

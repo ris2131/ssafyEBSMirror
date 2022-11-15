@@ -22,6 +22,22 @@ const Item = styled(Paper)(() => ({
   
 }));
 
+const AlterItem = styled(Paper)(() => ({
+  
+  textAlign: 'center',
+  color: '#d3d3d3',
+  margin: '30px 30px 30px 30px',
+  height: 'auto',
+  width: 'auto',
+  lineHeight: '60px',
+  backgroundColor: '#808080',
+//   color: '#FFFFFF',
+  borderRadius: '10px'
+  
+  
+  
+}));
+
 const theme = createTheme({
     palette: {
         brown: {
@@ -54,18 +70,33 @@ export default function Test(props) {
   const date2 = new Date();
   
   return (
+            date1>date2?
             <Box>
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
                     <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
                     <div>                              </div>
-                    {date1>date2?<div>방문 예정</div>:<div>방문 완료</div>}
+                    <div>방문 예정</div>
                     <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
                     <div>디자이너 이름 : {props.reservation.designerName}</div>
                     <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
                   </ThemeProvider>
                 </Item>
+            </Box>
+            :
+            <Box>
+                <AlterItem elevation={24}>
+                  
+                  <ThemeProvider theme={theme}>
+                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
+                    <div>                              </div>
+                    <div>방문 완료</div>
+                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
+                    <div>디자이너 이름 : {props.reservation.designerName}</div>
+                    <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
+                  </ThemeProvider>
+                </AlterItem>
             </Box>
           
   );
