@@ -8,8 +8,10 @@ import Test from "../../components/ReservationInfo/Test";
 import { style } from "@mui/system";
 
 const Container = styled.div`
-  background-color: #DBD7CC;
+  background-color: #efefef;
   font-family: GowunBatang-Regular;
+  height: 100vh;
+  
   
 `;
 

@@ -7,6 +7,7 @@ import backButton from "../../assets/back_arrow.png";
 
 const Container = styled.main`
   background-color: #DBD7CC;
+  //background-color: #8a817c;
   // font-family: GowunBatang-Regular;
   display: flex;
   flex-direction: column;

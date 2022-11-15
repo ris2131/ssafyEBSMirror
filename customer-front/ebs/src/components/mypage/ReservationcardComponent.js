@@ -2,7 +2,7 @@ import * as React from 'react';
 import "../../fonts/font.css"
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
+import { styled as muiStyled}  from '@mui/material/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import Card from '@mui/material/Card';
 // import CardActions from '@mui/material/CardActions';
@@ -10,9 +10,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import Button from '@mui/material/Button';
 // import Typography from '@mui/material/Typography';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
+import styled from "styled-components";
 
 
-const Item = styled(Paper)(() => ({
+
+const Item = muiStyled(Paper)(() => ({
   
   textAlign: 'center',
   margin: '30px 30px 30px 30px',

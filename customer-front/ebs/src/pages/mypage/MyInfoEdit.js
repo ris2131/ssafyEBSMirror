@@ -6,9 +6,16 @@ import TextField from "@mui/material/TextField";
 import { putuser } from "../../store/slices/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const Container = styled.div`
+  background-color: #efefef;
+  font-family: GowunBatang-Regular;
+  height: 85vh;
+`;
+
 const MenuText = styled.p`
   font-size: 22px;
   width: 200px;
+  margin: 10px 10px 10px 10px;
 `;
 
 const MenuBox = styled.div`
@@ -18,13 +25,20 @@ const MenuBox = styled.div`
   width: 100%;
   margin: 20px 0;
 `;
+
+const Buttonstyle = styled.div`
+display: flex;
+justify-content: end;
+`;
+
 const MyButton = styled.button`
   border: none;
+  box-shadow: 0px 0px 5px #000;
   border-radius: 10px;
   color: white;
-  background-color: #42a5f5;
+  background-color: #8a817c;
   padding: 10px;
-  margin-top: 40px;
+  margin: 10px 10px 10px 10px;
   width: 60px;
   font-size: 14px;
   cursor: pointer;
@@ -86,26 +100,29 @@ const MyInfoEdit = () => {
 
   return (
     <>
-      
-      <MenuBox>
-        <MenuText>닉네임</MenuText>
-        <TextField
-          variant="standard"
-          style={{ width: "40%" }}
-          value={nickname || ""}
-          onChange={handleNickname}
-        />
-      </MenuBox>
-      <MenuBox>
-        <MenuText>주소</MenuText>
-        <TextField
-          variant="standard"
-          style={{ width: "40%" }}
-          value={address || ""}
-          onChange={handleAddress}
-        />
-      </MenuBox>
-      <MyButton onClick={handleSubmit}>수정</MyButton>
+      <Container>
+        <MenuBox>
+          <MenuText>닉네임</MenuText>
+          <TextField
+            variant="standard"
+            style={{ width: "40%" }}
+            value={nickname || ""}
+            onChange={handleNickname}
+          />
+        </MenuBox>
+        <MenuBox>
+          <MenuText>주소</MenuText>
+          <TextField
+            variant="standard"
+            style={{ width: "40%" }}
+            value={address || ""}
+            onChange={handleAddress}
+          />
+        </MenuBox>
+        <Buttonstyle>
+          <MyButton onClick={handleSubmit}>수정</MyButton>
+        </Buttonstyle>
+      </Container>
     </>
   );
 };

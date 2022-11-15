@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import HorizonLine from '../../components/mypage/HorizonLine';
+import HorizonLine from '../../components/HorizonLine';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 const theme = createTheme({
   palette: {
       brown: {
-          main: '#9D7F5C'
+          main: '#bcb8b1'
       }
   }
 });
@@ -41,7 +41,7 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #DBD7CC;
+  background-color: #efefef;
   font-family: GowunBatang-Regular;
   height: 100vh;
 `;
@@ -185,7 +185,7 @@ const Mypage = () => {
     return (
         <InfoContainer>
                 <Title>
-                    마이페이지
+                    MyPage
                 </Title>
                 <Nicknamecontainer>
                   <Nickname>

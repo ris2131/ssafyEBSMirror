@@ -26,7 +26,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const token = localStorage.getItem('token')
   return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
         <div >
           {
@@ -55,7 +55,7 @@ function App() {
         </Routes>
 
       </BrowserRouter>
-    </div>
+    </div>  
     
   );
 }

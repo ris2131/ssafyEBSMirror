@@ -18,13 +18,27 @@ import logoImg from "../../assets/ebs_logo.png"
 import { GrClose } from "react-icons/gr"
 import { getuser } from "../../store/slices/userSlice";
 import { mergeBreakpointsInOrder } from '@mui/system';
+import HorizonLine from '../HorizonLine';
+import "../../fonts/font.css"
 
 
 const StyledImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
   margin-bottom: 10px;
+`;
+
+const Title = styled.div`
+  font-size: 35px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  font-family: GowunBatang-Regular;
+`;
+
+const Menuitem = styled.div`
+  font-size: 20px;
+  text-align: center;
 `;
 
 const Ebsnav = () => {
@@ -57,6 +71,7 @@ const Ebsnav = () => {
             <Container fluid id="Navbar">
               {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
+              <Title>EBS</Title>
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} />
               <Navbar.Offcanvas
                 //show={show} 
@@ -74,11 +89,17 @@ const Ebsnav = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="mypage">마이페이지</Nav.Link>
-                    <Nav.Link href="/search">헤어숍 검색</Nav.Link>
-                    <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
-                    <Nav.Link href="/subscribe-info">구독 내역</Nav.Link>
-                    <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
+                    <Menuitem>
+                      <Nav.Link href="mypage">MyPage</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/search">Search</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/reservation-info">Reservation</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/subscribe-info">Subscription</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link onClick={handleLogout}>Logout</Nav.Link> 
+                    </Menuitem>
                   </Nav>      
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
