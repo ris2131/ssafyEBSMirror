@@ -35,8 +35,7 @@ const CalendarInput = styled.section`
 const TitleDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
-  margin: 30px 0px;
-
+  margin-bottom: 30px;
 `;
 const MyCalendar = () => {
 
