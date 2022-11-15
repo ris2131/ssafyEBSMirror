@@ -14,6 +14,7 @@ import SubscribecardComponent from "../../components/mypage/SubscribecardCompone
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
+import wood_image from "../../assets/wood_image.jpg";
 
 const theme = createTheme({
   palette: {
@@ -41,7 +42,8 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #efefef;
+  // background-color: #efefef;
+  background-image: url(${wood_image});
   font-family: GowunBatang-Regular;
   height: 100vh;
 `;

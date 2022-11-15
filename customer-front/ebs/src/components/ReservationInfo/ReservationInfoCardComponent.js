@@ -1,18 +1,52 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import styled from "styled-components";
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-
-// const CustomCard = styled.Card`
-//   width: 40px;
-// `;
-
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 
 
-const ReservationInfocardComponent = (props) => {
+const Item = styled(Paper)(() => ({
+  
+  textAlign: 'center',
+  margin: '30px 30px 30px 30px',
+  height: 'auto',
+  width: 'auto',
+  lineHeight: '60px',
+  backgroundColor: '#F9F9F9',
+//   color: '#FFFFFF',
+  borderRadius: '10px'
+  
+  
+  
+}));
+
+const AlterItem = styled(Paper)(() => ({
+  
+  textAlign: 'center',
+  color: '#d3d3d3',
+  margin: '30px 30px 30px 30px',
+  height: 'auto',
+  width: 'auto',
+  lineHeight: '60px',
+  backgroundColor: '#808080',
+//   color: '#FFFFFF',
+  borderRadius: '10px'
+  
+  
+  
+}));
+
+const theme = createTheme({
+    palette: {
+        brown: {
+            main: '#9D7F5C'
+        }
+    }
+});
+
+export default function Test(props) {
   console.log(typeof props.reservation.reservationDate)
   const navigate = useNavigate();
 
@@ -35,24 +69,37 @@ const ReservationInfocardComponent = (props) => {
   const date1 = new Date(props.reservation.reservationDate);
   const date2 = new Date();
   
-  
-
-  //reservationDate는 String으로 넘어온다.
   return (
-    <Card style={{ width: '90%' }}>
-      <Card.Header>
-        <span> 예약 일시 : {typeof(props.reservation.reservationDate)}</span>
-        <span>                              </span>
-        {date1>date2?<span>방문 예정</span>:<span>방문 완료</span>}
-      </Card.Header>
-      <Card.Body>
-        <Card.Title onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</Card.Title>
-        <Card.Text>디자이너 이름 : {props.reservation.designerName}</Card.Text>
-        
-        <Button variant="primary" onClick={move}>상세 보기</Button>
-      </Card.Body>
-    </Card>
+            date1>date2?
+            <Box>
+                <Item elevation={24}>
+                  
+                  <ThemeProvider theme={theme}>
+                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
+                    <div>                              </div>
+                    <div>방문 예정</div>
+                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
+                    <div>디자이너 이름 : {props.reservation.designerName}</div>
+                    <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
+                  </ThemeProvider>
+                </Item>
+            </Box>
+            :
+            <Box>
+                <AlterItem elevation={24}>
+                  
+                  <ThemeProvider theme={theme}>
+                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
+                    <div>                              </div>
+                    <div>방문 완료</div>
+                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
+                    <div>디자이너 이름 : {props.reservation.designerName}</div>
+                    <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
+                  </ThemeProvider>
+                </AlterItem>
+            </Box>
+          
   );
-};
+}
 
-export default ReservationInfocardComponent;
+
