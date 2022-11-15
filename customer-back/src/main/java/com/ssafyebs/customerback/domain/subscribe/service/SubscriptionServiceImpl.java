@@ -24,7 +24,7 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 	@Override
 	public List<SubscriptionResponseDto> findByMember_MemberUid(String uid) {
 		List<SubscriptionResponseDto> list = new ArrayList<SubscriptionResponseDto>();
-		List<Subscription> slist = subscriptionRepository.findByMember_MemberUidOrderBySubscriptionSeqDesc(uid);
+		List<Subscription> slist = subscriptionRepository.findByMember_MemberUidOrderBySubscriptionRenewDescSubscriptionSeqDesc(uid);
 		
 		for(Subscription s : slist) {
 			SubscriptionResponseDto dto = new SubscriptionResponseDto();
