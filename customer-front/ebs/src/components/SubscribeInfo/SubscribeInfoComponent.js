@@ -111,7 +111,7 @@ export default function SubscribeInfoComponent(props) {
                   <Item elevation={24}>
                     
                     <ThemeProvider theme={theme}>
-                      <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                      <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
                       <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                       <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                       <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
@@ -125,7 +125,7 @@ export default function SubscribeInfoComponent(props) {
                   <Item elevation={24}>
                     
                     <ThemeProvider theme={theme}>
-                      <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                      <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
                       <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                       <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                       <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
@@ -139,7 +139,7 @@ export default function SubscribeInfoComponent(props) {
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                    <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
                     <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                     <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
