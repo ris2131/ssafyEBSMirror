@@ -18,7 +18,7 @@ import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 const theme = createTheme({
   palette: {
       brown: {
-          main: '#9D7F5C'
+          main: '#bcb8b1'
       }
   }
 });
