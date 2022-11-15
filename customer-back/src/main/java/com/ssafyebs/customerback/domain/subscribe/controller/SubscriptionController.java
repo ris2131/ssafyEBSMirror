@@ -129,6 +129,7 @@ public class SubscriptionController {
 			cal.add(Calendar.MONTH, fs.getPricingMonth().intValue());
 			subscription.setSubscriptionExpiration(cal);
 			subscription.setFederatedSubscription(fs);
+			subscription.setSubscriptionRenew(true);
 			
 			subscriptionService.makeSubscription(subscription);
 			Pay p = new Pay();
