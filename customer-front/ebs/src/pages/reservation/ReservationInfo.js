@@ -1,10 +1,10 @@
-import ReservationInfocardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent";
+// import ReservationInfocardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent2";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getreservations } from "../../store/slices/reservationSlice";
 import styled from "styled-components";
 import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
-import Test from "../../components/ReservationInfo/Test";
+import ReservationInfoCardComponent from "../../components/ReservationInfo/ReservationInfoCardComponent";
 import { style } from "@mui/system";
 
 const Container = styled.div`
@@ -65,7 +65,7 @@ return (
       {myreservation.length ? (
         myreservation.map((a, i) => {
           return (
-            <Test
+            <ReservationInfoCardComponent
               reservation={myreservation[i]}
               num={i}
               key={i}
