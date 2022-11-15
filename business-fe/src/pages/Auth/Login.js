@@ -14,7 +14,7 @@ import backgroundImage from "../../assets/login_background.png";
 
 
 
-const LoginContainer = styled.div`
+const LoginContainer = styled.main`
   background: url(${backgroundImage});
   background-size: cover;
   display: flex;
