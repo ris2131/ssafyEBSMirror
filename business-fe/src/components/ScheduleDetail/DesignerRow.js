@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import backgroundImage from "../../assets/reserved2.png";
 
 const TimeTableRow = styled.tr`
 `;
@@ -15,11 +14,6 @@ const TimeTableData = styled.td`
 
   &.reserved {
     background-color: #5184289f;
-    // background-color: #57d9b3;
-    // background-color: #3F4E4F;
-    //background: url(${backgroundImage}) #bfbfbf;
-    //background-size: cover;
-    // background-size: 3px 1px;
     background-position: center;
     cursor: pointer;
     font-weight: bold;
