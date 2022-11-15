@@ -20,6 +20,7 @@ import { getuser } from "../../store/slices/userSlice";
 import { mergeBreakpointsInOrder } from '@mui/system';
 import HorizonLine from '../HorizonLine';
 import "../../fonts/font.css"
+import { red } from '@mui/material/colors';
 
 
 const StyledImage = styled.img`
@@ -67,7 +68,7 @@ const Ebsnav = () => {
   return (
     <>
       {[false ].map((expand) => (
-          <Navbar key={expand} expand={expand} className="bg-secondary">
+          <Navbar key={expand} expand={expand} className={style.Ebsnav}>
             <Container fluid id="Navbar">
               {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
