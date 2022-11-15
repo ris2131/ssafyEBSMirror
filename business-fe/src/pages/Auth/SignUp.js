@@ -21,15 +21,29 @@ import TextField from "@mui/material/TextField";
 //import Select from "@mui/material/Select";
 import Swal from "sweetalert2";
 
-import logoImage from '../../assets/Logo.png'
+import backgroundImage from "../../assets/login_background.png";
 
 
-const SignUpBox = styled.div`
+const SignUpContainer = styled.main`
+  background: url(${backgroundImage});
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
+`;
+
+const SignUpSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:20px;
+  border-radius: 10px;
+  background-color: #DCD7C9;
+  
+  box-shadow: #75726B 10px 10px 5px;
 `;
 
 const LogoDiv = styled.div`
@@ -96,15 +110,29 @@ const SButton = styled.button`
   }
 
   border-radius: 5px;
-  color: #DCD7C9;
+  color: white;
   border: none;
   background-color: #9D7F5C;
   padding: 8px;
+  font-size: 16px;
+  font-weight: bold;
   margin: 10px 20px;
   width: 20vw;
   cursor: pointer;
 `;
 
+const S2Button = styled.button`
+  border-radius: 5px;
+  color: white;
+  border: none;
+  background-color: #6C6C6C;
+  padding: 5px;
+  margin: 10px 20px;
+  width: 20vw;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+`;
 const SignUp = () => {
   const [email, setEmail] = useState("");
   //const [emailCheck, setEmailCheck] = useState("");
@@ -239,102 +267,102 @@ const SignUp = () => {
 
 
   return (
-    <SignUpBox>
-      <LogoImg src={logoImage} alt="#logo_image" />
-      <LogoDiv>
-        <LogoText>회원가입</LogoText>
-      </LogoDiv>
-      <FlexInputDiv>
-        <TextField
-          fullWidth
-          label="ID (email)"
-          variant="standard"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setEmailPass(false);
-            handleEmailCheck(e.target.value);
-          }}
-        />
-        <SButton
-          onClick={() => {
-            handleEmailValidation();
-          }}
-        >
-          중복 체크
+    <SignUpContainer>
+      <SignUpSection>
+        <LogoDiv>
+          <LogoText>회원가입</LogoText>
+        </LogoDiv>
+        <FlexInputDiv>
+          <TextField
+            fullWidth
+            label="ID (email)"
+            variant="standard"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailPass(false);
+              handleEmailCheck(e.target.value);
+            }}
+          />
+          <SButton
+            onClick={() => {
+              handleEmailValidation();
+            }}
+          >
+            중복 체크
+          </SButton>
+        </FlexInputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="password"
+            type="password"
+            variant="standard"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </InputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="password check"
+            type="password"
+            variant="standard"
+            value={passwordCheck}
+            onChange={(e) => setPasswordCheck(e.target.value)}
+          />
+        </InputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="대표자명"
+            variant="standard"
+            value={regOwner}
+            onChange={(e) => {
+              setRegOwner(e.target.value);
+              setRegPass(false);
+            }}
+          />
+        </InputDiv>
+        <InputDiv>
+          <TextField
+            fullWidth
+            label="설립연월일(yymdd)"
+            variant="standard"
+            value={regFoundDate}
+            onChange={(e) => {
+              setRegFoundDate(e.target.value);
+              setRegPass(false);
+            }}
+          />
+        </InputDiv>
+        <FlexInputDiv>
+          <TextField
+            fullWidth
+            label="사업자등록번호"
+            variant="standard"
+            value={regNum}
+            onChange={(e) => {
+              setRegNum(e.target.value);
+              setRegPass(false);
+            }}
+          />
+          <SButton
+            onClick={() => {
+              //사업자등록번호 API
+              setRegPass(false);
+              handleRegistrationValidation();
+            }}
+          >
+            인증하기
+          </SButton>
+        </FlexInputDiv>
+        <SButton margin="7vw" onClick={handleSubmit}>
+          가입하기
         </SButton>
-      </FlexInputDiv>
-      <InputDiv>
-        <TextField
-          fullWidth
-          label="password"
-          type="password"
-          variant="standard"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </InputDiv>
-      <InputDiv>
-        <TextField
-          fullWidth
-          label="password check"
-          type="password"
-          variant="standard"
-          value={passwordCheck}
-          onChange={(e) => setPasswordCheck(e.target.value)}
-        />
-      </InputDiv>
-      <InputDiv>
-        <TextField
-          fullWidth
-          label="대표자명"
-          variant="standard"
-          value={regOwner}
-          onChange={(e) => {
-            setRegOwner(e.target.value);
-            setRegPass(false);
-          }}
-        />
-      </InputDiv>
-      <InputDiv>
-        <TextField
-          fullWidth
-          label="설립연월일(yymdd)"
-          variant="standard"
-          value={regFoundDate}
-          onChange={(e) => {
-            setRegFoundDate(e.target.value);
-            setRegPass(false);
-          }}
-        />
-      </InputDiv>
-      <FlexInputDiv>
-        <TextField
-          fullWidth
-          label="사업자등록번호"
-          variant="standard"
-          value={regNum}
-          onChange={(e) => {
-            setRegNum(e.target.value);
-            setRegPass(false);
-          }}
-        />
-        <SButton
-          onClick={() => {
-            //사업자등록번호 API
-            setRegPass(false);
-            handleRegistrationValidation();
-          }}
-        >
-          인증하기!!!!
-        </SButton>
-      </FlexInputDiv>
-      <SButton margin="7vw" onClick={handleSubmit}>
-        가입하기
-      </SButton>
-      <IconDiv onClick={() => navigate("/login")}>로그인 페이지로</IconDiv>
-      
-    </SignUpBox>
+        <S2Button  onClick={() => navigate("/login")}>로그인 페이지로</S2Button>
+      </SignUpSection>
+    </SignUpContainer>
   );
 };
 
