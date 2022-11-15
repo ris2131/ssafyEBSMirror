@@ -108,7 +108,9 @@ const Login = () => {
       .unwrap()
       .then(() => navigate("/"))
       .catch(() => {
-        Swal.fire({ icon: "error", title: "사용자 정보를 확인해주세요" });
+        Swal.fire({ icon: "error"
+          ,title: "사용자 정보를 확인해주세요" 
+        });
       });
   };
 

@@ -97,10 +97,13 @@ const Home = () => {
     dispatch(registerinfo())
       .unwrap()
       .then(() => {
-        Swal.fire({icon: "success", title: "매장이 등록되었습니다"})
-          .then(() => {
-            window.location.reload()
-          });
+        Swal.fire({icon: "success", title: "매장이 등록되었습니다" 
+        ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+        ,iconColor:'#688087',//아이콘 색깔 설정.
+       })
+        .then(() => {
+          window.location.reload()
+        });
       })
       .catch(() => {
         Swal.fire({icon: "error", title: "필수 정보가 제대로 기입 되지 않았습니다."})
