@@ -192,7 +192,11 @@ const SignUp = () => {
     dispatch(signup(data))
       .unwrap()
       .then(() => {
-        Swal.fire({ icon: "success", title: "회원가입 완료!" });
+        Swal.fire({ icon: "success", title: "회원가입 완료!" 
+        ,confirmButtonColor: '#688087', // confrim 버튼 색깔 지정
+        iconColor:'#688087',//아이콘 색깔 설정.
+      });
+
         navigate("/");
       })
       .catch((err) => {
@@ -226,7 +230,10 @@ const SignUp = () => {
         if (res.data === true) {
           //handleSendMail();
           setEmailPass(true);
-          Swal.fire({ icon: "success", title: "사용 가능한 이메일입니다." });
+          Swal.fire({ icon: "success", title: "사용 가능한 이메일입니다." 
+          ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+          ,iconColor:'#688087',//아이콘 색깔 설정.
+         });
         } else{
           setEmailPass(false);
           Swal.fire({ icon: "error", title: "이미 가입한 이메일입니다." });
@@ -250,7 +257,10 @@ const SignUp = () => {
       .then((res) => { 
         if(res.data[0].valid === "01"){
           setRegPass(true);
-          Swal.fire({ icon: "success", title: "사업자등록번호 인증이 완료 되었습니다." });
+          Swal.fire({ icon: "success", title: "사업자등록번호 인증이 완료 되었습니다." 
+          ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+          ,iconColor:'#688087',//아이콘 색깔 설정.
+          });
         }else{
           setRegPass(false);
           Swal.fire({ icon: "error", title: "사업자등록번호 인증 실패." });

@@ -178,7 +178,10 @@ const DesignerModify = () => {
     formData.append("photo", photo);
     //dispatch
     imgApi.modifyDesigner(formData)
-      .then(Swal.fire({icon: "success", title: "디자이너 수정되었습니다."}))
+      .then(Swal.fire({icon: "success", title: "디자이너 수정되었습니다." 
+      ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+      ,iconColor:'#688087',//아이콘 색깔 설정.
+     }))
       .then(() => navigate("/designer"))
       .catch(() => {
         Swal.fire({icon: "error", title: "정보를 확인해주세요"});
@@ -193,7 +196,10 @@ const DesignerModify = () => {
     //console.log("seq::" +data.designer_seq);
     dispatch(deleteDesigner(data))
       .unwrap()
-      .then(Swal.fire({icon: "success", title: "디자이너 삭제되었습니다."}))
+      .then(Swal.fire({icon: "success", title: "디자이너 삭제되었습니다." 
+      ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+      ,iconColor:'#688087',//아이콘 색깔 설정.
+     }))
       .then(() => navigate("/designer"))
       .catch(() => {
         Swal.fire({icon: "error", title: "정보를 확인해주세요"});
