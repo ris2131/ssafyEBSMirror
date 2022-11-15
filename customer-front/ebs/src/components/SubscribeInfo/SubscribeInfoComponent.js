@@ -5,6 +5,9 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 
 const Item = styled(Paper)(() => ({
@@ -48,13 +51,71 @@ const theme = createTheme({
     }
 });
 
+
 export default function SubscribeInfoComponent(props) {
   const date1 = new Date(props.subscribe.subscriptionExpiration);
   const date2 = new Date();
+  console.log(props.subscribe);
+  const navigate = useNavigate();
+
+  const unsub = () =>{
+    console.log("!!!!!!"+props.subscribe.businessSeq);
+    if(window.confirm('구독을 해지하시겠습니까?')){
+      axios({
+        url: `/api/subscribe/${props.subscribe.businessSeq}`,
+        method: "DELETE",
+        headers : {
+          Authorization : localStorage.getItem("token"),
+          "Content-Type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      })
+      .then((res)=>{
+        console.log(res);
+        if(res.data.status === 'SUCCESS'){
+          alert("구독 갱신을 취소했습니다.");
+          navigate('/');
+        }else{
+          alert("구독 갱신 취소에 실패했습니다. 관리자에게 문의해주세요.");
+          navigate('/');
+        }
+
+      })
+    }
+  }
   return (
             (props.subscribe.subscriptionLeft<=0 || date1>date2) ?
+              (props.subscribe.subscriptionRenew)?
+              <Box>
+                  <Item elevation={24}>
+                    
+                    <ThemeProvider theme={theme}>
+                      <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                      <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
+                      <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
+                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
+                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
+                      <button onClick={unsub}>구독취소버튼</button>
+                    </ThemeProvider>
+                  </Item>
+              </Box>
+              :
+              <Box>
+                  <Item elevation={24}>
+                    
+                    <ThemeProvider theme={theme}>
+                      <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                      <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
+                      <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
+                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
+                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
+                    </ThemeProvider>
+                  </Item>
+              </Box>
+          :
+          (props.subscribe.subscriptionRenew)?
             <Box>
-                <Item elevation={24}>
+                <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
                     <div>헤어숍 이름 : {props.subscribe.hairshopName}</div>
@@ -62,11 +123,12 @@ export default function SubscribeInfoComponent(props) {
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                     <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
                     <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
+                    <button onClick={unsub}>구독취소버튼</button>
                   </ThemeProvider>
-                </Item>
+                </AlterItem>
             </Box>
           :
-          <Box>
+            <Box>
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
