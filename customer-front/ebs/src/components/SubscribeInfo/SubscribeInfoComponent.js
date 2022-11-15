@@ -73,7 +73,37 @@ export default function SubscribeInfoComponent(props) {
 
   const moveshop = () => {
     navigate('/hairshop-info', {state:{...data}});
+  }
+  const date1 = new Date(props.subscribe.subscriptionExpiration);
+  const date2 = new Date();
+
+
+
+  const unsub = () =>{
+    console.log("!!!!!!"+props.subscribe.businessSeq);
+    if(window.confirm('구독을 해지하시겠습니까?')){
+      axios({
+        url: `/api/subscribe/${props.subscribe.businessSeq}`,
+        method: "DELETE",
+        headers : {
+          Authorization : localStorage.getItem("token"),
+          "Content-Type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      })
+      .then((res)=>{
+        console.log(res);
+        if(res.data.status === 'SUCCESS'){
+          alert("구독 갱신을 취소했습니다.");
+          navigate('/');
+        }else{
+          alert("구독 갱신 취소에 실패했습니다. 관리자에게 문의해주세요.");
+          navigate('/');
+        }
+
+      })
     }
+  }
 
   return (
             (props.subscribe.subscriptionLeft<=0 || date1>date2) ?
