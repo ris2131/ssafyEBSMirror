@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafyebs.customerback.domain.pay.entity.Pay;
 import com.ssafyebs.customerback.domain.pay.repository.PayRepository;
+import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
 import com.ssafyebs.customerback.domain.subscribe.repository.SubscriptionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,9 @@ public class PayServiceImpl implements PayService{
 			int responseCode = conn.getResponseCode();
 			System.out.println(responseCode);
 			if(responseCode == 200) {
+				Subscription s = p.getSubscription();
+				s.setSubscriptionRenew(false);
+				subscriptionRepository.save(s);
 				payRepository.delete(p);
 				return true;
 			}else {
