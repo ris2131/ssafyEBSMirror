@@ -5,11 +5,19 @@ import NavBar from "../../components/Navbar/NavBar";
 import styled from "styled-components";
 import {getReservationDetail, getTimeSheet} from '../../redux/ScheduleSlice';
 import moment from "moment";
+// 한글로 출력되게 해준다.
+import 'moment/locale/ko';
 import {getDesigner} from "../../redux/DesignerSlice";
 import ScheduleDetail from "../../components/ScheduleDetail/ScheduleDetail";
 import DesignerRow from "../../components/ScheduleDetail/DesignerRow";
 
+//배경화면이미지
+import backgroundImage from "../../assets/calendar_background.png";
+
+
 const ScheduleMain = styled.main`
+  background: url(${backgroundImage});
+  background-size: cover;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -20,17 +28,23 @@ const ScheduleMain = styled.main`
 const ScheduleSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  flex: 1;
-  //background-color: #cfcfcf;
-  padding: 50px;
+  border-radius:50px;
+  flex: 0.5;
+  background-color: #DCD7C9;
+  padding: 20px;
   //box-shadow: #3f3f3f 10px 10px 5px;
 `;
-
+const DateDiv = styled.div`
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  // margin-top: 20px;
+`;
 const TitleDiv = styled.div`
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 40px;
+  margin-bottom: 30px;
 
 `;
 
@@ -40,7 +54,7 @@ const TimeTable = styled.table`
 `;
 
 const TimeTableHead = styled.thead`
-  background-color: #9D7F5C;
+  background-color: #A27B5C;
 `;
 
 const TimeTableHeadRow = styled.tr`
@@ -163,7 +177,9 @@ const TimeSheet = () => {
       <NavBar></NavBar>
       <ScheduleMain>
         <ScheduleSection>
-          <TitleDiv>{moment(date).format("yyyy-MM-DD")} 예약 시간표</TitleDiv>
+          <DateDiv>{moment(date).lang("ko").format("yyyy-MM-DD (ddd)")}</DateDiv>
+          <TitleDiv> 예약 시간표</TitleDiv>
+
           <TimeTable>
             <TimeTableHead>
               <TimeTableHeadRow>

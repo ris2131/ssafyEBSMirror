@@ -1,20 +1,26 @@
 import styled from "styled-components";
-
+import backgroundImage from "../../assets/reserved2.png";
 
 const TimeTableRow = styled.tr`
 `;
 
 const TimeTableDesignerName = styled.th`
   background-color: antiquewhite;
-  padding: 10px 30px;
-  color: #9D7F5C;
+  padding: 20px 30px;
+  color: #A27B5C;
 `;
 
 const TimeTableData = styled.td`
   background-color: #bfbfbf;
 
   &.reserved {
-    background-color: #9D7F5Cbf;
+    background-color: #5184289f;
+    // background-color: #57d9b3;
+    // background-color: #3F4E4F;
+    //background: url(${backgroundImage}) #bfbfbf;
+    //background-size: cover;
+    // background-size: 3px 1px;
+    background-position: center;
     cursor: pointer;
     font-weight: bold;
   }
