@@ -38,7 +38,7 @@ public class Scheduler {
 	private final PayService payService;
 
 	// 매일 12시에 조회
-	@Scheduled(cron = "0 0 3 1 * *")
+	@Scheduled(cron = "0 0 0 * * *")
 //	@Scheduled(cron = "0 * * * * *")
 	public void renewSubscribe() throws InterruptedException, IOException {
 		for (Pay p : payService.getNewerList()) {

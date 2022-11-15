@@ -37,19 +37,18 @@ public class PayServiceImpl implements PayService{
 		Calendar end = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
-		int startdate = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
-		int enddate = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int date = cal.get(Calendar.DAY_OF_MONTH);
 		
 		start.set(Calendar.YEAR, year);
 		start.set(Calendar.MONTH, month);
-		start.set(Calendar.DAY_OF_MONTH, startdate);
+		start.set(Calendar.DAY_OF_MONTH, date);
 		start.set(Calendar.HOUR_OF_DAY, 0);
 		start.set(Calendar.MINUTE, 0);
 		start.set(Calendar.SECOND, 0);
 		
 		end.set(Calendar.YEAR, year);
 		end.set(Calendar.MONTH, month);
-		end.set(Calendar.DAY_OF_MONTH, enddate);
+		end.set(Calendar.DAY_OF_MONTH, date);
 		end.set(Calendar.HOUR_OF_DAY, 23);
 		end.set(Calendar.MINUTE, 59);
 		end.set(Calendar.SECOND, 59);
