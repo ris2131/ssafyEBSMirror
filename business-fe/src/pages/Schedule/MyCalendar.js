@@ -22,19 +22,21 @@ const CalendarMain = styled.main`
 const CalendarInput = styled.section`
   background-color: #DCD7C9;
   width: 60%;
-  border-radius : 20px;
+  border-radius : 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   margin: 20px;
   flex: 1;
 `;
-const FlexInput = styled.div`
-  display: flex;
-  text-align: right;
-`;
 
+const TitleDiv = styled.div`
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  margin: 30px 0px;
+
+`;
 const MyCalendar = () => {
 
   return(
@@ -42,7 +44,7 @@ const MyCalendar = () => {
       <NavBar></NavBar>
       <CalendarMain>
         <CalendarInput>
-          <FlexInput>예약 캘린더</FlexInput>
+          <TitleDiv> 예약 캘린더</TitleDiv>
           <CalendarComponent></CalendarComponent>
         </CalendarInput>
       </CalendarMain>
