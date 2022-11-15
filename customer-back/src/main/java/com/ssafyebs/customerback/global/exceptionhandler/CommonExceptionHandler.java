@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class CommonExceptionHandler {
+    @ExceptionHandler(AccessNotGrantedException.class)
+    public ResponseEntity<CommonResponse<?>> handleReservationSeqNotGrantedException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(CommonResponse.createError(e.getMessage()));
+    }
+
     @ExceptionHandler(DuplicateDiaryException.class)
     public ResponseEntity<CommonResponse<?>> handleDuplicateDiaryException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(CommonResponse.createError(e.getMessage()));
@@ -87,14 +92,14 @@ public class CommonExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
     }
 
+    @ExceptionHandler(NoSuchFileException.class)
+    public ResponseEntity<CommonResponse<?>> NoSuchFileException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.createError(e.getMessage()));
+    }
+
     @ExceptionHandler(NotLoggedInException.class)
     public ResponseEntity<CommonResponse<?>> handleNotLoggedInException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonResponse.createError(e.getMessage()));
-    }
-
-    @ExceptionHandler(ReservationSeqNotGrantedException.class)
-    public ResponseEntity<CommonResponse<?>> handleReservationSeqNotGrantedException(RuntimeException e) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(CommonResponse.createError(e.getMessage()));
     }
 
     //Fail??

@@ -3,16 +3,14 @@ package com.ssafyebs.customerback.domain.reservation.service;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.ssafyebs.customerback.domain.reservation.entity.ReservationPhoto;
 import com.ssafyebs.customerback.domain.reservation.projection.ReservationPhotoUrl;
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationPhotoRepository;
-import com.ssafyebs.customerback.global.exception.FileNotWritableException;
-import com.ssafyebs.customerback.global.exception.InvalidFileException;
-import com.ssafyebs.customerback.global.exception.InvalidReservationSeqException;
-import com.ssafyebs.customerback.global.exception.ReservationSeqNotGrantedException;
+import com.ssafyebs.customerback.global.exception.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +48,7 @@ public class ReservationServiceImpl implements ReservationService{
 
 		for(Reservation r : rlist) {
 			ReservationResponseDto dto = new ReservationResponseDto();
+			dto.setReservationSeq(r.getReservationSeq());
 			dto.setDesignerName(r.getFederatedReservation().getDesignerName());
 			dto.setHairshopName(r.getFederatedReservation().getHairshopName());
 			dto.setReservationDate(r.getReservationDate());
@@ -59,7 +58,7 @@ public class ReservationServiceImpl implements ReservationService{
 			dto.setBusinessSeq(r.getFederatedReservation().getBusinessSeq());
 
 			try {
-				List<String> urls = reservationPhotoRepository.findTop3ByReservationOrderByFileNameDesc(r).orElseThrow(() -> new RuntimeException(""))
+				List<String> urls = reservationPhotoRepository.findTop3ByReservationOrderByFileCountDesc(r).orElseThrow(() -> new RuntimeException(""))
 						.stream().map(ReservationPhotoUrl::getPhotoUrl).collect(Collectors.toList());
 				dto.setReservationPhotoList(urls);
 			} catch (RuntimeException e) {
@@ -115,33 +114,46 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public void insertPhoto(String memberUid, long reservationSeq, MultipartFile multipartFile) {
+		if (multipartFile == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
+			throw new InvalidFileException("잘못된 파일 입력입니다.");
+		}
+		String file = multipartFile.getOriginalFilename();
+		if (file == null) throw new InvalidFileException("잘못된 파일 입력입니다.");
+
 		Reservation reservation = reservationRepository.findByReservationSeq(reservationSeq).orElseThrow(() -> new InvalidReservationSeqException("예약 내역이 존재하지 않습니다."));
-		if (!memberUid.equals(reservation.getMember().getMemberUid())) throw new ReservationSeqNotGrantedException("잘못된 접근입니다.");
+		if (!memberUid.equals(reservation.getMember().getMemberUid())) throw new AccessNotGrantedException("잘못된 접근입니다.");
         int fileCount;
         try {
-			fileCount = reservationPhotoRepository.findTop1ByReservationOrderByFileNameDesc(reservation).orElseThrow(() ->
-					new RuntimeException("")).getFileName();
+			fileCount = reservationPhotoRepository.findTop1ByReservationOrderByFileCountDesc(reservation).orElseThrow(() ->
+					new RuntimeException("")).getFileCount();
         } catch (RuntimeException e) {
             fileCount = 0;
+			File destDir = new File(IMAGE_PATH + reservationSeq);
+			if (!destDir.mkdirs()) System.out.println(LocalDate.now() + " 파일 경로 중복");
         }
         fileCount++;
 
-        String file = multipartFile.getOriginalFilename();
-        if (file == null || multipartFile.getContentType() == null || Arrays.stream(ALLOWED_IMAGE_MIMES).noneMatch(multipartFile.getContentType()::equals)) {
-            throw new InvalidFileException("잘못된 파일 입력입니다.");
-        }
         File newFile = new File(IMAGE_PATH + reservationSeq + "/" + fileCount + "." + file.substring(file.lastIndexOf(".") + 1));
 		try {
 			multipartFile.transferTo(newFile);
 		} catch (IOException e) {
 			throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
 		}
-		String photoUrl = IMAGE_URL_PREFIX + reservationSeq + "/" + newFile.getName();
+		String newFileName = newFile.getName();
+		String photoUrl = IMAGE_URL_PREFIX + reservationSeq + "/" + newFileName;
 		ReservationPhoto reservationPhoto = ReservationPhoto.builder()
-				.fileName(Integer.parseInt(newFile.getName()))
+				.fileCount(Integer.parseInt(newFileName.substring(0, newFileName.lastIndexOf('.'))))
 				.photoUrl(photoUrl)
 				.reservation(reservation)
 				.build();
 		reservationPhotoRepository.save(reservationPhoto);
+	}
+
+	@Override
+	public void deletePhoto(String memberUid, String photoUrl) {
+		if (!memberUid.equals(reservationPhotoRepository.findReservationByPhotoUrl(photoUrl)
+				.orElseThrow(() -> new NotLoggedInException("잘못된 접근입니다."))
+				.getReservation().getMember().getMemberUid())) throw new AccessNotGrantedException("잘못된 접근입니다.");
+		if (!reservationPhotoRepository.deleteReservationPhotoByPhotoUrl(photoUrl)) throw new NoSuchFileException("존재하지 않는 파일입니다.");
 	}
 }

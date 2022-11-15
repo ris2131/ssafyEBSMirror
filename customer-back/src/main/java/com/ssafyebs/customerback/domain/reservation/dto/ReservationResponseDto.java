@@ -10,6 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReservationResponseDto {
+	@JsonProperty("reservation_seq")
+	private Long reservationSeq;
 	@JsonProperty("designer_name")
 	private String designerName;
 	@JsonProperty("hairshop_name")

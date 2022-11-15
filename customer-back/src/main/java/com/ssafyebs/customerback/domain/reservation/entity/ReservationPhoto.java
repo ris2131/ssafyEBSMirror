@@ -21,8 +21,8 @@ public class ReservationPhoto {
     @JoinColumn(name="reservation_seq", referencedColumnName="reservation_seq")
     private Reservation reservation;
 
-    @Column(name = "reservation_photo_file_name")
-    private int fileName;
+    @Column(name = "reservation_photo_file_count")
+    private int fileCount;
 
     @Column(name = "reservation_photo_url")
     private String photoUrl;

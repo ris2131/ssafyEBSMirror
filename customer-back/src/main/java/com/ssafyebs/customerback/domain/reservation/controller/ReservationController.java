@@ -99,11 +99,16 @@ public class ReservationController {
 	}
 
 	@PostMapping("/photo")
-	public ResponseEntity<?> reservationPhotoPost(HttpServletRequest request, @RequestParam long reservationSeq, @RequestBody MultipartFile multipartFile) {
+	public ResponseEntity<?> reservationPhotoPost(HttpServletRequest request, @RequestParam("reservation_seq") long reservationSeq, @RequestPart("photo") MultipartFile multipartFile) {
 		String memberUid = (String) request.getAttribute("memberuid");
 		reservationService.insertPhoto(memberUid, reservationSeq, multipartFile);
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("성공적으로 저장했습니다.", null));
 	}
 
-//	@DeleteMapping("/photo")
+	@DeleteMapping("/photo")
+	public ResponseEntity<?> reservationPhotoDelete(HttpServletRequest request, @RequestParam("photo_url") String photoUrl) {
+		String memberUid = (String) request.getAttribute("memberuid");
+		reservationService.deletePhoto(memberUid, photoUrl);
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("성공적으로 삭제했습니다.", null));
+	}
 }

@@ -15,4 +15,5 @@ public interface ReservationService {
 	Optional<Reservation> findByFederatedReservation_DesignerSeqAndReservationDate(Long seq, Calendar date);
 	List<FederatedReservationResponseDto> findByFederatedReservation_BusinessSeqAndReservationDateNot(Long seq, String datestr);
 	void insertPhoto(String memberUid, long reservationSeq, MultipartFile multipartFile);
+	void deletePhoto(String memberUid, String photoUrl);
 }
