@@ -41,7 +41,7 @@ const ReservationInfocardComponent = (props) => {
   return (
     <Card style={{ width: '90%' }}>
       <Card.Header>
-        <span> 예약 일시 : {props.reservation.reservationDate}</span>
+        <span> 예약 일시 : {typeof(props.reservation.reservationDate)}</span>
         <span>                              </span>
         {date1>date2?<span>방문 예정</span>:<span>방문 완료</span>}
       </Card.Header>
