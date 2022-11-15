@@ -90,15 +90,15 @@ const Ebsnav = () => {
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
                     <Menuitem>
-                      <Nav.Link href="mypage">MyPage</Nav.Link>
+                      <Nav.Link href="mypage">마이페이지</Nav.Link>
                       <HorizonLine/>
-                      <Nav.Link href="/search">Search</Nav.Link>
+                      <Nav.Link href="/search">헤어숍 검색</Nav.Link>
                       <HorizonLine/>
-                      <Nav.Link href="/reservation-info">Reservation</Nav.Link>
+                      <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
                       <HorizonLine/>
-                      <Nav.Link href="/subscribe-info">Subscription</Nav.Link>
+                      <Nav.Link href="/subscribe-info">구독 내역</Nav.Link>
                       <HorizonLine/>
-                      <Nav.Link onClick={handleLogout}>Logout</Nav.Link> 
+                      <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
                     </Menuitem>
                   </Nav>      
                 </Offcanvas.Body>
