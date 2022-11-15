@@ -35,7 +35,17 @@ const InfoSection = styled.section`
   font-size: 20px;
   justify-content: space-around;
   padding: 50px;
+  position: relative;
   user-select: none;
+`;
+
+const TitleDiv = styled.div`
+  top: 0;
+  left: 10px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  margin: 50px;
+  position: absolute;
 `;
 
 const InputBox = styled.div`
@@ -224,6 +234,9 @@ const Info = () => {
       <NavBar></NavBar>
       <InfoMain>
         <InfoSection>
+          <TitleDiv>
+            {name} 정보 수정
+          </TitleDiv>
           <InputBox>
             <PimgBox>
               <Pimg src={preview} alt="#hairshop_image"></Pimg>

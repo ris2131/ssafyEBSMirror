@@ -51,7 +51,6 @@ const HeadDiv = styled.div`
 const TitleDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
-  vertical-align: bottom;
 `;
 
 const InputDiv = styled.div`

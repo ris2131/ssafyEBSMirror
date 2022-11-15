@@ -16,6 +16,7 @@ import backgroundImage from "../../assets/calendar_background.png";
 
 
 const ScheduleMain = styled.main`
+  align-items: center;
   background: url(${backgroundImage});
   background-size: cover;
   display: flex;
@@ -33,7 +34,7 @@ const ScheduleSection = styled.section`
   border-radius:50px;
   flex: 0.5;
   background-color: #DCD7C9;
-  padding: 20px;
+  padding: 50px;
   //box-shadow: #3f3f3f 10px 10px 5px;
 `;
 const DateDiv = styled.div`
@@ -69,25 +70,6 @@ const TimeTableHeadData = styled.th`
 `;
 
 const TimeTableBody = styled.tbody`
-`;
-
-const TimeTableRow = styled.tr`
-`;
-
-const TimeTableDesignerName = styled.th`
-  background-color: antiquewhite;
-  padding: 10px 30px;
-  color: #9D7F5C;
-`;
-
-const TimeTableData = styled.td`
-  background-color: #bfbfbf;
-
-  &.reserved {
-    background-color: #9D7F5Cbf;
-    cursor: pointer;
-    font-weight: bold;
-  }
 `;
 
 const DisplayBlock = styled.div`
