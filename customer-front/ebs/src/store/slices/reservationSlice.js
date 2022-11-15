@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { reservationApi } from "../../api/reservationApi"
+import { imgApi } from "../../api/imgApi";
 
 const initialState = {
     myreservation: [],
@@ -11,6 +12,18 @@ export const getreservations = createAsyncThunk(
     async(data, { rejectWithValue }) => {
         try{
             const res = await reservationApi.getreservations();
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response);
+        }
+    }
+)
+//from imgApi
+export const addReservationPhoto= createAsyncThunk(
+    "reservationSlice/addReservationPhoto",
+    async(formData, { rejectWithValue }) => {
+        try{
+            const res = await imgApi.addReservationPhoto(formData);
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response);
@@ -58,7 +71,13 @@ const reservationSlice = createSlice({
     extraReducers:{
         [getreservations.fulfilled]:(state, action) =>{
             state.myreservation = action.payload.data;
-            console.log(state.myreservation.data);
+            console.log("resdata:"+state.myreservation);
+        },
+        [addReservationPhoto.fulfilled]:(state, action)=>{
+            //state.myreservation = 
+            //state.myreservation.reservation_photo_list;
+            // 너가 보내주는 res_seq를 받아서 => 마이레저베이션을 뚜까열어서 -> seq 가 같은 녀석에다가 -> 너가 보내주는 url 을 집어넣어야함.
+            // 
         },
         [getAvailableDesigners.fulfilled]:(state,action)=>{
             state.designers = action.payload.data;

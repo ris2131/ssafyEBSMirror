@@ -46,12 +46,12 @@ const theme = createTheme({
     }
 });
 
-export default function Test(props) {
-  console.log(typeof props.reservation.reservationDate)
+export default function ReservationCardComponent(props) {
+  console.log(typeof props.reservation.reservation_date)
   const navigate = useNavigate();
 
   const data = {
-    businessSeq : props.reservation.businessSeq
+    businessSeq : props.reservation.business_seq
   }
 
   const move = () => {
@@ -66,7 +66,7 @@ export default function Test(props) {
     navigate('/hairshop-info', {state:{...data}});
   }
 
-  const date1 = new Date(props.reservation.reservationDate);
+  const date1 = new Date(props.reservation.reservation_date);
   const date2 = new Date();
   
   return (
@@ -75,11 +75,11 @@ export default function Test(props) {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
+                    <div> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</div>
                     <div>                              </div>
                     <div>방문 예정</div>
-                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
-                    <div>디자이너 이름 : {props.reservation.designerName}</div>
+                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshop_name}</div>
+                    <div>디자이너 이름 : {props.reservation.designer_name}</div>
                     <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
                   </ThemeProvider>
                 </Item>
@@ -89,11 +89,11 @@ export default function Test(props) {
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div> 예약 일시 : {props.reservation.reservationDate.substring(0,19).replace('T', ' ')}</div>
+                    <div> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</div>
                     <div>                              </div>
                     <div>방문 완료</div>
-                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshopName}</div>
-                    <div>디자이너 이름 : {props.reservation.designerName}</div>
+                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshop_name}</div>
+                    <div>디자이너 이름 : {props.reservation.designer_name}</div>
                     <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
                   </ThemeProvider>
                 </AlterItem>

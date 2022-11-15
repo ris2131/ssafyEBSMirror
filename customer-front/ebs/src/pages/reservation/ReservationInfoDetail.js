@@ -3,6 +3,9 @@ import { useDispatch , useSelector} from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
+
+import Swal from "sweetalert2";
+import {imgApi} from "../../api/imgApi";
 import backButton from "../../assets/back_arrow.png";
 
 const Container = styled.main`
@@ -47,18 +50,31 @@ const CardContents = styled.div`
 
 const HeadTitleDiv = styled.div`
   display: flex; 
-  justify-content: center;
   font-size:30px;
   font-weight:bold;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+const ContentsDiv = styled.div`
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 30px;
 `;
 const TitleDiv = styled.div`
   display: flex; 
+  font-weight: bold;
   justify-content: start;
+  margin-bottom: 10px;
+`;
+const TextDiv = styled.div`
+  display:flex;
+  justify-content: start;
+  margin-left: 20px;
 `;
 const PhotoTitle = styled.div`
   display: flex; 
   justify-content: center;
-  font-size:30px;
+  font-size:25px;
   font-weight:bold;
 `;
 const PhotoSection = styled.section`
@@ -101,9 +117,12 @@ const ReservationInfoDetail = () => {
   const dispatch = useDispatch();
   const inputRef = useRef();
 
+  const photoMounted = useRef(false);
+
   const reservation = location.state.item;
   const seq = {
-      hairshopSeq : reservation.businessSeq
+      hairshopSeq : reservation.business_seq,
+      reservationSeq : reservation.reservation_seq,
   }
 
   const move = () =>{
@@ -127,11 +146,33 @@ const ReservationInfoDetail = () => {
   };
 
   const handleAdd=()=>{
-    console.log("사진 추가하기");
+    console.log("사진 추가하기!");
+    
+    //post
+    const formData = new FormData();
+    formData.append("photo", photo);
+    //dispatch
+    imgApi.addReservationPhoto(formData,reservation.reservation_seq)
+      .then(Swal.fire({icon: "success", title: "디자이너 수정되었습니다." 
+      ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+      ,iconColor:'#688087',//아이콘 색깔 설정.
+    }))
+      // .then(() => navigate("/reservation-info"))
+      .catch(() => {
+        Swal.fire({icon: "error", title: "정보를 확인해주세요"});
+      });
   }
   const handleDelete=()=>{
     console.log("사진 삭제하기");
   }
+
+  useEffect(()=>{
+    if (!photoMounted.current) {
+      photoMounted.current = true;
+    } else {
+      handleAdd();
+    }
+  },[photo]);
 
   return (
     <>
@@ -146,42 +187,42 @@ const ReservationInfoDetail = () => {
             <HeadTitleDiv>
                 요청사항
             </HeadTitleDiv>
-            <TitleDiv>
-              디자인 선택사항
-            </TitleDiv>
-            <div>
-              {reservation.reservationStyle?<div>{reservation.reservationStyle}</div>:<></>}
-            </div>
-            <TitleDiv>
-              서비스 선택사항
-            </TitleDiv>
-            <div>
-              {reservation.reservationService?<div>{reservation.reservationService}</div>:<></>}
-            </div>
-            <TitleDiv>
-              추가 선택사항
-            </TitleDiv>
-            <div>
-                {reservation.reservationEtc?<div>{reservation.reservationEtc}</div>:<></>}
-            </div>
-            <PhotoTitle>나의 사진</PhotoTitle>
+            <ContentsDiv>
+              <TitleDiv>
+                디자인 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<></>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                서비스 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<></>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                추가 선택사항
+              </TitleDiv>
+              <TextDiv>
+                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<></>}
+              </TextDiv>
+            </ContentsDiv>
+            
+            <PhotoTitle>헤어스타일 기록</PhotoTitle>
             <PhotoSection>
-              {/* {
-                photoList.length ? (
-                  photoList.map((photo) => {
+              {
+                reservation.reservation_photo_list.length ? (
+                  reservation.reservation_photo_list.map((photo, i) => {
                     return (
-                        <MyPhoto src={photo}></MyPhoto>
-                        
-                        <EditButton value={designer["designer_seq"]}
-                                    onClick={(e) => handleEdit(e.target.value)}>편집</EditButton>
-                        
+                        <MyPhoto src={photo} key={i}></MyPhoto>
                     );
                   })
-                ) : <div>등록된 디자이너가 없습니다.</div>
-              } */}
-              {/* <MyPhoto></MyPhoto>
-              <MyPhoto></MyPhoto>
-              <MyPhoto></MyPhoto> */}
+                ) : <div>등록된 사진이 없습니다.</div>
+              }
             </PhotoSection>
             <input
               id="file"
@@ -191,12 +232,13 @@ const ReservationInfoDetail = () => {
               ref={inputRef}
               onChange={(e) => {
                 if(e.target.files.length){
-                  changeImg(e);
+                  // changeImg(e);
+                  setPhoto(e.target.files[0]);
                   encodeFileToBase64(e.target.files[0]);
                 }
               }}
             />
-            <PhotoText className='addPhoto' onClick={handleAdd}>
+            <PhotoText className='addPhoto' onClick={() => inputRef.current.click()}>
               사진 추가하기.
             </PhotoText>
             <PhotoText className='deletePhoto' onClick={handleDelete}>
