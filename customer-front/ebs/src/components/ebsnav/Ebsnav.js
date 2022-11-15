@@ -28,6 +28,11 @@ const StyledImage = styled.img`
   margin-bottom: 10px;
 `;
 
+const Title = styled.div`
+  font-size: 50px;
+  padding-bottom: 10px;
+`;
+
 const Menuitem = styled.div`
   font-size: 20px;
   text-align: center;
@@ -63,6 +68,7 @@ const Ebsnav = () => {
             <Container fluid id="Navbar">
               {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
+              <Title>EBS</Title>
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} />
               <Navbar.Offcanvas
                 //show={show} 
