@@ -23,5 +23,5 @@ public class SubscriptionResponseDto {
 	
 	private Long businessSeq;
 	
-	
+	private Boolean subscriptionRenew;
 }

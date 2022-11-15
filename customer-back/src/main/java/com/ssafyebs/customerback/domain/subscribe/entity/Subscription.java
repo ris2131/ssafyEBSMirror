@@ -46,4 +46,7 @@ public class Subscription {
 	
 	@Column(name="subscription_left")
 	private Long subscriptionLeft;
+	
+	@Column(name="subscription_renew")
+	private Boolean subscriptionRenew;
 }

@@ -37,6 +37,7 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 			int value = s.getFederatedSubscription().getPricingMonth().intValue();
 			cal.add(Calendar.MONTH, -1*value);
 			dto.setSubscriptionStart(cal);
+			dto.setSubscriptionRenew(s.getSubscriptionRenew());
 			list.add(dto);
 		}
 		return list;
@@ -80,6 +81,7 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 			int value = s.getFederatedSubscription().getPricingMonth().intValue();
 			cal.add(Calendar.MONTH, -1*value);
 			dto.setSubscriptionStart(cal);
+			dto.setSubscriptionRenew(s.getSubscriptionRenew());
 			list.add(dto);
 		}
 		return list;
