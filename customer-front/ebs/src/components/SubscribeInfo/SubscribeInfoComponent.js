@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 
 
@@ -79,29 +80,57 @@ export default function SubscribeInfoComponent(props) {
 
 
   const unsub = () =>{
-    console.log("!!!!!!"+props.subscribe.businessSeq);
-    if(window.confirm('구독을 해지하시겠습니까?')){
-      axios({
-        url: `/api/subscribe/${props.subscribe.businessSeq}`,
-        method: "DELETE",
-        headers : {
-          Authorization : localStorage.getItem("token"),
-          "Content-Type": "application/json;charset=UTF-8",
-          accept: "application/json",
-        },
-      })
-      .then((res)=>{
-        console.log(res);
-        if(res.data.status === 'SUCCESS'){
-          alert("구독 갱신을 취소했습니다.");
-          navigate('/');
-        }else{
-          alert("구독 갱신 취소에 실패했습니다. 관리자에게 문의해주세요.");
-          navigate('/');
-        }
-
-      })
-    }
+    
+    Swal.fire({
+      icon: "warning",
+      title: "구독갱신 취소",
+      text: "구독 갱신을 취소하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "해지",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axios({
+          url: `/api/subscribe/${props.subscribe.businessSeq}`,
+          method: "DELETE",
+          headers : {
+            Authorization : localStorage.getItem("token"),
+            "Content-Type": "application/json;charset=UTF-8",
+            accept: "application/json",
+          },
+        })
+        .then((resp)=>{
+          if (resp.data.status === 'SUCCESS') {
+            Swal.fire({
+              icon: "success",
+              title: "완료",
+              text: "구독갱신이 취소되었습니다.",
+              showConfirmButton: false,
+              timer: 1000
+            });
+            navigate('/subscribe-info');
+          }else{
+            Swal.fire({
+              icon: "error",
+              title: "failure",
+              text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
+              showConfirmButton: false,
+              timer: 1000
+            });
+            navigate('/subscribe-info');
+          }
+  
+        })
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "취소",
+          text: "취소하였습니다.",
+          showConfirmButton: false,
+          timer: 1000
+        });
+      }
+    })
   }
 
   return (
@@ -116,7 +145,7 @@ export default function SubscribeInfoComponent(props) {
                       <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
                       <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
                       <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
-                      <button onClick={unsub}>구독취소버튼</button>
+                      <button onClick={unsub}>구독취소</button>
                     </ThemeProvider>
                   </Item>
               </Box>
