@@ -95,7 +95,7 @@ const SButton = styled.button`
   border: none;
   background-color: #9D7F5C;
   padding: 5px;
-  margin-top: 40px;
+  margin-top: 30px;
   width: 20vw;
   font-size: 16px;
   font-weight: bold;
@@ -255,6 +255,7 @@ const Info = () => {
                 disabled={nameDisabled}
                 label="상호명"
                 type="text"
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 variant="standard"
                 value={name}
                 onChange={(e) => setName(e.target.value)}/>
@@ -266,6 +267,7 @@ const Info = () => {
                 disabled={phoneDisabled}
                 label="전화번호"
                 type="text"
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 variant="standard"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}/>
@@ -277,6 +279,7 @@ const Info = () => {
                 disabled={addressDisabled}
                 label="주소"
                 type="text"
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 variant="standard"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}/>
@@ -288,6 +291,7 @@ const Info = () => {
                 disabled={hompageDisabled}
                 label="홈페이지주소"
                 type="text"
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 variant="standard"
                 value={homepage}
                 onChange={(e) => setHomepage(e.target.value)}/>
@@ -299,7 +303,8 @@ const Info = () => {
                 disabled={descriptionDisabled}
                 label="매장소개란"
                 multiline
-                rows={4}
+                rows={3}
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}/>
               <PButton src={pencil} alt="pencil_image" onClick={(e) => setDescriptionDisabled(!descriptionDisabled)}/>
@@ -310,7 +315,8 @@ const Info = () => {
                 disabled={noticeDisabled}
                 label="공지 사항"
                 multiline
-                rows={4}
+                rows={3}
+                inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 value={notice}
                 onChange={(e) => setNotice(e.target.value)}/>
               <PButton src={pencil} alt="pencil_image" onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
