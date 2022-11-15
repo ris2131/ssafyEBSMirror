@@ -29,7 +29,7 @@ const StyledImage = styled.img`
 `;
 
 const Menuitem = styled.div`
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
 `;
 
