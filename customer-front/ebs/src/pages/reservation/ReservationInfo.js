@@ -11,6 +11,7 @@ const Container = styled.div`
   background-color: #DBD7CC;
   font-family: GowunBatang-Regular;
   
+  
 `;
 
 const Title = styled.div`
