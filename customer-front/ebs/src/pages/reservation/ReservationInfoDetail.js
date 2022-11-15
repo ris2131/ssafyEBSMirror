@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 
 const Container = styled.div`
-    background-color: #DBD7CC;
+    background-color: #8a817c;
     height: 100vh;
     font-family: GowunBatang-Regular;
 `;

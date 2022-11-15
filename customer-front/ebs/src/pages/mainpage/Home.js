@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { getactivesubscribe } from "../../store/slices/subscribeSlice";
-import TestComponent from "../../components/mainpage/TestComponent";
+import MyactivesubCardComponent from "../../components/mainpage/MyactivesubCardComponent";
 import EmptyComponent from "../../components/mainpage/EmptyComponent";
 import { getuser } from "../../store/slices/userSlice";
 
@@ -21,12 +21,20 @@ const Welcome = styled.div`
   text-align: center;
   font-weight: bold;
   font-size: 40px;
+  padding-top: 25px;
+`;
+
+const Subdiv = styled.div`
+  font-weight: bold;
+  margin-top: 30px;
+  font-size: 30px;
 `;
 
 const Name = styled.div`
   text-align: center;
   font-weight: bold;
   margin-bottom: 10px;
+  margin-top: 10px;
 `;
 const Subinfo = styled.div`
   text-align: center;
@@ -73,8 +81,9 @@ const Home = () => {
           {nickName}님 환영합니다 *^_^*
         </Name> 
         <Subinfo>
-          <div>현재 구독권을 보유중인 헤어숍입니다!</div>
+          {/* <div>현재 구독권을 보유중인 헤어숍입니다!</div> */}
           <div>예약하러 가볼까요?</div>
+          <Subdiv>구독중인 헤어숍</Subdiv>
         </Subinfo>
         <Myactivesubspan>
           {myactivesubscribe.length === 0? (
@@ -82,7 +91,7 @@ const Home = () => {
             ) : (
               myactivesubscribe.map((a, i) => {
                 return (
-                  <TestComponent
+                  <MyactivesubCardComponent
                     subscribe={myactivesubscribe[i]}
                     num={i}
                     key={i}

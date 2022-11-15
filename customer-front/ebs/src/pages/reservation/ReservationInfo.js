@@ -10,6 +10,8 @@ import { style } from "@mui/system";
 const Container = styled.div`
   background-color: #DBD7CC;
   font-family: GowunBatang-Regular;
+  height: 100vh;
+  
   
 `;
 

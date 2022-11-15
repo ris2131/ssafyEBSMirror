@@ -10,10 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 const Customcard = styled.div`
     width: 80%;
-    margin-bottom: 20px;
     font-family: GowunBatang-Regular;
     margin: auto;
-    // margin-bottom: 20px;
     margin-top: 20px;
     
 
@@ -33,12 +31,12 @@ export default function MultiActionAreaCard(props) {
       }
 
   return (
-    <Customcard>
+    <Customcard onClick={moveshop}>
         <Card sx={{ Width: '50%' }}>
         <CardActionArea>
             <CardMedia
             component="img"
-            height="100"
+            height="200"
             image={require('../../assets/Hairshopimage01.png')}
             alt="HairshopImage"
             />
@@ -49,8 +47,7 @@ export default function MultiActionAreaCard(props) {
             </CardContent>
         </CardActionArea>
         <CardActions>
-            
-            <Button onClick={moveshop} size="small" color="primary">
+            <Button  size="small" color="primary">
             예약하러 가기
             </Button>
         </CardActions>

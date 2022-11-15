@@ -18,6 +18,7 @@ import logoImg from "../../assets/ebs_logo.png"
 import { GrClose } from "react-icons/gr"
 import { getuser } from "../../store/slices/userSlice";
 import { mergeBreakpointsInOrder } from '@mui/system';
+import HorizonLine from '../HorizonLine';
 
 
 const StyledImage = styled.img`
@@ -25,6 +26,11 @@ const StyledImage = styled.img`
   height: 50px;
   cursor: pointer;
   margin-bottom: 10px;
+`;
+
+const Menuitem = styled.div`
+  font-size: 30px;
+  text-align: center;
 `;
 
 const Ebsnav = () => {
@@ -74,11 +80,17 @@ const Ebsnav = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="mypage">마이페이지</Nav.Link>
-                    <Nav.Link href="/search">헤어숍 검색</Nav.Link>
-                    <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
-                    <Nav.Link href="/subscribe-info">구독 내역</Nav.Link>
-                    <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
+                    <Menuitem>
+                      <Nav.Link href="mypage">마이페이지</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/search">헤어숍 검색</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/reservation-info">예약 내역</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link href="/subscribe-info">구독 내역</Nav.Link>
+                      <HorizonLine/>
+                      <Nav.Link onClick={handleLogout}>로그아웃</Nav.Link> 
+                    </Menuitem>
                   </Nav>      
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
