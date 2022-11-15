@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import HorizonLine from '../../components/mypage/HorizonLine';
+import HorizonLine from '../../components/HorizonLine';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,8 @@ import styled from "styled-components";
 import ReservationcardComponent from "../../components/mypage/ReservationcardComponent";
 import SubscribecardComponent from "../../components/mypage/SubscribecardComponent";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Grid from '@mui/material/Grid'; // Grid version 1
+import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 const theme = createTheme({
   palette: {
@@ -41,7 +43,7 @@ const style = {
 const InfoContainer = styled.div`
   background-color: #DBD7CC;
   font-family: GowunBatang-Regular;
-  
+  height: 100vh;
 `;
 
 const Title = styled.div`
@@ -49,7 +51,7 @@ const Title = styled.div`
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const Nicknamecontainer = styled.div`
@@ -60,19 +62,19 @@ const Nicknamecontainer = styled.div`
 const Nickname = styled.div`
   display: inline;
   margin-left: 10px;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const Realname = styled.div`
   display: inline;
   margin-left: 20px;
-  color: #FFFFFF;
+  color: #000000;
   
 `;
 
 const AdressContainer = styled.div`
   text-align: justify;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 const AdressTitle = styled.div`
@@ -86,6 +88,7 @@ const Adress = styled.div`
   margin-left: 20px;
   
 `;
+
 
 
 
@@ -210,16 +213,20 @@ const Mypage = () => {
                 </div>
 
             
-            <ThemeProvider theme={theme}>
-              <div>
-              <Button variant="contained" color="primary" onClick={handleEdit}>
-              수정하기
-              </Button>
-              <Button variant="contained" color="primary">
-                <BasicModal title={title} description={description} />
-              </Button>
-              </div>
-            </ThemeProvider>
+                <ThemeProvider theme={theme}>
+                  <Grid container spacing={5} justifyContent="center" mt={2} >
+                    <Grid item>
+                      <Button variant="contained" color="brown" onClick={handleEdit}>
+                      수정하기
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button variant="contained" color="brown" >
+                        <BasicModal title={title} description={description} />
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </ThemeProvider>
         </InfoContainer>
     );
 };

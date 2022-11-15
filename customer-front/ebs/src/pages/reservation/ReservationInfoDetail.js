@@ -3,6 +3,14 @@ import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
+
+
+const Container = styled.div`
+    background-color: #8a817c;
+    height: 100vh;
+    font-family: GowunBatang-Regular;
+`;
+
 const MyButton = styled.button`
   border: none;
   border-radius: 10px;
@@ -31,23 +39,24 @@ const ReservationInfoDetail = () => {
 
     return (
       <>
-        <Card>
-            
-            <Card.Body>
-                <Card.Text>
-                    <div>
-                        요청사항
-                    </div>
-                    <ul>
-                        {reservation.reservationStyle?<li>{reservation.reservationStyle}</li>:<></>}
-                        {reservation.reservationService?<li>{reservation.reservationService}</li>:<></>}
-                        {reservation.reservationEtc?<li>{reservation.reservationEtc}</li>:<></>}
-                    </ul>
-                </Card.Text>
-            </Card.Body>
-        </Card>
-        <br />
-        <MyButton onClick={move}>예약내역조회페이지로 돌아가기</MyButton>
+        <Container>
+            <Card>
+                <Card.Body>
+                    <Card.Text>
+                        <div>
+                            요청사항
+                        </div>
+                        <div>
+                            {reservation.reservationStyle?<div>{reservation.reservationStyle}</div>:<></>}
+                            {reservation.reservationService?<div>{reservation.reservationService}</div>:<></>}
+                            {reservation.reservationEtc?<div>{reservation.reservationEtc}</div>:<></>}
+                        </div>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+            <br />
+            <MyButton onClick={move}>돌아가기</MyButton>
+        </Container>
       </>
     );
 };

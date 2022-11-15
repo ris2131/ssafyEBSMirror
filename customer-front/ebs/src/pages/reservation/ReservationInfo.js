@@ -5,10 +5,14 @@ import { getreservations } from "../../store/slices/reservationSlice";
 import styled from "styled-components";
 import ReservationEmpty from "../../components/ReservationInfo/ReservationEmpty";
 import Test from "../../components/ReservationInfo/Test";
+import { style } from "@mui/system";
 
 const Container = styled.div`
   background-color: #DBD7CC;
   font-family: GowunBatang-Regular;
+  height: 100vh;
+  
+  
 `;
 
 const Title = styled.div`
@@ -16,7 +20,7 @@ const Title = styled.div`
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #FFFFFF;
+  color: #000000;
 `;
 
 

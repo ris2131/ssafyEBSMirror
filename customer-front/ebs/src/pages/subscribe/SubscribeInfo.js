@@ -17,12 +17,13 @@ const Title = styled.div`
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #FFFFFF;
+  color: #000000;
   font-family: "GowunBatang-Regular";
 `;
 
 const SubscribeInfo = () => {
   const mysubscribe = useSelector((state) => state.subscribe.mysubscribe);
+
 
   const dispatch = useDispatch();
   useEffect(() => {

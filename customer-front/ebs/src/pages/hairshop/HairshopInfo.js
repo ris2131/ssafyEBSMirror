@@ -22,6 +22,7 @@ const Shopimg = styled.img`
     width: 70%;
     height: auto;
     margin: auto;
+    margin-top: 10px;
 `;
 
 const Title = styled.div`
@@ -33,7 +34,7 @@ const Title = styled.div`
 
 const Description = styled.div`
     text-align: center;
-    margin: 20px 20px;
+    margin: 20px 5px 20px;
 `;
 
 
