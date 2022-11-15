@@ -112,7 +112,7 @@ export default function SubscribeInfoComponent(props) {
           }else{
             Swal.fire({
               icon: "error",
-              title: "failure",
+              title: "오류",
               text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
               showConfirmButton: false,
               timer: 1000

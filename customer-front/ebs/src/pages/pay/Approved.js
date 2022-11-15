@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { makeSubscribe } from "../../store/slices/subscribeSlice";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 
 
@@ -21,16 +22,31 @@ export default function Approved() {
         dispatch(makeSubscribe(datas))
             .then((res) => {
                 if (res.payload.status === "SUCCESS") {
-                    alert("구독 결제에 성공했습니다.");
+                    Swal.fire({
+                        icon: "success",
+                        title: "완료",
+                        text: "구독에 성공했습니다!\n잠시 후 구독내역페이지로 이동합니다.",
+                        showConfirmButton: true,
+                        timer: 1000
+                    });
                     window.localStorage.removeItem('order');
                     window.localStorage.removeItem('tid');
-                    navigate('/');
+                    navigate('/subscribe-info');
                 } else if (res.payload.status !== "SUCCESS") {
-                    alert("구독에 실패했습니다. 관리자에게 문의바랍니다.")
+                    Swal.fire({
+                        icon: "error",
+                        title: "오류",
+                        text: "오류가 발생했습니다. 관리자에게 문의해주세요.\n잠시 후 메인페이지로 이동합니다.",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                     window.localStorage.removeItem('order');
                     window.localStorage.removeItem('tid');
                     navigate('/');
                 }
+                window.localStorage.removeItem('order');
+                window.localStorage.removeItem('tid');
+                navigate('/subscribe-info');
             }
             );
     }, []);
