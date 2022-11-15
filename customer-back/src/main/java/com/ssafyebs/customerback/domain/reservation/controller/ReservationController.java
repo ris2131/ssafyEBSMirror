@@ -94,7 +94,7 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/{business_seq}/{reservation_date}")
-	public ResponseEntity<?> getAvailableDesignerList(HttpServletRequest request, @PathVariable("business_seq")Long seq, @PathVariable("reservation_date")String date){
+	public ResponseEntity<?> getAvailableDesignerList(@PathVariable("business_seq")Long seq, @PathVariable("reservation_date")String date){
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("디자이너 리스트 조회 완료.", reservationService.findByFederatedReservation_BusinessSeqAndReservationDateNot(seq, date)));
 	}
 
@@ -104,4 +104,6 @@ public class ReservationController {
 		reservationService.insertPhoto(memberUid, reservationSeq, multipartFile);
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("성공적으로 저장했습니다.", null));
 	}
+
+//	@DeleteMapping("/photo")
 }

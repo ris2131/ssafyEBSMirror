@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.ssafyebs.customerback.domain.reservation.entity.ReservationPhoto;
+import com.ssafyebs.customerback.domain.reservation.projection.ReservationPhotoUrl;
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationPhotoRepository;
 import com.ssafyebs.customerback.global.exception.FileNotWritableException;
 import com.ssafyebs.customerback.global.exception.InvalidFileException;
@@ -51,11 +53,19 @@ public class ReservationServiceImpl implements ReservationService{
 			dto.setDesignerName(r.getFederatedReservation().getDesignerName());
 			dto.setHairshopName(r.getFederatedReservation().getHairshopName());
 			dto.setReservationDate(r.getReservationDate());
-			dto.setReservationPhoto(r.getReservationPhoto());
 			dto.setReservationStyle(r.getReservationStyle());
 			dto.setReservationService(r.getReservationService());
 			dto.setReservationEtc(r.getReservationEtc());
 			dto.setBusinessSeq(r.getFederatedReservation().getBusinessSeq());
+
+			try {
+				List<String> urls = reservationPhotoRepository.findTop3ByReservationOrderByFileNameDesc(r).orElseThrow(() -> new RuntimeException(""))
+						.stream().map(ReservationPhotoUrl::getPhotoUrl).collect(Collectors.toList());
+				dto.setReservationPhotoList(urls);
+			} catch (RuntimeException e) {
+				dto.setReservationPhotoList(new ArrayList<>());
+			}
+
 			list.add(dto);
 		}
 
@@ -101,7 +111,6 @@ public class ReservationServiceImpl implements ReservationService{
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	@Override
@@ -110,9 +119,8 @@ public class ReservationServiceImpl implements ReservationService{
 		if (!memberUid.equals(reservation.getMember().getMemberUid())) throw new ReservationSeqNotGrantedException("잘못된 접근입니다.");
         int fileCount;
         try {
-            String fileName = reservationPhotoRepository.findTop1ByReservationOrderByFileName(reservation).orElseThrow(() ->
-                    new RuntimeException("")).getFileName();
-            fileCount = Integer.parseInt(fileName.substring(0,fileName.lastIndexOf(".")));
+			fileCount = reservationPhotoRepository.findTop1ByReservationOrderByFileNameDesc(reservation).orElseThrow(() ->
+					new RuntimeException("")).getFileName();
         } catch (RuntimeException e) {
             fileCount = 0;
         }
@@ -129,9 +137,8 @@ public class ReservationServiceImpl implements ReservationService{
 			throw new FileNotWritableException("파일을 업로드하는 과정에서 오류가 발생했습니다.");
 		}
 		String photoUrl = IMAGE_URL_PREFIX + reservationSeq + "/" + newFile.getName();
-
 		ReservationPhoto reservationPhoto = ReservationPhoto.builder()
-				.fileName(newFile.getName())
+				.fileName(Integer.parseInt(newFile.getName()))
 				.photoUrl(photoUrl)
 				.reservation(reservation)
 				.build();

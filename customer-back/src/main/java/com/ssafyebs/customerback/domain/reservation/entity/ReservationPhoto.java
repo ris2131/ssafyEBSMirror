@@ -22,7 +22,7 @@ public class ReservationPhoto {
     private Reservation reservation;
 
     @Column(name = "reservation_photo_file_name")
-    private String fileName;
+    private int fileName;
 
     @Column(name = "reservation_photo_url")
     private String photoUrl;
