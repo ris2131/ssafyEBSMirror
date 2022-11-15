@@ -20,7 +20,7 @@ const InfoMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 100px;
+  padding: 50px 100px;
   background: center / cover no-repeat url(${manageImg});
 `;
 
@@ -28,12 +28,13 @@ const InfoSection = styled.section`
   width: 60%;
   align-items: center;
   background-color: #DCD7C9;
-  border-radius: 30px;
+  border-radius: 50px;
   display: flex;
-  flex: 0.9;
+  flex: 1;
   flex-direction: row;
+  font-size: 20px;
   justify-content: space-around;
-  padding: 50px 100px;
+  padding: 50px;
   user-select: none;
 `;
 
@@ -132,7 +133,7 @@ const Info = () => {
   const [nameDisabled, setNameDisabled] = useState(true);
   const [phoneDisabled, setPhoneDisabled] = useState(true);
   const [addressDisabled, setAddressDisabled] = useState(true);
-  const [hompageDisabled, setHompageDisabled] = useState(true);
+  const [homepageDisabled, setHomepageDisabled] = useState(true);
   const [descriptionDisabled, setDescriptionDisabled] = useState(true);
   const [noticeDisabled, setNoticeDisabled] = useState(true);
 
@@ -160,7 +161,7 @@ const Info = () => {
     setNotice(originNotice);
   }, [originPhoto, originName, originPhone, originAddress, originHomepage, originDescription, originNotice]);
 
-  const clearImg = (e) => {
+  const clearImg = () => {
     setPreview(originPhoto);
     setPhoto(originPhoto);
   }
@@ -259,7 +260,7 @@ const Info = () => {
                 variant="standard"
                 value={name}
                 onChange={(e) => setName(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setNameDisabled(!nameDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setNameDisabled(!nameDisabled)}/>
             </FlexInputDiv>
             <FlexInputDiv>
               <TextField
@@ -271,7 +272,7 @@ const Info = () => {
                 variant="standard"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setPhoneDisabled(!phoneDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setPhoneDisabled(!phoneDisabled)}/>
             </FlexInputDiv>
             <FlexInputDiv>
               <TextField
@@ -283,19 +284,19 @@ const Info = () => {
                 variant="standard"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setAddressDisabled(!addressDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setAddressDisabled(!addressDisabled)}/>
             </FlexInputDiv>
             <FlexInputDiv>
               <TextField
                 fullWidth
-                disabled={hompageDisabled}
+                disabled={homepageDisabled}
                 label="홈페이지주소"
                 type="text"
                 inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 variant="standard"
                 value={homepage}
                 onChange={(e) => setHomepage(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setHompageDisabled(!hompageDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setHomepageDisabled(!homepageDisabled)}/>
             </FlexInputDiv>
             <FlexInputDiv>
               <TextField
@@ -307,7 +308,7 @@ const Info = () => {
                 inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setDescriptionDisabled(!descriptionDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setDescriptionDisabled(!descriptionDisabled)}/>
             </FlexInputDiv>
             <FlexInputDiv>
               <TextField
@@ -319,7 +320,7 @@ const Info = () => {
                 inputProps={{style: {fontSize: 18, fontWeight: "bold"}}}
                 value={notice}
                 onChange={(e) => setNotice(e.target.value)}/>
-              <PButton src={pencil} alt="pencil_image" onClick={(e) => setNoticeDisabled(!noticeDisabled)}/>
+              <PButton src={pencil} alt="pencil_image" onClick={() => setNoticeDisabled(!noticeDisabled)}/>
             </FlexInputDiv>
             <InputDiv>
               <SButton onClick={handleSubmit}>

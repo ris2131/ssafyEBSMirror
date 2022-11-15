@@ -42,20 +42,20 @@ const SSection = styled.section`
   }
 
   &.manage {
-    background-image: url(${manageImg});
+    background: center / cover no-repeat url(${manageImg});
   }
 
   &.designer {
-    background-image: url(${designerImg});
+    background: center / cover no-repeat url(${designerImg});
     background-position-x: right;
   }
 
   &.schedule {
-    background-image: url(${scheduleImg});
+    background: center / cover no-repeat url(${scheduleImg});
   }
 
   &.registration {
-    background-image: url(${registrationImg});
+    background: center / cover no-repeat url(${registrationImg});
   }
 
   &:hover {

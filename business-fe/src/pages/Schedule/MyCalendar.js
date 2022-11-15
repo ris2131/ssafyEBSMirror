@@ -8,7 +8,6 @@ import backgroundImage from "../../assets/calendar_background.png";
 import CalendarComponent from "../../components/SchedulePage/CalendarComponent";
 import NavBar from "../../components/Navbar/NavBar";
 
-
 const CalendarMain = styled.main`
   
   background: url(${backgroundImage});
@@ -18,7 +17,9 @@ const CalendarMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 50px 100px;
 `;
+
 const CalendarInput = styled.section`
   background-color: #DCD7C9;
   width: 60%;
@@ -27,8 +28,8 @@ const CalendarInput = styled.section`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  margin: 20px;
   flex: 1;
+  padding: 50px;
 `;
 
 const TitleDiv = styled.div`
