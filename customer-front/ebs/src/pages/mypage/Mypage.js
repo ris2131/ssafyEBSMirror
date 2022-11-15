@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import HorizonLine from '../../components/mypage/HorizonLine';
+import HorizonLine from '../../components/HorizonLine';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
