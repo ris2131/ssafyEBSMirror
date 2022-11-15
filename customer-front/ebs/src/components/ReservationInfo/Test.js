@@ -22,6 +22,21 @@ const Item = styled(Paper)(() => ({
   
 }));
 
+const AlterItem = styled(Paper)(() => ({
+  
+  textAlign: 'center',
+  margin: '30px 30px 30px 30px',
+  height: 'auto',
+  width: 'auto',
+  lineHeight: '60px',
+  backgroundColor: '#F9F9F9',
+//   color: '#FFFFFF',
+  borderRadius: '10px'
+  
+  
+  
+}));
+
 const theme = createTheme({
     palette: {
         brown: {
