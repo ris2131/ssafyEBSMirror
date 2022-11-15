@@ -41,7 +41,7 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #DBD7CC;
+  background-color: #efefef;
   font-family: GowunBatang-Regular;
   height: 100vh;
 `;
@@ -185,7 +185,7 @@ const Mypage = () => {
     return (
         <InfoContainer>
                 <Title>
-                    마이페이지
+                    MyPage
                 </Title>
                 <Nicknamecontainer>
                   <Nickname>

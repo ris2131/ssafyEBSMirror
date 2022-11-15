@@ -7,7 +7,7 @@ import { putuser } from "../../store/slices/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  background-color: #DBD7CC;
+  background-color: #efefef;
   font-family: GowunBatang-Regular;
   height: 85vh;
 `;

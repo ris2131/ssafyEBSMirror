@@ -8,7 +8,7 @@ import styled from "styled-components";
 import hairshop_image from "../../assets/hairshop_image.png"
 
 const Container = styled.div`
-  background-color: #DBD7CC;
+  background-color: #efefef;
   
 `;
 
