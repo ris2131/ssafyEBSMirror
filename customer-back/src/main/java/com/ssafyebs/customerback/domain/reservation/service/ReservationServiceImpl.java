@@ -129,6 +129,7 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (RuntimeException e) {
             fileCount = 0;
 			File destDir = new File(IMAGE_PATH + reservationSeq);
+			System.out.println(LocalDate.now() + "폴더 생성 완료");
 			if (!destDir.mkdirs()) System.out.println(LocalDate.now() + " 파일 경로 중복");
         }
         fileCount++;
