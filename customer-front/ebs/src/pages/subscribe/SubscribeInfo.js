@@ -8,7 +8,7 @@ import styled from "styled-components";
 import hairshop_image from "../../assets/hairshop_image.png"
 
 const Container = styled.div`
-  background-color: #efefef;
+  background-color: #FBF8F1;
   font-family: GowunBatang-Regular;
   flex: 1;
   
