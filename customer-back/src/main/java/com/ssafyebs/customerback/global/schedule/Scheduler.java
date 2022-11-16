@@ -83,7 +83,10 @@ public class Scheduler {
 
 				Long seq = Long.valueOf(element.getAsJsonObject().get("partner_order_id").getAsString().substring(5));
 
-
+				Subscription temp = p.getSubscription();
+				temp.setSubscriptionRenew(false);
+				subscriptionService.makeSubscription(temp);
+				
 				Subscription s = new Subscription();
 				s.setFederatedSubscription(p.getSubscription().getFederatedSubscription());
 				s.setMember(p.getSubscription().getMember());
