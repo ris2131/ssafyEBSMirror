@@ -9,7 +9,7 @@ import styled from "styled-components";
 export default function ContainedButtons() {
   return (
     <Link to="/hairshop-info" style={{ textDecoration: "none" }}>
-      <Button variant="contained" color="info">
+      <Button variant="contained" color="#FFFFFF">
         예약하러 가기
       </Button>
     </Link>
