@@ -5,6 +5,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import { putuser } from "../../store/slices/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   background-color: #efefef;
@@ -79,7 +80,16 @@ const MyInfoEdit = () => {
     console.log(data)
     dispatch(putuser(data))
     .unwrap()
-    .then((res) => {console.log(res); alert("수정완료되었습니다!."); navigate("/mypage")})
+    .then((res) => {
+      console.log(res); 
+      Swal.fire({
+        icon: "success",
+        title: "완료",
+        text: "회원 정보를 수정했습니다.",
+        showConfirmButton: true,
+        timer: 3000
+      })
+      navigate("/mypage")})
     .catch((err) => console.error(err));
 
     // const formData = new FormData();
