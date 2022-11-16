@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 
 import Swal from "sweetalert2";
+
+import { getreservations } from "../../store/slices/reservationSlice";
 import {imgApi} from "../../api/imgApi";
 import backButton from "../../assets/back_arrow.png";
 
@@ -124,6 +126,11 @@ const ReservationInfoDetail = () => {
       hairshopSeq : reservation.business_seq,
       reservationSeq : reservation.reservation_seq,
   }
+  useEffect(() => {
+    dispatch(getreservations()).then((res) => {
+      console.log("detail 에서 getreservation Res 수정.. :"+JSON.stringify(res));
+    });
+  }, []);
 
   const move = () =>{
       navigate('/reservation-info');
@@ -157,7 +164,8 @@ const ReservationInfoDetail = () => {
       ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
       ,iconColor:'#688087',//아이콘 색깔 설정.
     }))
-      // .then(() => navigate("/reservation-info"))
+      .then(() => navigate("/reservation-info"))
+      //.then(window.location.reload())
       .catch(() => {
         Swal.fire({icon: "error", title: "정보를 확인해주세요"});
       });
