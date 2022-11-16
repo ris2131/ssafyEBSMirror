@@ -30,6 +30,18 @@ border-radius: 20px;
 margin: 10px;
 `;
 
+const Container = styled.div`
+    background-color: #F9F9F9;
+    // height: 100vh;
+    flex: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
+
 
 const TimeTableComponent = (props) => {
     const dispatch = useDispatch();
@@ -146,7 +158,7 @@ const TimeTableComponent = (props) => {
   </div></>
   : mode === 2
     ?<>
-    <div>
+    <Container>
             
             {designerList.length != 0 ? (
         
@@ -166,7 +178,7 @@ const TimeTableComponent = (props) => {
       )}
 
 
-        </div>
+        </Container>
     </>
     : mode === 3
     ? (
