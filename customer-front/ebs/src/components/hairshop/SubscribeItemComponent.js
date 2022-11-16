@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 const MyButton = styled.button`
+  float: right;
   border: none;
   border-radius: 10px;
   color: white;
@@ -38,7 +39,7 @@ const SubscribeItemComponent = (props) => {
           </Card.Text>
           <MyButton onClick={move}>구독하기</MyButton>
           <Card.Text>
-            횟수 : {props.item.pricingNumber}
+            이용횟수 : {props.item.pricingNumber}
           </Card.Text>
           
         </Card.Body>
