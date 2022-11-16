@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +106,7 @@ public class ReservationController {
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("성공적으로 저장했습니다.", null));
 	}
 
+	@Transactional
 	@DeleteMapping("/photo")
 	public ResponseEntity<?> reservationPhotoDelete(HttpServletRequest request, @RequestParam("photo_url") String photoUrl) {
 		String memberUid = (String) request.getAttribute("memberuid");

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface ReservationPhotoRepository extends JpaRepository<ReservationPhoto, Long>{
     Optional<ReservationPhotoFileCount> findTop1ByReservationOrderByFileCountDesc(Reservation reservation);
-    Optional<List<ReservationPhotoUrl>> findTop3ByReservationOrderByFileCountDesc(Reservation reservation);
+    Optional<List<ReservationPhotoUrl>> findByReservationOrderByFileCountDesc(Reservation reservation);
     Optional<ReservationPhotoMember> findReservationByPhotoUrl(String photoUrl);
-    boolean deleteReservationPhotoByPhotoUrl(String photoUrl);
+    int deleteReservationPhotoByPhotoUrl(String photoUrl);
 }

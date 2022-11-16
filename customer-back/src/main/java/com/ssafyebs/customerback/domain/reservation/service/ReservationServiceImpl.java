@@ -11,6 +11,8 @@ import com.ssafyebs.customerback.domain.reservation.entity.ReservationPhoto;
 import com.ssafyebs.customerback.domain.reservation.projection.ReservationPhotoUrl;
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationPhotoRepository;
 import com.ssafyebs.customerback.global.exception.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,8 @@ public class ReservationServiceImpl implements ReservationService{
 	private final ReservationPhotoRepository reservationPhotoRepository;
 
     private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
+
+	final static Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
     @Value("${image-path}")
     String IMAGE_PATH;
@@ -58,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService{
 			dto.setBusinessSeq(r.getFederatedReservation().getBusinessSeq());
 
 			try {
-				List<String> urls = reservationPhotoRepository.findTop3ByReservationOrderByFileCountDesc(r).orElseThrow(() -> new RuntimeException(""))
+				List<String> urls = reservationPhotoRepository.findByReservationOrderByFileCountDesc(r).orElseThrow(() -> new RuntimeException(""))
 						.stream().map(ReservationPhotoUrl::getPhotoUrl).collect(Collectors.toList());
 				dto.setReservationPhotoList(urls);
 			} catch (RuntimeException e) {
@@ -129,8 +133,7 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (RuntimeException e) {
             fileCount = 0;
 			File destDir = new File(IMAGE_PATH + reservationSeq);
-			System.out.println(LocalDate.now() + "폴더 생성 완료");
-			if (!destDir.mkdirs()) System.out.println(LocalDate.now() + " 파일 경로 중복");
+			if (!destDir.mkdirs()) logger.warn(LocalDate.now() + " 파일 경로 중복");
         }
         fileCount++;
 
@@ -153,8 +156,10 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void deletePhoto(String memberUid, String photoUrl) {
 		if (!memberUid.equals(reservationPhotoRepository.findReservationByPhotoUrl(photoUrl)
-				.orElseThrow(() -> new NotLoggedInException("잘못된 접근입니다."))
+				.orElseThrow(() -> new NoSuchFileException("잘못된 접근입니다."))
 				.getReservation().getMember().getMemberUid())) throw new AccessNotGrantedException("잘못된 접근입니다.");
-		if (!reservationPhotoRepository.deleteReservationPhotoByPhotoUrl(photoUrl)) throw new NoSuchFileException("존재하지 않는 파일입니다.");
+		if (reservationPhotoRepository.deleteReservationPhotoByPhotoUrl(photoUrl) == 0) throw new NoSuchFileException("존재하지 않는 파일입니다.");
+		File file = new File(photoUrl.replace(IMAGE_URL_PREFIX, IMAGE_PATH));
+		if (!file.delete()) throw new FileNotWritableException("파일이 삭제되지 않았습니다.");
 	}
 }
