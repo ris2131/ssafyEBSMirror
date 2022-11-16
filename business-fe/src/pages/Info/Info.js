@@ -21,7 +21,7 @@ const InfoMain = styled.main`
   justify-content: center;
   align-items: center;
   padding: 50px 100px;
-  background: center / cover no-repeat url(${manageImg});
+  background: center / cover no-repeat fixed url(${manageImg});
 `;
 
 const InfoSection = styled.section`

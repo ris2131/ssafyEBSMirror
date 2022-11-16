@@ -20,7 +20,7 @@ const DesignerMain = styled.main`
   justify-content: center;
   padding: 50px 100px;
   align-items: center;
-  background: center / cover no-repeat url(${designerBackground});
+  background: center / cover no-repeat fixed url(${designerBackground});
 `;
 
 const DesignerSection = styled.section`
