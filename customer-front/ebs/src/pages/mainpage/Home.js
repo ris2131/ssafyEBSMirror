@@ -22,12 +22,12 @@ const Welcome = styled.div`
   text-align: center;
   font-weight: bold;
   font-size: 40px;
-  padding-top: 25px;
+  padding-top: 15px;
 `;
 
 const Subdiv = styled.div`
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 10px;
   font-size: 30px;
 `;
 
@@ -75,15 +75,12 @@ const Home = () => {
 
   return (
     <Container>
-        <Welcome>
-          안녕하세요
-        </Welcome>
         <Name>
-          {nickName}님 환영합니다 *^_^*
+          {nickName}님 환영합니다 
         </Name> 
         <Subinfo>
           {/* <div>현재 구독권을 보유중인 헤어숍입니다!</div> */}
-          <div>예약하러 가볼까요?</div>
+          {/* <div>예약하러 가볼까요?</div> */}
           <Subdiv>구독중인 헤어숍</Subdiv>
         </Subinfo>
         <Myactivesubspan>

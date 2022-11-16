@@ -7,21 +7,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import style from './Ebsnav.module.css';
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { removeRefreshToken } from "../../store/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/slices/userSlice";
-import logoImg from "../../assets/ebs_logo.png"
+import logoImg from "../../assets/ebs_logo_beige.png"
 import { GrClose } from "react-icons/gr"
 import { getuser } from "../../store/slices/userSlice";
 import { mergeBreakpointsInOrder } from '@mui/system';
 import HorizonLine from '../HorizonLine';
 import "../../fonts/font.css"
 import { red } from '@mui/material/colors';
-
+import style from './Ebsnav.module.css';
 
 const StyledImage = styled.img`
   width: 45px;
@@ -73,7 +72,7 @@ const Ebsnav = () => {
               {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
               <Title>EBS</Title>
-              <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} className={style.Toggle}/>
+              <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} className={style.Toggle} />
               <Navbar.Offcanvas
                 id={`offcanvasNavbar-expand-${expand}`}
                 aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
