@@ -1,12 +1,14 @@
 
 .Offcanvas {
-    width: 60% !important;
+    width: 40% !important;
+    background-color: #fbf8f1;
+    color: #361500;
+    font-weight: bold;
 }
-
 .Ebsnav {
     background-image: url("../../assets/nav_img2.png") !important;
     background: #a9927d;
-    color: #f0f0f0;
+    color: #fbf8f1;
     height: 60px;
 }
 
