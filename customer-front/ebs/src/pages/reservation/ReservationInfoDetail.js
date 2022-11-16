@@ -6,10 +6,10 @@ import styled from "styled-components";
 
 import Swal from "sweetalert2";
 
-import { getreservations } from "../../store/slices/reservationSlice";
+import { getreservations,deletePhoto } from "../../store/slices/reservationSlice";
 import {imgApi} from "../../api/imgApi";
 import backButton from "../../assets/back_arrow.png";
-
+import eraseButton from "../../assets/red_x_button.png";
 const Container = styled.main`
   background-color: #DBD7CC;
   //background-color: #8a817c;
@@ -84,12 +84,25 @@ const PhotoSection = styled.section`
   flex-direction: column;
   align-items: center;
 `;
+const PhotoDiv = styled.div`
+  position: relative;
+`;
+
 const MyPhoto = styled.img`
   width: 250px;
   height: 200px;
   //padding: 10px;
   margin:10px;
   
+`;
+const MyPhotoEraseButton= styled.img`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(7px, -7px);
+  cursor:pointer;
 `;
 const PhotoText = styled.div`
   display: flex; 
@@ -111,7 +124,8 @@ const ReservationInfoDetail = () => {
   const [preview, setPreview] = useState("");//미리보기 사진
   const [photo, setPhoto] = useState("");
   const [photoNum, setPhotoNum ] = useState("");//사진 갯수
-  
+  const [showErase,setShowErase] = useState(false);//삭제 버튼  
+
   //const photoList = useSelector((state) => state.designer.designers);
   //const photoList = location.state.photoList;
   const navigate = useNavigate();
@@ -122,10 +136,6 @@ const ReservationInfoDetail = () => {
   const photoMounted = useRef(false);
 
   const reservation = location.state.item;
-  const seq = {
-      hairshopSeq : reservation.business_seq,
-      reservationSeq : reservation.reservation_seq,
-  }
   useEffect(() => {
     dispatch(getreservations()).then((res) => {
       console.log("detail 에서 getreservation Res 수정.. :"+JSON.stringify(res));
@@ -160,7 +170,7 @@ const ReservationInfoDetail = () => {
     formData.append("photo", photo);
     //dispatch
     imgApi.addReservationPhoto(formData,reservation.reservation_seq)
-      .then(Swal.fire({icon: "success", title: "디자이너 수정되었습니다." 
+      .then(Swal.fire({icon: "success", title: "사진이 추가되었습니다." 
       ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
       ,iconColor:'#688087',//아이콘 색깔 설정.
     }))
@@ -170,10 +180,52 @@ const ReservationInfoDetail = () => {
         Swal.fire({icon: "error", title: "정보를 확인해주세요"});
       });
   }
-  const handleDelete=()=>{
-    console.log("사진 삭제하기");
+  const handleShowErase=()=>{
+    console.log("사진삭제 띄우기");
+    setShowErase(!showErase);
   }
+ 
+  const handleDelete=(url)=>{
+    console.log("사진 삭제이미지 클릭"+url);
+    Swal.fire({
+      title: '사진을 삭제 하시겠습니까?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        confirmButton: 'order-1',
+        denyButton: 'order-2',
+      }
+    }).then((result) => {
+      //yes 눌렀을때
+      if (result.isConfirmed) {
+        dispatch(deletePhoto(url))
+        .then(Swal.fire({icon: "success", title: "사진이 삭제되었습니다." 
+          ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+          ,iconColor:'#688087',//아이콘 색깔 설정.
+        }))
+        .then(() => navigate("/reservation-info"))
+        //.then(window.location.reload())
+        .catch(() => {
+          Swal.fire({icon: "error", title: "정보를 확인해주세요"});
+        });;
+      } else if (result.isDenied) {
+        Swal.fire('사진 삭제가 취소되었습니다', '', 'info')
+      }
+    });
 
+    // dispatch(deletePhoto(url))
+    // .then(Swal.fire({icon: "success", title: "사진이 삭제되었습니다." 
+    //   ,confirmButtonColor: '#688087'// confrim 버튼 색깔 지정
+    //   ,iconColor:'#688087',//아이콘 색깔 설정.
+    // }))
+    // .then(() => navigate("/reservation-info"))
+    // //.then(window.location.reload())
+    // .catch(() => {
+    //   Swal.fire({icon: "error", title: "정보를 확인해주세요"});
+    // });
+  };
   useEffect(()=>{
     if (!photoMounted.current) {
       photoMounted.current = true;
@@ -226,7 +278,15 @@ const ReservationInfoDetail = () => {
                 reservation.reservation_photo_list.length ? (
                   reservation.reservation_photo_list.map((photo, i) => {
                     return (
-                        <MyPhoto src={photo} key={i}></MyPhoto>
+                      <PhotoDiv key={i}>
+                        <MyPhoto src={photo} />
+                        {
+                          showErase ?
+                            <MyPhotoEraseButton src={eraseButton} onClick={()=>handleDelete(photo)}/>
+                            :
+                            <></>
+                        }
+                      </PhotoDiv>
                     );
                   })
                 ) : <div>등록된 사진이 없습니다.</div>
@@ -247,10 +307,15 @@ const ReservationInfoDetail = () => {
               }}
             />
             <PhotoText className='addPhoto' onClick={() => inputRef.current.click()}>
-              사진 추가하기.
+              사진추가
             </PhotoText>
-            <PhotoText className='deletePhoto' onClick={handleDelete}>
-              사진 삭제하기.
+            <PhotoText className='deletePhoto' onClick={handleShowErase}>
+              {
+                showErase ?
+                  <>사진취소</>
+                  :
+                  <>사진삭제</>
+              }
             </PhotoText>
           </CardContents>
         </CardSection>
