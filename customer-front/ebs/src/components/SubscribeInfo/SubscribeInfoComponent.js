@@ -106,7 +106,7 @@ export default function SubscribeInfoComponent(props) {
               title: "완료",
               text: "구독갱신이 취소되었습니다.",
               showConfirmButton: false,
-              timer: 1000
+              timer: 3000
             });
             navigate('/subscribe-info');
           }else{
@@ -115,7 +115,7 @@ export default function SubscribeInfoComponent(props) {
               title: "오류",
               text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
               showConfirmButton: false,
-              timer: 1000
+              timer: 3000
             });
             navigate('/subscribe-info');
           }
@@ -127,7 +127,7 @@ export default function SubscribeInfoComponent(props) {
           title: "취소",
           text: "취소하였습니다.",
           showConfirmButton: false,
-          timer: 1000
+          timer: 3000
         });
       }
     })
