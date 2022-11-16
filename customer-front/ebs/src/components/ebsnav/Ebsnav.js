@@ -73,7 +73,7 @@ const Ebsnav = () => {
               {/* <Navbar.Brand href="#">EBS</Navbar.Brand> */}
               <StyledImage src={logoImg} alt="#" onClick={() => navigate("/")} />
               <Title>EBS</Title>
-              <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} />
+              <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow} className={style.Toggle}/>
               <Navbar.Offcanvas
                 //show={show} 
                 // onHide={handleClose}
