@@ -75,9 +75,6 @@ const Home = () => {
 
   return (
     <Container>
-        {/* <Welcome>
-          안녕하세요
-        </Welcome> */}
         <Name>
           {nickName}님 환영합니다 
         </Name> 
