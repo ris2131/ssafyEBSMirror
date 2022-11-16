@@ -12,7 +12,7 @@ export default function Canceled() {
             text: "구독결제를 취소했습니다.\n잠시 후 메인페이지로 이동합니다.",
             showConfirmButton: true,
             timer: 3000
-          });
+        });
         window.localStorage.removeItem('order');
         window.localStorage.removeItem('tid');
         navigate('/');

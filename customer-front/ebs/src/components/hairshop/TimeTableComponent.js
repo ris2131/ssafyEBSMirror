@@ -5,6 +5,7 @@ import DesignerListComponent from "./DesignerListComponent";
 import { getAvailableDesigners, makeReservation } from "../../store/slices/reservationSlice"
 import SelectBox from "./Selectbox"
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 // import { useNavigate } from "react-router-dom";
 const MyButton = styled.button`
   border: none;
@@ -90,11 +91,24 @@ const TimeTableComponent = (props) => {
       {
         {res.payload.status === "SUCCESS"
         ?(
-        alert("예약이 완료되었습니다")
+          Swal.fire({
+            icon: "success",
+            title: "완료",
+            text: "예약이 완료되었습니다.",
+            showConfirmButton: true,
+            timer: 3000
+          }).then(navigate('/reservation-info'))
         )
       
         :(
-        alert("예약이 실패했습니다. 관리자에게 문의바랍니다."))
+          Swal.fire({
+            icon: "error",
+            title: "오류",
+            text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
+            showConfirmButton: true,
+            timer: 3000
+          })
+        )
         }
         navigate('/')})
     }
