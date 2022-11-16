@@ -22,7 +22,7 @@ const SMain = styled.main`
 `;
 
 const SSection = styled.section`
-  width: 33%;
+  width: 34%;
   align-items: center;
   background-size: auto 100%;
   background-repeat: no-repeat;
@@ -38,7 +38,7 @@ const SSection = styled.section`
   user-select: none;
 
   &:not(:last-child):not(:first-child) {
-    width: 34%;
+    //width: 34%;
   }
 
   &.manage {
@@ -47,7 +47,6 @@ const SSection = styled.section`
 
   &.designer {
     background: center / cover no-repeat url(${designerImg});
-    background-position-x: right;
   }
 
   &.schedule {

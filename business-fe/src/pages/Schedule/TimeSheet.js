@@ -41,12 +41,14 @@ const DateDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
   // margin-top: 20px;
+  user-select: none;
 `;
+
 const TitleDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 40px;
   margin-bottom: 30px;
-
+  user-select: none;
 `;
 
 const TimeTable = styled.table`
