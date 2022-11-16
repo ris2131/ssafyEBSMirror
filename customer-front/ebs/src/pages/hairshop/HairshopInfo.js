@@ -14,7 +14,7 @@ import {getInfo} from "../../store/slices/businessSlice"
 
 const Container = styled.div`
     background-color: #F9F9F9;
-    height: 100vh;
+    flex: 1;
 `;
 
 const Shopimg = styled.img`

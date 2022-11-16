@@ -46,7 +46,7 @@ const InfoContainer = styled.div`
   background-color: #efefef;
   // background-image: url(${wood_image});
   font-family: GowunBatang-Regular;
-  height: 100vh;
+  flex: 1;
 `;
 
 const Title = styled.div`

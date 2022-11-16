@@ -8,7 +8,8 @@ import DesignerListComponent from './DesignerListComponent';
 
 const Container = styled.div`
     background-color: #F9F9F9;
-    height: 100vh;
+    // height: 100vh;
+    flex: 1;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;

@@ -10,7 +10,7 @@ import { style } from "@mui/system";
 const Container = styled.div`
   background-color: #efefef;
   font-family: GowunBatang-Regular;
-  height: 100vh;
+  flex: 1;
   
   
 `;
