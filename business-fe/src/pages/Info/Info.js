@@ -58,13 +58,15 @@ const InputBox = styled.div`
 
 const PimgBox = styled.div`
   width: 400px;
-  height: 300px;
-  overflow: hidden;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Pimg = styled.img`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 10px;
   object-fit: cover;
 `;
