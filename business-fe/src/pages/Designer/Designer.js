@@ -15,7 +15,7 @@ const DesignerMain = styled.main`
   justify-content: center;
   align-items: center;
   padding: 50px 100px;
-  background: center / cover no-repeat url(${designerImg});
+  background: center / cover no-repeat fixed url(${designerImg});
 `;
 
 const DesignerSection = styled.section`
@@ -38,9 +38,16 @@ const HeadDiv = styled.div`
 const TitleDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const AddButton = styled.button`
+  min-width: content-box;
   background-color: #3F4E4F7f;
   color: #ffffff;
   border: none;
@@ -57,36 +64,50 @@ const AddButton = styled.button`
   }
 `;
 
+const DesignerWrapper = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  @media (max-width: 1600px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+`;
+
 const DesignerDiv = styled.div`
   user-select: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #3F4E4F;
   border-radius: 10px;
   padding: 20px;
-  align-items: center;
+  align-items: stretch;
   margin: 10px 10px 25px 10px;
   box-shadow: #3f3f3f 5px 5px 10px;
 `;
 
 const ProfileDiv = styled.div`
-  height: 150px;
+  width: 100%;
 `;
 
 const ProfileImg = styled.img`
-  height: 150px;
-  width: auto;
-  max-width: 150px;
+  height: auto;
+  width: 100%;
   background-color: #ffffff;
   border-radius: 10px;
 `;
 
 const DescriptionDiv = styled.div`
-  margin-left: 50px;
+  margin-top: 20px;
   background-color: #DCD7C9;
   border-radius: 10px;
   height: 150px;
   flex: 1;
+  padding: 10px;
   position: relative;
   text-align: left;
 `;
@@ -94,18 +115,24 @@ const DescriptionDiv = styled.div`
 const DesignerNameDiv = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 24px;
-  margin: 10px;
   color: #2E231A;
 `;
 
 const DesignerDescDiv = styled.div`
   font-size: 16px;
-  margin-left: 10px;
+  margin-top: 5px;
   color: #2E231A;
+
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  min-height: 2.625em;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const EditButton = styled.button`
-  width: 100px;
   right: 0;
   top: 0;
   background-color: #3F4E4F7f;
@@ -114,7 +141,7 @@ const EditButton = styled.button`
   color: #ffffff;
   font-size: 16px;
   margin: 10px;
-  padding: 10px;
+  padding: 4px 12px;
   position: absolute;
   text-align: center;
   transition-duration: 100ms;
@@ -152,27 +179,29 @@ const Designer = () => {
         <DesignerSection>
           <HeadDiv>
             <TitleDiv>{hairshopName}의 디자이너</TitleDiv>
-            <AddButton onClick={addDesigner}>디자이너 추가</AddButton>
+            <AddButton onClick={addDesigner}><nobr>디자이너 추가</nobr></AddButton>
           </HeadDiv>
-          {
-            designerList.length ? (
-              designerList.map((designer) => {
-                return (
-                  <DesignerDiv key={designer["designer_seq"]}>
-                    <ProfileDiv>
-                      <ProfileImg src={designer["photo"]}></ProfileImg>
-                    </ProfileDiv>
-                    <DescriptionDiv>
-                      <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
-                      <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
-                      <EditButton value={designer["designer_seq"]}
-                                  onClick={(e) => handleEdit(e.target.value)}>편집</EditButton>
-                    </DescriptionDiv>
-                  </DesignerDiv>
-                );
-              })
-            ) : <div>등록된 디자이너가 없습니다.</div>
-          }
+          <DesignerWrapper>
+            {
+              designerList.length ? (
+                designerList.map((designer) => {
+                  return (
+                    <DesignerDiv key={designer["designer_seq"]}>
+                      <ProfileDiv>
+                        <ProfileImg src={designer["photo"]}></ProfileImg>
+                      </ProfileDiv>
+                      <DescriptionDiv>
+                        <DesignerNameDiv>{designer["name"]}</DesignerNameDiv>
+                        <DesignerDescDiv>{designer["description"]}</DesignerDescDiv>
+                        <EditButton value={designer["designer_seq"]}
+                                    onClick={() => handleEdit(designer["designer_seq"])}>편집</EditButton>
+                      </DescriptionDiv>
+                    </DesignerDiv>
+                  );
+                })
+              ) : <div>등록된 디자이너가 없습니다.</div>
+            }
+          </DesignerWrapper>
         </DesignerSection>
       </DesignerMain>
     </>
