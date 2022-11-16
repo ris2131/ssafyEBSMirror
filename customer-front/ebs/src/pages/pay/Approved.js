@@ -37,7 +37,7 @@ export default function Approved() {
                         icon: "error",
                         title: "오류",
                         text: "오류가 발생했습니다. 관리자에게 문의해주세요.\n잠시 후 메인페이지로 이동합니다.",
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         timer: 3000
                     });
                     window.localStorage.removeItem('order');

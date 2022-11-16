@@ -31,7 +31,7 @@ const ReservationInfo = () => {
 
   useEffect(() => {
     dispatch(getreservations()).then((res) => {
-      console.log(res);
+      console.log("getreservation Res:"+JSON.stringify(res));
     });
   }, []);
 

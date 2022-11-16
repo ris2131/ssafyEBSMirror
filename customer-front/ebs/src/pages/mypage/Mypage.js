@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import wood_image from "../../assets/wood_image.jpg";
+import Swal from "sweetalert2";
 
 const theme = createTheme({
   palette: {
@@ -130,7 +131,16 @@ const Mypage = () => {
     const handleQuit = () => {
         dispatch(quituser())
         .unwrap()
-        .then((res) => {console.log(res); alert("탈퇴 완료!"); navigate("/")})
+        .then((res) => {
+          console.log(res); 
+          Swal.fire({
+            icon: "success",
+            title: "완료",
+            text: "회원탈퇴 처리가 완료되었습니다.\n이용해주셔서 감사합니다.",
+            showConfirmButton: true,
+          })
+          navigate("/")
+        })
         .catch((err) => console.error(err));
     }
 

@@ -105,19 +105,17 @@ export default function SubscribeInfoComponent(props) {
               icon: "success",
               title: "완료",
               text: "구독갱신이 취소되었습니다.",
-              showConfirmButton: false,
+              showConfirmButton: true,
               timer: 3000
-            });
-            navigate('/subscribe-info');
+            }).then(window.location.reload());
           }else{
             Swal.fire({
               icon: "error",
               title: "오류",
               text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
-              showConfirmButton: false,
+              showConfirmButton: true,
               timer: 3000
-            });
-            navigate('/subscribe-info');
+            }).then(window.location.reload());
           }
   
         })
@@ -126,7 +124,7 @@ export default function SubscribeInfoComponent(props) {
           icon: "info",
           title: "취소",
           text: "취소하였습니다.",
-          showConfirmButton: false,
+          showConfirmButton: true,
           timer: 3000
         });
       }
