@@ -33,7 +33,6 @@ const handlerRes = (e) => {
           <Card.Title >{props.designer.name}</Card.Title>
           <Card.Text >
             설명 : {props.designer.description}
-            <MyButton onClick={handlerRes} value={props.designer.designer_seq}>예약</MyButton>
           </Card.Text>
         </Card.Body>
       </Card>
