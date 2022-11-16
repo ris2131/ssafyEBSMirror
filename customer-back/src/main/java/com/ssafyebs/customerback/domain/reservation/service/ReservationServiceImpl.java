@@ -11,6 +11,8 @@ import com.ssafyebs.customerback.domain.reservation.entity.ReservationPhoto;
 import com.ssafyebs.customerback.domain.reservation.projection.ReservationPhotoUrl;
 import com.ssafyebs.customerback.domain.reservation.repository.ReservationPhotoRepository;
 import com.ssafyebs.customerback.global.exception.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,8 @@ public class ReservationServiceImpl implements ReservationService{
 	private final ReservationPhotoRepository reservationPhotoRepository;
 
     private final String[] ALLOWED_IMAGE_MIMES = new String[]{"image/jpeg", "image/png"};
+
+	final static Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
     @Value("${image-path}")
     String IMAGE_PATH;
@@ -129,8 +133,7 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (RuntimeException e) {
             fileCount = 0;
 			File destDir = new File(IMAGE_PATH + reservationSeq);
-			System.out.println(LocalDate.now() + "폴더 생성 완료");
-			if (!destDir.mkdirs()) System.out.println(LocalDate.now() + " 파일 경로 중복");
+			if (!destDir.mkdirs()) logger.warn(LocalDate.now() + " 파일 경로 중복");
         }
         fileCount++;
 
