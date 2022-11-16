@@ -8,8 +8,8 @@ import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
 import com.ssafyebs.businessbe.global.exception.DuplicateEmailException;
 import com.ssafyebs.businessbe.global.exception.InvalidVerificationKeyException;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class MailServiceImpl implements MailService {
     private final HairshopRepository hairshopRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
-    final static Logger logger = LogManager.getLogger(MailServiceImpl.class);
+    final static Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 
     @Override
     public void verifyEmail(String emailVerificationCode) {

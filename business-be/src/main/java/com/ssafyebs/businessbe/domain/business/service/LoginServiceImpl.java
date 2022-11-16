@@ -9,8 +9,8 @@ import com.ssafyebs.businessbe.global.exception.NoExistBusinessException;
 import com.ssafyebs.businessbe.global.exception.NoMatchCurPasswordException;
 import com.ssafyebs.businessbe.global.util.CryptoUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class LoginServiceImpl implements LoginService{
     private final BusinessRepository businessRepository;
     private final HairshopRepository hairshopRepository;
 
-    final static Logger logger = LogManager.getLogger(LoginServiceImpl.class);
+    final static Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
     @Override
     public HttpHeaders createTokenHeader(String accessToken, String refreshToken) {
@@ -50,7 +50,7 @@ public class LoginServiceImpl implements LoginService{
         }
 
         if (!hairshopRepository.findHairshopByBusiness(business).isPresent()) {
-            System.out.println("holy shit");
+            logger.warn("Hairshop 생성 실패");
             throw new NoExistBusinessException("로그인 할 수 없습니다.");
         }
 

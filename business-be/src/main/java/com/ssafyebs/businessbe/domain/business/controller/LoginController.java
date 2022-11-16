@@ -6,8 +6,6 @@ import com.ssafyebs.businessbe.domain.business.service.LoginService;
 import com.ssafyebs.businessbe.global.jwt.JwtService;
 import com.ssafyebs.businessbe.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final LoginService loginService;
     private final JwtService jwtService;
-
-    final static Logger logger = LogManager.getLogger(LoginController.class);
 
     @PostMapping("/login")
     public ResponseEntity<?> loginBusiness(@RequestBody LoginRequestDto loginRequestDto){
