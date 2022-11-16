@@ -43,7 +43,7 @@ const style = {
   };
 
 const InfoContainer = styled.div`
-  background-color: #efefef;
+  background-color: #FBF8F1;
   // background-image: url(${wood_image});
   font-family: GowunBatang-Regular;
   flex: 1;

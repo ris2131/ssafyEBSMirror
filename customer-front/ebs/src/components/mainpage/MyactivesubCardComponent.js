@@ -13,9 +13,16 @@ const Customcard = styled.div`
     font-family: GowunBatang-Regular;
     margin: auto;
     margin-top: 20px;
-    
+`;
 
-    
+const Shopname = styled.div`
+    margin: 0 auto;
+    font-size: 30px;
+`;
+
+const Reservationtext = styled.div`
+    margin: 0 0 0 auto;
+    font-family: GowunBatang-Regular; 
 `;
 
 
@@ -41,15 +48,15 @@ export default function MultiActionAreaCard(props) {
             alt="HairshopImage"
             />
             <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Shopname>
                 {props.subscribe.hairshopName}
-            </Typography>
+            </Shopname>
             </CardContent>
         </CardActionArea>
         <CardActions>
-            <Button  size="small" color="primary">
+            <Reservationtext>
             예약하러 가기
-            </Button>
+            </Reservationtext>
         </CardActions>
         </Card>
     </Customcard>

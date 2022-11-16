@@ -22,16 +22,16 @@ const handlerRes = (e) => {
   props.func(3)
   props.setDisgnerSeq(e.target.value)
 }
- 
+ console.log(props.designer);
   return (
     <div>
    
       <Card>
+      <Card.Img variant = "top" src={props.designer.photo} width="200px" height="150px" />
         <Card.Body>
-          <Card.Title >디자이너 이름 : {props.designer.name}</Card.Title>
+          <Card.Title >{props.designer.name}</Card.Title>
           <Card.Text >
             설명 : {props.designer.description}
-            <MyButton  onClick={handlerRes} value={props.designer.designer_seq}>예약</MyButton>
           </Card.Text>
         </Card.Body>
       </Card>

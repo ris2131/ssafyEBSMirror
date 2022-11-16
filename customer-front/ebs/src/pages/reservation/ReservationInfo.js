@@ -8,7 +8,7 @@ import ReservationInfoCardComponent from "../../components/ReservationInfo/Reser
 import { style } from "@mui/system";
 
 const Container = styled.div`
-  background-color: #efefef;
+  background-color: #FBF8F1;
   font-family: GowunBatang-Regular;
   flex: 1;
   

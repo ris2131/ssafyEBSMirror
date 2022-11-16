@@ -13,7 +13,12 @@ const Container = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 `;
+
+
 
 
 const DesignerComponent = () => {
@@ -26,10 +31,9 @@ const DesignerComponent = () => {
     useEffect(() => {
         dispatch(getDesignerInfo(businessSeq))
     }, []);
-
     return (
         <Container>
-        <div>
+        
             
             {designerList.length != 0 ? (
         
@@ -47,7 +51,7 @@ const DesignerComponent = () => {
       )}
 
 
-        </div>
+        
     </Container>
 
     );
