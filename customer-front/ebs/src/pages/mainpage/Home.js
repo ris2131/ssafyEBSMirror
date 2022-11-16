@@ -11,7 +11,7 @@ import EmptyComponent from "../../components/mainpage/EmptyComponent";
 import { getuser } from "../../store/slices/userSlice";
 
 const Container = styled.div`
-  background-color: #efefef;
+  background-color: #FBF8F1;
   justify-content: center;
   font-family: GowunBatang-Regular;
   // height: 100vh;

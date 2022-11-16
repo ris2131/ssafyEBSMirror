@@ -1,7 +1,15 @@
+
 .Offcanvas {
     width: 60% !important;
 }
 
 .Ebsnav {
+    background-image: url("../../assets/nav_img2.png") !important;
     background: #a9927d;
+    color: #f0f0f0;
+    height: 60px;
+}
+
+.Toggle {
+    margin-bottom: 10px;
 }
