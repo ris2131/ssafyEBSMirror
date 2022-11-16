@@ -7,7 +7,8 @@ import HairshopSearchComponent from "../../components/hairshop/HairshopSearchCom
 
 const Container = styled.div`
     background-color: #efefef;
-    height: 100vh;
+    // height: 100vh;
+    flex: 1;
     background-image: url(${ebs_logo});
     background-repeat: no-repeat;
     background-size: contain;

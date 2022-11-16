@@ -14,7 +14,8 @@ const Container = styled.div`
   background-color: #efefef;
   justify-content: center;
   font-family: GowunBatang-Regular;
-  height: 100h;
+  // height: 100vh;
+  flex: 1;
 `;
 
 const Welcome = styled.div`

@@ -9,6 +9,9 @@ import hairshop_image from "../../assets/hairshop_image.png"
 
 const Container = styled.div`
   background-color: #efefef;
+  font-family: GowunBatang-Regular;
+  flex: 1;
+  
   
 `;
 
