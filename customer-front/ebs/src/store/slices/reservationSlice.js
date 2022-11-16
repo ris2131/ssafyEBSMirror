@@ -30,7 +30,17 @@ export const addReservationPhoto= createAsyncThunk(
         }
     }
 )
-
+export const deletePhoto = createAsyncThunk(
+    "reservationSlice/deletePhoto",
+    async(photo_url, { rejectWithValue }) => {
+        try{
+            const res = await reservationApi.deletePhoto(photo_url);
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response);
+        }
+    }
+)
 export const getAvailableDesigners = createAsyncThunk(
     "reservationSlice/getAvailableDesigners",
     async(data, {rejectWithValue}) => {
