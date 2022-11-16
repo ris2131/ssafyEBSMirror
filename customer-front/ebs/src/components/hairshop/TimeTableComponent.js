@@ -6,6 +6,7 @@ import { getAvailableDesigners, makeReservation } from "../../store/slices/reser
 import SelectBox from "./Selectbox"
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import DesignerReservationComponent from "./DesignerReservationComponent";
 // import { useNavigate } from "react-router-dom";
 const MyButton = styled.button`
   border: none;
@@ -164,7 +165,7 @@ const TimeTableComponent = (props) => {
         
             designerList.map((a, i) => {
           return (
-            <DesignerListComponent
+            <DesignerReservationComponent
               designer={designerList[i]}
               func = {changeMode}
               setDisgnerSeq = {getDisgnerSeq}
