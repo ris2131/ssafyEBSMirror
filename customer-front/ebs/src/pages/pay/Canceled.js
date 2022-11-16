@@ -10,7 +10,7 @@ export default function Canceled() {
             icon: "info",
             title: "취소",
             text: "구독결제를 취소했습니다.\n잠시 후 메인페이지로 이동합니다.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 3000
           });
         window.localStorage.removeItem('order');
