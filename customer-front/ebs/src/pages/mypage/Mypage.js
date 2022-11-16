@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 const theme = createTheme({
   palette: {
       brown: {
-          main: '#E9DAC1'
+          main: '#876445'
       }
   }
 });
