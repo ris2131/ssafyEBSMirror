@@ -45,7 +45,7 @@ export default function SubscribeInfoComponent() {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <CalendarMonthSharpIcon sx={{ fontSize: 60 }}/>
+                    {/* <CalendarMonthSharpIcon sx={{ fontSize: 60 }}/> */}
                     예약 내역
                   </ThemeProvider>
                 </Item>

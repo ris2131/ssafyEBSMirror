@@ -43,7 +43,7 @@ export default function SubscribeInfoComponent() {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <CardMembershipSharpIcon sx={{ fontSize: 55 }}/>
+                    {/* <CardMembershipSharpIcon sx={{ fontSize: 55 }}/> */}
                     구독 내역
                   </ThemeProvider>
                 </Item>

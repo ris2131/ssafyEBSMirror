@@ -8,15 +8,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Container = styled.div`
-  background-color: #efefef;
+  background-color: #FBF8F1;
   font-family: GowunBatang-Regular;
-  height: 85vh;
+  // height: 85vh;
+  flex: 1;
 `;
 
 const MenuText = styled.p`
+  display: flex;
+  justify-content: start;
   font-size: 22px;
-  width: 200px;
+  width: 100px;
   margin: 10px 10px 10px 10px;
+  
 `;
 
 const MenuBox = styled.div`
@@ -28,18 +32,18 @@ const MenuBox = styled.div`
 `;
 
 const Buttonstyle = styled.div`
-display: flex;
-justify-content: end;
+  display: flex;
+  justify-content: end;
 `;
 
 const MyButton = styled.button`
   border: none;
-  box-shadow: 0px 0px 5px #000;
+  box-shadow: 0px 0px 3px #000;
   border-radius: 10px;
   color: white;
   background-color: #8a817c;
   padding: 10px;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 20px 10px 10px;
   width: 60px;
   font-size: 14px;
   cursor: pointer;
@@ -115,7 +119,7 @@ const MyInfoEdit = () => {
           <MenuText>닉네임</MenuText>
           <TextField
             variant="standard"
-            style={{ width: "40%" }}
+            style={{ width: "60%" }}
             value={nickname || ""}
             onChange={handleNickname}
           />
@@ -124,7 +128,7 @@ const MyInfoEdit = () => {
           <MenuText>주소</MenuText>
           <TextField
             variant="standard"
-            style={{ width: "40%" }}
+            style={{ width: "60%" }}
             value={address || ""}
             onChange={handleAddress}
           />

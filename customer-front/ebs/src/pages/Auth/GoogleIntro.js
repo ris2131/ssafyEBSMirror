@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import bgImage from '../../assets/Hairshopimage03.png'
 const Container = styled.div`
-  background-image: url(${bgImage});
+  // background-image: url(${bgImage});
+  background-color: #FBF8F1;
   background-size: 100vw 100vh;
-  font-family: KOTRAHOPE;
+  font-family: GowunBatang-Regular;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: white;
+  background-color: #F9F9F9;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 10px 0px;
   border-radius: 15px;
   display: flex;
@@ -46,7 +47,7 @@ const MyButton = styled.button`
   border: none;
   border-radius: 10px;
   color: white;
-  background-color: #42a5f5;
+  background-color: #E9DAC1;
   padding: 10px;
   margin-top: 40px;
   width: 60px;
