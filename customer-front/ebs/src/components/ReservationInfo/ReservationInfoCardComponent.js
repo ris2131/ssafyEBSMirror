@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
-
+import visited from '../../visited.png';
 
 const Item = styled(Paper)(() => ({
   
@@ -16,8 +16,8 @@ const Item = styled(Paper)(() => ({
   lineHeight: '60px',
   backgroundColor: '#F9F9F9',
 //   color: '#FFFFFF',
-  borderRadius: '10px'
-  
+  borderRadius: '10px',
+  fontWeight: 'bold'
   
   
 }));
@@ -25,15 +25,17 @@ const Item = styled(Paper)(() => ({
 const AlterItem = styled(Paper)(() => ({
   
   textAlign: 'center',
-  color: '#d3d3d3',
+  color: '#000000',
   margin: '30px 30px 30px 30px',
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#808080',
+  backgroundColor: '#F9F9F9',
+  backgroundImage: `url(${visited})`,
+  backgroundSize: 'cover',
 //   color: '#FFFFFF',
-  borderRadius: '10px'
-  
+  borderRadius: '10px',
+  fontWeight: 'bold'
   
   
 }));
