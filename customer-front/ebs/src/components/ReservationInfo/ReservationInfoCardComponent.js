@@ -21,10 +21,12 @@ const Shopname = styled.span`
 const Time = styled.div`
  color: red;
  font-weight: bold;
+ margin-top: -30px;
 `;
 
 const Visit = styled.div`
   font-weight: bold;
+  margin-bottom : 20px;
 `;
 
 const Item = muistyled(Paper)(() => ({
@@ -98,7 +100,8 @@ export default function ReservationCardComponent(props) {
                   
                   <ThemeProvider theme={theme}>
                     <Visit>방문 예정</Visit>
-                    <Time> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</Time>
+                    <Time> 예약 날짜 : {props.reservation.reservation_date.substring(2,10).replace('T', ' ').replaceAll('-','/')}</Time>
+                    <Time> 예약 시간 : {props.reservation.reservation_date.substring(11,16).replace('T', ' ')}</Time>
                     <span>헤어숍 이름 :</span>
                     <Shopname onClick={moveshop}> @{props.reservation.hairshop_name}</Shopname>
                     <div>디자이너 이름 : {props.reservation.designer_name}</div>
@@ -112,7 +115,8 @@ export default function ReservationCardComponent(props) {
                   
                   <ThemeProvider theme={theme}>
                     <Visit>방문 완료</Visit>
-                    <Time> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</Time>
+                    <Time> 예약 날짜 : {props.reservation.reservation_date.substring(2,10).replace('T', ' ').replaceAll('-','/')}</Time>
+                    <Time> 예약 시간 : {props.reservation.reservation_date.substring(11,16).replace('T', ' ')}</Time>
                     <span>헤어숍 이름 :</span>
                     <Shopname onClick={moveshop}> @{props.reservation.hairshop_name}</Shopname>
                     <div>디자이너 이름 : {props.reservation.designer_name}</div>

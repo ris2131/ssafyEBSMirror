@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 const theme = createTheme({
   palette: {
       brown: {
-          main: '#876445'
+          main: '#DFD3C3'
       }
   }
 });
@@ -47,6 +47,7 @@ const InfoContainer = styled.div`
   // background-image: url(${wood_image});
   font-family: GowunBatang-Regular;
   flex: 1;
+  font-weight: bold;
 `;
 
 const Title = styled.div`
@@ -234,12 +235,12 @@ const Mypage = () => {
                 <ThemeProvider theme={theme}>
                   <Grid container spacing={5} justifyContent="center" mt={2} >
                     <Grid item>
-                      <Button variant="contained" color="brown" onClick={handleEdit}>
+                      <Button variant="contained" color="brown" sx={{fontWeight: 'bold'}} onClick={handleEdit}>
                       수정하기
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Button variant="contained" color="brown" >
+                      <Button variant="contained" color="brown" sx={{fontWeight: 'bold'}} >
                         <BasicModal title={title} description={description} />
                       </Button>
                     </Grid>

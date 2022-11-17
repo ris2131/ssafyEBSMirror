@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from 'react';
 import bgImage from '../../assets/Hairshopimage01.png'
-import logoImage from '../../assets/ebs_logo.png'
+import logoImage from '../../assets/ebs_logo_beige.png'
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
@@ -32,8 +32,8 @@ const LogoDiv = styled.div`
 
 const LogoImg = styled.img`
   @media screen and (max-width: 821px) {
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
   }
 
   width: 110px;
@@ -108,9 +108,9 @@ const Login = () => {
           <LogoImg
             src= {logoImage}
             alt="#"
-          ></LogoImg>
-          <LogoText>ebs</LogoText>
+          ></LogoImg> 
         </LogoDiv>
+        <LogoText>EBS</LogoText>
         <IconDiv2>
           <GoogleTest text="로그인" />
         </IconDiv2>
