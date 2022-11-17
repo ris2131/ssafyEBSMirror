@@ -71,16 +71,40 @@ const Pimg = styled.img`
   object-fit: cover;
 `;
 
-const ImgTextBox = styled.div`
+const ButtonDiv = styled.div`
   display: flex;
-  align-items: end;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
-const ImgText = styled.p`
+const ImgButton = styled.button`
+  border-radius: 5px;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  margin: 10px 20px;
   font-size: 16px;
-  margin: 5px;
-  color: ${(props) => props.color};
+  font-weight: bold;
   cursor: pointer;
+  transition-duration: 200ms;
+
+  &.edit {
+    background-color: #5d7576;
+  }
+
+  &.edit:hover {
+    background-color: #3F4E4F;
+    transition-duration: 200ms;
+  }
+
+  &.delete {
+    background-color: #5f5f5f7f;
+  }
+
+  &.delete:hover {
+    background-color: #5f5f5fbf;
+    transition-duration: 200ms;
+  }
 `;
 
 const FlexInputDiv = styled.div`
@@ -255,14 +279,14 @@ const Info = () => {
                   encodeFileToBase64(e.target.files[0]);
                 }
               }}/>
-            <ImgTextBox>
-              <ImgText color="#42a5f5" onClick={() => inputRef.current.click()}>
+            <ButtonDiv>
+              <ImgButton className={"edit"} onClick={() => inputRef.current.click()}>
                 변경
-              </ImgText>
-              <ImgText color="#42a5f5" onClick={() => clearImg()}>
+              </ImgButton>
+              <ImgButton className={"delete"} onClick={() => clearImg()}>
                 초기화
-              </ImgText>
-            </ImgTextBox>
+              </ImgButton>
+            </ButtonDiv>
           </InputBox>
           <InputBox>
             <FlexInputDiv>
