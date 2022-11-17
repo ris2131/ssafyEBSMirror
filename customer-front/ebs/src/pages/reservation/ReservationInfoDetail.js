@@ -1,9 +1,9 @@
 import {useState, useEffect, useRef} from "react";
 import { useDispatch , useSelector} from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import styled from "styled-components";
-
-
+import imageCompression from "browser-image-compression";
 import Swal from "sweetalert2";
 
 import { getreservations,deletePhoto } from "../../store/slices/reservationSlice";
@@ -170,6 +170,32 @@ const ReservationInfoDetail = () => {
     });
   };
 
+  const actionImgCompress = async (fileSrc) => {
+    console.log("압축 시작");
+
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(fileSrc, options);
+      setPhoto(compressedFile);
+
+      // const reader = new FileReader();
+      // reader.readAsDataURL(compressedFile);
+      // reader.onloadend = () => {
+      //   const base64data = reader.result;
+      //   imageHandling(base64data);
+      // };
+      console.log("size "+fileSrc.size+" -> "+compressedFile.size );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const handleAdd=()=>{
     console.log("사진 추가하기!");
     
@@ -309,7 +335,8 @@ const ReservationInfoDetail = () => {
               onChange={(e) => {
                 if(e.target.files.length){
                   // changeImg(e);
-                  setPhoto(e.target.files[0]);
+                  // setPhoto(e.target.files[0]);
+                  actionImgCompress (e.target.files[0]);
                   encodeFileToBase64(e.target.files[0]);
                 }
               }}
