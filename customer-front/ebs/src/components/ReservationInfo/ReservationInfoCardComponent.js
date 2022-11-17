@@ -50,7 +50,7 @@ const AlterItem = muistyled(Paper)(() => ({
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#F9F9F9',
+  backgroundColor: '#DDDDDD',
   backgroundImage: `url(${visited})`,
   backgroundSize: 'cover',
 //   color: '#FFFFFF',
