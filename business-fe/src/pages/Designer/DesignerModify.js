@@ -69,14 +69,23 @@ const ProfileDiv = styled.div`
   margin: 0 50px 0 10px;
 `;
 
-
-const Pimg = styled.img`
+const PImgBox = styled.div`
   width: 100%;
-  height: auto;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: solid 1px #3f3f3f;
   border-radius: 10px;
   box-shadow: #7f7f7f 5px 5px 5px;
   user-select: none;
+  overflow: hidden;
+  background-color: #fdfdfd;
+`;
+
+const Pimg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const ButtonDiv = styled.div`
@@ -285,20 +294,22 @@ const DesignerModify = () => {
           </HeadDiv>
           <InputDiv>
             <ProfileDiv>
-              <Pimg src={preview} alt="#hairshop_image"></Pimg>
-              <input
-                id="file"
-                type="file"
-                name="file"
-                style={{display: "none"}}
-                ref={inputRef}
-                onChange={(e) => {
-                  if (e.target.files.length) {
-                    changeImg(e);
-                    encodeFileToBase64(e.target.files[0]);
-                  }
-                }}
-              />
+              <PImgBox>
+                <Pimg src={preview} alt="#hairshop_image"></Pimg>
+                <input
+                  id="file"
+                  type="file"
+                  name="file"
+                  style={{display: "none"}}
+                  ref={inputRef}
+                  onChange={(e) => {
+                    if (e.target.files.length) {
+                      changeImg(e);
+                      encodeFileToBase64(e.target.files[0]);
+                    }
+                  }}
+                />
+              </PImgBox>
               <ButtonDiv>
                 <ImgButton className={"edit"} onClick={() => inputRef.current.click()}>
                   변경

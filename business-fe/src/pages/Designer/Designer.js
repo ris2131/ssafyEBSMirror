@@ -92,11 +92,18 @@ const DesignerDiv = styled.div`
 
 const ProfileDiv = styled.div`
   width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  user-select: none;
+  overflow: hidden;
 `;
 
 const ProfileImg = styled.img`
-  height: auto;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
   background-color: #ffffff;
   border-radius: 10px;
 `;
