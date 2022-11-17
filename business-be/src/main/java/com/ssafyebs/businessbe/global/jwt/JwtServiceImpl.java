@@ -41,7 +41,7 @@ public class JwtServiceImpl implements JwtService{
                 .setHeaderParam("typ","JWT")
                 .setIssuer("Ebs")
                 .setSubject(ACCESS_TOKEN_SUBJECT)
-                .setExpiration(new Date(now.getTime() + 1000 * 60L * 60L))
+                .setExpiration(new Date(now.getTime() + 1000 * 60L * 60L * 10))
                 .claim("business_seq",businessSeq)
                 .signWith(SignatureAlgorithm.HS256,SECRET_KEY.getBytes())
                 .compact();
