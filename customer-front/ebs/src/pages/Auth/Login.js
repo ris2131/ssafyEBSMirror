@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from 'react';
-import bgImage from '../../assets/Hairshopimage01.png'
+import bgImage from '../../assets/back_img4.png'
 import logoImage from '../../assets/ebs_logo_beige.png'
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
