@@ -3,8 +3,6 @@ package com.ssafyebs.businessbe.domain.search.vo;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-
 @Getter
 @Builder
 public class HairshopVo {

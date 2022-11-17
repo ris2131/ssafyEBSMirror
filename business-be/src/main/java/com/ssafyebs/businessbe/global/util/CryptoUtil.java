@@ -11,26 +11,6 @@ import java.security.NoSuchAlgorithmException;
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class CryptoUtil {
     @NoArgsConstructor(access= AccessLevel.PRIVATE)
-    public static class Sha512 {
-        public static String hash(String input) {
-            return Sha512.hash(input, null);
-        }
-
-        public static String hash(String input, String fallback) {
-            try {
-                MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-                messageDigest.reset();
-                messageDigest.update(input.getBytes(StandardCharsets.UTF_8));
-                return String.format("%0128x", new BigInteger(1, messageDigest.digest()));
-            } catch (NoSuchAlgorithmException ignored) {
-                throw new UnsupportedOperationException();
-            } catch (Exception ignored) {
-                return fallback;
-            }
-        }
-    }
-
-    @NoArgsConstructor(access= AccessLevel.PRIVATE)
     public static class Sha256 {
         public static String hash(String input) {
             return Sha256.hash(input, null);
