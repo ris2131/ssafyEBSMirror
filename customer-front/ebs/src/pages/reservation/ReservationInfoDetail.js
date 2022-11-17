@@ -53,7 +53,7 @@ const CardContents = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.6;
-  padding 15px 10px;
+  padding: 15px 10px;
   width: 300px;
 `;
 
@@ -257,7 +257,7 @@ const ReservationInfoDetail = () => {
             </HeadTitleDiv>
             <ContentsDiv>
               <TitleDiv>
-                디자인 선택사항
+                스타일 선택사항
               </TitleDiv>
               <TextDiv>
                 {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<></>}

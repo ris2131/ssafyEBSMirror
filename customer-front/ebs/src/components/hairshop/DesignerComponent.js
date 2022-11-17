@@ -14,12 +14,9 @@ const Container = styled.div`
     background-size: contain;
     background-position: center center;
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 10px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 `;
-
-
-
 
 const DesignerComponent = () => {
     const dispatch = useDispatch();
