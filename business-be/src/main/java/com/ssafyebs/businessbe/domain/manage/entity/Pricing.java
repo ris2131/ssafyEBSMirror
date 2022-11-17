@@ -1,14 +1,15 @@
 package com.ssafyebs.businessbe.domain.manage.entity;
 
 import com.ssafyebs.businessbe.domain.business.entity.Business;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "pricings")
 public class Pricing {

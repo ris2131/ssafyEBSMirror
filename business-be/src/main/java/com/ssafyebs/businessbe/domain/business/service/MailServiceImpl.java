@@ -4,7 +4,9 @@ import com.ssafyebs.businessbe.domain.business.dto.requestdto.BusinessCreationRe
 import com.ssafyebs.businessbe.domain.business.entity.Business;
 import com.ssafyebs.businessbe.domain.business.repository.BusinessRepository;
 import com.ssafyebs.businessbe.domain.manage.entity.Hairshop;
+import com.ssafyebs.businessbe.domain.manage.entity.Pricing;
 import com.ssafyebs.businessbe.domain.manage.repository.HairshopRepository;
+import com.ssafyebs.businessbe.domain.manage.repository.PricingRepository;
 import com.ssafyebs.businessbe.global.exception.DuplicateEmailException;
 import com.ssafyebs.businessbe.global.exception.InvalidVerificationKeyException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class MailServiceImpl implements MailService {
     private final BusinessRepository businessRepository;
     private final HairshopRepository hairshopRepository;
+    private final PricingRepository pricingRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
     final static Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
@@ -41,6 +44,18 @@ public class MailServiceImpl implements MailService {
                 .photo("https://business.ssafy-ebs.com/photo/hairshop/default.jpg")
                 .build();
         hairshopRepository.save(hairshop);
+
+        final int[][] pricingList = {{6, 6, 55000}, {6, 3, 30000}, {6, 2, 22000}, {12, 1, 12000}};
+
+        for (int[] pricings : pricingList) {
+            Pricing pricing = Pricing.builder()
+                    .business(business)
+                    .month(pricings[0])
+                    .number(pricings[1])
+                    .price(pricings[2])
+                    .build();
+            pricingRepository.save(pricing);
+        }
     }
 
     @Override
