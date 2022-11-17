@@ -1,10 +1,11 @@
+import { LineWeight } from "@mui/icons-material";
 import styled from "styled-components";
 
 const SButton = styled.button`
-  border-radius: 20px;
+  border-radius: 5px;
   color: white;
   border: none;
-  background-color: #42a5f5;
+  background-color: #E9DAC1;
   margin-top: 40px;
   cursor: pointer;
   font-size: 14px;
@@ -18,11 +19,14 @@ const MyButton = ({
   margin,
   fontSize,
   backgroundColor,
+  color,
+  fontWeight,
+  marginTop,
 }) => {
   return (
     <SButton
       onClick={onClick}
-      style={{ width, padding, margin, fontSize, backgroundColor }}
+      style={{ width, padding, margin, fontSize, backgroundColor,color, fontWeight,marginTop }}
     >
       {text}
     </SButton>

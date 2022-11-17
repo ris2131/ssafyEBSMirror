@@ -103,7 +103,7 @@ const Mypage = () => {
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
     console.log(businessSeq)
     const title = "탈퇴 확인";
-    const description = "정말 우리 서비스 탈퇴하실건가요?ㅠ.ㅠ";
+    const description = "정말 EBS를 탈퇴하실건가요?ㅠ.ㅠ";
     const data = {
         nickname : nickName,
         address : address,
@@ -172,10 +172,14 @@ const Mypage = () => {
                 <div>
                   <MyButton
                     onClick={handleQuit}
+                    className="confirm"
                     width={"200px"}
                     padding={"5px"}
                     margin={"30px 10px"}
                     text={"네 탈퇴할게요!"}
+                    backgroundColor="#A27B5C"
+                    fontWeight="bold"
+
                   />
     
                   <MyButton
@@ -184,6 +188,8 @@ const Mypage = () => {
                     padding={"5px"}
                     margin={"30px 10px"}
                     text={"좀 더 생각 해 볼게요!"}
+                    color="black"
+                    fontWeight="bold"
                   />
                 </div>
               </Box>
