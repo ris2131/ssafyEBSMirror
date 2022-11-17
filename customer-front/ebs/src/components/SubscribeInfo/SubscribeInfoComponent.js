@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "../../fonts/font.css"
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
+import { styled as muistyled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import styled from "styled-components";
 
 
-
-const Item = styled(Paper)(() => ({
+const Item = muistyled(Paper)(() => ({
   
   textAlign: 'center',
   margin: '30px 30px 30px 30px',
@@ -28,7 +28,7 @@ const Item = styled(Paper)(() => ({
   
 }));
 
-const AlterItem = styled(Paper)(() => ({
+const AlterItem = muistyled(Paper)(() => ({
   
   textAlign: 'center',
   color: '#d3d3d3',
@@ -52,6 +52,13 @@ const theme = createTheme({
     }
 });
 
+const Shopname = styled.span`
+  color: blue;
+`;
+
+const Expiration = styled.div`
+  color: red;
+`;
 
 
 export default function SubscribeInfoComponent(props) {
@@ -76,6 +83,14 @@ export default function SubscribeInfoComponent(props) {
   }
   const date1 = new Date(props.subscribe.subscriptionExpiration);
   const date2 = new Date();
+
+//   const theme = createTheme({
+//     palette: {
+//         brown: {
+//             main: '#DFD3C3'
+//         }
+//     }
+// });
 
 
 
@@ -138,12 +153,12 @@ export default function SubscribeInfoComponent(props) {
                   <Item elevation={24}>
                     
                     <ThemeProvider theme={theme}>
-                      <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
-                      <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
-                      <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
-                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
-                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
-                      <button onClick={unsub}>구독취소</button>
+                      <span>헤어숍 이름 :</span>
+                      <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+                      <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
+                      <Expiration>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</Expiration>
+                      <Button variant="contained" color="brown" sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'white'}} onClick={unsub}>정기결제 해지</Button>
                     </ThemeProvider>
                   </Item>
               </Box>
@@ -152,11 +167,12 @@ export default function SubscribeInfoComponent(props) {
                   <Item elevation={24}>
                     
                     <ThemeProvider theme={theme}>
-                      <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                      <span>헤어숍 이름 :</span>
+                      <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
                       <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                       <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
-                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
-                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
+                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
+                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
                     </ThemeProvider>
                   </Item>
               </Box>
@@ -166,12 +182,13 @@ export default function SubscribeInfoComponent(props) {
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                    <span>헤어숍 이름 :</span>
+                    <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
                     <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
-                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
-                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
-                    <button onClick={unsub}>구독취소버튼</button>
+                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
+                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
+                    <Button variant="contained" color="brown" sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'white'}} onClick={unsub}>정기결제 해지</Button>
                   </ThemeProvider>
                 </AlterItem>
             </Box>
@@ -180,11 +197,12 @@ export default function SubscribeInfoComponent(props) {
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div onClick={moveshop}>헤어숍 이름 : {props.subscribe.hairshopName}</div>
+                    <span>헤어숍 이름 :</span>
+                    <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
                     <div>전체 횟수 : {props.subscribe.pricingNumber}  </div>
                     <div>남은 횟수 : {props.subscribe.subscriptionLeft}</div>
-                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,19).replace('T', ' ')} </div>
-                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,19).replace('T', ' ')}</div>
+                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
+                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
                   </ThemeProvider>
                 </AlterItem>
             </Box>
