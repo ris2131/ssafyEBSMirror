@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { fontWeight } from '@mui/system';
+import visited from '../../visited.png';
 
 const Forfont = styled.div`
   font-family: GowunBatang-Regular;
@@ -35,8 +36,8 @@ const Item = muistyled(Paper)(() => ({
   lineHeight: '60px',
   backgroundColor: '#F9F9F9',
 //   color: '#FFFFFF',
-  borderRadius: '10px'
-  
+  borderRadius: '10px',
+  fontWeight: 'bold'
   
   
 }));
@@ -44,15 +45,17 @@ const Item = muistyled(Paper)(() => ({
 const AlterItem = muistyled(Paper)(() => ({
   
   textAlign: 'center',
-  color: '#d3d3d3',
+  color: '#000000',
   margin: '30px 30px 30px 30px',
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#808080',
+  backgroundColor: '#F9F9F9',
+  backgroundImage: `url(${visited})`,
+  backgroundSize: 'cover',
 //   color: '#FFFFFF',
-  borderRadius: '10px'
-  
+  borderRadius: '10px',
+  fontWeight: 'bold'
   
   
 }));
