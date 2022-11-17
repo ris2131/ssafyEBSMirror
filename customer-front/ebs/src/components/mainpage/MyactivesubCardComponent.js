@@ -39,11 +39,16 @@ const ReservationText = styled.div`
     color: #585858;
 `;
 
+const HairshopPic = styled.img`
+  width: 100%;
+  //height: auto;
+`;
+
 
 
 export default function MultiActionAreaCard(props) {
     const navigate = useNavigate();
-    console.log(props)
+    
     const data = {
         businessSeq : props.subscribe.businessSeq
       }
@@ -54,19 +59,18 @@ export default function MultiActionAreaCard(props) {
   return (
     <Customcard onClick={moveshop}>
         <Card sx={{ Width: '50%' }}>
-        <CardActionArea>
-            <CardMedia
+            {/* <CardMedia
             component="img"
             height="300"
-            image={require('../../assets/Hairshopimage01.png')}
+            image={require("../../assets/Hairshopimage01.png")}
             alt="HairshopImage"
-            />
+            /> */}
+            <HairshopPic src={props.subscribe.hairshopPhoto}></HairshopPic>
             <CardContent>
             <Shopname >
                 {props.subscribe.hairshopName}
             </Shopname>
             </CardContent>
-        </CardActionArea>
         <CardActions >
             <ReservationTextDiv style={{cursor : "pointer"}}>
               <ReservationText>

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
+
 const Container = styled.div`
     text-align: left;
 `;
@@ -32,7 +33,6 @@ const HomeComponent = () => {
     
     return (
         <Container>
-            홈페이지
             <Adress>
                 주소 : {address}
             </Adress>
