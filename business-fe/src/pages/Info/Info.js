@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
+import imageCompression from "browser-image-compression";
 import Swal from "sweetalert2";
 
 import pencil from "../../assets/Pencil.png";
@@ -216,7 +217,30 @@ const Info = () => {
       };
     });
   };
+  const actionImgCompress = async (fileSrc) => {
+    console.log("압축 시작");
 
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(fileSrc, options);
+      setPhoto(compressedFile);
+
+      // const reader = new FileReader();
+      // reader.readAsDataURL(compressedFile);
+      // reader.onloadend = () => {
+      //   const base64data = reader.result;
+      //   imageHandling(base64data);
+      // };
+      console.log("size "+fileSrc.size+" -> "+compressedFile.size );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSubmit = () => {
     const data = {
       name,
@@ -275,8 +299,9 @@ const Info = () => {
               ref={inputRef}
               onChange={(e) => {
                 if (e.target.files.length) {
-                  changeImg(e);
                   encodeFileToBase64(e.target.files[0]);
+                  changeImg(e);
+                  actionImgCompress (e.target.files[0]);
                 }
               }}/>
             <ButtonDiv>
