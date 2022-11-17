@@ -13,15 +13,20 @@ import eraseButton from "../../assets/red_x_button.png";
 const Container = styled.main`
   background-color: #DBD7CC;
   //background-color: #8a817c;
-  // font-family: GowunBatang-Regular;
+  font-family: GowunBatang-Regular;
   display: flex;
   flex-direction: column;
   flex:1;
+  padding-bottom: 30px
 `;
 
-const ButtonBox = styled.div`
+const ButtonBox = styled.button`
   display: flex; 
   justify-content: start;
+  margin: 15px 10px;
+  width: 100px;
+  background-color: transparent;
+  border:0;
 `;
 const ButtonImg = styled.img`
   width: 20px;
@@ -30,15 +35,17 @@ const ButtonImg = styled.img`
 
 const ButtonText = styled.div`
   font-size:15px;
+ 
 `;
 
 const CardSection = styled.section`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  flex: 0.6;
+  flex: 0.9;
   justify-content: center;
   align-items: center;
+  border:30px;
 `;
 const CardContents = styled.div`
   background-color: #FFFFFF;
@@ -46,7 +53,7 @@ const CardContents = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.6;
-  
+  padding 15px 10px;
   width: 300px;
 `;
 
@@ -71,7 +78,7 @@ const TitleDiv = styled.div`
 const TextDiv = styled.div`
   display:flex;
   justify-content: start;
-  margin-left: 20px;
+  margin-left: 10px;
 `;
 const PhotoTitle = styled.div`
   display: flex; 
@@ -109,11 +116,12 @@ const PhotoText = styled.div`
   justify-content: end;
   margin-top: 5px;
   margin-right: 15px;
+  font-weight:bold;
   &.displayNone{
     display:none;
   }
   &.addPhoto{
-    color: blue;
+    color: black;
   }
   &.deletePhoto{
     color: red;
@@ -307,14 +315,14 @@ const ReservationInfoDetail = () => {
               }}
             />
             <PhotoText className='addPhoto' onClick={() => inputRef.current.click()}>
-              사진추가
+             + 사진추가
             </PhotoText>
             <PhotoText className='deletePhoto' onClick={handleShowErase}>
               {
                 showErase ?
-                  <>사진취소</>
+                  <>x 사진취소</>
                   :
-                  <>사진삭제</>
+                  <>- 사진삭제</>
               }
             </PhotoText>
           </CardContents>
