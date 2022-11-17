@@ -1,13 +1,33 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
+import { styled as muistyled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { fontWeight } from '@mui/system';
 import visited from '../../visited.png';
 
-const Item = styled(Paper)(() => ({
+const Forfont = styled.div`
+  font-family: GowunBatang-Regular;
+  
+`;
+
+const Shopname = styled.span`
+  color: blue;
+`;
+
+const Time = styled.div`
+ color: red;
+ font-weight: bold;
+`;
+
+const Visit = styled.div`
+  font-weight: bold;
+`;
+
+const Item = muistyled(Paper)(() => ({
   
   textAlign: 'center',
   margin: '30px 30px 30px 30px',
@@ -22,7 +42,7 @@ const Item = styled(Paper)(() => ({
   
 }));
 
-const AlterItem = styled(Paper)(() => ({
+const AlterItem = muistyled(Paper)(() => ({
   
   textAlign: 'center',
   color: '#000000',
@@ -43,7 +63,7 @@ const AlterItem = styled(Paper)(() => ({
 const theme = createTheme({
     palette: {
         brown: {
-            main: '#9D7F5C'
+            main: '#DFD3C3'
         }
     }
 });
@@ -77,12 +97,12 @@ export default function ReservationCardComponent(props) {
                 <Item elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</div>
-                    <div>                              </div>
-                    <div>방문 예정</div>
-                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshop_name}</div>
+                    <Visit>방문 예정</Visit>
+                    <Time> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</Time>
+                    <span>헤어숍 이름 :</span>
+                    <Shopname onClick={moveshop}> @{props.reservation.hairshop_name}</Shopname>
                     <div>디자이너 이름 : {props.reservation.designer_name}</div>
-                    <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
+                    <Button variant="contained" color="brown"  onClick={move} sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold'}}>상세보기</Button>
                   </ThemeProvider>
                 </Item>
             </Box>
@@ -91,12 +111,12 @@ export default function ReservationCardComponent(props) {
                 <AlterItem elevation={24}>
                   
                   <ThemeProvider theme={theme}>
-                    <div> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</div>
-                    <div>                              </div>
-                    <div>방문 완료</div>
-                    <div onClick={moveshop}>헤어샵 이름 : {props.reservation.hairshop_name}</div>
+                    <Visit>방문 완료</Visit>
+                    <Time> 예약 일시 : {props.reservation.reservation_date.substring(0,19).replace('T', ' ')}</Time>
+                    <span>헤어숍 이름 :</span>
+                    <Shopname onClick={moveshop}> @{props.reservation.hairshop_name}</Shopname>
                     <div>디자이너 이름 : {props.reservation.designer_name}</div>
-                    <Button variant="contained" color="brown" onClick={move}>상세보기</Button>
+                    <Button variant="contained" color="brown"  onClick={move} sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold'}}>상세보기</Button>
                   </ThemeProvider>
                 </AlterItem>
             </Box>
