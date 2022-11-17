@@ -1,7 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
 import { getitemlist } from "../../store/slices/subscribeSlice";
 import SubscribeItemComponent from './SubscribeItemComponent';
+
+const Container = styled.div`
+    // display: grid;
+    // grid-gap: 1rem;
+    // grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
 
 const SubscribeComponent = () => {
   const dispatch = useDispatch();
@@ -12,7 +19,7 @@ const SubscribeComponent = () => {
     console.log(itemlist);
   }, []);
     return (
-        <div>
+        <Container>
             {itemlist.length === 0 ? (
                <>등록된 상품이 없습니다.</> 
             ) : (
@@ -26,7 +33,7 @@ const SubscribeComponent = () => {
                     );
                 })
             )}
-        </div>
+        </Container>
     );
 };
 

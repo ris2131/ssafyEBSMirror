@@ -28,7 +28,7 @@ const SubscribeItemComponent = (props) => {
   
   return (
     <div>
-      <Card>
+      <Card style={{textAlign : "left"}}>
         <Card.Header>
             상품번호 : {props.num + 1}
         </Card.Header>
@@ -37,16 +37,17 @@ const SubscribeItemComponent = (props) => {
           <Card.Text>
             유효기간 : {props.item.pricingMonth} 개월
           </Card.Text>
-          <MyButton onClick={move}>구독하기</MyButton>
+          <Card.Text>
+            가격 : {props.item.pricingPrice} 원
+          </Card.Text>
           <Card.Text>
             이용횟수 : {props.item.pricingNumber}
           </Card.Text>
           
         </Card.Body>
         <Card.Footer>
-          <Card.Text>
-            가격 : {props.item.pricingPrice} 원
-          </Card.Text>
+          
+          <MyButton onClick={move}>구독하기</MyButton>
         </Card.Footer>
       </Card>
     </div>
