@@ -32,8 +32,8 @@ const LogoDiv = styled.div`
 
 const LogoImg = styled.img`
   @media screen and (max-width: 821px) {
-    width: 150px;
-    height: 150px;
+    width: 220px;
+    height: 220px;
   }
 
   width: 110px;
@@ -46,10 +46,16 @@ const LogoText = styled.h1`
     font-size: 80px;
   }
 
+  
   font-size: 120px;
-  font-family: OKDDUNG;
+  font-family: GowunBatang-Regular;
   color: white;
   margin: 10px;
+`;
+
+const Welcometext = styled.div`
+  color: white;
+  font-family: GowunBatang-Regular;
 `;
 
 // const InputDiv = styled.div`
@@ -111,6 +117,7 @@ const Login = () => {
           ></LogoImg> 
         </LogoDiv>
         <LogoText>EBS</LogoText>
+        <Welcometext>남성 전용 헤어숍 구독 서비스</Welcometext>
         <IconDiv2>
           <GoogleTest text="로그인" />
         </IconDiv2>
