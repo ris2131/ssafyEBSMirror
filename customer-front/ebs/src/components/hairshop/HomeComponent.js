@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
 const Container = styled.div`
-
+    text-align: left;
 `;
 
 const Adress = styled.div`
