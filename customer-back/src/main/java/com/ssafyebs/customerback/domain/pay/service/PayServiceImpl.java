@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +56,7 @@ public class PayServiceImpl implements PayService{
 	}
 	@Override
 	public Boolean deletePay(Long seq, String uid) throws IOException {
-		Optional<Pay> o = payRepository.findBySubscription_FederatedSubscription_BusinessSeqAndSubscription_Member_MemberUid(seq, uid);
+		Optional<Pay> o = payRepository.findBySubscription_FederatedPricing_BusinessSeqAndSubscription_Member_MemberUid(seq, uid);
 		if(o.isPresent()) {
 			Pay p = o.get();
 			String reqURL = "https://kapi.kakao.com/v1/payment/manage/subscription/inactive";
@@ -70,12 +69,11 @@ public class PayServiceImpl implements PayService{
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			StringBuilder sb = new StringBuilder();
-			sb.append("cid=" + p.getPayCid());
-			sb.append("&sid=" + p.getPaySid());
+			String sb = "cid=" + p.getPayCid() +
+					"&sid=" + p.getPaySid();
 			
 
-			bw.write(sb.toString());
+			bw.write(sb);
 			bw.flush();
 
 			int responseCode = conn.getResponseCode();

@@ -66,10 +66,10 @@ public class ReservationController {
 			FederatedReservation f = federatedReservationService.findByDesignerSeq(reservationRequestDto.getDesignerSeq()).get();
 			
 			//구독 조회
-			if(!subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, f.getBusinessSeq())) {
+			if(!subscriptionService.findByMember_MemberUidAndFederatedPricing_BusinessSeq(memberUid, f.getBusinessSeq())) {
 				throw new NoExistSubscriptionException("구독권이 없거나 만료되었습니다.");
 			}
-			Subscription s = subscriptionService.findTop1ByMember_MemberUidAndFederatedSubscription_BusinessSeqOrderBySubscriptionSeqDesc(memberUid, f.getBusinessSeq()).get(0);
+			Subscription s = subscriptionService.findTop1ByMember_MemberUidAndFederatedPricing_BusinessSeqOrderBySubscriptionSeqDesc(memberUid, f.getBusinessSeq()).get(0);
 			s.setSubscriptionLeft(s.getSubscriptionLeft()-1);
 			subscriptionService.makeSubscription(s);
 			em.clear();

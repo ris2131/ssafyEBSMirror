@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +37,7 @@ public class Subscription {
 	
 	@ManyToOne
 	@JoinColumn(name="pricing_seq", referencedColumnName="pricing_seq",foreignKey=@ForeignKey(ConstraintMode.NO_CONSTRAINT))
-	private FederatedSubscription federatedSubscription;
+	private FederatedPricing federatedPricing;
 	
 	@Column(name="subscription_expiration")
 	@Temporal(TemporalType.TIMESTAMP)

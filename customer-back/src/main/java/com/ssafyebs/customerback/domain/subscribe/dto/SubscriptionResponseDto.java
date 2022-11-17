@@ -2,8 +2,6 @@ package com.ssafyebs.customerback.domain.subscribe.dto;
 
 import java.util.Calendar;
 
-import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +22,6 @@ public class SubscriptionResponseDto {
 	private Long businessSeq;
 	
 	private Boolean subscriptionRenew;
+
+	private String hairshopPhoto;
 }

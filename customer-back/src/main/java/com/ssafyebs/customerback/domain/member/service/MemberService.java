@@ -10,11 +10,11 @@ import java.util.Optional;
 
 
 public interface MemberService {
-	public Optional<Member> findByMemberUid(String memberUid);
+	Optional<Member> findByMemberUid(String memberUid);
 	
-	public void quitUser(String memberUid);
+	void quitUser(String memberUid);
 	
-	public Member save(Member member);
+	Member save(Member member);
 
 	HttpHeaders createTokenHeader(String accessToken , String refreshToken);
 	MemberResponseDto loginOAuthGoogle(GoogleLoginRequestDto googleLoginRequestDto);

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Optional;
@@ -29,16 +28,15 @@ import com.ssafyebs.customerback.domain.member.service.MemberService;
 import com.ssafyebs.customerback.domain.pay.entity.Pay;
 import com.ssafyebs.customerback.domain.pay.service.PayService;
 import com.ssafyebs.customerback.domain.subscribe.dto.SubscriptionRequestDto;
-import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
+import com.ssafyebs.customerback.domain.subscribe.entity.FederatedPricing;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
-import com.ssafyebs.customerback.domain.subscribe.service.FederatedSubscriptionService;
+import com.ssafyebs.customerback.domain.subscribe.service.FederatedPricingService;
 import com.ssafyebs.customerback.domain.subscribe.service.SubscriptionService;
 import com.ssafyebs.customerback.global.exception.DuplicateSubscriptionException;
 import com.ssafyebs.customerback.global.exception.NoExistSubscriptionException;
 import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.dynamic.loading.MultipleParentClassLoader.Builder;
 
 @RestController
 @RequestMapping("/subscribe")
@@ -47,7 +45,7 @@ public class SubscriptionController {
 	private final SubscriptionService subscriptionService;
 	private final MemberService memberService;
 	private final PayService payService;
-	private final FederatedSubscriptionService federatedSubscriptionService;
+	private final FederatedPricingService FederatedPricingService;
 	
 	@GetMapping()
 	public ResponseEntity<?> getSubscriptionList(HttpServletRequest request){
@@ -62,11 +60,11 @@ public class SubscriptionController {
 	public ResponseEntity<?> checkSubscription(HttpServletRequest request, @PathVariable("business_seq")Long seq){
 		String memberUid = (String)request.getAttribute("memberuid");
 //		String memberUid = "3262732023";
-		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, seq)));
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독여부 조회 완료.", subscriptionService.findByMember_MemberUidAndFederatedPricing_BusinessSeq(memberUid, seq)));
 	}
 	
 	@DeleteMapping("/{business_seq}")
-	public ResponseEntity<?> inactivateSubscription(HttpServletRequest request, @PathVariable("business_seq")Long seq) throws MalformedURLException, IOException{
+	public ResponseEntity<?> inactivateSubscription(HttpServletRequest request, @PathVariable("business_seq")Long seq) throws IOException{
 		String memberUid = (String)request.getAttribute("memberuid");
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독 해지 완료", payService.deletePay(seq, memberUid)));
 	}
@@ -87,21 +85,20 @@ public class SubscriptionController {
 		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-		StringBuilder sb = new StringBuilder();
-		sb.append("cid="+subscriptionRequestDto.getCid());
-		sb.append("&tid="+subscriptionRequestDto.getTid());
-		sb.append("&partner_order_id="+subscriptionRequestDto.getPartner_order_id());
-		sb.append("&partner_user_id="+subscriptionRequestDto.getPartner_user_id());
-		sb.append("&pg_token="+subscriptionRequestDto.getPg_token());
+		String sb = "cid=" + subscriptionRequestDto.getCid() +
+				"&tid=" + subscriptionRequestDto.getTid() +
+				"&partner_order_id=" + subscriptionRequestDto.getPartner_order_id() +
+				"&partner_user_id=" + subscriptionRequestDto.getPartner_user_id() +
+				"&pg_token=" + subscriptionRequestDto.getPg_token();
 		
-		bw.write(sb.toString());
+		bw.write(sb);
 		bw.flush();
 		
 		int responseCode = conn.getResponseCode();
 		System.out.println("responseCode : " + responseCode);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		String line = "";
+		String line;
 		String result = "";
 
 		while ((line = br.readLine()) != null) {
@@ -115,10 +112,10 @@ public class SubscriptionController {
 		//response값 파싱해서 pay 엔티티 만들어서 넣어줘야함.
 		Long seq = Long.valueOf(subscriptionRequestDto.getPartner_order_id().substring(5));
 		
-		Optional<FederatedSubscription> f = federatedSubscriptionService.findByPricingSeq(seq);
+		Optional<FederatedPricing> f = FederatedPricingService.findByPricingSeq(seq);
 		if(f.isPresent()) {
-			FederatedSubscription fs = f.get();
-			if(subscriptionService.findByMember_MemberUidAndFederatedSubscription_BusinessSeq(memberUid, fs.getBusinessSeq())) {
+			FederatedPricing fs = f.get();
+			if(subscriptionService.findByMember_MemberUidAndFederatedPricing_BusinessSeq(memberUid, fs.getBusinessSeq())) {
 				throw new DuplicateSubscriptionException("이미 구독중입니다.");
 			}
 			Subscription subscription = new Subscription();
@@ -128,7 +125,7 @@ public class SubscriptionController {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.MONTH, fs.getPricingMonth().intValue());
 			subscription.setSubscriptionExpiration(cal);
-			subscription.setFederatedSubscription(fs);
+			subscription.setFederatedPricing(fs);
 			subscription.setSubscriptionRenew(true);
 			
 			subscriptionService.makeSubscription(subscription);
@@ -153,7 +150,7 @@ public class SubscriptionController {
 	
 	@GetMapping("/items/{business_seq}")
 	public ResponseEntity<?> getItemList(HttpServletRequest request, @PathVariable("business_seq")Long seq){
-		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",federatedSubscriptionService.findByBusinessSeq(seq)));
+		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.", FederatedPricingService.findByBusinessSeq(seq)));
 	}
 	
 	@GetMapping("/active")

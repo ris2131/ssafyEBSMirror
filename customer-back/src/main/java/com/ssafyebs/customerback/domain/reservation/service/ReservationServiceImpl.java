@@ -133,7 +133,7 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (RuntimeException e) {
             fileCount = 0;
 			File destDir = new File(IMAGE_PATH + reservationSeq);
-			if (!destDir.mkdirs()) logger.warn(LocalDate.now() + " 파일 경로 중복");
+			if (!destDir.mkdirs()) logger.warn("{} 파일 경로 중복", LocalDate.now());
         }
         fileCount++;
 

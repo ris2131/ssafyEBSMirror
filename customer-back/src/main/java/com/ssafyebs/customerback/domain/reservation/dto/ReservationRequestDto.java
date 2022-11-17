@@ -1,9 +1,5 @@
 package com.ssafyebs.customerback.domain.reservation.dto;
 
-import java.util.Calendar;
-
-import com.ssafyebs.customerback.domain.reservation.entity.FederatedReservation;
-
 import lombok.Getter;
 
 @Getter

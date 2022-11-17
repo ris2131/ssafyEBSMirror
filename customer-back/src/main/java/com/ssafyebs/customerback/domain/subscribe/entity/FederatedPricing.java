@@ -10,9 +10,9 @@ import lombok.Getter;
 
 @Entity
 @Immutable
-@Table(name = "federated_subscriptions")
+@Table(name = "federated_pricings")
 @Getter
-public class FederatedSubscription {
+public class FederatedPricing {
 	@Id
 	@Column(name="pricing_seq")
 	private Long pricingSeq;
@@ -22,6 +22,9 @@ public class FederatedSubscription {
 	
 	@Column(name="hairshop_name")
 	private String hairshopName;
+
+	@Column(name="hairshop_photo")
+	private String hairshopPhoto;
 	
 	@Column(name="pricing_number")
 	private Long pricingNumber;

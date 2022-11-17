@@ -3,8 +3,6 @@ package com.ssafyebs.customerback.domain.member.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.util.Date;
-
 @Getter
 public class MemberGoogleRequestDto {
     @JsonProperty("id_token")

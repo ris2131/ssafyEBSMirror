@@ -6,13 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +16,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafyebs.customerback.domain.pay.entity.Pay;
 import com.ssafyebs.customerback.domain.pay.service.PayService;
-import com.ssafyebs.customerback.domain.subscribe.entity.FederatedSubscription;
 import com.ssafyebs.customerback.domain.subscribe.entity.Subscription;
-import com.ssafyebs.customerback.domain.subscribe.service.FederatedSubscriptionService;
+import com.ssafyebs.customerback.domain.subscribe.service.FederatedPricingService;
 import com.ssafyebs.customerback.domain.subscribe.service.SubscriptionService;
-import com.ssafyebs.customerback.global.exception.DuplicateSubscriptionException;
-import com.ssafyebs.customerback.global.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,13 +27,13 @@ import lombok.RequiredArgsConstructor;
 public class Scheduler {
 
 	private final SubscriptionService subscriptionService;
-	private final FederatedSubscriptionService federatedSubscriptionService;
+	private final FederatedPricingService FederatedPricingService;
 	private final PayService payService;
 
 	// 매일 12시에 조회
 	@Scheduled(cron = "0 0 0 * * *")
 //	@Scheduled(cron = "0 * * * * *")
-	public void renewSubscribe() throws InterruptedException, IOException {
+	public void renewSubscribe() throws IOException {
 		for (Pay p : payService.getNewerList()) {
 			String reqURL = "https://kapi.kakao.com/v1/payment/subscription";
 			URL url = new URL(reqURL);
@@ -52,16 +45,15 @@ public class Scheduler {
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			StringBuilder sb = new StringBuilder();
-			sb.append("cid=" + p.getPayCid());
-			sb.append("&sid=" + p.getPaySid());
-			sb.append("&partner_order_id=" + p.getPayPartnerOrderId());
-			sb.append("&partner_user_id=" + p.getPayPartnerUserId());
-			sb.append("&quantity=1");
-			sb.append("&total_amount=" + p.getPayTotalAmount());
-			sb.append("&tax_free_amount=" + p.getPayTaxFreeAmount());
+			String sb = "cid=" + p.getPayCid() +
+					"&sid=" + p.getPaySid() +
+					"&partner_order_id=" + p.getPayPartnerOrderId() +
+					"&partner_user_id=" + p.getPayPartnerUserId() +
+					"&quantity=1" +
+					"&total_amount=" + p.getPayTotalAmount() +
+					"&tax_free_amount=" + p.getPayTaxFreeAmount();
 
-			bw.write(sb.toString());
+			bw.write(sb);
 			bw.flush();
 
 			int responseCode = conn.getResponseCode();
@@ -70,7 +62,7 @@ public class Scheduler {
 			if (responseCode == 200) {
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				String line = "";
+				String line;
 				String result = "";
 
 				while ((line = br.readLine()) != null) {
@@ -88,11 +80,11 @@ public class Scheduler {
 				subscriptionService.makeSubscription(temp);
 				
 				Subscription s = new Subscription();
-				s.setFederatedSubscription(p.getSubscription().getFederatedSubscription());
+				s.setFederatedPricing(p.getSubscription().getFederatedPricing());
 				s.setMember(p.getSubscription().getMember());
-				s.setSubscriptionLeft(p.getSubscription().getFederatedSubscription().getPricingNumber());
+				s.setSubscriptionLeft(p.getSubscription().getFederatedPricing().getPricingNumber());
 				Calendar cal = (Calendar)p.getSubscription().getSubscriptionExpiration().clone();
-				cal.add(Calendar.MONTH, p.getSubscription().getFederatedSubscription().getPricingMonth().intValue());
+				cal.add(Calendar.MONTH, p.getSubscription().getFederatedPricing().getPricingMonth().intValue());
 				s.setSubscriptionExpiration(cal);
 				s.setSubscriptionRenew(true);
 
