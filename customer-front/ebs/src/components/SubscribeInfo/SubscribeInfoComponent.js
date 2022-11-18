@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
+import visited from '../../visited.png';
 
 
 const Item = muistyled(Paper)(() => ({
@@ -32,12 +33,14 @@ const Item = muistyled(Paper)(() => ({
 const AlterItem = muistyled(Paper)(() => ({
   
   textAlign: 'center',
-  color: '#d3d3d3',
+  color: '#000000',
   margin: '30px 30px 30px 30px',
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#808080',
+  backgroundColor: '#DDDDDD',
+  backgroundImage: `url(${visited})`,
+  backgroundSize: 'cover',
 //   color: '#FFFFFF',
   borderRadius: '10px',
   fontWeight: 'bold'
