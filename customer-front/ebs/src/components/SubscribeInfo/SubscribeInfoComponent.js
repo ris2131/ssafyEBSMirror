@@ -9,10 +9,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
-import visited from '../../assets/visited.png';
+import expired from '../../assets/expired.png';
 
 const StampDiv = styled.div`
-  background: url(${visited}) no-repeat center / contain;
+  background: url(${expired}) no-repeat center / contain;
 `;
 
 const Item = muistyled(Paper)(() => ({
