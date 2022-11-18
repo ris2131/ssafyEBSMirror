@@ -6,13 +6,8 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { fontWeight } from '@mui/system';
-import visited from '../../visited.png';
+import visited from '../../assets/visited.png';
 
-const Forfont = styled.div`
-  font-family: GowunBatang-Regular;
-  
-`;
 
 const Shopname = styled.span`
   color: blue;
@@ -52,14 +47,9 @@ const AlterItem = muistyled(Paper)(() => ({
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#DDDDDD',
-  backgroundImage: `url(${visited})`,
-  backgroundSize: 'cover',
-//   color: '#FFFFFF',
+  background: `#DDDDDD url(${visited}) no-repeat center / contain`,
   borderRadius: '10px',
   fontWeight: 'bold'
-  
-  
 }));
 
 const theme = createTheme({
@@ -97,7 +87,6 @@ export default function ReservationCardComponent(props) {
             date1>date2?
             <Box>
                 <Item elevation={24}>
-                  
                   <ThemeProvider theme={theme}>
                     <Visit>방문 예정</Visit>
                     <Time> 예약 날짜 : {props.reservation.reservation_date.substring(2,10).replace('T', ' ').replaceAll('-','/')}</Time>
@@ -108,11 +97,9 @@ export default function ReservationCardComponent(props) {
                     <Button variant="contained" color="brown"  onClick={move} sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold'}}>상세보기</Button>
                   </ThemeProvider>
                 </Item>
-            </Box>
-            :
+            </Box> :
             <Box>
                 <AlterItem elevation={24}>
-                  
                   <ThemeProvider theme={theme}>
                     <Visit>방문 완료</Visit>
                     <Time> 예약 날짜 : {props.reservation.reservation_date.substring(2,10).replace('T', ' ').replaceAll('-','/')}</Time>
@@ -124,7 +111,6 @@ export default function ReservationCardComponent(props) {
                   </ThemeProvider>
                 </AlterItem>
             </Box>
-          
   );
 }
 
