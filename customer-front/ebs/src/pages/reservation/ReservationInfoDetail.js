@@ -232,9 +232,13 @@ const ReservationInfoDetail = () => {
     } else {
       handleAdd();
     }
-  },[photo]);
+  }, [photo]);
+  
+  const date1 = new Date(reservation.reservation_date);
+  const date2 = new Date();
 
   return (
+    (date1 < date2)?
     <>
       <Container>
         <ButtonBox onClick={move}>
@@ -252,7 +256,7 @@ const ReservationInfoDetail = () => {
                 디자인 선택사항
               </TitleDiv>
               <TextDiv>
-                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<></>}
+                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             <ContentsDiv>
@@ -260,7 +264,7 @@ const ReservationInfoDetail = () => {
                 서비스 선택사항
               </TitleDiv>
               <TextDiv>
-                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<></>}
+                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             <ContentsDiv>
@@ -268,7 +272,7 @@ const ReservationInfoDetail = () => {
                 추가 선택사항
               </TitleDiv>
               <TextDiv>
-                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<></>}
+                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             
@@ -317,6 +321,47 @@ const ReservationInfoDetail = () => {
                   <>사진삭제</>
               }
             </PhotoText>
+          </CardContents>
+        </CardSection>
+      </Container>
+      </>
+      :
+      <>
+      <Container>
+        <ButtonBox onClick={move}>
+          <ButtonImg src={backButton} ></ButtonImg>
+          <ButtonText>돌아가기</ButtonText>
+        </ButtonBox>
+
+        <CardSection> 
+          <CardContents>
+            <HeadTitleDiv>
+                요청사항
+            </HeadTitleDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                디자인 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                서비스 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                추가 선택사항
+              </TitleDiv>
+              <TextDiv>
+                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
           </CardContents>
         </CardSection>
       </Container>

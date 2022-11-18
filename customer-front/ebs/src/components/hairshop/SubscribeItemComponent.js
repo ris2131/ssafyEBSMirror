@@ -7,11 +7,12 @@ const MyButton = styled.button`
   border: none;
   border-radius: 10px;
   color: white;
-  background-color: #42a5f5;
+  background-color: #876445;
   padding: 10px;
   width: 60px;
   font-size: 14px;
   cursor: pointer;
+  font-weight: bold;
 `;
 
 const Container = styled.div`
@@ -58,9 +59,8 @@ const SubscribeItemComponent = (props) => {
         <Card.Text>
             가격 : {props.item.pricingPrice} 원
           </Card.Text>
-        </Card.Footer>
+      </Card.Footer>
       </Card>
-    
   );
 };
 
