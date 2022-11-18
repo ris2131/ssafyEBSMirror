@@ -9,7 +9,6 @@ const MyButton = styled.button`
   color: white;
   background-color: #42a5f5;
   padding: 10px;
-  margin-top: 40px;
   width: 60px;
   font-size: 14px;
   cursor: pointer;
@@ -18,7 +17,8 @@ const MyButton = styled.button`
 const Container = styled.div`
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 6fr 1fr;
+    align-items: center;
 `;
 
 
