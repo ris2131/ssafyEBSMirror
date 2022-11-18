@@ -9,11 +9,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
-import visited from '../../visited.png';
+import visited from '../../assets/visited.png';
 
 
 const Item = muistyled(Paper)(() => ({
-  
   textAlign: 'center',
   margin: '30px 30px 30px 30px',
   height: 'auto',
@@ -25,9 +24,6 @@ const Item = muistyled(Paper)(() => ({
   borderRadius: '10px',
   fontFamily: 'GowunBatang-Regular',
   fontWeight: 'bold'
-  
-  
-  
 }));
 
 const AlterItem = muistyled(Paper)(() => ({
@@ -38,15 +34,9 @@ const AlterItem = muistyled(Paper)(() => ({
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  backgroundColor: '#DDDDDD',
-  backgroundImage: `url(${visited})`,
-  backgroundSize: 'cover',
-//   color: '#FFFFFF',
+  background: `#DDDDDD url(${visited}) no-repeat center / contain`,
   borderRadius: '10px',
   fontWeight: 'bold'
-  
-  
-  
 }));
 
 const theme = createTheme({
@@ -152,68 +142,62 @@ export default function SubscribeInfoComponent(props) {
   }
 
   return (
-            ((props.subscribe.subscriptionLeft>0) && (date1>date2)) ?
-              (props.subscribe.subscriptionRenew)?(
-              <Box>
-                  <Item elevation={24}>
-                    
-                    <ThemeProvider theme={theme} >
-                      <span>헤어숍 이름 :</span>
-                      <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-                      <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
-                      <Expiration>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</Expiration>
-                      <Button variant="contained" color="brown" sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'red'}} onClick={unsub}>정기결제 해지</Button>
-                    </ThemeProvider>
-                  </Item>
-              </Box>
-              ):(
-              <Box>
-                  <Item elevation={24}>
-                    
-                    <ThemeProvider theme={theme}>
-                      <span>헤어숍 이름 :</span>
-                      <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-                      <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-                      <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
-                      <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
-                    </ThemeProvider>
-                  </Item>
-              </Box>
-              ):
-          (props.subscribe.subscriptionRenew)?(
-            <Box>
-                <AlterItem elevation={24}>
-                  
-                  <ThemeProvider theme={theme}>
-                    <span>헤어숍 이름 :</span>
-                    <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-                    <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
-                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
-                    <Button variant="contained" color="brown" sx={{ fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'white'}} onClick={unsub}>정기결제 해지</Button>
-                  </ThemeProvider>
-                </AlterItem>
-            </Box>
-          ):(
-            <Box>
-                <AlterItem elevation={24}>
-                  
-                  <ThemeProvider theme={theme}>
-                    <span>헤어숍 이름 :</span>
-                    <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-                    <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-                    <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0,10).replace('T', ' ')} </div>
-                    <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
-                  </ThemeProvider>
-                </AlterItem>
-            </Box>)
+    ((props.subscribe['subscriptionLeft'] > 0) && (date1 > date2)) ?
+      (props.subscribe['subscriptionRenew']) ? (
+        <Box>
+          <Item elevation={24}>
+            <ThemeProvider theme={theme}>
+              <span>헤어숍 이름 :</span>
+              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+              <Expiration>구독 만료일
+                : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</Expiration>
+              <Button variant="contained" color="brown"
+                      sx={{fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'red'}} onClick={unsub}>정기결제
+                해지</Button>
+            </ThemeProvider>
+          </Item>
+        </Box>
+      ) : (
+        <Box>
+          <Item elevation={24}>
+            <ThemeProvider theme={theme}>
+              <span>헤어숍 이름 :</span>
+              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+              <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+            </ThemeProvider>
+          </Item>
+        </Box>
+      ) :
+      (props.subscribe['subscriptionRenew']) ? (
+        <Box>
+          <AlterItem elevation={24}>
+            <ThemeProvider theme={theme}>
+              <span>헤어숍 이름 :</span>
+              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+              <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+              <Button variant="contained" color="brown"
+                      sx={{fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'white'}} onClick={unsub}>정기결제
+                해지</Button>
+            </ThemeProvider>
+          </AlterItem>
+        </Box>
+      ) : (
+        <Box>
+          <AlterItem elevation={24}>
+            <ThemeProvider theme={theme}>
+              <span>헤어숍 이름 :</span>
+              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+              <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+            </ThemeProvider>
+          </AlterItem>
+        </Box>)
   );
 }
-
-
-
-
-
-
-
