@@ -4,11 +4,6 @@ import moment from 'moment';
 import './Calendar.css';
 import TimeTableComponent from './TimeTableComponent';
 import Swal from 'sweetalert2';
-import styled from "styled-components";
-
-const ReservationDiv = styled.div`
-  user-select: none;
-`;
 
 const ReservationComponent = () => {
 
@@ -43,10 +38,9 @@ const ReservationComponent = () => {
 
   return (
     <div>
-      <h1>예약</h1>
       {mode === 0 ?(
         <div>
-          <Calendar onClickDay={selectDate} resDate={resDate} />
+          <Calendar formatDay={(locale, date) => date.toLocaleString('en', {day: "numeric"})} onClickDay={selectDate} resDate={resDate} />
         </div>
             
         ) : (mode === 1

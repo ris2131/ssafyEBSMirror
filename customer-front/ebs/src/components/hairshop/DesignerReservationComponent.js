@@ -14,7 +14,6 @@ const ImgDiv = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
-  user-select: none;
 `;
 
 const DesignerImg = styled.img`

@@ -9,8 +9,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
-import visited from '../../assets/visited.png';
+import expired from '../../assets/expired.png';
 
+const StampDiv = styled.div`
+  background: url(${expired}) no-repeat center / contain;
+`;
 
 const Item = muistyled(Paper)(() => ({
   textAlign: 'center',
@@ -34,7 +37,7 @@ const AlterItem = muistyled(Paper)(() => ({
   height: 'auto',
   width: 'auto',
   lineHeight: '60px',
-  background: `#DDDDDD url(${visited}) no-repeat center / contain`,
+  background: `#DDDDDD`,
   borderRadius: '10px',
   fontWeight: 'bold'
 }));
@@ -176,11 +179,13 @@ export default function SubscribeInfoComponent(props) {
         <Box>
           <AlterItem elevation={24}>
             <ThemeProvider theme={theme}>
-              <span>헤어숍 이름 :</span>
-              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
-              <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+              <StampDiv>
+                <span>헤어숍 이름 :</span>
+                <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+                <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+                <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+                <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+              </StampDiv>
               <Button variant="contained" color="brown"
                       sx={{fontFamily: 'GowunBatang-Regular', fontWeight: 'bold', color: 'white'}} onClick={unsub}>정기결제
                 해지</Button>
@@ -191,11 +196,13 @@ export default function SubscribeInfoComponent(props) {
         <Box>
           <AlterItem elevation={24}>
             <ThemeProvider theme={theme}>
-              <span>헤어숍 이름 :</span>
-              <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
-              <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
-              <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
-              <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+              <StampDiv>
+                <span>헤어숍 이름 :</span>
+                <Shopname onClick={moveshop}> @{props.subscribe.hairshopName}</Shopname>
+                <div>횟수 : {props.subscribe.subscriptionLeft} / {props.subscribe.pricingNumber}  </div>
+                <div>구독 시작일 : {props.subscribe.subscriptionStart.substring(0, 10).replace('T', ' ')} </div>
+                <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0, 10).replace('T', ' ')}</div>
+              </StampDiv>
             </ThemeProvider>
           </AlterItem>
         </Box>)
