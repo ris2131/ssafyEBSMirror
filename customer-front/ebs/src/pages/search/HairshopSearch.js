@@ -13,6 +13,7 @@ const Container = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
+    font-family: GowunBatang-Regular;
 `;
 
 const CustomInput = styled.input`
