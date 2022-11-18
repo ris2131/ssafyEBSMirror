@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { autocompleteClasses } from "@mui/material";
 const MyButton = styled.button`
   float: right;
   border: none;
@@ -111,10 +112,10 @@ const SubscribeItemComponent = (props) => {
         {/* <Card.Title>헤어숍 이름 : {props.item.hairshopName}</Card.Title> */}
           <Container>
             <div>
-            <Card.Text>
+            <Card.Text style={{ height: "fit-content",fontWeight: "bold" }}>
               유효기간 : {props.item.pricingMonth} 개월
             </Card.Text>
-            <Card.Text>
+            <Card.Text style={{ height: "fit-content",fontWeight: "bold"}}>
               이용횟수 : {props.item.pricingNumber}
               </Card.Text>
               </div>
@@ -122,7 +123,7 @@ const SubscribeItemComponent = (props) => {
           </Container>  
         </Card.Body>
         <Card.Footer>
-        <Card.Text>
+        <Card.Text style={{ height: "fit-content",fontWeight: "bold"}}>
             가격 : {props.item.pricingPrice} 원
           </Card.Text>
       </Card.Footer>
