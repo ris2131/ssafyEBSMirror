@@ -127,10 +127,18 @@
   background-color: #e6e6e6;
   border-radius: 10px;
 }
+.react-calendar__navigation__label {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
 .react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
   /* 맨 윗줄 */
   font-family: 'Do Hyeon', Arial, Helvetica, sans-serif;
   font-size: 24px;
+  white-space: nowrap;
+  text-align: center;
 }
 button.react-calendar__navigation__arrow {
   /* 맨 윗줄 양 옆 화살표 */

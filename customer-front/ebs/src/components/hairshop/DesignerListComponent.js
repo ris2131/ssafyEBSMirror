@@ -13,7 +13,6 @@ const ImgDiv = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  user-select: none;
 `;
 
 const DesignerImg = styled.img`
