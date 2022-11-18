@@ -2,15 +2,15 @@ import React from 'react';
 import styled from "styled-components";
 
 const Empty = styled.div`
-    color: #FFFFFF;
-    text-align: center;
-    text-align
+    margin-top: 200px;
+    font-family: GowunBatang-Regular;
+    
 `;
 
 const SubscribeEmpty = () => {
     return (
         <Empty>
-            구독 정보가 없습니다.
+            구독 내역이 없습니다.
         </Empty>
     );
 };
