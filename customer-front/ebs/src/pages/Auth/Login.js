@@ -12,7 +12,7 @@ import GoogleTest from "./GoogleTest";
 
 const LoginContainer = styled.div`
   @media screen and (max-width: 821px) {
-    background-image: "../../assets/Hairshopimage03.png" };
+    background-image: "../../assets/back_img4.png" };
   }
 
   display: flex;
@@ -21,7 +21,11 @@ const LoginContainer = styled.div`
   align-items: center;
   height: 100vh;
   background-image: url(${bgImage});
-  background-size: 100vw 100vh;
+  //background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
 `;
 
 const LogoDiv = styled.div`

@@ -16,6 +16,7 @@ const Container = styled.div`
   font-family: GowunBatang-Regular;
   // height: 100vh;
   flex: 1;
+  padding-bottom: 20px;
 `;
 
 const Welcome = styled.div`
@@ -43,7 +44,7 @@ const Subinfo = styled.div`
 
 `;
 const Myactivesubspan = styled.span`
-  // margin-bottom: 10px;
+  
 `;
 
 
