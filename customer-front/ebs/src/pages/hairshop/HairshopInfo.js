@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 import {getInfo} from "../../store/slices/businessSlice"
 
 const Container = styled.div`
-    background-color: #F9F9F9;
+    background-color: #FBF8F1;
     flex: 1;
 `;
 
