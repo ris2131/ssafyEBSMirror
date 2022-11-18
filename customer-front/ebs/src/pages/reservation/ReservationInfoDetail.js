@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from "react";
-import { useDispatch , useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -13,7 +13,7 @@ import eraseButton from "../../assets/red_x_button.png";
 const Container = styled.main`
   background-color: #DBD7CC;
   //background-color: #8a817c;
-  font-family: GowunBatang-Regular;
+  font-family: GowunBatang-Regular, 'sans-serif';
   display: flex;
   flex-direction: column;
   flex:1;
@@ -93,14 +93,13 @@ const PhotoSection = styled.section`
 `;
 const PhotoDiv = styled.div`
   position: relative;
+  padding: 10px;
 `;
 
 const MyPhoto = styled.img`
-  width: 250px;
-  height: 200px;
-  //padding: 10px;
-  margin:10px;
-  
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 `;
 const MyPhotoEraseButton= styled.img`
   width: 40px;
@@ -243,7 +242,7 @@ const ReservationInfoDetail = () => {
         //.then(window.location.reload())
         .catch(() => {
           Swal.fire({icon: "error", title: "정보를 확인해주세요"});
-        });;
+        });
       } else if (result.isDenied) {
         Swal.fire('사진 삭제가 취소되었습니다', '', 'info')
       }
