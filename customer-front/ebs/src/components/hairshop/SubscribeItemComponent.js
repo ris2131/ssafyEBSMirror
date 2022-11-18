@@ -14,6 +14,14 @@ const MyButton = styled.button`
   font-size: 14px;
   cursor: pointer;
 `;
+
+const Container = styled.div`
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
+
+
 const SubscribeItemComponent = (props) => {
 
   const navigate = useNavigate();
@@ -27,30 +35,32 @@ const SubscribeItemComponent = (props) => {
   };
   
   return (
-    <div>
+    
       <Card style={{textAlign : "left"}}>
         <Card.Header>
             상품번호 : {props.num + 1}
         </Card.Header>
         <Card.Body>
-          {/* <Card.Title>헤어숍 이름 : {props.item.hairshopName}</Card.Title> */}
-          <Card.Text>
-            유효기간 : {props.item.pricingMonth} 개월
-          </Card.Text>
-          <Card.Text>
-            가격 : {props.item.pricingPrice} 원
-          </Card.Text>
-          <Card.Text>
-            이용횟수 : {props.item.pricingNumber}
-          </Card.Text>
-          
+        {/* <Card.Title>헤어숍 이름 : {props.item.hairshopName}</Card.Title> */}
+          <Container>
+            <div>
+            <Card.Text>
+              유효기간 : {props.item.pricingMonth} 개월
+            </Card.Text>
+            <Card.Text>
+              이용횟수 : {props.item.pricingNumber}
+              </Card.Text>
+              </div>
+            <MyButton onClick={move}>구독하기</MyButton>
+          </Container>  
         </Card.Body>
         <Card.Footer>
-          
-          <MyButton onClick={move}>구독하기</MyButton>
+        <Card.Text>
+            가격 : {props.item.pricingPrice} 원
+          </Card.Text>
         </Card.Footer>
       </Card>
-    </div>
+    
   );
 };
 
