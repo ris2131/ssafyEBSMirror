@@ -3,7 +3,6 @@ import Card from "react-bootstrap/Card";
 import Swal from "sweetalert2";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import Swal from "sweetalert2";
 import axios from "axios";
 const MyButton = styled.button`
   float: right;
