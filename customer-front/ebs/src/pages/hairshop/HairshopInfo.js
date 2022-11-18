@@ -20,7 +20,7 @@ const Container = styled.div`
 const Shopimg = styled.img`
     display: block;
     width: 70%;
-    height: auto;
+    height: 200px;
     margin: auto;
     margin-top: 10px;
 `;
@@ -45,10 +45,11 @@ const Description = styled.div`
 const HairshopInfo = () => {
     const shopname = useSelector((state) => state.business.hairshop.name)
     const description = useSelector((state) => state.business.hairshop.description)
+    const photo = useSelector((state) => state.business.hairshop.photo)
     const dispatch = useDispatch();
     const location = useLocation();
     const hairshopSeq = {...location.state}
-
+    
 
     useEffect(() => {
         dispatch(getInfo(hairshopSeq.businessSeq))
@@ -56,7 +57,7 @@ const HairshopInfo = () => {
 
     return (
         <Container>
-            <Shopimg src={Hairshopimage01}/>
+            <Shopimg src={photo}/>
             <Title>
                 {shopname}
             </Title>

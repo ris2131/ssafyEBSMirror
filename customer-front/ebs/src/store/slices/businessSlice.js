@@ -94,7 +94,8 @@ const businessSlice = createSlice({
         state.hairshop.name = data.hairshopVo.name 
         state.hairshop.notice = data.hairshopVo.notice 
         state.hairshop.phone = data.hairshopVo.phone 
-        state.hairshop.description = data.hairshopVo.description         
+        state.hairshop.description = data.hairshopVo.description
+        state.hairshop.photo = data.hairshopVo.photo         
       },    
       [getDesignerInfo.fulfilled]: (state, action) => {
         const { data } = action.payload;

@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
 import './Calendar.css';
 import TimeTableComponent from './TimeTableComponent';
 import Swal from 'sweetalert2';
+import styled from "styled-components";
+
+const ReservationDiv = styled.div`
+  user-select: none;
+`;
+
 const ReservationComponent = () => {
 
     const [mode, setMode] = useState(0);

@@ -98,7 +98,7 @@ const reservationSlice = createSlice({
                     //"business_seq":6,"reservation_date":"2022-11-20T16:00:00.000+09:00",
                     //"reservation_photo_list":
                         //["https://www.ssafy-ebs.com/download/profile.jpg","https://www.ssafy-ebs.com/download/profile.jpg"],
-                    //"reservation_style":"만나서 디자인 협의",
+                    //"reservation_style":"만나서 스타일 협의",
                     //"reservation_service":"잘 부탁드려요^^.",
                     //"reservation_etc":"방금 구독 다시했음 좋아요."
             // state.myreservation
