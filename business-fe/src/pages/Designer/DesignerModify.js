@@ -373,12 +373,14 @@ const DesignerModify = () => {
             </TextInputDiv>
           </InputDiv>
           <ConfirmButtonDiv>
-            // <SButton onClick={handleDelete} className={"delete"}>
-            //   디자이너 삭제
-            // </SButton>
+            {/*
+            <SButton onClick={handleDelete} className={"delete"}>
+              디자이너 삭제
+            </SButton>
             <SButton onClick={handleModify} className={"submit"}>
               디자이너 수정
             </SButton>
+            */}
           </ConfirmButtonDiv>
         </DesignerSection>
       </DesignerMain>
