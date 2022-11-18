@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from "react";
-import { useDispatch , useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -13,7 +13,7 @@ import eraseButton from "../../assets/red_x_button.png";
 const Container = styled.main`
   background-color: #DBD7CC;
   //background-color: #8a817c;
-  font-family: GowunBatang-Regular;
+  font-family: GowunBatang-Regular, 'sans-serif';
   display: flex;
   flex-direction: column;
   flex:1;
@@ -53,7 +53,7 @@ const CardContents = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.6;
-  padding 15px 10px;
+  padding: 15px 10px;
   width: 300px;
 `;
 
@@ -93,14 +93,13 @@ const PhotoSection = styled.section`
 `;
 const PhotoDiv = styled.div`
   position: relative;
+  padding: 10px;
 `;
 
 const MyPhoto = styled.img`
-  width: 250px;
-  height: 200px;
-  //padding: 10px;
-  margin:10px;
-  
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 `;
 const MyPhotoEraseButton= styled.img`
   width: 40px;
@@ -243,7 +242,7 @@ const ReservationInfoDetail = () => {
         //.then(window.location.reload())
         .catch(() => {
           Swal.fire({icon: "error", title: "정보를 확인해주세요"});
-        });;
+        });
       } else if (result.isDenied) {
         Swal.fire('사진 삭제가 취소되었습니다', '', 'info')
       }
@@ -266,9 +265,13 @@ const ReservationInfoDetail = () => {
     } else {
       handleAdd();
     }
-  },[photo]);
+  }, [photo]);
+  
+  const date1 = new Date(reservation.reservation_date);
+  const date2 = new Date();
 
   return (
+    (date1 < date2)?
     <>
       <Container>
         <ButtonBox onClick={move}>
@@ -283,10 +286,10 @@ const ReservationInfoDetail = () => {
             </HeadTitleDiv>
             <ContentsDiv>
               <TitleDiv>
-                디자인 선택사항
+                스타일 선택사항
               </TitleDiv>
               <TextDiv>
-                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<></>}
+                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             <ContentsDiv>
@@ -294,7 +297,7 @@ const ReservationInfoDetail = () => {
                 서비스 선택사항
               </TitleDiv>
               <TextDiv>
-                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<></>}
+                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             <ContentsDiv>
@@ -302,7 +305,7 @@ const ReservationInfoDetail = () => {
                 추가 선택사항
               </TitleDiv>
               <TextDiv>
-                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<></>}
+                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<>없음</>}
               </TextDiv>
             </ContentsDiv>
             
@@ -352,6 +355,47 @@ const ReservationInfoDetail = () => {
                   <>- 사진삭제</>
               }
             </PhotoText>
+          </CardContents>
+        </CardSection>
+      </Container>
+      </>
+      :
+      <>
+      <Container>
+        <ButtonBox onClick={move}>
+          <ButtonImg src={backButton} ></ButtonImg>
+          <ButtonText>돌아가기</ButtonText>
+        </ButtonBox>
+
+        <CardSection> 
+          <CardContents>
+            <HeadTitleDiv>
+                요청사항
+            </HeadTitleDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                디자인 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_style?<div>{reservation.reservation_style}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                서비스 선택사항
+              </TitleDiv>
+              <TextDiv>
+                {reservation.reservation_service?<div>{reservation.reservation_service}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
+            <ContentsDiv>
+              <TitleDiv>
+                추가 선택사항
+              </TitleDiv>
+              <TextDiv>
+                  {reservation.reservation_etc?<div>{reservation.reservation_etc}</div>:<>없음</>}
+              </TextDiv>
+            </ContentsDiv>
           </CardContents>
         </CardSection>
       </Container>

@@ -1,39 +1,67 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
 
-const DesignerReservationComponent = (props) => {
+const ImgDiv = styled.div`
+  width: 100%;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #7f7f7f7f;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+`;
 
-//   const navigate = useNavigate();
+const DesignerImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #fdfdfd;
+`;
+
 const MyButton = styled.button`
   float: right;
   border: none;
   border-radius: 10px;
   color: white;
-  background-color: #42a5f5;
-  padding: 10px;
+  background-color: #b086649f;
+  padding: 4px;
   width: 60px;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 8px;
+  
+  &:hover {
+    background-color: #b08664;
+  }
 `;
 
-const handlerRes = (e) => {
-  console.log(e)
-  props.func(3)
-  props.setDisgnerSeq(e.target.value)
-}
- console.log(props.designer);
+const DesignerReservationComponent = (props) => {
+  const handlerRes = (e) => {
+    console.log(e)
+    props.func(3)
+    props.setDisgnerSeq(e.target.value)
+  }
+  console.log(props.designer);
+
   return (
     <div>
-   
       <Card>
-      <Card.Img variant = "top" src={props.designer.photo} width="200px" height="150px" />
+        <ImgDiv onClick={handlerRes} value={props.designer.designer_seq}>
+          <DesignerImg src={props.designer.photo}/>
+          <MyButton>예약하기</MyButton>
+        </ImgDiv>
         <Card.Body>
-          <Card.Title >{props.designer.name}</Card.Title>
-          <Card.Text >
-            설명 : {props.designer.description}
-            <MyButton onClick={handlerRes} value={props.designer.designer_seq}>예약</MyButton>
+          <Card.Title>{props.designer.name}</Card.Title>
+          <Card.Text>
+            {props.designer.description}
           </Card.Text>
         </Card.Body>
       </Card>

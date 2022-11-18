@@ -1,38 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
+import "./Card.css";
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
 
-const DesignerListComponent = (props) => {
-
-//   const navigate = useNavigate();
-const MyButton = styled.button`
-  float: right;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: #42a5f5;
-  padding: 10px;
-  width: 60px;
-  font-size: 14px;
-  cursor: pointer;
+const ImgDiv = styled.div`
+  width: 100%;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #7f7f7f7f;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
 `;
 
-const handlerRes = (e) => {
-  console.log(e)
-  props.func(3)
-  props.setDisgnerSeq(e.target.value)
-}
- console.log(props.designer);
+const DesignerImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #fdfdfd;
+`;
+
+const DesignerListComponent = (props) => {
   return (
     <div>
-   
       <Card>
-      <Card.Img variant = "top" src={props.designer.photo} width="200px" height="150px" />
+        <ImgDiv>
+          <DesignerImg src={props.designer.photo}/>
+        </ImgDiv>
         <Card.Body>
-          <Card.Title >{props.designer.name}</Card.Title>
-          <Card.Text >
-            설명 : {props.designer.description}
+          <Card.Title>{props.designer.name}</Card.Title>
+          <Card.Text>
+            {props.designer.description}
           </Card.Text>
         </Card.Body>
       </Card>
