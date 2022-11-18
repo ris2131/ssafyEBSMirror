@@ -151,8 +151,8 @@ export default function SubscribeInfoComponent(props) {
   }
 
   return (
-            (props.subscribe.subscriptionLeft<=0 || date1>date2) ?
-              (props.subscribe.subscriptionRenew)?
+            ((props.subscribe.subscriptionLeft>0) && (date1>date2)) ?
+              (props.subscribe.subscriptionRenew)?(
               <Box>
                   <Item elevation={24}>
                     
@@ -166,7 +166,7 @@ export default function SubscribeInfoComponent(props) {
                     </ThemeProvider>
                   </Item>
               </Box>
-              :
+              ):(
               <Box>
                   <Item elevation={24}>
                     
@@ -180,8 +180,8 @@ export default function SubscribeInfoComponent(props) {
                     </ThemeProvider>
                   </Item>
               </Box>
-          :
-          (props.subscribe.subscriptionRenew)?
+              ):
+          (props.subscribe.subscriptionRenew)?(
             <Box>
                 <AlterItem elevation={24}>
                   
@@ -196,7 +196,7 @@ export default function SubscribeInfoComponent(props) {
                   </ThemeProvider>
                 </AlterItem>
             </Box>
-          :
+          ):(
             <Box>
                 <AlterItem elevation={24}>
                   
@@ -209,7 +209,7 @@ export default function SubscribeInfoComponent(props) {
                     <div>구독 만료일 : {props.subscribe.subscriptionExpiration.substring(0,10).replace('T', ' ')}</div>
                   </ThemeProvider>
                 </AlterItem>
-            </Box>
+            </Box>)
   );
 }
 
