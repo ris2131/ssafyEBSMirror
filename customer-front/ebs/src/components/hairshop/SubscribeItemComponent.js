@@ -126,7 +126,7 @@ const SubscribeItemComponent = (props) => {
             가격 : {props.item.pricingPrice} 원
           </Card.Text>
       </Card.Footer>
-      </Card>
+    </Card>
   );
 };
 

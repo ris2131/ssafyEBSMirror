@@ -5,9 +5,9 @@ import { getitemlist } from "../../store/slices/subscribeSlice";
 import SubscribeItemComponent from './SubscribeItemComponent';
 
 const Container = styled.div`
-    // display: grid;
-    // grid-gap: 1rem;
-    // grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
 `;
 
 const SubscribeComponent = () => {
