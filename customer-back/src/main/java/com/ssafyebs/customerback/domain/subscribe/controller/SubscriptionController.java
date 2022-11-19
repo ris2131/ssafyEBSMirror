@@ -50,7 +50,6 @@ public class SubscriptionController {
 	@GetMapping()
 	public ResponseEntity<?> getSubscriptionList(HttpServletRequest request){
 		String memberUid = (String) request.getAttribute("memberuid");
-		System.out.println(memberUid);
 //		String memberUid = "3262732023";
 		return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.createSuccess("구독정보 조회 완료.",subscriptionService.findByMember_MemberUid(memberUid)));
 	}
@@ -95,7 +94,6 @@ public class SubscriptionController {
 		bw.flush();
 		
 		int responseCode = conn.getResponseCode();
-		System.out.println("responseCode : " + responseCode);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String line;
@@ -104,7 +102,6 @@ public class SubscriptionController {
 		while ((line = br.readLine()) != null) {
 			result += line;
 		}
-		System.out.println("response body : " + result);
 
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);

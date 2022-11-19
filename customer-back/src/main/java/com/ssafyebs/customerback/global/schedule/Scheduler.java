@@ -57,7 +57,6 @@ public class Scheduler {
 			bw.flush();
 
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
 
 			if (responseCode == 200) {
 
@@ -68,7 +67,6 @@ public class Scheduler {
 				while ((line = br.readLine()) != null) {
 					result += line;
 				}
-				System.out.println("response body : " + result);
 
 				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(result);

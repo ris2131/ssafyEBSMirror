@@ -77,7 +77,6 @@ public class PayServiceImpl implements PayService{
 			bw.flush();
 
 			int responseCode = conn.getResponseCode();
-			System.out.println(responseCode);
 			if(responseCode == 200) {
 				Subscription s = p.getSubscription();
 				s.setSubscriptionRenew(false);
