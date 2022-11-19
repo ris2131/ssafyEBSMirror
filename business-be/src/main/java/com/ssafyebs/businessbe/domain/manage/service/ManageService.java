@@ -59,7 +59,6 @@ public class ManageService {
         }
         List<Designer> designerList = designerRepository.findAllByBusinessBusinessSeq(businessSeq);
         if(designerList.size()==0){
-            System.out.println("designer size 0");
             throw new InsufficientHairshopInfoException("헤어샵 정보가 모두 기입 되지 않았습니다. : 디자이너");
         }
 
@@ -142,7 +141,6 @@ public class ManageService {
         designerRepository.save(designer);
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
-            System.out.println("파일 이름만 먼저 저장");
             String file = multipartFile.getOriginalFilename();
             if (file == null) throw new InvalidFileException("잘못된 파일 입력입니다.");
             designer.setPhoto(IMAGE_URL_PREFIX + "designer/" + designer.getDesignerSeq() + "." + file.substring(file.lastIndexOf(".") + 1));
@@ -202,8 +200,6 @@ public class ManageService {
         }
 
         SimpleDateFormat formatToString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        System.out.println(formatToString.format(day.getTime()));
 
         day.set(Calendar.HOUR_OF_DAY, 0);
         day.set(Calendar.MINUTE, 0);

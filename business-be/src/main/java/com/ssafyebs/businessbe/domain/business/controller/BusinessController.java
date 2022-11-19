@@ -23,7 +23,6 @@ public class BusinessController {
     final static Logger logger = LoggerFactory.getLogger(BusinessController.class);
     @GetMapping()
     public ResponseEntity<?> getBusiness(HttpServletRequest request){
-        System.out.println("getBusiness");
         long businessSeq = (long)request.getAttribute("business_seq");
         BusinessResponseDto businessResponseDto = businessService.getBusiness(businessSeq);
         return ResponseEntity.status(HttpStatus.CREATED).body(CommonResponse.createSuccess("반환 성공", businessResponseDto));
