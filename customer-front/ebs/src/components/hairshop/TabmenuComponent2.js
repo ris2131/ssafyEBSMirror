@@ -2,13 +2,15 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HomeComponent from './HomeComponent';
 import DesignerComponent from './DesignerComponent';
 import SubscribeComponent from './SubscribeComponent';
 import ReservationComponent from './ReservationComponent';
 import { createTheme, ThemeProvider } from '@mui/material';
+import {useSelector} from "react-redux";
+import styled from "styled-components";
+import {useState} from "react";
 
 const theme = createTheme({
   palette: {
@@ -17,6 +19,54 @@ const theme = createTheme({
       }
   }
 });
+
+const DisplayBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #7f7f7fbf;
+`;
+
+const SubscriptionAlert = styled.div`
+  width: 70%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+const AlertMessage = styled.div`
+  font-size: 24px;
+  font-family: GowunBatang-Regular, sans-serif;
+  font-weight: bold;
+  word-break: keep-all;
+  padding-top: 40px;
+`;
+
+const AlertButton = styled.button`
+  margin: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  background-color: #b08664;
+  color: #fdfdfd;
+  transition-duration: 200ms;
+
+  &:hover {
+    background-color: #876445;
+    transition-duration: 200ms;
+  }
+`;
 
 function TabPanel(props) {
   const { children, value, index,  ...other } = props;
@@ -27,6 +77,7 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      style={{position: 'relative'}}
       {...other}
     >
       {value === index && (
@@ -51,11 +102,26 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(props) {
   const [value, setValue] = React.useState(0);
+  const myActiveSubscribe = useSelector((state) => state.subscribe.myactivesubscribe);
+  const [isSubscribed, setSubscribed] = useState(true);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    isSubscribing();
+  };
+
+  const isSubscribing = () => {
+    console.log("현재 조회중인 Seq : " + props.hairshopSeq);
+    let bool = false;
+    myActiveSubscribe.forEach((hairShop) => {
+      console.log("Loop Seq : " + hairShop['businessSeq']);
+      if (hairShop['businessSeq'] === props.hairshopSeq) {
+        bool = true;
+      }
+    });
+    setSubscribed(bool);
   };
 
   return (
@@ -81,6 +147,17 @@ export default function BasicTabs() {
         </TabPanel>
         <TabPanel value={value} index={3}>
           <ReservationComponent/>
+          {
+            isSubscribed ?
+              <></> :
+              <>
+                <DisplayBlock />
+                <SubscriptionAlert>
+                  <AlertMessage>아직 구독하지 않은 헤어샵입니다.</AlertMessage>
+                  <AlertButton onClick={() => setValue(2)}><nobr>구독하기</nobr></AlertButton>
+                </SubscriptionAlert>
+              </>
+          }
         </TabPanel>
       </Box>
     </ThemeProvider>

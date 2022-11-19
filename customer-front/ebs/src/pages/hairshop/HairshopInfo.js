@@ -1,11 +1,6 @@
 // import React from 'react';
 import styled from "styled-components";
-import Hairshopimage01 from "../../assets/Hairshopimage01.png"
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-//import CenteredTabs from "../../components/hairshop/TabmenuComponent";
 import BasicTabs from "../../components/hairshop/TabmenuComponent2";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +59,7 @@ const HairshopInfo = () => {
             <Description>
                 {description}
             </Description>
-            <BasicTabs/>
+            <BasicTabs hairshopSeq={hairshopSeq.businessSeq}/>
         </Container>
     );
 };
