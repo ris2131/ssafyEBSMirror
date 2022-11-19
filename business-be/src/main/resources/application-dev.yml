@@ -18,7 +18,7 @@ spring:
 
   redis:
     host: 13.125.49.111
-    port: 17103
+    port: 10713
     mail-expired-time: 300
 
   servlet:
