@@ -57,6 +57,7 @@
 
 .indexedStep.accomplished {
   background-color: #b08664;
+  cursor: pointer;
 }
 
 .text {
