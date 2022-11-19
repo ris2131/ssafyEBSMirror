@@ -53,16 +53,6 @@ const LogoDiv = styled.div`
   margin-bottom: 20px;
 `;
 
-const LogoImg = styled.img`
-  @media screen and (max-width: 821px) {
-    width: 70px;
-    height: 70px;
-  }
-
-  width: 100px;
-  height: 100px;
-`;
-
 const LogoText = styled.h1`
   @media screen and (max-width: 821px) {
     font-size: 60px;
@@ -90,18 +80,6 @@ const InputDiv = styled.div`
   }
   width: 20vw;
   margin-bottom: 10px;
-`;
-
-const IconDiv = styled.div`
-  @media screen and (max-width: 1000px) {
-  }
-  font-size: 18px;
-
-  margin: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const SButton = styled.button`
@@ -192,7 +170,7 @@ const SignUp = () => {
     dispatch(signup(data))
       .unwrap()
       .then(() => {
-        Swal.fire({ icon: "success", title: "회원가입 완료!" 
+        Swal.fire({ icon: "success", title: "인증 메일이 발송되었습니다. 이메일 인증 후 서비스를 이용 가능합니다."
         ,confirmButtonColor: '#688087', // confrim 버튼 색깔 지정
         iconColor:'#688087',//아이콘 색깔 설정.
       });
