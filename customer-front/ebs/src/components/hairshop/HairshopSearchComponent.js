@@ -6,15 +6,8 @@ import { BsArrowUpRightCircle } from "react-icons/bs"
 
 const Container = styled.div`
   text-align: left;
-  font-family: GowunBatang-Regular; 
+  font-family: GowunBatang-Regular, 'sans-serif'; 
   margin: 5px 5px 5px 5px;
-  
-`;
-
-const Customimg = styled.img`
-  
-  width: 50%;
-  align: right;
   
 `;
 
@@ -51,11 +44,11 @@ const HairshopSearchComponent = (props) => {
   return (
     <Container>
       <Card>
-        <Card.Body>
-          <Namespan onClick={getInfor}>{props.hairshop.name}</Namespan>
+        <Card.Body onClick={getInfor}>
+          <Namespan>{props.hairshop.name}</Namespan>
           <br/>
           <Customdiv>
-            <span onClick={getInfor} >{props.hairshop.address}</span>
+            <span>{props.hairshop.address}</span>
             <Gotoshop>
               <Customspan>헤어숍 보러가기</Customspan>
               <BsArrowUpRightCircle size="12"/>
