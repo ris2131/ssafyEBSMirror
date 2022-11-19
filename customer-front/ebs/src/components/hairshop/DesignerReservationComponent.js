@@ -44,16 +44,17 @@ const MyButton = styled.button`
 
 const DesignerReservationComponent = (props) => {
   const handlerRes = (e) => {
-    console.log(e)
-    props.func(3)
-    props.setDisgnerSeq(e.target.value)
+    console.log(e);
+    props.func(3);
+    props.setDesignerSeq(props.designer['designer_seq']);
+    props.setDesignerName(props.designer['name']);
   }
   console.log(props.designer);
 
   return (
     <div>
       <Card>
-        <ImgDiv onClick={handlerRes} value={props.designer.designer_seq}>
+        <ImgDiv onClick={handlerRes} value={props.designer['designer_seq']}>
           <DesignerImg src={props.designer.photo}/>
           <MyButton>예약하기</MyButton>
         </ImgDiv>
