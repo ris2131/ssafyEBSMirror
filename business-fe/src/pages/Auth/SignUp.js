@@ -337,7 +337,7 @@ const SignUp = () => {
         <InputDiv>
           <TextField
             fullWidth
-            label="설립연월일(yymdd)"
+            label="설립연월일(yyyymmdd)"
             variant="standard"
             value={regFoundDate}
             onChange={(e) => {
