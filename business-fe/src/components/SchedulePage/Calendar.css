@@ -24,6 +24,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  text-decoration: none;
 }
 .react-calendar button {
   margin: 8px 0;
@@ -54,7 +55,6 @@
 .react-calendar__month-view__weekdays {
   text-align: center;
   text-transform: uppercase;
-  font-weight: bold;
   font-size: 1.5em;
 }
 .react-calendar__month-view__weekdays__weekday {
