@@ -144,9 +144,7 @@ const ReservationInfoDetail = () => {
 
   const reservation = location.state.item;
   useEffect(() => {
-    dispatch(getreservations()).then((res) => {
-      console.log("detail 에서 getreservation Res 수정.. :"+JSON.stringify(res));
-    });
+    dispatch(getreservations());
   }, []);
 
   const move = () =>{
@@ -156,7 +154,6 @@ const ReservationInfoDetail = () => {
   const changeImg = (e) => {
     setPhoto(e.target.files[0]);
     setPreview(e.target.files[0]);
-    console.log("photochanged");
   };
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -170,8 +167,6 @@ const ReservationInfoDetail = () => {
   };
 
   const actionImgCompress = async (fileSrc) => {
-    console.log("압축 시작");
-
     const options = {
       maxSizeMB: 0.2,
       maxWidthOrHeight: 1920,
@@ -188,15 +183,12 @@ const ReservationInfoDetail = () => {
       //   const base64data = reader.result;
       //   imageHandling(base64data);
       // };
-      console.log("size "+fileSrc.size+" -> "+compressedFile.size );
     } catch (error) {
-      console.log(error);
     }
   };
 
 
   const handleAdd=()=>{
-    console.log("사진 추가하기!");
     
     //post
     const formData = new FormData();
@@ -214,12 +206,10 @@ const ReservationInfoDetail = () => {
       });
   }
   const handleShowErase=()=>{
-    console.log("사진삭제 띄우기");
     setShowErase(!showErase);
   }
  
   const handleDelete=(url)=>{
-    console.log("사진 삭제이미지 클릭"+url);
     Swal.fire({
       title: '사진을 삭제 하시겠습니까?',
       showDenyButton: true,

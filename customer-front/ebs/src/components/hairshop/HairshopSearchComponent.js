@@ -40,7 +40,6 @@ const HairshopSearchComponent = (props) => {
     navigate("/hairshop-info", {state: { ...data } })
 
   }
-  console.log(props)
   return (
     <Container>
       <Card>

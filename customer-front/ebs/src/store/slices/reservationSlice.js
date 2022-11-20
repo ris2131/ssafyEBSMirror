@@ -47,7 +47,6 @@ export const getAvailableDesigners = createAsyncThunk(
         try{
             
             const res = await reservationApi.getAvailableDesigners(data.seq, data.finalDate);
-            console.log(res.data)
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response);
@@ -58,11 +57,8 @@ export const getAvailableDesigners = createAsyncThunk(
 export const makeReservation = createAsyncThunk(
     "reservationSlice/makeReservation",
     async(data, {rejectWithValue}) => {
-        console.log(data)
         try{
-            
             const res = await reservationApi.makeReservation(data);
-            console.log(res.data)
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response);
@@ -81,13 +77,11 @@ const reservationSlice = createSlice({
     extraReducers:{
         [getreservations.fulfilled]:(state, action) =>{
             state.myreservation = action.payload.data;
-            console.log("resdata:"+state.myreservation);
         },
         [addReservationPhoto.fulfilled]:(state, action)=>{
             //state.myreservation = 
             //state.myreservation.reservation_photo_list;
             // 너가 보내주는 res_seq를 받아서 => 마이레저베이션을 뚜까열어서 -> seq 가 같은 녀석에다가 -> 너가 보내주는 url 을 집어넣어야함.
-            // console.log("res_seq"+action.payload.data.reservation_seq)
             // action.payload.data.reservation_seq
             // action.payload.data.photo
             // 
@@ -102,13 +96,9 @@ const reservationSlice = createSlice({
                     //"reservation_service":"잘 부탁드려요^^.",
                     //"reservation_etc":"방금 구독 다시했음 좋아요."
             // state.myreservation
-            //
-            //console.log(state.myreservation.reservation_seq)
-
         },
         [getAvailableDesigners.fulfilled]:(state,action)=>{
             state.designers = action.payload.data;
-            console.log(state.designers);
         }
     },
 });

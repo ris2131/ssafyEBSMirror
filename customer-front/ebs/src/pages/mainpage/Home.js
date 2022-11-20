@@ -60,7 +60,6 @@ const Home = () => {
  }, []);
   
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  console.log(isLoggedIn)
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login");
@@ -68,7 +67,6 @@ const Home = () => {
   }, [isLoggedIn, navigate]);
 
   const myactivesubscribe = useSelector((state) => state.subscribe.myactivesubscribe);
-  console.log(myactivesubscribe)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getactivesubscribe());

@@ -44,12 +44,10 @@ const MyButton = styled.button`
 
 const DesignerReservationComponent = (props) => {
   const handlerRes = (e) => {
-    console.log(e);
     props.func(3);
     props.setDesignerSeq(props.designer['designer_seq']);
     props.setDesignerName(props.designer['name']);
   }
-  console.log(props.designer);
 
   return (
     <div>

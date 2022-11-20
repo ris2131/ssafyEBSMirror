@@ -69,10 +69,9 @@ const GoogleIntro = () => {
       memberNickname,
       memberAddress,
     };
-    console.log(data)
     dispatch(googleNickname(data))
       .unwrap()
-      .then((res) => {console.log(res); navigate("/")})
+      .then((res) => navigate("/"))
       .catch((err) => console.error(err));
   };
   useEffect(() => {

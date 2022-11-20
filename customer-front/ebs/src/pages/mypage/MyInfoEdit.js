@@ -57,7 +57,6 @@ const MyInfoEdit = () => {
   
   const [nickname, setNickname] = useState("");
   const [address, setAddress] = useState("");
-  console.log(member)
 
   const fetchState = useCallback(() => {
     setNickname(member.nickname);
@@ -81,11 +80,9 @@ const MyInfoEdit = () => {
       member_nickname : nickname,
       member_address : address,
     };
-    console.log(data)
     dispatch(putuser(data))
     .unwrap()
     .then((res) => {
-      console.log(res); 
       Swal.fire({
         icon: "success",
         title: "완료",

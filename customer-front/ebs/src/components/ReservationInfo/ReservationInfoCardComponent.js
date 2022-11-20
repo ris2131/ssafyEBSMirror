@@ -61,7 +61,6 @@ const theme = createTheme({
 });
 
 export default function ReservationCardComponent(props) {
-  console.log(typeof props.reservation.reservation_date)
   const navigate = useNavigate();
 
   const data = {

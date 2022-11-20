@@ -39,7 +39,6 @@ const SubscribeItemComponent = (props) => {
   };
 
   const handleSubscribe=()=>{
-    console.log("구독?");
     Swal.fire({
       title: '상품을 구독 하시겠습니까?',
       icon: "question",
@@ -91,7 +90,7 @@ const SubscribeItemComponent = (props) => {
               "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
           },
           params,
-      }).then((res)=>{console.log(res);
+      }).then((res)=>{
           //window.location.assign(res.data.next_redirect_pc_url)
           window.localStorage.setItem('tid', res.data.tid);
           window.localStorage.setItem('order', JSON.stringify(params));

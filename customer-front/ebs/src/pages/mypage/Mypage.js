@@ -102,7 +102,6 @@ const Mypage = () => {
     const address = useSelector((state) => state.user.member.address)
     const businessSeq = useSelector((state) => state.business.hairshop.businessSeq);
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-    console.log(businessSeq)
     const title = "탈퇴 확인";
     const description = "정말 EBS를 탈퇴하실건가요?ㅠ.ㅠ";
     const data = {
@@ -133,7 +132,6 @@ const Mypage = () => {
         dispatch(quituser())
         .unwrap()
         .then((res) => {
-          console.log(res); 
           Swal.fire({
             icon: "success",
             title: "완료",

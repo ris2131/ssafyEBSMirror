@@ -64,7 +64,6 @@ export default function SubscribeInfoComponent(props) {
   // const data = {
   //   businessSeq : props.reservation.businessSeq
   // }
-  console.log(props.subscribe.businessSeq)
 
   const data = {
     businessSeq : props.subscribe.businessSeq

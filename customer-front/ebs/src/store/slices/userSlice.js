@@ -113,7 +113,6 @@ export const removeRefreshToken = () => {
     extraReducers: {
       [googleLogin.fulfilled]: (state, action) => {
         if (action.payload.data) {
-          console.log(action)
           state.isLoggedIn = true;
         }
       },

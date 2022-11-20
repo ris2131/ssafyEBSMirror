@@ -25,7 +25,6 @@ export const getsubscribeinfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await subscribeApi.getsubscribeinfo();
-      console.log("!!!!!!!!!!!!!!!" + res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -38,7 +37,6 @@ export const getitemlist = createAsyncThunk(
   async(data, {rejectWithValue}) => {
     try{
       const res = await subscribeApi.getitemlist(data);
-      console.log(res)
       return res.data;
     } catch (err){
       return rejectWithValue(err.response);
@@ -51,7 +49,6 @@ export const getactivesubscribe = createAsyncThunk(
   async(data, {rejectWithValue}) => {
     try{
       const res = await subscribeApi.getactivesubscribe(data);
-      console.log(res)
       return res.data;
     } catch (err){
       return rejectWithValue(err.response);
@@ -64,7 +61,6 @@ export const makeSubscribe = createAsyncThunk(
   async(data, {rejectWithValue}) => {
     try{
       const res = await subscribeApi.makeSubscribe(data);
-      console.log(res)
       return res.data;
     } catch (err){
       return rejectWithValue(err.response);
@@ -80,19 +76,15 @@ const subscribeSlice = createSlice({
   extraReducers: {
     [getsubscribeinfo.fulfilled]: (state, action) => {
       state.mysubscribe = action.payload.data;
-      console.log(state.mysubscribe);
     },
     [getitemlist.fulfilled]: (state, action) =>{
       state.itemlist = action.payload.data;
-      console.log(state.itemlist);
     },
     [getactivesubscribe.fulfilled]: (state, action) => {
       state.myactivesubscribe = action.payload.data;
-      console.log(state.myactivesubscribe);
     },
     [getitemseq.fulfilled]: (state, action) =>{
       state.itemseq = action.payload;
-      console.log(state.itemseq);
     },
   },
 });

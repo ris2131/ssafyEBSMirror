@@ -113,10 +113,8 @@ export default function BasicTabs(props) {
   };
 
   const isSubscribing = () => {
-    console.log("현재 조회중인 Seq : " + props.hairshopSeq);
     let bool = false;
     myActiveSubscribe.forEach((hairShop) => {
-      console.log("Loop Seq : " + hairShop['businessSeq']);
       if (hairShop['businessSeq'] === props.hairshopSeq) {
         bool = true;
       }

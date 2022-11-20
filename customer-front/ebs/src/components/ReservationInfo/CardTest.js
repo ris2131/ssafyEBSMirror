@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const ReservationInfocardComponent = (props) => {
-  console.log(typeof props.reservation.reservationDate)
   const navigate = useNavigate();
 
   const data = {

@@ -33,7 +33,6 @@ export const searchByname = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await businessApi.searchByname(data);
-      console.log(res.data)
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);
@@ -46,7 +45,6 @@ export const getInfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await businessApi.getInfo(data);
-      console.log(res)
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response);

@@ -16,7 +16,6 @@ const SubscribeComponent = () => {
   const businessSeq = useSelector((state) => state.business.hairshop.businessSeq);
   useEffect(() => {
     dispatch(getitemlist(businessSeq));
-    console.log(itemlist);
   }, []);
     return (
         <Container>
