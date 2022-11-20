@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://13.125.49.111:13107/ebs_business?characterEncoding=UTF-8&serverTimezone=UTC
+    username: d107_business
+    password: business107
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
+
+  redis:
+    host: 13.125.49.111
+    port: 10713
+    mail-expired-time: 300
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ebsmanager365@gmail.com
+    password: nmopijidkslurtua
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+#JWT settings
+jwt:
+  access:
+    expiration: '90'
+    subject: Ebs AccessToken
+  refresh:
+    subject: Ebs RefreshToken
+    expiration: '180'
+  secret: S0f7AZxciEDA4asdRYUBohQukyrttdGdzv7xcvRneXo
+
+home-url:
+  http://localhost
+
+image-url:
+  http://localhost/photo/
+
+image-path:
+  C:\Project\
