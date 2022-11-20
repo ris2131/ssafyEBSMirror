@@ -91,7 +91,9 @@ const MyInfoEdit = () => {
         title: "완료",
         text: "회원 정보를 수정했습니다.",
         showConfirmButton: true,
-        timer: 3000
+        timer: 3000,
+        confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+        iconColor:'#876445'
       })
       navigate("/mypage")})
     .catch((err) => console.error(err));

@@ -150,7 +150,9 @@ const TimeTableComponent = (props) => {
                 title: "완료",
                 text: "예약이 완료되었습니다.",
                 showConfirmButton: true,
-                timer: 3000
+                timer: 3000,
+                confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+                iconColor:'#876445',//아이콘 색깔 설정.
               }).then(navigate('/reservation-info'))
             )
 
@@ -160,7 +162,9 @@ const TimeTableComponent = (props) => {
                 title: "오류",
                 text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
                 showConfirmButton: true,
-                timer: 3000
+                timer: 3000,
+                confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+                iconColor:'#876445'
               })
             )
         }

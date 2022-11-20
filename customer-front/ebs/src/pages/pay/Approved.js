@@ -27,7 +27,9 @@ export default function Approved() {
                         title: "완료",
                         text: "구독에 성공했습니다!\n잠시 후 구독내역페이지로 이동합니다.",
                         showConfirmButton: true,
-                        timer: 3000
+                        timer: 3000,
+                        confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+                        iconColor:'#876445'
                     });
                     window.localStorage.removeItem('order');
                     window.localStorage.removeItem('tid');
@@ -38,7 +40,9 @@ export default function Approved() {
                         title: "오류",
                         text: "오류가 발생했습니다. 관리자에게 문의해주세요.\n잠시 후 메인페이지로 이동합니다.",
                         showConfirmButton: true,
-                        timer: 3000
+                        timer: 3000,
+                        confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+                        iconColor:'#876445'
                     });
                     window.localStorage.removeItem('order');
                     window.localStorage.removeItem('tid');

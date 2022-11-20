@@ -139,6 +139,8 @@ const Mypage = () => {
             title: "완료",
             text: "회원탈퇴 처리가 완료되었습니다.\n이용해주셔서 감사합니다.",
             showConfirmButton: true,
+            confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+            iconColor:'#876445'
           })
           navigate("/")
         })

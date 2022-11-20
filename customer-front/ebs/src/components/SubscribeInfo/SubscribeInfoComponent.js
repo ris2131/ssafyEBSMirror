@@ -101,6 +101,9 @@ export default function SubscribeInfoComponent(props) {
       showCancelButton: true,
       confirmButtonText: "해지",
       cancelButtonText: "취소",
+      confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+      iconColor:'#876445',//아이콘 색깔 설정.
+      cancelButtonColor:'#dfd3c3'
     }).then((res) => {
       if (res.isConfirmed) {
         axios({
@@ -119,7 +122,9 @@ export default function SubscribeInfoComponent(props) {
               title: "완료",
               text: "구독갱신이 취소되었습니다.",
               showConfirmButton: true,
-              timer: 3000
+              timer: 3000,
+              confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+              iconColor:'#876445'
             }).then(window.location.reload());
           }else{
             Swal.fire({
@@ -127,7 +132,9 @@ export default function SubscribeInfoComponent(props) {
               title: "오류",
               text: "오류가 발생했습니다. 관리자에게 문의해주세요.",
               showConfirmButton: true,
-              timer: 3000
+              timer: 3000,
+              confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+              iconColor:'#876445'
             }).then(window.location.reload());
           }
   
@@ -138,7 +145,9 @@ export default function SubscribeInfoComponent(props) {
           title: "취소",
           text: "취소하였습니다.",
           showConfirmButton: true,
-          timer: 3000
+          timer: 3000,
+          confirmButtonColor: '#876445',// confrim 버튼 색깔 지정
+          iconColor:'#876445'
         });
       }
     })
