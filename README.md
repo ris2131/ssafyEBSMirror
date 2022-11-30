@@ -1,5 +1,4 @@
-
-![Logo](logo.png)
+![Logo](README/logo.png)
 
 목차 추가
 
@@ -74,37 +73,31 @@ EBS(E-Barber-service)는 남성 사용자를 대상으로 헤어숍 구독 및 �
 
 점주 서비스에서는 **Redis** 를 이용하여 이메일 인증시 일정기간동안만 인증번호를 인증 할 수 있도록 하였습니다. 
 
-![3d아키텍처.png](architecture.png)
+![3d아키텍처.png](README/architecture.png)
 
 # 🏁Project Design
 
 ## 기능명세서
-
-![functions.gif](functions.gif)
+![functions.gif](README/functions.gif)
 
 ## 와이어프레임
 
 ### 사용자 서비스
-
-![고객와이어프레임.png](wireframe_customer.png)
+![고객와이어프레임.png](README/wireframe_customer.png)
 
 ### 점주 서비스
-
-![비즈니스와이어프레임.png](wireframe_business.png)
+![비즈니스와이어프레임.png](README/wireframe_business.png)
 
 ## ERD
-
-![ERD.png](erd.png)
+![ERD.png](README/erd.png)
 
 ## API 명세서
 
 ### 고객 API
-
-![ezgif.com-gif-maker (1).gif](api_customer.gif)
+![고객API.gif](README/api_customer.gif)
 
 ### 점주 API
-
-![ezgif.com-gif-maker (2).gif](api_business.gif)
+![점주API.gif](README/api_business.gif)
 
 # 🛠️Tech Stacks
 
