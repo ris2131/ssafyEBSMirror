@@ -1,8 +1,16 @@
 ![Logo](README/logo.png)
 
-목차 추가
+# Contents
+1. [🌐EBS란?](#🌐EBS란?)
+2. [📜Description](#📜Description)
+3. [📺Demonstration](#📺Demonstration)
+4. [🏗️Architecture](#🏗️Architecture)
+5. [🏁Project Design](#🏁Project Design)
+6. [🛠️Tech Stacks](#🛠️Tech Stacks)
+7. [⚙️Dev Environment](#⚙️Dev Environment)
+8. [👥Team](#👥Team)
 
-# 🌐 EBS란?
+# 🌐EBS란?
 
 ---
 
