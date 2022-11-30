@@ -1,14 +1,14 @@
 ![Logo](README/logo.png)
 
 # Contents
-1. [🌐EBS란?](#EBS란?)
-2. [📜Description](#Description)
-3. [📺Demonstration](#Demonstration)
-4. [🏗️Architecture](#Architecture)
-5. [🏁Project Design](#Project-Design)
-6. [🛠️Tech Stacks](#🛠Tech-Stacks)
-7. [⚙️Dev Environment](#⚙Dev-Environment)
-8. [👥Team](#Team)
+1. 🌐EBS란?
+2. 📜Description
+3. 📺Demonstration
+4. 🏗️Architecture
+5. 🏁Project Design
+6. 🛠️Tech Stacks
+7. ⚙️Dev Environment
+8. 👥Team
 
 # 🌐EBS란?
 
@@ -110,19 +110,13 @@ EBS(E-Barber-service)는 남성 사용자를 대상으로 헤어숍 구독 및 �
 # 🛠️Tech Stacks
 
 ### Backend
-<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/openjdk-FFFFFF?style=for-the-badge&logo=openjdk&logoColor=black"> <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jwt&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-000000?style=for-the-badge&logo=Lombok&logoColor=white"> <img src="https://img.shields.io/badge/Slf4j-000000?style=for-the-badge&logo=Slf4j&logoColor=white">
-
+<img src="https://img.shields.io/badge/openjdk-FFFFFF?style=for-the-badge&logo=openjdk&logoColor=black"> <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Lombok-000000?style=for-the-badge&logo=Lombok&logoColor=white">
 ### DB
-
 <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white">
-
 ### Frontend
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/React router dom-000000?style=for-the-badge&logo=dom&logoColor=white"> <img src="https://img.shields.io/badge/React scripts-000000?style=for-the-badge&logo=scripts&logoColor=white"> <img src="https://img.shields.io/badge/React Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/React persist-000000?style=for-the-badge&logo=persist&logoColor=white"> <img src="https://img.shields.io/badge/React calendar-000000?style=for-the-badge&logo=calendar&logoColor=white"> <img src="https://img.shields.io/badge/Browser image compression-000000?style=for-the-badge&logo=compression&logoColor=white"> <img src="https://img.shields.io/badge/moment-000000?style=for-the-badge&logo=moment&logoColor=white"> <img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"> <img src="https://img.shields.io/badge/emotion-000000?style=for-the-badge&logo=emotion&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> <img src="https://img.shields.io/badge/sweetalert2-000000?style=for-the-badge&logo=sweetalert2&logoColor=white">
-
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 ### Etc.
-
-<img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white"> <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
-
+<img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
 # ⚙️Dev Environment
 
